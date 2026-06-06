@@ -432,8 +432,7 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform-origin: center;
-  will-change: transform;
+  transform: scale(1.08);
 }
 .hero .scrim {
   position: absolute;
@@ -491,6 +490,8 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
   display: inline-block;
   overflow: hidden;
   vertical-align: bottom;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
 }
 .hero h1 .word span {
   display: inline-block;
@@ -561,39 +562,6 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
 .hero .cta:hover .arrow { width: 26px; background: #fff; }
 .hero .cta:hover .arrow::after { border-color: #fff; }
 
-/* Scroll indicator */
-.hero-scroll {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  opacity: 0;
-  animation: heroFadeUp .9s cubic-bezier(.2,.6,.2,1) 1.8s forwards;
-}
-.hero-scroll span {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 8px;
-  letter-spacing: .32em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.45);
-}
-.hero-scroll .line {
-  width: 1px;
-  height: 40px;
-  background: linear-gradient(to bottom, rgba(255,255,255,.4), transparent);
-  animation: scrollLine 1.8s cubic-bezier(.4,0,.2,1) 2.2s infinite;
-  transform-origin: top;
-}
-@keyframes scrollLine {
-  0%   { transform: scaleY(0); opacity: 1; transform-origin: top; }
-  50%  { transform: scaleY(1); opacity: 1; transform-origin: top; }
-  51%  { transform: scaleY(1); opacity: 1; transform-origin: bottom; }
-  100% { transform: scaleY(0); opacity: 0; transform-origin: bottom; }
-}
 
 /* ================================================================
    SECTION SHELL
@@ -788,20 +756,6 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
   color: var(--gold-2);
   margin-bottom: 12px;
 }
-.promo .ov .promo-num {
-  position: absolute;
-  top: 32px;
-  right: 48px;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 120px;
-  font-weight: 300;
-  color: rgba(255,255,255,.07);
-  line-height: 1;
-  pointer-events: none;
-  transition: color .4s;
-  letter-spacing: -.02em;
-}
-.promo:hover .ov .promo-num { color: rgba(196,155,90,.10); }
 .promo .ov h3 {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 400;
@@ -871,19 +825,20 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
 }
 
 .caro {
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: visible;
   padding: 0 44px 8px;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  cursor: grab;
 }
+.caro::-webkit-scrollbar { display: none; }
+.caro:active { cursor: grabbing; }
 .caro-track {
   display: flex;
   gap: 24px;
-  animation: caroSlide 32s linear infinite;
-  will-change: transform;
-}
-.caro-track:hover, .caro-track.paused { animation-play-state: paused; }
-@keyframes caroSlide {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  width: max-content;
 }
 
 /* Product card */
@@ -1075,7 +1030,7 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
 /* Gold vertical accent */
 .her-copy .accent-line {
   position: absolute;
-  left: 64px;
+  left: 20px;
   top: 120px;
   bottom: 120px;
   width: 1.5px;
@@ -2212,6 +2167,7 @@ footer {
       <a href="#cats">Faucets</a>
       <a href="#collection">Collections</a>
       <a href="#heritage">Heritage</a>
+      <a href="#contact">Contact Us</a>
     </nav>
     <a href="#" class="brand">
       <b>IPM</b>
@@ -2251,10 +2207,6 @@ footer {
       <span class="label">Explore the Collection</span>
       <span class="arrow"></span>
     </a>
-  </div>
-  <div class="hero-scroll" aria-hidden="true">
-    <span>Scroll</span>
-    <div class="line"></div>
   </div>
 </section>
 
@@ -2319,7 +2271,6 @@ footer {
     <a href="#" class="promo">
       <img src="assets/line-aliva.jpg" alt="Aliva collection">
       <div class="ov">
-        <span class="promo-num">01</span>
         <div class="e">Signature Line</div>
         <h3 class="serif">Aliva</h3>
         <span class="promo-cta">Discover Aliva →</span>
@@ -2328,7 +2279,6 @@ footer {
     <a href="#" class="promo">
       <img src="assets/line-opell-prima.jpg" alt="Opell Prima collection">
       <div class="ov">
-        <span class="promo-num">02</span>
         <div class="e">Signature Line</div>
         <h3 class="serif">Opell Prima</h3>
         <span class="promo-cta">Discover Opell Prima →</span>
@@ -2431,6 +2381,7 @@ footer {
   </div>
 </section>
 
+<span id="contact"></span>
 <!-- ===== SHOWROOM ===== -->
 <section class="showroom-section" id="rooms" data-header-scheme="light">
   <div class="showroom-header reveal">
@@ -2581,21 +2532,59 @@ const cardHTML = PRODUCTS.map(p => `
     </div>
   </article>`).join('');
 
-caroEl.innerHTML = `<div class="caro-track">${cardHTML}${cardHTML}</div>`;
+caroEl.innerHTML = `<div class="caro-track">${cardHTML}</div>`;
 
-const track = caroEl.querySelector('.caro-track');
-track.addEventListener('mouseenter', () => track.classList.add('paused'));
-track.addEventListener('mouseleave', () => track.classList.remove('paused'));
+/* Carousel: scroll-based with auto-scroll and working prev/next */
+const cardW = () => {
+  const c = caroEl.querySelector('.pcard');
+  return c ? c.offsetWidth + 24 : 280;
+};
+
+let caroAutoPlay = true;
+let caroTimer = null;
+
+function caroStep() {
+  if (!caroAutoPlay) return;
+  const maxScroll = caroEl.scrollWidth - caroEl.clientWidth;
+  if (caroEl.scrollLeft >= maxScroll - 4) {
+    caroEl.scrollLeft = 0;
+  } else {
+    caroEl.scrollLeft += 1;
+  }
+}
+
+function startAutoScroll() {
+  if (caroTimer) return;
+  caroTimer = setInterval(caroStep, 20);
+}
+
+function stopAutoScroll(ms) {
+  caroAutoPlay = false;
+  clearTimeout(caroEl._rt);
+  caroEl._rt = setTimeout(() => { caroAutoPlay = true; }, ms || 3000);
+}
+
+startAutoScroll();
+
+caroEl.addEventListener('mouseenter', () => stopAutoScroll(99999));
+caroEl.addEventListener('mouseleave', () => { caroAutoPlay = true; });
+
 document.getElementById('caroNext').addEventListener('click', () => {
-  track.classList.add('paused');
-  clearTimeout(track._rt);
-  track._rt = setTimeout(() => track.classList.remove('paused'), 4000);
+  stopAutoScroll(3000);
+  caroEl.scrollBy({ left: cardW() * 2, behavior: 'smooth' });
 });
 document.getElementById('caroPrev').addEventListener('click', () => {
-  track.classList.add('paused');
-  clearTimeout(track._rt);
-  track._rt = setTimeout(() => track.classList.remove('paused'), 4000);
+  stopAutoScroll(3000);
+  caroEl.scrollBy({ left: -cardW() * 2, behavior: 'smooth' });
 });
+
+/* Touch drag support */
+let touchStartX = 0;
+caroEl.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; stopAutoScroll(3000); }, { passive: true });
+caroEl.addEventListener('touchend', e => {
+  const dx = touchStartX - e.changedTouches[0].clientX;
+  if (Math.abs(dx) > 40) caroEl.scrollBy({ left: dx > 0 ? cardW() * 2 : -cardW() * 2, behavior: 'smooth' });
+}, { passive: true });
 
 /* ================================================================
    CUSTOM CURSOR
@@ -2660,19 +2649,8 @@ function syncHeader() {
     header.classList.remove('scrolled');
   }
 }
-window.addEventListener('scroll', syncHeader, { passive: true });
 syncHeader();
 
-/* ================================================================
-   HERO PARALLAX
-================================================================ */
-const heroImg = document.getElementById('heroImg');
-function parallax() {
-  if (!heroImg) return;
-  const scrolled = window.scrollY;
-  heroImg.style.transform = `translateY(${scrolled * 0.28}px) scale(1.08)`;
-}
-window.addEventListener('scroll', parallax, { passive: true });
 
 /* ================================================================
    SCROLL REVEAL
@@ -2777,10 +2755,6 @@ const floatClose   = document.getElementById('floatCtaClose');
 const floatForm    = document.getElementById('floatForm');
 const floatConfirm = document.getElementById('floatConfirm');
 
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 400) floatCta.hidden = false;
-  else if (floatPanel.hidden) floatCta.hidden = true;
-}, { passive: true });
 
 floatBtn.addEventListener('click', () => {
   const open = !floatPanel.hidden;
@@ -2919,12 +2893,28 @@ navSections.forEach(s => navObs.observe(s));
    BACK TO TOP
 ================================================================ */
 const backTop = document.getElementById('backTop');
-window.addEventListener('scroll', () => {
-  backTop.hidden = window.scrollY < 600;
-}, { passive: true });
 backTop.addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
+
+/* ================================================================
+   CONSOLIDATED SCROLL HANDLER (single RAF-throttled listener)
+================================================================ */
+let scrollRaf = false;
+function onScroll() {
+  const y = window.scrollY;
+  syncHeader();
+  backTop.hidden = y < 600;
+  if (y > 400) floatCta.hidden = false;
+  else if (floatPanel.hidden) floatCta.hidden = true;
+  scrollRaf = false;
+}
+window.addEventListener('scroll', () => {
+  if (!scrollRaf) {
+    scrollRaf = true;
+    requestAnimationFrame(onScroll);
+  }
+}, { passive: true });
 </script>
 
 <!-- ===== QUICK ENQUIRY MODAL ===== -->
