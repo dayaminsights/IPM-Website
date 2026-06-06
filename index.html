@@ -828,7 +828,6 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
   overflow-x: auto;
   overflow-y: visible;
   padding: 0 44px 8px;
-  scroll-behavior: smooth;
   scrollbar-width: none;
   -ms-overflow-style: none;
   cursor: grab;
@@ -1010,6 +1009,7 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
   font-weight: 300;
 }
 .her-copy .e { margin-bottom: 18px; }
+.her-copy .eyebrow::before { display: none; }
 .her-copy h2 {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 400;
@@ -1219,6 +1219,101 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
   transform: none;
   color: #fff;
   border-color: var(--gold-2);
+}
+
+/* Instagram animated flip collage */
+.insta-grid {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 3px;
+  background: var(--bg);
+}
+.insta-tile-wrap {
+  overflow: hidden;
+  perspective: 900px;
+}
+.insta-tile {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+/* JS toggles these to trigger each flip */
+.insta-tile.flipped-y { transform: rotateY(180deg); }
+.insta-tile.flipped-x { transform: rotateX(180deg); }
+.insta-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+/* Override .tri img absolute positioning for grid faces */
+.insta-tri .insta-face img {
+  position: static;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .7s cubic-bezier(.2,.6,.2,1);
+}
+/* Back face: Instagram gradient glow on dark */
+.insta-face-back {
+  transform: rotateY(180deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(ellipse at 25% 75%, rgba(131,58,180,.62) 0%, transparent 55%),
+    radial-gradient(ellipse at 78% 22%, rgba(253,29,29,.52) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 55%, rgba(252,176,69,.42) 0%, transparent 60%),
+    #13100c;
+}
+.flip-axis-x .insta-face-back { transform: rotateX(180deg); }
+/* CSS Instagram camera icon */
+.ig-cam {
+  width: 30px;
+  height: 30px;
+  border: 2px solid rgba(255,255,255,.58);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+}
+.ig-cam::before {
+  content: '';
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(255,255,255,.58);
+  border-radius: 50%;
+}
+.ig-cam::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 5px;
+  height: 5px;
+  background: rgba(255,255,255,.58);
+  border-radius: 50%;
+}
+/* Hover: zoom images (flip pause handled by JS hovered flag) */
+.insta-tri:hover .insta-face img { transform: scale(1.06); }
+.insta-tri .ov {
+  background: linear-gradient(180deg, rgba(10,8,6,.04) 0%, rgba(10,8,6,.88) 100%);
+}
+.insta-handle {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  letter-spacing: .14em;
+  color: rgba(255,255,255,.58);
+  margin-top: 3px;
 }
 
 /* Bottom accent line on hover */
@@ -2362,15 +2457,16 @@ footer {
         <span class="tri-link">Explore →</span>
       </div>
     </a>
-    <a href="#" class="tri">
-      <img src="assets/promo-configure.jpg" alt="Configure a Finish">
+    <a href="https://www.instagram.com/ipmbathfittings?utm_source=qr&igsh=MXA4ZGwzdG51ZGtjYQ%3D%3D" target="_blank" rel="noopener" class="tri insta-tri">
+      <div class="insta-grid" id="instaGrid"></div>
       <div class="ov">
-        <div class="e">Bespoke</div>
-        <h3 class="serif">Configure a Finish</h3>
-        <span class="tri-link">Start →</span>
+        <div class="e">Follow Us</div>
+        <h3 class="serif">On Instagram</h3>
+        <div class="insta-handle">@ipmbathfittings</div>
+        <span class="tri-link" style="margin-top:8px">View Profile →</span>
       </div>
     </a>
-    <a href="#" class="tri">
+    <a href="IPM Chrome Catalogue April 2026-2A.pdf" download="IPM Chrome Catalogue 2026.pdf" class="tri">
       <img src="assets/promo-catalogue.jpg" alt="The 2026 Catalogue">
       <div class="ov">
         <div class="e">Download</div>
@@ -2547,7 +2643,7 @@ function caroStep() {
   if (!caroAutoPlay) return;
   const maxScroll = caroEl.scrollWidth - caroEl.clientWidth;
   if (caroEl.scrollLeft >= maxScroll - 4) {
-    caroEl.scrollLeft = 0;
+    caroEl.scrollTo({ left: 0, behavior: 'instant' });
   } else {
     caroEl.scrollLeft += 1;
   }
@@ -2565,6 +2661,83 @@ function stopAutoScroll(ms) {
 }
 
 startAutoScroll();
+
+/* ================================================================
+   INSTAGRAM COLLAGE — random picks, new image swapped on each flip
+================================================================ */
+(function() {
+  const ALL_INSTA = [
+    'assets/insta/insta-1.jpg', 'assets/insta/insta-2.jpg',  'assets/insta/insta-3.jpg',
+    'assets/insta/insta-4.jpg', 'assets/insta/insta-5.jpg',  'assets/insta/insta-6.jpg',
+    'assets/insta/insta-7.jpg', 'assets/insta/insta-8.jpg',  'assets/insta/insta-9.jpg',
+    'assets/insta/insta-10.jpg','assets/insta/insta-11.jpg', 'assets/insta/insta-12.jpg'
+  ];
+
+  const grid = document.getElementById('instaGrid');
+  if (!grid) return;
+
+  // Shuffle and assign 6 unique starting images
+  const shuffled = ALL_INSTA.slice().sort(() => Math.random() - 0.5);
+  const currentImgs = shuffled.slice(0, 6); // tracks what each tile is showing
+
+  // Build tile markup — alternating Y/X flip axes
+  grid.innerHTML = currentImgs.map((src, i) => `
+    <div class="insta-tile-wrap">
+      <div class="insta-tile ${i % 2 === 0 ? 'flip-axis-y' : 'flip-axis-x'}">
+        <div class="insta-face"><img src="${src}" alt="IPM on Instagram" loading="lazy"></div>
+        <div class="insta-face insta-face-back"><div class="ig-cam"></div></div>
+      </div>
+    </div>`).join('');
+
+  // Pause flips on hover
+  const card = grid.closest('.insta-tri');
+  let hovered = false;
+  if (card) {
+    card.addEventListener('mouseenter', () => { hovered = true; });
+    card.addEventListener('mouseleave', () => { hovered = false; });
+  }
+
+  const tileWraps = [...grid.querySelectorAll('.insta-tile-wrap')];
+
+  // Returns a random image not currently visible on any tile
+  function nextImage() {
+    const pool = ALL_INSTA.filter(img => !currentImgs.includes(img));
+    return pool[Math.floor(Math.random() * pool.length)];
+  }
+
+  // Run one flip for a tile then reschedule itself
+  function scheduleTile(wrap, idx, delay) {
+    setTimeout(() => {
+      if (hovered) { scheduleTile(wrap, idx, 1200); return; }
+
+      const tile = wrap.querySelector('.insta-tile');
+      const img  = wrap.querySelector('.insta-face:not(.insta-face-back) img');
+      const isX  = tile.classList.contains('flip-axis-x');
+      const cls  = isX ? 'flipped-x' : 'flipped-y';
+
+      // 1. Flip tile to back face (750 ms transition)
+      tile.classList.add(cls);
+
+      // 2. Swap the front image while back face is fully showing (~500 ms in)
+      //    Front face has backface-visibility:hidden so the swap is invisible
+      setTimeout(() => {
+        const next = nextImage();
+        if (next) { currentImgs[idx] = next; img.src = next; }
+      }, 500);
+
+      // 3. Flip back to front, revealing the new image
+      setTimeout(() => { tile.classList.remove(cls); }, 2100);
+
+      // 4. Reschedule: 750 ms flip-out + 5–12 s random pause
+      scheduleTile(wrap, idx, 2850 + 5000 + Math.random() * 7000);
+    }, delay);
+  }
+
+  // Stagger tile start times so they never all flip at once
+  tileWraps.forEach((wrap, i) => {
+    scheduleTile(wrap, i, i * 2000 + Math.random() * 600);
+  });
+})();
 
 caroEl.addEventListener('mouseenter', () => stopAutoScroll(99999));
 caroEl.addEventListener('mouseleave', () => { caroAutoPlay = true; });
