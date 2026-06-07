@@ -585,6 +585,38 @@ footer {
 .range-tile:hover .underline { width: 60px; background: var(--gold-2); }
 
 /* ================================================================
+   COLLECTIONS PAGE — FINISHES STRIP
+================================================================ */
+.finishes-head { text-align: center; max-width: 620px; margin: 0 auto 52px; }
+.finishes-head h2 { margin: 16px 0 16px; }
+.finishes-head p { color: var(--soft); font-size: 15px; }
+.finishes-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px 38px; }
+.finish { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 128px; text-align: center; }
+.finish .swatch {
+  width: 54px; height: 54px; border-radius: 50%;
+  border: 1px solid var(--line-2); box-shadow: var(--shadow-sm);
+  transition: transform .35s cubic-bezier(.2,.6,.2,1);
+}
+.finish:hover .swatch { transform: translateY(-4px) scale(1.06); }
+.finish .label { font-family: 'DM Sans', sans-serif; font-size: 11px; letter-spacing: .08em; color: var(--soft); line-height: 1.4; }
+
+.f-rich-gold          { background: linear-gradient(135deg,#ecd6a6,#a9762f); }
+.f-rose-gold          { background: linear-gradient(135deg,#f1cdbe,#bd7c63); }
+.f-gunmetal           { background: linear-gradient(135deg,#75787d,#202225); }
+.f-matt-white-gold    { background: linear-gradient(135deg,#f6efdc,#dac89c); }
+.f-matt-black-gold    { background: linear-gradient(135deg,#4b463d,#8a6f3c); }
+.f-matt-beige-gold    { background: linear-gradient(135deg,#ecdfc6,#c5ab7c); }
+.f-matt-grey-gold     { background: linear-gradient(135deg,#d3cdc0,#ad9a6c); }
+.f-matt-white         { background: linear-gradient(135deg,#fcfaf5,#e3ddd1); }
+.f-matt-black         { background: linear-gradient(135deg,#5d584f,#27241f); }
+.f-matt-beige         { background: linear-gradient(135deg,#eee4d4,#cdbfa6); }
+.f-matt-grey          { background: linear-gradient(135deg,#d8d3ca,#aca697); }
+.f-profile-white-gold { background: linear-gradient(135deg,#f8f1e3,#dac794); }
+.f-profile-black-gold { background: linear-gradient(135deg,#4d473d,#9e7e44); }
+.f-profile-beige-gold { background: linear-gradient(135deg,#eee0c9,#caab7a); }
+.f-profile-grey-gold  { background: linear-gradient(135deg,#d4cfc2,#b09868); }
+
+/* ================================================================
    PAGE-SPECIFIC CSS — ADD ABOVE THIS LINE
 ================================================================ */
 </style>
@@ -806,6 +838,36 @@ footer {
         <span class="name serif">Round Brass Accessories</span>
         <span class="underline"></span>
       </a>
+    </div>
+  </div>
+</section>
+
+<div class="sec-divider"><span></span></div>
+
+<!-- ===== FINISHES ===== -->
+<section class="sec finishes-section">
+  <div class="wrap">
+    <div class="finishes-head reveal">
+      <div class="eyebrow">Available In</div>
+      <h2 class="serif">Sixteen Hand-Perfected <em>Finishes</em></h2>
+      <p>Every collection can be ordered in the full IPM finish palette — from warm brass tones to deep matte profiles.</p>
+    </div>
+    <div class="finishes-row stagger-children">
+      <div class="finish"><span class="swatch f-rich-gold"></span><span class="label">Rich Gold</span></div>
+      <div class="finish"><span class="swatch f-rose-gold"></span><span class="label">Rose Gold</span></div>
+      <div class="finish"><span class="swatch f-gunmetal"></span><span class="label">Polished Gun Metal Black</span></div>
+      <div class="finish"><span class="swatch f-matt-white-gold"></span><span class="label">Matt White Gold</span></div>
+      <div class="finish"><span class="swatch f-matt-black-gold"></span><span class="label">Matt Black Gold</span></div>
+      <div class="finish"><span class="swatch f-matt-beige-gold"></span><span class="label">Matt Beige Gold</span></div>
+      <div class="finish"><span class="swatch f-matt-grey-gold"></span><span class="label">Matt Grey Gold</span></div>
+      <div class="finish"><span class="swatch f-matt-white"></span><span class="label">Matt White</span></div>
+      <div class="finish"><span class="swatch f-matt-black"></span><span class="label">Matt Black</span></div>
+      <div class="finish"><span class="swatch f-matt-beige"></span><span class="label">Matt Beige</span></div>
+      <div class="finish"><span class="swatch f-matt-grey"></span><span class="label">Matt Grey</span></div>
+      <div class="finish"><span class="swatch f-profile-white-gold"></span><span class="label">Profile White Gold</span></div>
+      <div class="finish"><span class="swatch f-profile-black-gold"></span><span class="label">Profile Black Gold</span></div>
+      <div class="finish"><span class="swatch f-profile-beige-gold"></span><span class="label">Profile Beige Gold</span></div>
+      <div class="finish"><span class="swatch f-profile-grey-gold"></span><span class="label">Profile Grey Gold</span></div>
     </div>
   </div>
 </section>
