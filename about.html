@@ -3,7 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Our Heritage – IPM Bath Fittings</title>
+<title>About IPM Bath Fittings | Philosophy, Sustainability, Precision &amp; Leadership Since 1966</title>
+<meta name="description" content="IPM Bath Fittings — India's premium brass bath fittings brand since 1966. Our philosophy of quality, 85% water-saving sustainability, precision Delhi manufacturing, and fourth-generation leadership define every product we craft.">
+<meta name="keywords" content="IPM Bath Fittings, brass faucets India, water efficient faucets Delhi, sustainable bathroom fittings, make in India bath fittings, Abhishek Kapoor IPM, premium brass faucet manufacturer Delhi NCR">
+<meta property="og:title" content="About IPM Bath Fittings | Philosophy, Sustainability, Precision &amp; Leadership Since 1966">
+<meta property="og:description" content="Four generations of craft. Brass faucets using 85% less water. Precision manufacturing in Delhi NCR. The four principles behind India's most trusted bath fittings brand.">
+<meta property="og:type" content="website">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "IPM Bath Fittings",
+  "foundingDate": "1966",
+  "description": "IPM Bath Fittings manufactures water-efficient premium brass bathroom fittings in Delhi, India. Founded in 1966 and now in its fourth generation, IPM is committed to quality, sustainability, precision craftsmanship, and visionary leadership.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "459 Patparganj Industrial Area",
+    "addressLocality": "Delhi",
+    "postalCode": "110092",
+    "addressCountry": "IN"
+  },
+  "telephone": "011-43048462",
+  "email": "ipmbathfittings@gmail.com",
+  "knowsAbout": ["brass faucets", "bathroom fittings", "water conservation", "sustainable manufacturing", "Make in India"],
+  "founder": {
+    "@type": "Person",
+    "name": "Abhishek Kapoor",
+    "jobTitle": "Director",
+    "description": "Fourth-generation director of IPM Bath Fittings, leading the brand from domestic supplier to internationally recognised name with focus on water efficiency and Make in India."
+  }
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
@@ -565,20 +596,18 @@ footer {
 .about-hero .scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg,
-    rgba(18,14,8,.6) 0%,
-    transparent 28%,
-    transparent 38%,
-    rgba(18,14,8,.92) 100%
-  );
+  background:
+    linear-gradient(90deg, rgba(14,10,4,.82) 0%, rgba(14,10,4,.45) 42%, transparent 72%),
+    linear-gradient(180deg, rgba(14,10,4,.45) 0%, transparent 32%, transparent 58%, rgba(14,10,4,.6) 100%);
 }
 .about-hero .copy {
   position: absolute;
-  left: 0; right: 0; bottom: 0;
-  padding: 0 64px 80px;
+  inset: 0;
+  padding: 0 clamp(28px, 7vw, 96px);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: center;
 }
 .about-hero .e {
   font-family: 'DM Sans', sans-serif;
@@ -637,600 +666,192 @@ footer {
 @keyframes wordReveal { to { opacity: 1; transform: none; } }
 
 /* ================================================================
-   LEGACY STATS STRIP
+   GENERATIONS TIMELINE  (vertical, fill-up spine)
 ================================================================ */
-.legacy-strip {
+.gen-section { padding: 64px 0 80px; overflow: hidden; }
+.gen-head {
+  max-width: 1600px; margin: 0 auto 40px; padding: 0 64px;
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 16px 28px; flex-wrap: wrap;
+  border-bottom: 1px solid var(--line); padding-bottom: 18px;
+}
+.gen-head-title {
+  font-family: 'Cormorant Garamond', serif; font-weight: 400;
+  font-size: clamp(24px, 2.8vw, 36px); color: var(--ink); line-height: 1; margin: 0;
+}
+.gen-head-title em { font-style: italic; color: var(--gold); }
+.gen-head-tag { font-family: 'DM Sans', sans-serif; font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: var(--faint); white-space: nowrap; }
+
+.tl {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  border-bottom: 1px solid var(--line);
+  column-gap: 56px;
+  max-width: 1600px; margin: 0 auto; padding: 0 64px;
 }
-.legacy-stat {
-  padding: 52px 48px;
-  border-right: 1px solid var(--line);
-  position: relative;
-  cursor: default;
-  transition: background .35s;
-}
-.legacy-stat:last-child { border-right: 0; }
-.legacy-stat::before {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0;
-  width: 0; height: 2px;
-  background: var(--gold);
-  transition: width .5s cubic-bezier(.4,0,.2,1);
-}
-.legacy-stat:hover { background: var(--cream); }
-.legacy-stat:hover::before { width: 100%; }
-.legacy-stat .num {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(48px, 5.5vw, 80px);
-  font-weight: 300;
-  line-height: 1;
-  color: var(--ink);
-  display: block;
-  margin-bottom: 8px;
-}
-.legacy-stat .num sup {
-  font-size: .42em;
-  vertical-align: super;
-  color: var(--gold);
-  font-weight: 400;
-}
-.legacy-stat .label {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 10px;
-  letter-spacing: .28em;
-  text-transform: uppercase;
-  color: var(--faint);
-  display: block;
-  margin-bottom: 10px;
-}
-.legacy-stat .desc {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13px;
-  font-weight: 300;
-  color: var(--soft);
-  line-height: 1.5;
-}
+.tl-col { position: relative; text-align: center; }
 
-/* ================================================================
-   GENERATIONS TIMELINE
-================================================================ */
-.gen-section { padding: 112px 0 80px; overflow: hidden; }
-.gen-header { padding: 0 64px; margin-bottom: 72px; }
-.gen-timeline {
-  position: relative;
-  padding: 0 64px 0;
-  overflow: hidden;
-}
-.gen-track-line {
-  position: absolute;
-  top: 56px; left: 64px; right: 64px;
-  height: 1px;
+/* Rail: centered dot + connecting line filling center→center, left→right */
+.tl-rail { position: relative; height: 16px; margin-bottom: 28px; }
+.tl-rail::before {            /* track: from this column's centre to the next */
+  content: ''; position: absolute;
+  top: 7px; left: 50%; width: calc(100% + 56px); height: 2px;
   background: var(--line-2);
 }
-.gen-track-fill {
-  position: absolute;
-  top: 0; left: 0;
-  height: 100%;
-  background: var(--gold);
+.tl-rail::after {             /* gold fill */
+  content: ''; position: absolute;
+  top: 7px; left: 50%; width: 0; height: 2px;
+  background: linear-gradient(90deg, var(--gold-2), var(--gold));
   transition: width 1s cubic-bezier(.4,0,.2,1);
-  width: 0;
 }
-.gen-cards {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-  position: relative;
-}
-.gen-card {
-  position: relative;
-  cursor: pointer;
-  outline: none;
-}
-.gen-dot-wrap {
-  display: flex;
-  align-items: center;
-  margin-bottom: 32px;
-  position: relative;
-  height: 56px;
-  padding-top: 20px;
-  padding-right: 24px;
-}
-.gen-dot {
-  width: 14px; height: 14px;
-  border-radius: 50%;
-  border: 2px solid var(--line-2);
-  background: var(--bg);
-  transition: border-color .35s, background .35s, transform .35s;
-  position: relative;
-  z-index: 2;
-  flex-shrink: 0;
-}
-.gen-dot::after {
-  content: '';
-  position: absolute;
-  inset: -4px;
-  border-radius: 50%;
-  border: 1px solid var(--gold);
-  opacity: 0;
-  transition: opacity .35s, transform .35s;
-  transform: scale(.6);
-}
-.gen-card.active .gen-dot,
-.gen-card:hover .gen-dot {
-  border-color: var(--gold);
-  background: var(--gold);
-  transform: scale(1.2);
-}
-.gen-card.active .gen-dot::after,
-.gen-card:hover .gen-dot::after {
-  opacity: 1;
-  transform: scale(1);
-}
-.gen-year {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 13px;
-  font-weight: 400;
-  color: var(--gold);
-  letter-spacing: .08em;
-  margin-left: 14px;
-}
-.gen-body { padding-right: 32px; }
-.gen-number {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(54px, 5vw, 76px);
-  font-weight: 300;
-  color: var(--cream-deep);
-  line-height: 1;
-  margin-bottom: -12px;
-  transition: color .4s;
-}
-.gen-card.active .gen-number,
-.gen-card:hover .gen-number { color: var(--gold-pale); }
-.gen-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(20px, 2.2vw, 28px);
-  font-weight: 400;
-  color: var(--ink);
-  line-height: 1.15;
-  margin-bottom: 12px;
-  transition: color .3s;
-}
-.gen-card.active .gen-title,
-.gen-card:hover .gen-title { color: var(--gold); }
-.gen-role {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 10px;
-  letter-spacing: .26em;
-  text-transform: uppercase;
-  color: var(--faint);
-  margin-bottom: 18px;
-}
-.gen-copy {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13.5px;
-  font-weight: 300;
-  color: var(--soft);
-  line-height: 1.68;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height .6s cubic-bezier(.4,0,.2,1), opacity .5s;
-  opacity: 0;
-}
-.gen-card.active .gen-copy,
-.gen-card:hover .gen-copy {
-  max-height: 200px;
-  opacity: 1;
-}
-.gen-accent {
-  width: 28px; height: 1px;
-  background: var(--gold);
-  margin-top: 20px;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform .4s cubic-bezier(.4,0,.2,1) .1s;
-}
-.gen-card.active .gen-accent,
-.gen-card:hover .gen-accent { transform: scaleX(1); }
+.tl-col:last-child .tl-rail::before,
+.tl-col:last-child .tl-rail::after { display: none; }
+.tl.in .tl-col .tl-rail::after { width: calc(100% + 56px); }
 
-/* ================================================================
-   PHILOSOPHY SECTION
-================================================================ */
-.phil-section { padding: 112px 0; }
-.phil-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
-  align-items: start;
-}
-.phil-left { padding-right: 80px; border-right: 1px solid var(--line); padding-bottom: 16px; }
-.phil-right { padding-left: 80px; }
-.phil-quote {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(26px, 3.2vw, 44px);
-  font-weight: 300;
-  line-height: 1.22;
-  color: var(--ink-mid);
-  position: relative;
-  padding-top: 28px;
-}
-.phil-quote::before {
-  content: '\201C';
-  position: absolute;
-  top: -24px; left: -8px;
-  font-size: clamp(80px, 8vw, 120px);
-  line-height: 1;
-  color: var(--gold-pale);
-  font-family: 'Cormorant Garamond', serif;
-  pointer-events: none;
-}
-.phil-quote em { color: var(--gold); font-style: italic; }
-.phil-attr {
-  margin-top: 28px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 11px;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  color: var(--faint);
-}
-.phil-values { list-style: none; display: flex; flex-direction: column; gap: 32px; margin-top: 8px; }
-.phil-value {
-  display: flex;
-  gap: 24px;
-  align-items: flex-start;
-  padding: 28px;
-  border-radius: 14px;
-  border: 1px solid transparent;
-  transition: border-color .3s, background .3s, transform .3s;
-  cursor: default;
-}
-.phil-value:hover {
-  border-color: var(--line);
-  background: var(--cream);
-  transform: translateX(6px);
-}
-.phil-value-icon {
-  width: 44px; height: 44px;
-  border-radius: 12px;
-  background: var(--gold-pale);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  font-size: 20px;
-  transition: background .3s;
-}
-.phil-value:hover .phil-value-icon { background: var(--gold); }
-.phil-value-body { flex: 1; }
-.phil-value-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 20px;
-  font-weight: 500;
-  color: var(--ink);
-  margin-bottom: 4px;
-}
-.phil-value-desc {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13.5px;
-  font-weight: 300;
-  color: var(--soft);
-  line-height: 1.6;
-}
-
-/* ================================================================
-   WATER CONSERVATION
-================================================================ */
-.water-section {
-  background: var(--ink);
-  padding: 112px 0;
-  position: relative;
-  overflow: hidden;
-}
-[data-theme="dark"] .water-section { background: #0a0905; }
-.water-section::before {
-  content: '';
-  position: absolute;
-  top: -30%; left: 50%;
+.tl-dot {
+  position: absolute; top: 0; left: 50%;
   transform: translateX(-50%);
-  width: 600px; height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(154,115,64,.12), transparent 70%);
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--bg); border: 2px solid var(--line-2);
+  z-index: 1;
+  transition: border-color .5s, background .5s, transform .5s, box-shadow .5s;
+}
+.tl.in .tl-col .tl-dot {
+  border-color: var(--gold); background: var(--gold);
+  transform: translateX(-50%) scale(1.12);
+  box-shadow: 0 0 0 5px rgba(154,115,64,.12);
+}
+
+/* Content */
+.tl-main { transform: translateY(14px); opacity: 0; transition: transform .7s cubic-bezier(.2,.6,.2,1), opacity .7s; }
+.tl.in .tl-col .tl-main { transform: none; opacity: 1; }
+
+/* Left→right cascade */
+.tl-col:nth-child(1) .tl-rail::after, .tl-col:nth-child(1) .tl-dot, .tl-col:nth-child(1) .tl-main { transition-delay: 0s; }
+.tl-col:nth-child(2) .tl-rail::after, .tl-col:nth-child(2) .tl-dot, .tl-col:nth-child(2) .tl-main { transition-delay: .35s; }
+.tl-col:nth-child(3) .tl-rail::after, .tl-col:nth-child(3) .tl-dot, .tl-col:nth-child(3) .tl-main { transition-delay: .7s; }
+.tl-col:nth-child(4) .tl-rail::after, .tl-col:nth-child(4) .tl-dot, .tl-col:nth-child(4) .tl-main { transition-delay: 1.05s; }
+
+.tl-head { display: flex; align-items: baseline; justify-content: center; gap: 12px; margin-bottom: 4px; }
+.tl-year { font-family: 'Cormorant Garamond', serif; font-size: clamp(24px, 2.4vw, 32px); font-weight: 400; color: var(--gold); line-height: 1; }
+.tl-num { font-family: 'DM Sans', sans-serif; font-size: 10px; letter-spacing: .3em; color: var(--faint); }
+.tl-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(21px, 2vw, 26px); font-weight: 400; color: var(--ink); line-height: 1.14; margin-bottom: 6px; }
+.tl-role { font-family: 'DM Sans', sans-serif; font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--faint); margin-bottom: 14px; }
+.tl-copy { font-family: 'DM Sans', sans-serif; font-size: clamp(14px, 1.05vw, 15.5px); font-weight: 300; color: var(--soft); line-height: 1.72; max-width: 34ch; margin: 0 auto; }
+
+/* ---- VALUE COMPARISON STRIP ---- */
+.p-compare {
+  background: var(--bg);
+  padding: 44px 52px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line-2);
+}
+[data-theme="dark"] .p-compare { background: var(--paper); }
+.p-compare-hd {
+  display: grid; grid-template-columns: 1fr auto 1fr;
+  align-items: center; margin-bottom: 26px; gap: 20px;
+}
+.p-compare-hd-spacer { /* left spacer cell — keeps title optically centred */ }
+.p-compare-title-wrap { text-align: center; justify-self: center; }
+.p-compare-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(22px, 2.6vw, 34px); font-weight: 600; color: var(--ink);
+  line-height: 1.12; letter-spacing: .002em; max-width: 26ch;
+  margin: 0 auto;
+}
+.p-compare-title em { color: var(--gold); font-style: italic; font-weight: 600; }
+.p-compare-note { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 300; letter-spacing: .01em; color: var(--soft); margin-top: 8px; }
+/* Make in India emblem */
+.mii { justify-self: end; display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--ink); transition: color .28s; cursor: default; user-select: none; }
+.mii:hover { color: var(--gold); }
+.mii svg { width: 68px; height: auto; display: block; }
+.mii-wordmark { font-family: 'Cormorant Garamond', serif; font-size: 10px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; text-align: center; line-height: 1.4; }
+.mii-wordmark span { color: var(--gold); }
+.mii-sub { font-family: 'DM Sans', sans-serif; font-size: 8px; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); text-align: center; white-space: nowrap; }
+.p-brands {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--line-2);
+  border: 1px solid var(--line-2); border-radius: 14px; overflow: hidden;
+}
+.p-brand { background: var(--cream); padding: 24px 22px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.p-brand--ipm { background: var(--gold-pale); }
+[data-theme="dark"] .p-brand { background: var(--cream-deep); }
+[data-theme="dark"] .p-brand--ipm { background: rgba(154,115,64,.12); }
+.p-brand-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: 'DM Sans', sans-serif; font-size: 8.5px; letter-spacing: .26em;
+  text-transform: uppercase; padding: 4px 10px; border-radius: 100px;
+  border: 1px solid var(--line-2); color: var(--soft); background: var(--bg);
+  margin-bottom: 14px; align-self: center;
+}
+.p-brand--ipm .p-brand-badge { background: var(--gold); color: var(--on-gold); border-color: var(--gold); }
+.p-brand-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(15px, 1.4vw, 20px); font-weight: 500; color: var(--ink); margin-bottom: 3px; line-height: 1.1; }
+.p-brand-type { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 300; color: var(--soft); margin-bottom: 16px; }
+.p-brand-rows { display: flex; flex-direction: column; gap: 8px; align-self: stretch; }
+.p-brand-row { display: flex; align-items: flex-start; justify-content: center; gap: 9px; font-family: 'DM Sans', sans-serif; font-size: 12.5px; font-weight: 300; color: var(--soft); line-height: 1.4; text-align: left; }
+.p-brand-row-icon { width: 17px; height: 17px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; flex-shrink: 0; margin-top: 1px; }
+.p-row-yes { background: rgba(154,115,64,.14); color: var(--gold); }
+.p-row-no  { background: rgba(0,0,0,.06);       color: var(--faint); }
+[data-theme="dark"] .p-row-no { background: rgba(255,255,255,.06); }
+.p-brand-price { margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line); margin-top: 16px; display: flex; align-items: baseline; justify-content: center; gap: 8px; align-self: stretch; }
+.p-price-val { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; color: var(--ink); }
+.p-brand--ipm .p-price-val { color: var(--gold); }
+.p-price-label { font-family: 'DM Sans', sans-serif; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
+
+/* ================================================================
+   CERTIFICATIONS
+================================================================ */
+.cert-section { background: var(--cream); padding: 84px 0; border-top: 1px solid var(--line); }
+[data-theme="dark"] .cert-section { background: var(--cream-deep); }
+.cert-inner { max-width: 1180px; margin: 0 auto; padding: 0 64px; }
+.cert-head { text-align: center; max-width: 560px; margin: 0 auto 44px; }
+.cert-head .sc-eyebrow { justify-content: center; }
+
+/* Credentials header */
+.sc-eyebrow { font-family: 'DM Sans', sans-serif; font-size: 9.5px; letter-spacing: .38em; text-transform: uppercase; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; color: var(--gold); }
+.sc-eyebrow::before { content: ''; display: inline-block; width: 16px; height: 1px; background: currentColor; opacity: .7; }
+.sc-title { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: clamp(26px, 3.2vw, 42px); line-height: 1.05; margin-bottom: 12px; color: var(--ink); }
+.sc-title em { font-style: italic; color: var(--gold); }
+.sc-sub { font-family: 'DM Sans', sans-serif; font-size: 13.5px; font-weight: 300; color: var(--soft); line-height: 1.65; margin: 0; }
+
+/* Certificate badge grid */
+.cert-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.cert-badge {
+  background: var(--paper);
+  border: 1px solid var(--line-2);
+  border-radius: 14px;
+  padding: 42px 32px;
+  position: relative; overflow: hidden;
+  transition: border-color .3s, transform .25s, box-shadow .3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.cert-badge::after {
+  content: ''; position: absolute; top: -26px; right: -26px;
+  width: 80px; height: 80px; border-radius: 50%;
+  background: radial-gradient(ellipse, var(--gold-pale), transparent 68%);
   pointer-events: none;
 }
-.water-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
-}
-.water-copy .eyebrow { color: var(--gold-2); }
-.water-copy .eyebrow::before { background: var(--gold-2); }
-.water-headline {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(36px, 4.5vw, 60px);
-  font-weight: 400;
-  color: #fff;
-  line-height: 1.05;
-  margin: 20px 0 28px;
-}
-.water-headline em { color: var(--gold-2); font-style: italic; }
-.water-body {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 15px;
-  font-weight: 300;
-  color: rgba(237,231,216,.64);
-  line-height: 1.72;
-  max-width: 480px;
-}
-.water-body strong { color: rgba(237,231,216,.92); font-weight: 400; }
-.water-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  margin-top: 36px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 10px;
-  letter-spacing: .26em;
-  text-transform: uppercase;
-  color: var(--gold-2);
-  transition: gap .3s, opacity .25s;
-}
-.water-link::after {
-  content: '';
-  display: block;
-  width: 24px; height: 1px;
-  background: currentColor;
-  transition: width .35s cubic-bezier(.4,0,.2,1);
-}
-.water-link:hover { gap: 20px; opacity: .8; }
-.water-link:hover::after { width: 36px; }
-.water-vis {}
-.water-compare { display: flex; flex-direction: column; gap: 28px; }
-.water-bar-item {}
-.water-bar-label {
+.cert-badge:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(154,115,64,.1); }
+[data-theme="dark"] .cert-badge { background: rgba(255,255,255,.03); border-color: rgba(255,255,255,.07); }
+[data-theme="dark"] .cert-badge:hover { border-color: var(--gold); }
+.cert-seal {
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 10px;
-}
-.water-bar-name {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 11px;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  color: rgba(237,231,216,.56);
-}
-.water-bar-val {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 32px;
-  font-weight: 300;
-  color: #fff;
-}
-.water-bar-val span { font-size: 14px; font-weight: 300; color: rgba(237,231,216,.5); margin-left: 4px; }
-.water-bar-track {
-  height: 6px;
-  background: rgba(237,231,216,.08);
-  border-radius: 100px;
-  overflow: hidden;
-}
-.water-bar-fill {
-  height: 100%;
-  border-radius: 100px;
-  width: 0;
-  transition: width 1.4s cubic-bezier(.4,0,.2,1);
-}
-.water-bar-fill.brass { background: linear-gradient(90deg, var(--gold), var(--gold-2)); }
-.water-bar-fill.plastic { background: rgba(237,231,216,.22); }
-.water-divider {
-  display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 20px;
-  margin: 8px 0;
+  height: 92px;
+  margin-bottom: 18px; position: relative; z-index: 1;
+  line-height: 0;
+  color: var(--gold);   /* drives currentColor in the inline SVG marks */
 }
-.water-divider-line { flex: 1; height: 1px; background: rgba(237,231,216,.08); }
-.water-divider-text {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 9px;
-  letter-spacing: .3em;
-  text-transform: uppercase;
-  color: rgba(237,231,216,.3);
-}
-.water-impact {
-  margin-top: 36px;
-  padding: 24px 28px;
-  border: 1px solid rgba(154,115,64,.3);
-  border-radius: 14px;
-  background: rgba(154,115,64,.07);
-}
-.water-impact-val {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 48px;
-  font-weight: 300;
-  color: var(--gold-2);
-  line-height: 1;
-  margin-bottom: 6px;
-}
-.water-impact-label {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 11px;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: rgba(237,231,216,.4);
-}
-
-/* ================================================================
-   MAKE IN INDIA / MANUFACTURING
-================================================================ */
-.mfg-section { padding: 112px 0; }
-.mfg-grid {
-  display: grid;
-  grid-template-columns: 1.1fr .9fr;
-  gap: 64px;
-  align-items: center;
-}
-.mfg-visual {
-  position: relative;
-  border-radius: 24px;
-  overflow: hidden;
-  aspect-ratio: 4/3;
-  background: var(--cream);
-}
-.mfg-visual img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: transform .7s cubic-bezier(.4,0,.2,1);
-}
-.mfg-visual:hover img { transform: scale(1.04); }
-.mfg-badge {
-  position: absolute;
-  bottom: 28px; left: 28px;
-  background: var(--ink-mid);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,.15);
-  border-radius: 12px;
-  padding: 16px 20px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-[data-theme="dark"] .mfg-badge { background: rgba(17,16,9,.85); border-color: rgba(237,231,216,.12); }
-.mfg-badge-flag { font-size: 24px; }
-.mfg-badge-text {}
-.mfg-badge-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 16px;
-  color: #fff;
-  font-weight: 500;
-  line-height: 1;
-  margin-bottom: 2px;
-}
-.mfg-badge-sub {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 9px;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.5);
-}
-.mfg-copy {}
-.mfg-copy .sec-title { margin-bottom: 32px; }
-.mfg-body {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 15px;
-  font-weight: 300;
-  color: var(--soft);
-  line-height: 1.72;
-  margin-bottom: 40px;
-}
-.mfg-pillars { display: flex; flex-direction: column; gap: 16px; }
-.mfg-pillar {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 18px 20px;
-  border-radius: 12px;
-  border: 1px solid var(--line);
-  background: var(--cream);
-  transition: border-color .3s, background .3s;
-}
-.mfg-pillar:hover { border-color: var(--gold); background: var(--gold-pale); }
-.mfg-pillar-icon {
-  width: 36px; height: 36px;
-  border-radius: 10px;
-  background: var(--bg);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 17px;
-  flex-shrink: 0;
-  transition: background .3s;
-}
-.mfg-pillar:hover .mfg-pillar-icon { background: var(--gold); }
-.mfg-pillar-name {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13px;
-  font-weight: 400;
-  color: var(--ink-mid);
-}
-
-/* ================================================================
-   LEADERSHIP
-================================================================ */
-.lead-section { padding: 80px 0 112px; }
-.lead-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
-  align-items: center;
-}
-.lead-portrait {
-  position: relative;
-  aspect-ratio: 3/4;
-  border-radius: 24px;
-  overflow: hidden;
-  background: var(--cream);
-}
-.lead-portrait img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  object-position: center top;
-}
-.lead-portrait .lead-portrait-overlay {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 40%;
-  background: linear-gradient(0deg, rgba(18,14,8,.7), transparent);
-}
-.lead-portrait .lead-portrait-tag {
-  position: absolute;
-  bottom: 24px; left: 24px;
-}
-.lead-portrait-tag .name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 22px;
-  font-weight: 500;
-  color: #fff;
-  display: block;
-}
-.lead-portrait-tag .role {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 9px;
-  letter-spacing: .28em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.6);
-}
-.lead-copy {}
-.lead-copy .sec-title { margin-bottom: 28px; }
-.lead-pullquote {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(22px, 2.5vw, 32px);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ink-mid);
-  line-height: 1.3;
-  margin-bottom: 32px;
-  padding-left: 24px;
-  border-left: 2px solid var(--gold);
-}
-.lead-body {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14.5px;
-  font-weight: 300;
-  color: var(--soft);
-  line-height: 1.72;
-  margin-bottom: 36px;
-}
-.lead-tags { display: flex; flex-wrap: wrap; gap: 10px; }
-.lead-tag {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 9.5px;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  color: var(--gold);
-  border: 1px solid var(--gold-pale);
-  background: var(--gold-pale);
-  padding: 7px 16px;
-  border-radius: 100px;
-  transition: background .25s, border-color .25s;
-}
-.lead-tag:hover { background: var(--gold); border-color: var(--gold); color: var(--on-gold); }
+[data-theme="dark"] .cert-seal { color: var(--gold-2); }
+.cert-seal svg { display: block; }
+.cert-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 500; color: var(--ink); line-height: 1.2; margin-bottom: 4px; position: relative; z-index: 1; }
+.cert-scope { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 300; color: var(--soft); line-height: 1.4; margin-bottom: 10px; position: relative; z-index: 1; }
+.cert-tag { font-family: 'DM Sans', sans-serif; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 6px; }
+.cert-tag::before { content: ''; width: 10px; height: 1px; background: var(--gold); display: inline-block; flex-shrink: 0; }
+[data-theme="dark"] .cert-name { color: rgba(237,231,216,.9); }
 
 /* ================================================================
    CTA SECTION
@@ -1332,39 +953,40 @@ footer {
    RESPONSIVE
 ================================================================ */
 @media (max-width: 1100px) {
-  .gen-cards { grid-template-columns: repeat(2, 1fr); gap: 40px; }
-  .gen-track-line { display: none; }
-  .mfg-grid { grid-template-columns: 1fr; }
-  .mfg-visual { aspect-ratio: 16/9; }
-  .lead-grid { grid-template-columns: 1fr; }
-  .lead-portrait { aspect-ratio: 16/9; }
-  .water-grid { grid-template-columns: 1fr; gap: 56px; }
-  .phil-grid { grid-template-columns: 1fr; }
-  .phil-left { padding-right: 0; border-right: 0; border-bottom: 1px solid var(--line); padding-bottom: 48px; margin-bottom: 48px; }
-  .phil-right { padding-left: 0; }
+  .p-brands { grid-template-columns: 1fr; }
+  .p-compare { padding: 36px 28px; }
+  .p-compare-hd { grid-template-columns: 1fr; justify-items: center; gap: 16px; }
+  .p-compare-hd-spacer { display: none; }
+  .mii { justify-self: center; order: -1; }
+  .p-compare-title-wrap { order: 0; }
+  .p-compare-title { max-width: 100%; }
+  .cert-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
   .cta-card { grid-template-columns: 1fr; padding: 56px 48px; }
   .cta-actions { flex-direction: row; align-items: center; justify-content: flex-start; }
+  /* Timeline → 2-up; centered self-contained fill bar per era */
+  .tl { grid-template-columns: repeat(2, 1fr); row-gap: 44px; column-gap: 40px; }
+  .tl-rail::before { left: 50%; transform: translateX(-50%); width: 48px; }
+  .tl-rail::after  { left: 50%; transform: translateX(-50%); width: 0; }
+  .tl-col:last-child .tl-rail::before,
+  .tl-col:last-child .tl-rail::after { display: block; }
+  .tl.in .tl-col .tl-rail::after { width: 48px; }
 }
 @media (max-width: 860px) {
   .nav-left { display: none; }
-  .about-hero .copy { padding: 0 28px 60px; }
+  .about-hero .copy { padding: 0 28px; }
   .about-hero h1 { font-size: clamp(44px, 10vw, 80px); }
-  .legacy-strip { grid-template-columns: repeat(2, 1fr); }
-  .legacy-stat:nth-child(even) { border-right: 0; }
-  .legacy-stat:nth-child(3) { border-top: 1px solid var(--line); }
-  .legacy-stat:nth-child(4) { border-top: 1px solid var(--line); }
-  .legacy-stat { padding: 36px 28px; }
-  .gen-section, .sec, .mfg-section, .lead-section, .phil-section, .water-section { padding-top: 80px; padding-bottom: 80px; }
-  .gen-header, .gen-timeline { padding-left: 28px; padding-right: 28px; }
-  .gen-cards { grid-template-columns: 1fr; gap: 32px; }
-  .gen-body { padding-right: 0; }
+  .gen-section, .sec { padding-top: 64px; padding-bottom: 64px; }
+  .gen-head { padding-left: 28px; padding-right: 28px; }
+  .tl { grid-template-columns: 1fr; row-gap: 34px; padding-left: 28px; padding-right: 28px; }
+  .cert-inner { padding-left: 28px; padding-right: 28px; }
+  .cert-grid { grid-template-columns: 1fr; }
+  .p-ghost { font-size: 90px; right: 16px; }
   .wrap, .pad-x { padding-left: 28px; padding-right: 28px; }
   .foot-cols, .foot-bottom { padding-left: 28px; padding-right: 28px; }
   .foot-cols { grid-template-columns: repeat(2, 1fr); }
   .cta-card { padding: 48px 28px; }
   .cta-actions { flex-direction: column; align-items: flex-start; }
   .about-hero { border-radius: 0 0 28px 28px; }
-  .lead-portrait { aspect-ratio: 4/3; }
 }
 </style>
 </head>
@@ -1432,272 +1054,292 @@ footer {
   </div>
 </section>
 
-<!-- ===== LEGACY STATS STRIP ===== -->
-<div class="legacy-strip stagger-children">
-  <div class="legacy-stat">
-    <span class="num" data-count="60"><sup></sup>60</span>
-    <span class="label">Years of Excellence</span>
-    <p class="desc">Founded in 1966, we have been crafting quality bath fittings for six decades.</p>
+
+<!-- ===== FOUR GENERATIONS — VERTICAL TIMELINE ===== -->
+<section class="gen-section">
+  <div class="gen-head reveal">
+    <h2 class="gen-head-title">Four Generations, <em>One Vision</em></h2>
+    <span class="gen-head-tag">Est. 1966 &nbsp;·&nbsp; Delhi &amp; NCR</span>
   </div>
-  <div class="legacy-stat">
-    <span class="num">4</span>
-    <span class="label">Generations</span>
-    <p class="desc">A family legacy carried forward with the same dedication that started it all.</p>
+
+  <div class="tl" id="genTimeline">
+
+    <div class="tl-col">
+      <div class="tl-rail"><span class="tl-dot"></span></div>
+      <div class="tl-main">
+        <div class="tl-head"><span class="tl-year">1966</span><span class="tl-num">01</span></div>
+        <h3 class="tl-title">The Founding Vision</h3>
+        <div class="tl-role">Great-Grandfather · Founder</div>
+        <p class="tl-copy">Driven by a deep commitment to improving hygiene standards across India, our great-grandfather established IPM with a singular belief: every home deserves access to quality bathroom fittings. The foundation was laid not just in brass and steel, but in values that endure to this day.</p>
+      </div>
+    </div>
+
+    <div class="tl-col">
+      <div class="tl-rail"><span class="tl-dot"></span></div>
+      <div class="tl-main">
+        <div class="tl-head"><span class="tl-year">1980s</span><span class="tl-num">02</span></div>
+        <h3 class="tl-title">Expanding the Legacy</h3>
+        <div class="tl-role">Grandfather · Growth Era</div>
+        <p class="tl-copy">Our grandfather expanded both the product range and the reach of IPM, ensuring that durable brass fittings became accessible not just to city dwellers, but to households across India. Reliability and longevity became the hallmarks of our craft during this era.</p>
+      </div>
+    </div>
+
+    <div class="tl-col">
+      <div class="tl-rail"><span class="tl-dot"></span></div>
+      <div class="tl-main">
+        <div class="tl-head"><span class="tl-year">2000s</span><span class="tl-num">03</span></div>
+        <h3 class="tl-title">Modern Manufacturing</h3>
+        <div class="tl-role">Father · Modernisation</div>
+        <p class="tl-copy">Embracing cutting-edge technology, our father transformed IPM's manufacturing capabilities. New automated production lines, quality control systems, and an expanded dealer network brought the brand into the modern era — without ever compromising the hand-crafted precision at our core.</p>
+      </div>
+    </div>
+
+    <div class="tl-col">
+      <div class="tl-rail"><span class="tl-dot"></span></div>
+      <div class="tl-main">
+        <div class="tl-head"><span class="tl-year">Today</span><span class="tl-num">04</span></div>
+        <h3 class="tl-title">Global Ambitions</h3>
+        <div class="tl-role">Abhishek Kapoor · Director</div>
+        <p class="tl-copy">Under Abhishek Kapoor's leadership, IPM is stepping onto the world stage. With a presence in India and the UAE, and a commitment to the Make in India initiative, we are championing Indian craftsmanship globally — proving that luxury and conscience can coexist beautifully.</p>
+      </div>
+    </div>
+
   </div>
-  <div class="legacy-stat">
-    <span class="num">4<sup>L</sup></span>
-    <span class="label">Litres Per Minute</span>
-    <p class="desc">Our brass faucets deliver water-efficient performance—6× less than standard plastic taps.</p>
+</section>
+
+<!-- ===== SUPERIOR QUALITY ===== -->
+<div class="p-compare reveal" role="region" aria-label="IPM vs Leading Brands — Price &amp; Quality Comparison">
+  <div class="p-compare-hd">
+    <!-- left spacer — mirrors emblem width to keep title optically centred -->
+    <div class="p-compare-hd-spacer" aria-hidden="true"></div>
+
+    <!-- centred title zone -->
+    <div class="p-compare-title-wrap">
+      <h3 class="p-compare-title">Premium Brass. <em>Smarter Pricing.</em></h3>
+      <p class="p-compare-note">Get superior quality at 30% less premium than leading brands.</p>
+    </div>
+
+    <!-- Make in India emblem — inline SVG, no external file -->
+    <div class="mii" aria-label="Make in India — Proudly manufactured in Delhi &amp; NCR">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Ashoka Chakra emblem — outer seal ring -->
+        <circle cx="32" cy="32" r="30" fill="none" stroke="currentColor" stroke-width="1.3"/>
+        <!-- Chakra rim -->
+        <circle cx="32" cy="32" r="25.5" fill="none" stroke="currentColor" stroke-width="1.4"/>
+        <!-- 24 spokes -->
+        <g stroke="currentColor" stroke-width="0.9">
+          <line x1="32" y1="8" x2="32" y2="28" transform="rotate(0 32 32)"/>
+          <line x1="32" y1="8" x2="32" y2="28" transform="rotate(15 32 32)"/>
+          <line x1="32" y1="8" x2="32" y2="28" transform="rotate(30 32 32)"/>
+          <line x1="32" y1="8" x2="32" y2="28" transform="rotate(45 32 32)"/>
+          <line x1="32" y1="8" x2="32" y2="28" transform="rotate(60 32 32)"/>
+          <line x1="32" y1="8" x2="32" y2="28" transform="rotate(75 32 32)"/>
+          <line x1="32" y1="8" x2="32" y2="28" transform="rotate(90 32 32)"/>
+          <line x1="32" y1="8" x2="32" y2="28" transform="rotate(105 32 32)"/>
+          <line x1="32" y1="8" x2="32" y2="28" transform="rotate(120 32 32)"/>
+          <line x1="32" y1="8" x2="32" y2="28" transform="rotate(135 32 32)"/>
+          <line x1="32" y1="8" x2="32" y2="28" transform="rotate(150 32 32)"/>
+          <line x1="32" y1="8" x2="32" y2="28" transform="rotate(165 32 32)"/>
+          <line x1="32" y1="8" x2="32" y2="28" transform="rotate(180 32 32)"/>
+          <line x1="32" y1="8" x2="32" y2="28" transform="rotate(195 32 32)"/>
+          <line x1="32" y1="8" x2="32" y2="28" transform="rotate(210 32 32)"/>
+          <line x1="32" y1="8" x2="32" y2="28" transform="rotate(225 32 32)"/>
+          <line x1="32" y1="8" x2="32" y2="28" transform="rotate(240 32 32)"/>
+          <line x1="32" y1="8" x2="32" y2="28" transform="rotate(255 32 32)"/>
+          <line x1="32" y1="8" x2="32" y2="28" transform="rotate(270 32 32)"/>
+          <line x1="32" y1="8" x2="32" y2="28" transform="rotate(285 32 32)"/>
+          <line x1="32" y1="8" x2="32" y2="28" transform="rotate(300 32 32)"/>
+          <line x1="32" y1="8" x2="32" y2="28" transform="rotate(315 32 32)"/>
+          <line x1="32" y1="8" x2="32" y2="28" transform="rotate(330 32 32)"/>
+          <line x1="32" y1="8" x2="32" y2="28" transform="rotate(345 32 32)"/>
+        </g>
+        <!-- Hub -->
+        <circle cx="32" cy="32" r="3.4" fill="currentColor"/>
+      </svg>
+      <div class="mii-wordmark">Make in <span>India</span></div>
+      <div class="mii-sub">Proudly made in Delhi &amp; NCR</div>
+    </div>
   </div>
-  <div class="legacy-stat">
-    <span class="num">2</span>
-    <span class="label">Manufacturing Facilities</span>
-    <p class="desc">State-of-the-art production units in Delhi and the NCR region.</p>
+  <div class="p-brands stagger-children">
+
+    <div class="p-brand p-brand--ipm">
+      <span class="p-brand-badge">✦ Best Value</span>
+      <div class="p-brand-name">IPM Bath Fittings</div>
+      <div class="p-brand-type">Premium Brass · Made in India · Est. 1966</div>
+      <div class="p-brand-rows">
+        <div class="p-brand-row"><div class="p-brand-row-icon p-row-yes">✓</div>Premium brass build quality</div>
+        <div class="p-brand-row"><div class="p-brand-row-icon p-row-yes">✓</div>4 L/min — 85% water saving</div>
+        <div class="p-brand-row"><div class="p-brand-row-icon p-row-yes">✓</div>60-year manufacturing heritage</div>
+        <div class="p-brand-row"><div class="p-brand-row-icon p-row-yes">✓</div>Direct-from-manufacturer pricing</div>
+      </div>
+      <div class="p-brand-price">
+        <span class="p-price-val">₹₹</span>
+        <span class="p-price-label">Honest Premium</span>
+      </div>
+    </div>
+
+    <div class="p-brand">
+      <span class="p-brand-badge">Indian Premium</span>
+      <div class="p-brand-name">Leading Indian Brands</div>
+      <div class="p-brand-type">e.g. Jaquar, Hindware Premium</div>
+      <div class="p-brand-rows">
+        <div class="p-brand-row"><div class="p-brand-row-icon p-row-yes">✓</div>Premium quality fittings</div>
+        <div class="p-brand-row"><div class="p-brand-row-icon p-row-no">–</div>Standard flow — 8–12 L/min</div>
+        <div class="p-brand-row"><div class="p-brand-row-icon p-row-yes">✓</div>Made in India</div>
+        <div class="p-brand-row"><div class="p-brand-row-icon p-row-no">–</div>Heavy brand &amp; distribution markup</div>
+      </div>
+      <div class="p-brand-price">
+        <span class="p-price-val">₹₹₹</span>
+        <span class="p-price-label">~30% Higher</span>
+      </div>
+    </div>
+
+    <div class="p-brand">
+      <span class="p-brand-badge">European Import</span>
+      <div class="p-brand-name">European Brands</div>
+      <div class="p-brand-type">e.g. Grohe, Hansgrohe, Kohler</div>
+      <div class="p-brand-rows">
+        <div class="p-brand-row"><div class="p-brand-row-icon p-row-yes">✓</div>Premium European quality</div>
+        <div class="p-brand-row"><div class="p-brand-row-icon p-row-yes">✓</div>Some water-efficient models</div>
+        <div class="p-brand-row"><div class="p-brand-row-icon p-row-no">–</div>Imported — limited local service</div>
+        <div class="p-brand-row"><div class="p-brand-row-icon p-row-no">–</div>60%+ import &amp; currency premium</div>
+      </div>
+      <div class="p-brand-price">
+        <span class="p-price-val">₹₹₹₹</span>
+        <span class="p-price-label">60%+ Higher</span>
+      </div>
+    </div>
+
   </div>
 </div>
 
-<!-- ===== FOUR GENERATIONS ===== -->
-<section class="gen-section">
-  <div class="gen-header reveal">
-    <div class="sec-title" style="margin-bottom:0;">
-      <div class="eyebrow">Our Dynasty</div>
-      <h2 class="serif">Four Generations,<br><em>One Vision</em></h2>
+<!-- ===== CERTIFICATIONS ===== -->
+<section class="cert-section" id="certifications" aria-label="Certifications" itemscope itemtype="https://schema.org/Organization">
+  <div class="cert-inner">
+    <div class="cert-head reveal">
+      <div class="sc-eyebrow">Certifications</div>
+      <h2 class="sc-title">Certified &amp; <em>Trusted Globally</em></h2>
+      <p class="sc-sub">Every IPM fitting is backed by rigorous international and national quality certifications — from ISO and CE to BIS, exported and approved across borders.</p>
     </div>
-  </div>
+    <div class="cert-grid stagger-children">
 
-  <div class="gen-timeline">
-    <div class="gen-track-line"><div class="gen-track-fill" id="genTrackFill"></div></div>
-    <div class="gen-cards stagger-children" id="genCards">
-
-      <div class="gen-card active" tabindex="0" role="button" aria-pressed="true">
-        <div class="gen-dot-wrap">
-          <div class="gen-dot"></div>
-          <span class="gen-year">1966</span>
+      <div class="cert-badge">
+        <div class="cert-seal">
+          <!-- ISO 9001 registrar-style circular seal -->
+          <svg width="80" height="80" viewBox="0 0 52 52" fill="none"
+               xmlns="http://www.w3.org/2000/svg"
+               role="img" aria-label="ISO 9001:2015 certification seal">
+            <circle cx="26" cy="26" r="24.5" stroke="currentColor" stroke-width="1.4"/>
+            <circle cx="26" cy="26" r="21" stroke="currentColor" stroke-width="0.8" stroke-dasharray="2.4 2.0"/>
+            <g stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+              <line x1="26" y1="2.5" x2="26" y2="5.5"/>
+              <line x1="26" y1="46.5" x2="26" y2="49.5"/>
+              <line x1="2.5" y1="26" x2="5.5" y2="26"/>
+              <line x1="46.5" y1="26" x2="49.5" y2="26"/>
+              <line x1="8.6" y1="8.6" x2="10.7" y2="10.7"/>
+              <line x1="41.3" y1="41.3" x2="43.4" y2="43.4"/>
+              <line x1="43.4" y1="8.6" x2="41.3" y2="10.7"/>
+              <line x1="8.6" y1="43.4" x2="10.7" y2="41.3"/>
+            </g>
+            <text x="26" y="23.5" text-anchor="middle"
+                  font-family="'Cormorant Garamond', serif" font-size="11" font-weight="600"
+                  letter-spacing="0.12em" fill="currentColor">ISO</text>
+            <line x1="15" y1="26.5" x2="37" y2="26.5" stroke="currentColor" stroke-width="0.7" opacity="0.6"/>
+            <text x="26" y="35" text-anchor="middle"
+                  font-family="'DM Sans', sans-serif" font-size="9.5" font-weight="400"
+                  letter-spacing="0.08em" fill="currentColor">9001</text>
+          </svg>
         </div>
-        <div class="gen-body">
-          <div class="gen-number">01</div>
-          <h3 class="gen-title">The Founding Vision</h3>
-          <div class="gen-role">Great-Grandfather · Founder</div>
-          <p class="gen-copy">Driven by a deep commitment to improving hygiene standards across India, our great-grandfather established IPM with a singular belief: every home deserves access to quality bathroom fittings. The foundation was laid not just in brass and steel, but in values that endure to this day.</p>
-          <div class="gen-accent"></div>
-        </div>
-      </div>
-
-      <div class="gen-card" tabindex="0" role="button" aria-pressed="false">
-        <div class="gen-dot-wrap">
-          <div class="gen-dot"></div>
-          <span class="gen-year">1980s</span>
-        </div>
-        <div class="gen-body">
-          <div class="gen-number">02</div>
-          <h3 class="gen-title">Expanding the Legacy</h3>
-          <div class="gen-role">Grandfather · Growth Era</div>
-          <p class="gen-copy">Our grandfather expanded both the product range and the reach of IPM, ensuring that durable brass fittings became accessible not just to city dwellers, but to households across India. Reliability and longevity became the hallmarks of our craft during this era.</p>
-          <div class="gen-accent"></div>
-        </div>
-      </div>
-
-      <div class="gen-card" tabindex="0" role="button" aria-pressed="false">
-        <div class="gen-dot-wrap">
-          <div class="gen-dot"></div>
-          <span class="gen-year">2000s</span>
-        </div>
-        <div class="gen-body">
-          <div class="gen-number">03</div>
-          <h3 class="gen-title">Modern Manufacturing</h3>
-          <div class="gen-role">Father · Modernisation</div>
-          <p class="gen-copy">Embracing cutting-edge technology, our father transformed IPM's manufacturing capabilities. New automated production lines, quality control systems, and an expanded dealer network brought the brand into the modern era—without ever compromising the hand-crafted precision at our core.</p>
-          <div class="gen-accent"></div>
-        </div>
+        <div class="cert-name">ISO 9001:2015</div>
+        <div class="cert-scope">Quality Management Systems · Shiv Enterprises</div>
+        <span class="cert-tag">Certified 2022</span>
       </div>
 
-      <div class="gen-card" tabindex="0" role="button" aria-pressed="false">
-        <div class="gen-dot-wrap">
-          <div class="gen-dot"></div>
-          <span class="gen-year">Today</span>
+      <div class="cert-badge">
+        <div class="cert-seal">
+          <!-- Official CE marking — two open arcs (same circle radius), short middle bar -->
+          <svg width="90" height="64" viewBox="-12 -2 68 48" fill="none"
+               xmlns="http://www.w3.org/2000/svg"
+               role="img" aria-label="CE conformity marking">
+            <!-- C glyph: open arc, gap on right -->
+            <path d="M 18.49 5.74 A 17.5 17.5 0 1 0 18.49 38.26"
+                  stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <!-- E glyph: top + bottom arcs (same radius), gap on right -->
+            <path d="M 32.51 5.74 A 17.5 17.5 0 0 1 48.2 22"
+                  stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <path d="M 48.2 22 A 17.5 17.5 0 0 1 32.51 38.26"
+                  stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <!-- E middle bar: shorter than top/bottom -->
+            <line x1="32.5" y1="22" x2="44" y2="22"
+                  stroke="currentColor" stroke-width="4.2" stroke-linecap="butt"/>
+          </svg>
         </div>
-        <div class="gen-body">
-          <div class="gen-number">04</div>
-          <h3 class="gen-title">Global Ambitions</h3>
-          <div class="gen-role">Abhishek Kapoor · Director</div>
-          <p class="gen-copy">Under Abhishek Kapoor's leadership, IPM is stepping onto the world stage. With a presence in India and the UAE, and a commitment to the Make in India initiative, we are championing Indian craftsmanship globally—proving that luxury and conscience can coexist beautifully.</p>
-          <div class="gen-accent"></div>
-        </div>
+        <div class="cert-name">CE Conformity</div>
+        <div class="cert-scope">European Product Safety Standard</div>
+        <span class="cert-tag">Regal Register UK</span>
       </div>
 
-    </div>
-  </div>
-</section>
+      <div class="cert-badge">
+        <div class="cert-seal">
+          <!-- BIS / ISI mark — characteristic pointed lens with bold ISI monogram -->
+          <svg width="86" height="71" viewBox="0 0 60 48" fill="none"
+               xmlns="http://www.w3.org/2000/svg"
+               role="img" aria-label="BIS ISI certification mark">
+            <!-- Outer pointed lens (eye) shape, pointed left & right -->
+            <path d="M 4 24 A 34 34 0 0 1 56 24 A 34 34 0 0 1 4 24 Z"
+                  stroke="currentColor" stroke-width="1.8" fill="none"/>
+            <!-- Inner echo lens -->
+            <path d="M 9 24 A 30 30 0 0 1 51 24 A 30 30 0 0 1 9 24 Z"
+                  stroke="currentColor" stroke-width="0.7" fill="none" opacity="0.45"/>
+            <!-- ISI monogram, bold and centred -->
+            <text x="30" y="28.5" text-anchor="middle"
+                  font-family="'DM Sans', sans-serif" font-size="14" font-weight="600"
+                  letter-spacing="0.14em" fill="currentColor">ISI</text>
+          </svg>
+        </div>
+        <div class="cert-name">BIS / ISI Mark</div>
+        <div class="cert-scope">Bureau of Indian Standards · IS 1264</div>
+        <span class="cert-tag">Brass Standard</span>
+      </div>
 
-<!-- ===== PHILOSOPHY ===== -->
-<section class="phil-section sec">
-  <div class="wrap">
-    <div class="phil-grid">
-      <div class="phil-left reveal-left">
-        <div class="eyebrow">Our Philosophy</div>
-        <blockquote class="phil-quote">
-          Creating value that exceeds expectations — in <em>quality</em>, delivery, and a deep sense of <em>purpose</em>.
-        </blockquote>
-        <p class="phil-attr">— The IPM Promise, Since 1966</p>
+      <div class="cert-badge">
+        <div class="cert-seal">
+          <!-- Bhutan Standards Bureau — arc-text seal -->
+          <svg width="80" height="80" viewBox="0 0 52 52" fill="none"
+               xmlns="http://www.w3.org/2000/svg"
+               role="img" aria-label="Bhutan Standards Bureau certification seal">
+            <defs>
+              <path id="bsbTop" d="M 26 26 m -17 0 a 17 17 0 0 1 34 0" />
+              <path id="bsbBot" d="M 26 26 m -17 0 a 17 17 0 0 0 34 0" />
+            </defs>
+            <circle cx="26" cy="26" r="23.5" stroke="currentColor" stroke-width="1.3"/>
+            <circle cx="26" cy="26" r="19.5" stroke="currentColor" stroke-width="0.75" stroke-dasharray="1.8 2.2"/>
+            <g fill="currentColor">
+              <circle cx="26" cy="3" r="1.2"/>
+              <circle cx="26" cy="49" r="1.2"/>
+              <circle cx="3" cy="26" r="1.2"/>
+              <circle cx="49" cy="26" r="1.2"/>
+            </g>
+            <!-- Arced contextual text -->
+            <text font-family="'DM Sans', sans-serif" font-size="5.4" font-weight="500"
+                  letter-spacing="0.16em" fill="currentColor" opacity="0.85">
+              <textPath href="#bsbTop" startOffset="50%" text-anchor="middle">BHUTAN STANDARDS</textPath>
+            </text>
+            <text font-family="'DM Sans', sans-serif" font-size="5.4" font-weight="500"
+                  letter-spacing="0.18em" fill="currentColor" opacity="0.7">
+              <textPath href="#bsbBot" startOffset="50%" text-anchor="middle">PRODUCT CONFORMITY</textPath>
+            </text>
+            <!-- Centre monogram -->
+            <text x="26" y="30.5" text-anchor="middle"
+                  font-family="'Cormorant Garamond', serif" font-size="15" font-weight="600"
+                  letter-spacing="0.06em" fill="currentColor">BSB</text>
+          </svg>
+        </div>
+        <div class="cert-name">Bhutan Standards</div>
+        <div class="cert-scope">Certificate of Product Conformity</div>
+        <span class="cert-tag">CPC/081/2018</span>
       </div>
-      <div class="phil-right">
-        <ul class="phil-values stagger-children">
-          <li class="phil-value">
-            <div class="phil-value-icon">⚗️</div>
-            <div class="phil-value-body">
-              <div class="phil-value-title">Uncompromising Quality</div>
-              <div class="phil-value-desc">Every fitting leaves our facility only after meeting rigorous standards. Premium brass alloys, precision machining, and multi-layer finishing ensure products that last generations.</div>
-            </div>
-          </li>
-          <li class="phil-value">
-            <div class="phil-value-icon">💧</div>
-            <div class="phil-value-body">
-              <div class="phil-value-title">Water Responsibility</div>
-              <div class="phil-value-desc">We engineer our faucets to conserve water at every turn. A future where every drop is valued begins in the fittings we choose for our homes today.</div>
-            </div>
-          </li>
-          <li class="phil-value">
-            <div class="phil-value-icon">🌏</div>
-            <div class="phil-value-body">
-              <div class="phil-value-title">Inclusive Access</div>
-              <div class="phil-value-desc">From rural households to luxury urban residences, we serve both markets with equal dedication—because hygiene and beauty should not be privileges of the few.</div>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- ===== WATER CONSERVATION ===== -->
-<section class="water-section">
-  <div class="wrap">
-    <div class="water-grid">
-      <div class="water-copy reveal-left">
-        <div class="eyebrow">Sustainability First</div>
-        <h2 class="water-headline">Every Drop<br><em>Matters</em></h2>
-        <p class="water-body">
-          India faces a water crisis that demands innovation at every level. At IPM, we engineer our brass faucets to flow at as little as <strong>4 litres per minute</strong>—compared to the standard plastic tap's 26 litres per minute. That's a saving of approximately <strong>85% per use</strong>.
-        </p>
-        <p class="water-body" style="margin-top:16px;">
-          Multiply that across millions of homes, and the impact is profound. Quality bathroom fittings are not just a luxury—they are an <strong>act of environmental stewardship</strong>.
-        </p>
-        <a href="contact.html" class="water-link">Enquire About Our Products</a>
-      </div>
-      <div class="water-vis reveal-right">
-        <div class="water-compare" id="waterCompare">
-          <div class="water-bar-item" data-width="15.4" data-type="brass">
-            <div class="water-bar-label">
-              <span class="water-bar-name">IPM Brass Faucet</span>
-              <span class="water-bar-val">4 <span>L/min</span></span>
-            </div>
-            <div class="water-bar-track">
-              <div class="water-bar-fill brass"></div>
-            </div>
-          </div>
-          <div class="water-divider">
-            <div class="water-divider-line"></div>
-            <div class="water-divider-text">vs</div>
-            <div class="water-divider-line"></div>
-          </div>
-          <div class="water-bar-item" data-width="100" data-type="plastic">
-            <div class="water-bar-label">
-              <span class="water-bar-name">Standard Plastic Tap</span>
-              <span class="water-bar-val">26 <span>L/min</span></span>
-            </div>
-            <div class="water-bar-track">
-              <div class="water-bar-fill plastic"></div>
-            </div>
-          </div>
-        </div>
-        <div class="water-impact">
-          <div class="water-impact-val">85<span style="font-size:.5em;vertical-align:super;color:var(--gold);">%</span></div>
-          <div class="water-impact-label">Less water wasted per minute of use</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== MANUFACTURING / MAKE IN INDIA ===== -->
-<section class="mfg-section sec">
-  <div class="wrap">
-    <div class="mfg-grid">
-      <div class="mfg-visual reveal-left">
-        <img src="images/home/showroom-delhi.jpg" alt="IPM Manufacturing — Delhi">
-        <div class="mfg-badge">
-          <span class="mfg-badge-flag">🇮🇳</span>
-          <div class="mfg-badge-text">
-            <div class="mfg-badge-title">Proudly Made in India</div>
-            <div class="mfg-badge-sub">Delhi & NCR Region</div>
-          </div>
-        </div>
-      </div>
-      <div class="mfg-copy reveal-right">
-        <div class="sec-title">
-          <div class="eyebrow">Craftsmanship</div>
-          <h2 class="serif">Precision<br><em>Born in Delhi</em></h2>
-        </div>
-        <p class="mfg-body">
-          Our manufacturing facilities in Delhi and the NCR region combine modern automated precision with time-honoured artisanal techniques. Every product is a testament to the Make in India vision — world-class quality, crafted on Indian soil, for Indian and global homes.
-        </p>
-        <div class="mfg-pillars stagger-children">
-          <div class="mfg-pillar">
-            <div class="mfg-pillar-icon">🏭</div>
-            <span class="mfg-pillar-name">2 State-of-the-art production facilities in Delhi NCR</span>
-          </div>
-          <div class="mfg-pillar">
-            <div class="mfg-pillar-icon">🔩</div>
-            <span class="mfg-pillar-name">Premium brass alloys with multi-layer chrome finishing</span>
-          </div>
-          <div class="mfg-pillar">
-            <div class="mfg-pillar-icon">🌐</div>
-            <span class="mfg-pillar-name">Export presence in UAE and growing international markets</span>
-          </div>
-          <div class="mfg-pillar">
-            <div class="mfg-pillar-icon">✅</div>
-            <span class="mfg-pillar-name">Rigorous quality control on every unit before dispatch</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== LEADERSHIP ===== -->
-<section class="lead-section">
-  <div class="wrap">
-    <div class="lead-grid">
-      <div class="lead-portrait reveal-left">
-        <img src="images/home/promo-configure.jpg" alt="Abhishek Kapoor — Director, IPM Bath Fittings">
-        <div class="lead-portrait-overlay"></div>
-        <div class="lead-portrait-tag">
-          <span class="name">Abhishek Kapoor</span>
-          <span class="role">Director · Fourth Generation</span>
-        </div>
-      </div>
-      <div class="lead-copy reveal-right">
-        <div class="sec-title">
-          <div class="eyebrow">Leadership</div>
-          <h2 class="serif">Guided by<br><em>Vision &amp; Values</em></h2>
-        </div>
-        <blockquote class="lead-pullquote">
-          "We are not just selling a faucet. We are promising a standard of living — and that promise begins with how we make every single piece."
-        </blockquote>
-        <p class="lead-body">
-          As the fourth generation to lead IPM Bath Fittings, Abhishek Kapoor has elevated the brand from a trusted domestic supplier to an internationally recognised name. His focus on water efficiency, inclusive design, and the Make in India movement reflects a leadership philosophy that looks beyond the bottom line.
-        </p>
-        <p class="lead-body">
-          Featured in <em>Homes &amp; Buildings Magazine</em> for IPM's pioneering work in bringing water-efficient sanitaryware to rural India, Abhishek continues to prove that heritage and innovation are not opposites — they are partners.
-        </p>
-        <div class="lead-tags">
-          <span class="lead-tag">Make in India</span>
-          <span class="lead-tag">Water Efficiency</span>
-          <span class="lead-tag">Rural Access</span>
-          <span class="lead-tag">Global Expansion</span>
-          <span class="lead-tag">Family Legacy</span>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -1898,72 +1540,18 @@ window.addEventListener('scroll', updateParallax, { passive: true });
 /* ================================================================
    GENERATION TIMELINE
 ================================================================ */
-const genCards = document.querySelectorAll('.gen-card');
-const trackFill = document.getElementById('genTrackFill');
-
-// Prevent stagger-children from overriding active gen-card state
-// by removing the class and handling entrance manually
-const genCardsWrap = document.getElementById('genCards');
-if (genCardsWrap) {
-  genCardsWrap.querySelectorAll('.gen-card').forEach((c, i) => {
-    c.style.transitionDelay = (i * 0.09) + 's';
-  });
-}
-
-function activateGen(card) {
-  genCards.forEach((c, i) => {
-    const isActive = c === card;
-    c.classList.toggle('active', isActive);
-    c.setAttribute('aria-pressed', String(isActive));
-  });
-  // Animate fill line to position of active card
-  const activeIdx = [...genCards].indexOf(card);
-  const pct = (activeIdx / (genCards.length - 1)) * 100;
-  if (trackFill) trackFill.style.width = pct + '%';
-}
-
-genCards.forEach(card => {
-  card.addEventListener('click', () => activateGen(card));
-  card.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activateGen(card); }
-    if (e.key === 'ArrowRight') {
-      const next = card.nextElementSibling;
-      if (next && next.classList.contains('gen-card')) { next.focus(); activateGen(next); }
-    }
-    if (e.key === 'ArrowLeft') {
-      const prev = card.previousElementSibling;
-      if (prev && prev.classList.contains('gen-card')) { prev.focus(); activateGen(prev); }
-    }
-  });
-});
-
-// Animate track fill to first card on load
-if (trackFill) trackFill.style.width = '0%';
-
-/* ================================================================
-   WATER BAR ANIMATION
-================================================================ */
-const waterCompare = document.getElementById('waterCompare');
-if (waterCompare) {
-  const waterObs = new IntersectionObserver(entries => {
+// Horizontal timeline: fill the rail left→right + cascade eras into view
+const genTimeline = document.getElementById('genTimeline');
+if (genTimeline) {
+  const tlObs = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        const items = waterCompare.querySelectorAll('.water-bar-item');
-        items.forEach((item, i) => {
-          setTimeout(() => {
-            const fill = item.querySelector('.water-bar-fill');
-            if (fill.classList.contains('brass')) {
-              fill.style.width = '15.4%';
-            } else {
-              fill.style.width = '100%';
-            }
-          }, i * 200);
-        });
-        waterObs.unobserve(entry.target);
+        genTimeline.classList.add('in');
+        tlObs.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.3 });
-  waterObs.observe(waterCompare);
+  }, { threshold: 0.3, rootMargin: '0px 0px -10% 0px' });
+  tlObs.observe(genTimeline);
 }
 
 /* ================================================================
