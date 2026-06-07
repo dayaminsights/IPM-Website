@@ -561,6 +561,29 @@ footer {
 .sig-copy p { color: var(--soft); max-width: 440px; margin-bottom: 26px; }
 
 /* ================================================================
+   COLLECTIONS PAGE — FULL RANGE GRID
+================================================================ */
+.range-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 36px 28px;
+}
+.range-tile { display: block; }
+.range-tile .arch { aspect-ratio: 3/4; }
+.range-tile .arch img { transition: transform .8s cubic-bezier(.2,.6,.2,1); }
+.range-tile:hover .arch img { transform: scale(1.06); }
+.range-tile .name {
+  display: block; margin-top: 18px; font-size: 22px; font-weight: 400;
+  color: var(--ink); transition: color .3s;
+}
+.range-tile:hover .name { color: var(--gold); }
+.range-tile .underline {
+  display: block; width: 26px; height: 1px; background: var(--gold);
+  margin-top: 10px; transition: width .4s cubic-bezier(.4,0,.2,1), background .4s;
+}
+.range-tile:hover .underline { width: 60px; background: var(--gold-2); }
+
+/* ================================================================
    PAGE-SPECIFIC CSS — ADD ABOVE THIS LINE
 ================================================================ */
 </style>
@@ -713,6 +736,75 @@ footer {
       <div class="sig-vis">
         <div class="arch"><img src="images/home/line-opell-prima.jpg" alt="Opell Prima collection — geometric brass fittings"></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<div class="sec-divider"><span></span></div>
+
+<!-- ===== THE FULL RANGE ===== -->
+<section class="sec range-section">
+  <div class="wrap">
+    <div class="sec-title reveal">
+      <div class="eyebrow">The Full Range</div>
+      <h2 class="serif">Eleven more collections, <em>one standard of craft.</em></h2>
+    </div>
+    <div class="range-grid stagger-children">
+      <a href="#" class="range-tile">
+        <div class="arch"><img src="images/home/cat-faucets.jpg" alt="Cube collection"></div>
+        <span class="name serif">Cube</span>
+        <span class="underline"></span>
+      </a>
+      <a href="#" class="range-tile">
+        <div class="arch"><img src="images/home/cat-mixers.jpg" alt="Cube Prima collection"></div>
+        <span class="name serif">Cube Prima</span>
+        <span class="underline"></span>
+      </a>
+      <a href="#" class="range-tile">
+        <div class="arch"><img src="images/home/cat-showers.jpg" alt="Fuzone collection"></div>
+        <span class="name serif">Fuzone</span>
+        <span class="underline"></span>
+      </a>
+      <a href="#" class="range-tile">
+        <div class="arch"><img src="images/home/cat-coloured.jpg" alt="Flora collection"></div>
+        <span class="name serif">Flora</span>
+        <span class="underline"></span>
+      </a>
+      <a href="#" class="range-tile">
+        <div class="arch"><img src="images/home/cat-faucets.jpg" alt="JP collection"></div>
+        <span class="name serif">JP</span>
+        <span class="underline"></span>
+      </a>
+      <a href="#" class="range-tile">
+        <div class="arch"><img src="images/home/cat-mixers.jpg" alt="Premium collection"></div>
+        <span class="name serif">Premium</span>
+        <span class="underline"></span>
+      </a>
+      <a href="#" class="range-tile">
+        <div class="arch"><img src="images/home/cat-showers.jpg" alt="Para Collection"></div>
+        <span class="name serif">Para Collection</span>
+        <span class="underline"></span>
+      </a>
+      <a href="#" class="range-tile">
+        <div class="arch"><img src="images/home/cat-faucets.jpg" alt="Allied collection"></div>
+        <span class="name serif">Allied</span>
+        <span class="underline"></span>
+      </a>
+      <a href="#" class="range-tile">
+        <div class="arch"><img src="images/home/cat-coloured.jpg" alt="Zenith Collections"></div>
+        <span class="name serif">Zenith Collections</span>
+        <span class="underline"></span>
+      </a>
+      <a href="#" class="range-tile">
+        <div class="arch"><img src="images/home/cat-accessories.jpg" alt="Square Brass Accessories collection"></div>
+        <span class="name serif">Square Brass Accessories</span>
+        <span class="underline"></span>
+      </a>
+      <a href="#" class="range-tile">
+        <div class="arch"><img src="images/home/cat-accessories.jpg" alt="Round Brass Accessories collection"></div>
+        <span class="name serif">Round Brass Accessories</span>
+        <span class="underline"></span>
+      </a>
     </div>
   </div>
 </section>
