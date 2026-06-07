@@ -574,27 +574,73 @@ footer {
 .sig-copy p { color: var(--soft); max-width: 440px; margin-bottom: 26px; }
 
 /* ================================================================
-   COLLECTIONS PAGE — FULL RANGE GRID
+   COLLECTIONS PAGE — FULL RANGE: FEATURED SHOWCASE (Part A)
 ================================================================ */
-.range-grid {
+.range-feature {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 36px 28px;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  margin-bottom: 76px;
 }
-.range-tile { display: block; }
-.range-tile .arch { aspect-ratio: 3/4; }
-.range-tile .arch img { transition: transform .8s cubic-bezier(.2,.6,.2,1); }
-.range-tile:hover .arch img { transform: scale(1.06); }
-.range-tile .name {
-  display: block; margin-top: 18px; font-size: 22px; font-weight: 400;
-  color: var(--ink); transition: color .3s;
+.range-feature:last-of-type { margin-bottom: 0; }
+.range-feature .arch { aspect-ratio: 4/3; }
+.range-feature .arch img { transform: scale(1.18); transform-origin: 50% 50%; }
+.range-feature-copy .eyebrow { display: flex; align-items: center; gap: 10px; }
+.range-feature-copy .eyebrow .mark {
+  display: inline-block; width: 9px; height: 9px;
+  border: 1px solid var(--gold); transform: rotate(45deg);
 }
-.range-tile:hover .name { color: var(--gold); }
-.range-tile .underline {
-  display: block; width: 26px; height: 1px; background: var(--gold);
-  margin-top: 10px; transition: width .4s cubic-bezier(.4,0,.2,1), background .4s;
+.range-feature-copy h3 { font-weight: 400; font-size: clamp(34px, 4vw, 50px); line-height: 1.05; margin: 12px 0 16px; }
+.range-feature-copy p { color: var(--soft); max-width: 420px; margin-bottom: 24px; }
+
+/* ================================================================
+   COLLECTIONS PAGE — FULL RANGE: MORPHING INDEX (Part B)
+================================================================ */
+.range-index {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 72px;
+  align-items: center;
+  padding: 64px 0;
 }
-.range-tile:hover .underline { width: 60px; background: var(--gold-2); }
+.range-index-list { display: flex; flex-direction: column; gap: 4px; }
+.range-index-item {
+  display: flex; align-items: baseline; gap: 16px;
+  padding: 14px 0; cursor: default;
+  border-bottom: 1px solid var(--line-2);
+}
+.range-index-item .num {
+  font-family: 'DM Sans', sans-serif; font-size: 12px; letter-spacing: .08em;
+  color: var(--soft); opacity: .55; min-width: 28px;
+}
+.range-index-item .name {
+  font-family: 'Fraktion Serif', Georgia, serif; font-size: clamp(20px, 2.4vw, 28px);
+  font-weight: 400; color: var(--soft); transition: color .4s, transform .4s;
+}
+.range-index-item.is-active .name { color: var(--gold); transform: translateX(8px); }
+.range-index-item .underline {
+  display: block; width: 0; height: 1px; background: var(--gold-2);
+  margin-top: 6px; transition: width .4s cubic-bezier(.4,0,.2,1);
+}
+.range-index-item.is-active .underline { width: 48px; }
+
+.range-index-stage {
+  position: relative; aspect-ratio: 1/1; max-width: 520px; margin: 0 auto;
+}
+.range-index-stage svg.morph-host { position: absolute; inset: 0; width: 100%; height: 100%; }
+.range-index-stage .stage-img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; clip-path: url(#rangeIndexClip);
+  opacity: 0;
+}
+.range-index-stage .stage-img.is-active { opacity: 1; }
+
+.range-index-mobile { display: none; }
+@media (max-width: 860px) {
+  .range-index { display: none; }
+  .range-index-mobile { display: block; }
+}
 
 /* ================================================================
    COLLECTIONS PAGE — FINISHES STRIP
@@ -639,7 +685,17 @@ footer {
 @media (max-width: 860px) {
   .sig-block { grid-template-columns: 1fr; gap: 28px; margin-bottom: 56px; }
   .sig-block .sig-vis { order: -1; }
-  .range-grid { grid-template-columns: repeat(2, 1fr); gap: 28px 20px; }
+  .range-feature { grid-template-columns: 1fr; gap: 24px; margin-bottom: 52px; }
+  .range-index { grid-template-columns: 1fr; gap: 0; padding: 0; }
+  .range-index-stage { display: none; }
+  .range-index-item { border-bottom: none; padding: 0; }
+  .range-index-card {
+    margin-bottom: 36px; padding-bottom: 28px; border-bottom: 1px solid var(--line-2);
+  }
+  .range-index-card:last-child { margin-bottom: 0; border-bottom: none; }
+  .range-index-card .arch {
+    aspect-ratio: 4/3; margin-top: 14px; clip-path: url(#rangeIndexClip);
+  }
   .finishes-row { gap: 22px 26px; }
   .finish { width: 104px; }
   .cta-close-row { gap: 24px; }
