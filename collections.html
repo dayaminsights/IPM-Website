@@ -1452,7 +1452,6 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
   const rangeIndex = document.querySelector('.range-index');
   if (rangeIndex && window.matchMedia('(min-width: 861px)').matches) {
     const items      = gsap.utils.toArray('.range-index-item');
-    const stage      = rangeIndex.querySelector('.range-index-stage');
     const stageImgs  = gsap.utils.toArray('.stage-img');
     const indexClip  = document.querySelector('#rangeIndexPath');
     const n          = items.length;
@@ -1486,11 +1485,6 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
       master.to(stageImgs[(idx - 1) % 2], { opacity: 0, scale: 1.05, duration: 1, ease: 'power2.inOut' }, segmentLabel);
       master.set(stageImgs[idx % 2], { attr: { src: items[idx].dataset.img, alt: items[idx].dataset.alt } }, segmentLabel);
       master.to(stageImgs[idx % 2], { opacity: 1, scale: 1, duration: 1, ease: 'power2.inOut' }, segmentLabel);
-
-      master.call(() => {
-        items[idx - 1].classList.remove('is-active');
-        items[idx].classList.add('is-active');
-      }, null, segmentLabel);
     }
 
     /* Returning upward through the pinned section reverses the active state too. */
