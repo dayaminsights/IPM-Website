@@ -521,20 +521,6 @@ footer {
 /* ================================================================
    COLLECTIONS PAGE — INTRO + SHARED DIVIDER
 ================================================================ */
-/* ================================================================
-   COLLECTIONS PAGE — AMBIENT MORPHING ACCENT (GSAP-driven)
-================================================================ */
-.accent-blob {
-  position: fixed; z-index: 4; pointer-events: none;
-  top: -20vw; right: -22vw; width: 60vw; height: 60vw;
-  background: radial-gradient(circle at 36% 36%, var(--gold-2), var(--gold) 52%, transparent 76%);
-  opacity: .045; mix-blend-mode: multiply;
-  clip-path: polygon(38% 4%, 64% 12%, 84% 34%, 90% 62%, 72% 86%, 44% 94%, 18% 78%, 6% 50%, 14% 22%, 28% 8%);
-  will-change: clip-path, transform;
-}
-[data-theme="dark"] .accent-blob { opacity: .1; mix-blend-mode: screen; }
-@media (max-width: 860px) { .accent-blob { display: none; } }
-
 .coll-intro { padding-bottom: 56px; }
 .intro-copy { max-width: 680px; margin: 0 auto; text-align: center; }
 .intro-copy h2 { margin: 18px 0 22px; }
@@ -557,6 +543,18 @@ footer {
   background: var(--cream);
 }
 .arch img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* ================================================================
+   COLLECTIONS PAGE — HERO REVEAL (morphing arch silhouette, on load)
+================================================================ */
+.hero-reveal {
+  position: absolute; right: 6%; top: 13%;
+  width: 24vw; height: 24vw; max-width: 300px; max-height: 300px; min-width: 170px; min-height: 170px;
+  z-index: 1; opacity: 0; mix-blend-mode: multiply; pointer-events: none;
+}
+.hero-reveal .reveal-shape { fill: var(--gold-2); }
+[data-theme="dark"] .hero-reveal { mix-blend-mode: screen; }
+@media (max-width: 860px) { .hero-reveal { display: none; } }
 
 /* ================================================================
    COLLECTIONS PAGE — SIGNATURE LINES
@@ -657,7 +655,6 @@ footer {
 <div id="grain" aria-hidden="true"></div>
 <div id="cursor-dot" aria-hidden="true"></div>
 <div id="cursor-ring" aria-hidden="true"></div>
-<div class="accent-blob" aria-hidden="true"></div>
 
 <!-- ===== UTILITY BAR ===== -->
 <div class="util">
@@ -748,6 +745,12 @@ footer {
 <section class="page-hero" data-header-scheme="dark">
   <img src="images/home/hero.jpg" alt="Solid brass fittings from the IPM 2026 collection" id="heroImg">
   <div class="scrim"></div>
+
+  <!-- Abstract morphing reveal — opens from a sliver into the brand's arch silhouette as the hero loads -->
+  <svg class="hero-reveal" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+    <path class="reveal-shape" d="M196,280 C196,255 204,255 204,280 L204,360 L196,360 Z"/>
+  </svg>
+
   <div class="copy">
     <span class="e">The 2026 Collection</span>
     <h1>
@@ -772,6 +775,17 @@ footer {
 <div class="sec-divider"><span></span></div>
 
 <!-- ===== SIGNATURE LINES ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <clipPath id="sigClip0" clipPathUnits="objectBoundingBox">
+      <path id="sigPath0" d="M0,0.32 C0.06,0.1 0.1,0.1 0.16,0.32 L0.16,1 L0,1 Z"/>
+    </clipPath>
+    <clipPath id="sigClip1" clipPathUnits="objectBoundingBox">
+      <path id="sigPath1" d="M1,0.32 C0.94,0.1 0.9,0.1 0.84,0.32 L0.84,1 L1,1 Z"/>
+    </clipPath>
+  </defs>
+</svg>
+
 <section class="sec sig-section">
   <div class="wrap">
     <div class="sec-title reveal">
@@ -997,9 +1011,13 @@ footer {
 <!-- ===== BACK TO TOP ===== -->
 <button id="backTop" class="back-top" aria-label="Back to top" hidden>&#8593;</button>
 
-<!-- GSAP + ScrollTrigger — scroll-driven motion for this page only -->
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<!-- GSAP + plugins + Lenis — scroll-driven motion for this page only -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/MorphSVGPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/Flip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.23/dist/lenis.min.js"></script>
 
 <script>
 /* ================================================================
@@ -1123,7 +1141,16 @@ window.addEventListener('scroll', () => {
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 if (!reduceMotion && window.gsap && window.ScrollTrigger) {
-  gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger, MorphSVGPlugin, SplitText, Flip);
+
+  /* ---- LENIS: inertial smooth scroll, proxied into ScrollTrigger ---- */
+  let lenis;
+  if (window.Lenis) {
+    lenis = new Lenis({ lerp: .1, smoothWheel: true });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(time => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+  }
 
   /* ---- HERO: load zoom (GSAP-owned) + scroll-scrubbed parallax ---- */
   if (heroImg) {
@@ -1139,30 +1166,82 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
     });
   }
 
-  /* ---- SIGNATURE LINES: clip-path wipe reveal + depth parallax ---- */
-  gsap.utils.toArray('.sig-block').forEach((block, i) => {
-    const img  = block.querySelector('.arch img');
-    const vis  = block.querySelector('.sig-vis');
-    const copy = block.querySelector('.sig-copy');
-    const fromX = i % 2 === 0 ? -44 : 44;
+  /* ---- HERO REVEAL: abstract arch-silhouette morphs open on load, drifts on scroll ---- */
+  const heroReveal  = document.querySelector('.hero-reveal');
+  const revealShape = heroReveal && heroReveal.querySelector('.reveal-shape');
+  if (heroReveal && revealShape) {
+    const SLIVER    = 'M196,280 C196,255 204,255 204,280 L204,360 L196,360 Z';
+    const ARCH_OPEN = 'M120,280 C120,140 280,140 280,280 L280,360 L120,360 Z';
+    const ARCH_NARROW = 'M178,310 C178,210 222,210 222,310 L222,360 L178,360 Z';
 
-    gsap.set(img,  { clipPath: 'inset(0% 100% 0% 0%)', scale: 1.18, transformOrigin: '50% 50%' });
-    gsap.set(vis,  { opacity: 0, x: fromX });
-    gsap.set(copy, { opacity: 0, y: 32 });
+    gsap.set(revealShape, { morphSVG: SLIVER });
+
+    /* Load beat: the sliver opens into the full arch as the eyebrow/headline cascade in */
+    gsap.timeline({ delay: .15 })
+      .to(heroReveal,  { opacity: .4, duration: .6, ease: 'power1.out' }, 0)
+      .to(revealShape, { morphSVG: ARCH_OPEN, duration: 1.5, ease: 'power4.inOut' }, 0);
+
+    /* Scroll continuation: the wide arch visibly narrows back toward a sliver as the
+       user scrolls through the hero — an unmistakable silhouette change tied to scroll
+       position (and it re-widens on scroll-back), echoing the load-in "opening" beat. */
+    gsap.to(revealShape, {
+      morphSVG: ARCH_NARROW, ease: 'none',
+      scrollTrigger: { trigger: '.page-hero', start: 'top top', end: 'bottom top', scrub: .8 }
+    });
+  }
+
+  /* ---- SIGNATURE LINES: SVG morph clip-path reveal + SplitText headline + depth parallax ---- */
+  const SIG_SLIVER_L  = 'M0,0.32 C0.06,0.1 0.1,0.1 0.16,0.32 L0.16,1 L0,1 Z';
+  const SIG_SLIVER_R  = 'M1,0.32 C0.94,0.1 0.9,0.1 0.84,0.32 L0.84,1 L1,1 Z';
+  const SIG_ARCH_FULL = 'M0,0 L1,0 L1,1 L0,1 Z';
+  const sigClipPaths  = [document.querySelector('#sigPath0'), document.querySelector('#sigPath1')];
+
+  gsap.utils.toArray('.sig-block').forEach((block, i) => {
+    const img    = block.querySelector('.arch img');
+    const vis    = block.querySelector('.sig-vis');
+    const copy   = block.querySelector('.sig-copy');
+    const h3     = block.querySelector('.sig-copy h3');
+    const fromX  = i % 2 === 0 ? -44 : 44;
+    const clipEl = sigClipPaths[i % 2];
+    const clipId = i % 2 === 0 ? 'sigClip0' : 'sigClip1';
+
+    let h3Split = null;
+    if (window.SplitText && h3) {
+      h3Split = new SplitText(h3, { type: 'words' });
+      gsap.set(h3Split.words, { opacity: 0, y: '55%' });
+    }
+
+    gsap.set(img,    { clipPath: `url(#${clipId})`, scale: 1.18, transformOrigin: '50% 50%' });
+    gsap.set(clipEl, { morphSVG: i % 2 === 0 ? SIG_SLIVER_L : SIG_SLIVER_R });
+    gsap.set(vis,    { opacity: 0, x: fromX });
+    gsap.set(copy,   { opacity: 0, y: 32 });
+
+    /* Aperture morph driven directly by scroll position — opens as the block scrolls
+       into view and closes again on the way back up, so the shape change reads as
+       something the user is causing by scrolling, not a flash that auto-plays. */
+    gsap.to(clipEl, {
+      morphSVG: SIG_ARCH_FULL, ease: 'none',
+      scrollTrigger: { trigger: block, start: 'top 95%', end: 'top 30%', scrub: .6 }
+    });
 
     ScrollTrigger.create({
       trigger: block, start: 'top 78%', once: true,
       onEnter: () => {
-        gsap.timeline()
-          .to(vis,  { opacity: 1, x: 0, duration: .9, ease: 'power3.out' })
-          .to(img,  {
-            clipPath: 'inset(0% 0% 0% 0%)', duration: 1.15, ease: 'power4.inOut',
-            onComplete: () => gsap.set(img, { clearProps: 'clipPath' })
-          }, '<')
+        const tl = gsap.timeline();
+        tl.to(vis, {
+            opacity: 1, x: 0, duration: .9, ease: 'power3.out',
+            onComplete: () => gsap.set(vis, { clearProps: 'opacity,transform' })
+          })
           .to(copy, {
             opacity: 1, y: 0, duration: .8, ease: 'power3.out',
-            onComplete: () => gsap.set([vis, copy], { clearProps: 'opacity,transform' })
+            onComplete: () => gsap.set(copy, { clearProps: 'opacity,transform' })
           }, '<.15');
+        if (h3Split) {
+          tl.to(h3Split.words, {
+            opacity: 1, y: '0%', duration: .7, stagger: .06, ease: 'power3.out',
+            onComplete: () => gsap.set(h3Split.words, { clearProps: 'all' })
+          }, '<');
+        }
       }
     });
 
@@ -1172,41 +1251,79 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
     });
   });
 
-  /* ---- FULL RANGE GRID: staggered tilt + scale-in as tiles enter view ---- */
+  /* ---- FULL RANGE GRID: staggered tilt + scale-in, underline draws in behind ---- */
   gsap.set('.range-tile', {
     opacity: 0, y: 56, scale: .92, rotateX: 6,
     transformPerspective: 900, transformOrigin: '50% 100%'
   });
+  gsap.set('.range-tile .underline', { scaleX: 0, transformOrigin: '0% 50%' });
   ScrollTrigger.batch('.range-tile', {
     start: 'top 90%', once: true,
-    onEnter: batch => gsap.to(batch, {
-      opacity: 1, y: 0, scale: 1, rotateX: 0,
-      duration: .9, ease: 'power3.out', stagger: .07,
-      onComplete: () => gsap.set(batch, { clearProps: 'opacity,transform' })
-    })
+    onEnter: batch => {
+      gsap.to(batch, {
+        opacity: 1, y: 0, scale: 1, rotateX: 0,
+        duration: .9, ease: 'power3.out', stagger: .07,
+        onComplete: () => gsap.set(batch, { clearProps: 'opacity,transform' })
+      });
+      gsap.to(batch.map(tile => tile.querySelector('.underline')), {
+        scaleX: 1, duration: .5, ease: 'power3.out', stagger: .07, delay: .4,
+        onComplete: function () { gsap.set(this.targets(), { clearProps: 'transform' }); }
+      });
+    }
   });
 
-  /* ---- FINISHES STRIP: cascading scale-in ---- */
+  /* ---- FINISHES STRIP: cascading scale-in + SplitText label reveal ---- */
   gsap.set('.finish', { opacity: 0, y: 28, scale: .8 });
   ScrollTrigger.batch('.finish', {
     start: 'top 92%', once: true,
-    onEnter: batch => gsap.to(batch, {
-      opacity: 1, y: 0, scale: 1,
-      duration: .7, ease: 'back.out(1.7)', stagger: .045,
-      onComplete: () => gsap.set(batch, { clearProps: 'opacity,transform' })
-    })
+    onEnter: batch => {
+      gsap.to(batch, {
+        opacity: 1, y: 0, scale: 1,
+        duration: .7, ease: 'back.out(1.7)', stagger: .045,
+        onComplete: () => gsap.set(batch, { clearProps: 'opacity,transform' })
+      });
+      if (window.SplitText) {
+        const labelSplits = batch.map(f => new SplitText(f.querySelector('.label'), { type: 'words' }));
+        const words = labelSplits.flatMap(s => s.words);
+        gsap.set(words, { opacity: 0, y: '50%' });
+        gsap.to(words, {
+          opacity: 1, y: '0%', duration: .5, ease: 'power2.out', stagger: .03, delay: .1,
+          onComplete: () => gsap.set(words, { clearProps: 'all' })
+        });
+      }
+    }
   });
 
-  /* ---- AMBIENT MORPHING ACCENT: drifts + reshapes across the whole page ---- */
-  const BLOB_B = 'polygon(24% 8%, 58% 0%, 88% 20%, 98% 50%, 82% 82%, 50% 98%, 18% 86%, 2% 58%, 8% 28%, 16% 10%)';
-  const BLOB_C = 'polygon(46% 2%, 78% 14%, 94% 42%, 84% 76%, 58% 96%, 28% 90%, 8% 66%, 4% 36%, 20% 14%, 36% 4%)';
-  const BLOB_A = 'polygon(38% 4%, 64% 12%, 84% 34%, 90% 62%, 72% 86%, 44% 94%, 18% 78%, 6% 50%, 14% 22%, 28% 8%)';
-  gsap.timeline({
-    scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 1.2 }
-  })
-    .to('.accent-blob', { clipPath: BLOB_B, rotate: 35, x: '-8vw', y: '10vw', ease: 'none' }, 0)
-    .to('.accent-blob', { clipPath: BLOB_C, rotate: -20, x: '4vw',  y: '-6vw', ease: 'none' }, .5)
-    .to('.accent-blob', { clipPath: BLOB_A, rotate: 0,   x: '0vw',  y: '0vw',  ease: 'none' }, 1);
+  /* ---- CTA CLOSE: SplitText headline cascade + staggered link reveal ---- */
+  const ctaClose = document.querySelector('.cta-close-in');
+  if (ctaClose) {
+    const ctaH2    = ctaClose.querySelector('h2');
+    const ctaLinks = ctaClose.querySelectorAll('.cta-close-row .link-arrow');
+    let ctaSplit   = null;
+
+    if (window.SplitText && ctaH2) {
+      ctaSplit = new SplitText(ctaH2, { type: 'words' });
+      gsap.set(ctaSplit.words, { opacity: 0, y: '60%' });
+    }
+    gsap.set(ctaLinks, { opacity: 0, y: 22 });
+
+    ScrollTrigger.create({
+      trigger: ctaClose, start: 'top 80%', once: true,
+      onEnter: () => {
+        const tl = gsap.timeline();
+        if (ctaSplit) {
+          tl.to(ctaSplit.words, {
+            opacity: 1, y: '0%', duration: .8, stagger: .07, ease: 'power3.out',
+            onComplete: () => gsap.set(ctaSplit.words, { clearProps: 'all' })
+          }, 0);
+        }
+        tl.to(ctaLinks, {
+          opacity: 1, y: 0, duration: .7, stagger: .12, ease: 'back.out(1.7)',
+          onComplete: () => gsap.set(ctaLinks, { clearProps: 'opacity,transform' })
+        }, .25);
+      }
+    });
+  }
 
   window.addEventListener('load', () => ScrollTrigger.refresh());
 }
