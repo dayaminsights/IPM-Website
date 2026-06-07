@@ -1495,6 +1495,21 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
     });
   }
 
+  /* ---- FULL RANGE — PART B mobile fallback: per-card reveal with one-shot shape clip ---- */
+  const indexCards = gsap.utils.toArray('.range-index-card');
+  if (indexCards.length) {
+    gsap.set(indexCards, { opacity: 0, y: 36 });
+    ScrollTrigger.batch('.range-index-card', {
+      start: 'top 90%', once: true,
+      onEnter: batch => {
+        gsap.to(batch, {
+          opacity: 1, y: 0, duration: .8, ease: 'power3.out', stagger: .08,
+          onComplete: () => gsap.set(batch, { clearProps: 'opacity,transform' })
+        });
+      }
+    });
+  }
+
   /* ---- FINISHES STRIP: cascading scale-in + SplitText label reveal ---- */
   gsap.set('.finish', { opacity: 0, y: 28, scale: .8 });
   ScrollTrigger.batch('.finish', {
