@@ -517,7 +517,20 @@ footer {
    PAGE-SPECIFIC CSS — ADD BELOW THIS LINE
 ================================================================ */
 
+/* ================================================================
+   COLLECTIONS PAGE — INTRO + SHARED DIVIDER
+================================================================ */
+.coll-intro { padding-bottom: 56px; }
+.intro-copy { max-width: 680px; margin: 0 auto; text-align: center; }
+.intro-copy h2 { margin: 18px 0 22px; }
+.intro-copy p { color: var(--soft); font-size: 16px; }
 
+.sec-divider { display: flex; justify-content: center; padding: 0 64px; }
+.sec-divider span {
+  display: block; width: 100%; max-width: 1100px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-2), transparent);
+  opacity: .45;
+}
 
 /* ================================================================
    PAGE-SPECIFIC CSS — ADD ABOVE THIS LINE
@@ -628,6 +641,19 @@ footer {
     <p class="sub">Thirteen named lines, each shaped by fifty years of solid-brass craft in Patparganj, Delhi.</p>
   </div>
 </section>
+
+<!-- ===== INTRO ===== -->
+<section class="sec coll-intro">
+  <div class="wrap">
+    <div class="intro-copy reveal">
+      <div class="eyebrow">A Range, Considered</div>
+      <h2 class="serif">Fifty years of brass, <em>poured into thirteen lines.</em></h2>
+      <p>From the everyday Cube to the sculptural Aliva, every IPM collection is designed, machined and finished under one roof — solid brass, never plated zinc, in sixteen hand-perfected finishes.</p>
+    </div>
+  </div>
+</section>
+
+<div class="sec-divider"><span></span></div>
 
 <!-- ==============================================================
   PAGE CONTENT — ADD ABOVE THIS LINE
