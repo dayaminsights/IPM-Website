@@ -521,6 +521,20 @@ footer {
 /* ================================================================
    COLLECTIONS PAGE — INTRO + SHARED DIVIDER
 ================================================================ */
+/* ================================================================
+   COLLECTIONS PAGE — AMBIENT MORPHING ACCENT (GSAP-driven)
+================================================================ */
+.accent-blob {
+  position: fixed; z-index: 4; pointer-events: none;
+  top: -20vw; right: -22vw; width: 60vw; height: 60vw;
+  background: radial-gradient(circle at 36% 36%, var(--gold-2), var(--gold) 52%, transparent 76%);
+  opacity: .045; mix-blend-mode: multiply;
+  clip-path: polygon(38% 4%, 64% 12%, 84% 34%, 90% 62%, 72% 86%, 44% 94%, 18% 78%, 6% 50%, 14% 22%, 28% 8%);
+  will-change: clip-path, transform;
+}
+[data-theme="dark"] .accent-blob { opacity: .1; mix-blend-mode: screen; }
+@media (max-width: 860px) { .accent-blob { display: none; } }
+
 .coll-intro { padding-bottom: 56px; }
 .intro-copy { max-width: 680px; margin: 0 auto; text-align: center; }
 .intro-copy h2 { margin: 18px 0 22px; }
@@ -556,8 +570,8 @@ footer {
 }
 .sig-block:last-child { margin-bottom: 0; }
 .sig-vis .arch { aspect-ratio: 4/3; }
-.sig-vis img { transition: transform .9s cubic-bezier(.2,.6,.2,1); }
-.sig-block:hover .sig-vis img { transform: scale(1.05); }
+.sig-vis img { transition: filter .7s cubic-bezier(.2,.6,.2,1); }
+.sig-block:hover .sig-vis img { filter: brightness(1.05) saturate(1.12); }
 .sig-copy h3 { font-weight: 400; font-size: clamp(36px, 4.4vw, 54px); line-height: 1; margin: 14px 0 18px; }
 .sig-copy p { color: var(--soft); max-width: 440px; margin-bottom: 26px; }
 
@@ -595,9 +609,7 @@ footer {
 .finish .swatch {
   width: 54px; height: 54px; border-radius: 50%;
   border: 1px solid var(--line-2); box-shadow: var(--shadow-sm);
-  transition: transform .35s cubic-bezier(.2,.6,.2,1);
 }
-.finish:hover .swatch { transform: translateY(-4px) scale(1.06); }
 .finish .label { font-family: 'DM Sans', sans-serif; font-size: 11px; letter-spacing: .08em; color: var(--soft); line-height: 1.4; }
 
 .f-rich-gold          { background: linear-gradient(135deg,#ecd6a6,#a9762f); }
@@ -645,6 +657,7 @@ footer {
 <div id="grain" aria-hidden="true"></div>
 <div id="cursor-dot" aria-hidden="true"></div>
 <div id="cursor-ring" aria-hidden="true"></div>
+<div class="accent-blob" aria-hidden="true"></div>
 
 <!-- ===== UTILITY BAR ===== -->
 <div class="util">
@@ -766,7 +779,7 @@ footer {
       <h2 class="serif">Two collections, <em>defined by detail.</em></h2>
     </div>
 
-    <div class="sig-block reveal-left">
+    <div class="sig-block">
       <div class="sig-vis">
         <div class="arch"><img src="images/home/line-aliva.jpg" alt="Aliva collection — sculpted brass fittings"></div>
       </div>
@@ -778,7 +791,7 @@ footer {
       </div>
     </div>
 
-    <div class="sig-block reveal-right">
+    <div class="sig-block">
       <div class="sig-copy">
         <div class="eyebrow">Signature Line</div>
         <h3 class="serif">Opell Prima</h3>
@@ -801,7 +814,7 @@ footer {
       <div class="eyebrow">The Full Range</div>
       <h2 class="serif">Eleven more collections, <em>one standard of craft.</em></h2>
     </div>
-    <div class="range-grid stagger-children">
+    <div class="range-grid">
       <a href="#" class="range-tile">
         <div class="arch"><img src="images/home/cat-faucets.jpg" alt="Cube collection"></div>
         <span class="name serif">Cube</span>
@@ -871,7 +884,7 @@ footer {
       <h2 class="serif">Sixteen Hand-Perfected <em>Finishes</em></h2>
       <p>Every collection can be ordered in the full IPM finish palette — from warm brass tones to deep matte profiles.</p>
     </div>
-    <div class="finishes-row stagger-children">
+    <div class="finishes-row">
       <div class="finish"><span class="swatch f-rich-gold" aria-hidden="true"></span><span class="label">Rich Gold</span></div>
       <div class="finish"><span class="swatch f-rose-gold" aria-hidden="true"></span><span class="label">Rose Gold</span></div>
       <div class="finish"><span class="swatch f-gunmetal" aria-hidden="true"></span><span class="label">Polished Gun Metal Black</span></div>
@@ -983,6 +996,10 @@ footer {
 
 <!-- ===== BACK TO TOP ===== -->
 <button id="backTop" class="back-top" aria-label="Back to top" hidden>&#8593;</button>
+
+<!-- GSAP + ScrollTrigger — scroll-driven motion for this page only -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
 <script>
 /* ================================================================
@@ -1103,8 +1120,113 @@ window.addEventListener('scroll', () => {
 /* ================================================================
    PAGE-SPECIFIC JS — ADD BELOW THIS LINE
 ================================================================ */
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+if (!reduceMotion && window.gsap && window.ScrollTrigger) {
+  gsap.registerPlugin(ScrollTrigger);
 
+  /* ---- HERO: load zoom (GSAP-owned) + scroll-scrubbed parallax ---- */
+  if (heroImg) {
+    heroImg.style.transition = 'none';               // hand the transform fully to GSAP
+    gsap.fromTo(heroImg, { scale: 1.1 }, { scale: 1, duration: 2.6, ease: 'power2.out' });
+    gsap.to(heroImg, {
+      yPercent: 14, ease: 'none',
+      scrollTrigger: { trigger: '.page-hero', start: 'top top', end: 'bottom top', scrub: .6 }
+    });
+    gsap.to('.page-hero .copy', {
+      yPercent: -38, opacity: 0, ease: 'none',
+      scrollTrigger: { trigger: '.page-hero', start: 'top top', end: 'bottom top', scrub: .6 }
+    });
+  }
+
+  /* ---- SIGNATURE LINES: clip-path wipe reveal + depth parallax ---- */
+  gsap.utils.toArray('.sig-block').forEach((block, i) => {
+    const img  = block.querySelector('.arch img');
+    const vis  = block.querySelector('.sig-vis');
+    const copy = block.querySelector('.sig-copy');
+    const fromX = i % 2 === 0 ? -44 : 44;
+
+    gsap.set(img,  { clipPath: 'inset(0% 100% 0% 0%)', scale: 1.18, transformOrigin: '50% 50%' });
+    gsap.set(vis,  { opacity: 0, x: fromX });
+    gsap.set(copy, { opacity: 0, y: 32 });
+
+    ScrollTrigger.create({
+      trigger: block, start: 'top 78%', once: true,
+      onEnter: () => {
+        gsap.timeline()
+          .to(vis,  { opacity: 1, x: 0, duration: .9, ease: 'power3.out' })
+          .to(img,  {
+            clipPath: 'inset(0% 0% 0% 0%)', duration: 1.15, ease: 'power4.inOut',
+            onComplete: () => gsap.set(img, { clearProps: 'clipPath' })
+          }, '<')
+          .to(copy, {
+            opacity: 1, y: 0, duration: .8, ease: 'power3.out',
+            onComplete: () => gsap.set([vis, copy], { clearProps: 'opacity,transform' })
+          }, '<.15');
+      }
+    });
+
+    gsap.to(img, {
+      yPercent: -8, ease: 'none',
+      scrollTrigger: { trigger: block, start: 'top bottom', end: 'bottom top', scrub: .8 }
+    });
+  });
+
+  /* ---- FULL RANGE GRID: staggered tilt + scale-in as tiles enter view ---- */
+  gsap.set('.range-tile', {
+    opacity: 0, y: 56, scale: .92, rotateX: 6,
+    transformPerspective: 900, transformOrigin: '50% 100%'
+  });
+  ScrollTrigger.batch('.range-tile', {
+    start: 'top 90%', once: true,
+    onEnter: batch => gsap.to(batch, {
+      opacity: 1, y: 0, scale: 1, rotateX: 0,
+      duration: .9, ease: 'power3.out', stagger: .07,
+      onComplete: () => gsap.set(batch, { clearProps: 'opacity,transform' })
+    })
+  });
+
+  /* ---- FINISHES STRIP: cascading scale-in ---- */
+  gsap.set('.finish', { opacity: 0, y: 28, scale: .8 });
+  ScrollTrigger.batch('.finish', {
+    start: 'top 92%', once: true,
+    onEnter: batch => gsap.to(batch, {
+      opacity: 1, y: 0, scale: 1,
+      duration: .7, ease: 'back.out(1.7)', stagger: .045,
+      onComplete: () => gsap.set(batch, { clearProps: 'opacity,transform' })
+    })
+  });
+
+  /* ---- AMBIENT MORPHING ACCENT: drifts + reshapes across the whole page ---- */
+  const BLOB_B = 'polygon(24% 8%, 58% 0%, 88% 20%, 98% 50%, 82% 82%, 50% 98%, 18% 86%, 2% 58%, 8% 28%, 16% 10%)';
+  const BLOB_C = 'polygon(46% 2%, 78% 14%, 94% 42%, 84% 76%, 58% 96%, 28% 90%, 8% 66%, 4% 36%, 20% 14%, 36% 4%)';
+  const BLOB_A = 'polygon(38% 4%, 64% 12%, 84% 34%, 90% 62%, 72% 86%, 44% 94%, 18% 78%, 6% 50%, 14% 22%, 28% 8%)';
+  gsap.timeline({
+    scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 1.2 }
+  })
+    .to('.accent-blob', { clipPath: BLOB_B, rotate: 35, x: '-8vw', y: '10vw', ease: 'none' }, 0)
+    .to('.accent-blob', { clipPath: BLOB_C, rotate: -20, x: '4vw',  y: '-6vw', ease: 'none' }, .5)
+    .to('.accent-blob', { clipPath: BLOB_A, rotate: 0,   x: '0vw',  y: '0vw',  ease: 'none' }, 1);
+
+  window.addEventListener('load', () => ScrollTrigger.refresh());
+}
+
+/* ---- FINISHES: magnetic swatch hover (hover-capable pointers only) ---- */
+if (!reduceMotion && window.gsap && window.matchMedia('(hover: hover)').matches) {
+  document.querySelectorAll('.finish').forEach(f => {
+    const swatch = f.querySelector('.swatch');
+    f.addEventListener('mouseenter', () => gsap.to(swatch, { y: -4, scale: 1.06, duration: .35, ease: 'power2.out' }));
+    f.addEventListener('mousemove', e => {
+      const r = f.getBoundingClientRect();
+      gsap.to(swatch, {
+        x: (e.clientX - r.left - r.width / 2) * .28,
+        y: -4 + (e.clientY - r.top - r.height / 2) * .28,
+        duration: .5, ease: 'power3.out'
+      });
+    });
+    f.addEventListener('mouseleave', () => gsap.to(swatch, { x: 0, y: 0, scale: 1, duration: .7, ease: 'elastic.out(1,.45)' }));
+  });
+}
 
 /* ================================================================
    PAGE-SPECIFIC JS — ADD ABOVE THIS LINE
