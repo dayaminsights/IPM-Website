@@ -1388,25 +1388,64 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
     });
   });
 
-  /* ---- FULL RANGE GRID: staggered tilt + scale-in, underline draws in behind ---- */
-  gsap.set('.range-tile', {
-    opacity: 0, y: 56, scale: .92, rotateX: 6,
-    transformPerspective: 900, transformOrigin: '50% 100%'
-  });
-  gsap.set('.range-tile .underline', { scaleX: 0, transformOrigin: '0% 50%' });
-  ScrollTrigger.batch('.range-tile', {
-    start: 'top 90%', once: true,
-    onEnter: batch => {
-      gsap.to(batch, {
-        opacity: 1, y: 0, scale: 1, rotateX: 0,
-        duration: .9, ease: 'power3.out', stagger: .07,
-        onComplete: () => gsap.set(batch, { clearProps: 'opacity,transform' })
-      });
-      gsap.to(batch.map(tile => tile.querySelector('.underline')), {
-        scaleX: 1, duration: .5, ease: 'power3.out', stagger: .07, delay: .4,
-        onComplete: function () { gsap.set(this.targets(), { clearProps: 'transform' }); }
-      });
+  /* ---- FULL RANGE — PART A: featured rows morph open + SplitText + parallax ---- */
+  const RANGE_SLIVER   = 'M0.42,0.5 C0.42,0.46 0.58,0.46 0.58,0.5 L0.58,1 L0.42,1 Z';
+  const RANGE_ARCH     = 'M0,0.3 L0.16,0.06 L0.84,0.06 L1,0.3 L1,1 L0,1 Z';
+  const rangeClipPaths = [document.querySelector('#rangeArchPath0'), document.querySelector('#rangeArchPath1')];
+
+  gsap.utils.toArray('.range-feature').forEach((block, i) => {
+    const img    = block.querySelector('.arch img');
+    const vis    = block.querySelector('.range-feature-vis');
+    const copy   = block.querySelector('.range-feature-copy');
+    const h3     = block.querySelector('.range-feature-copy h3');
+    const fromX  = i % 2 === 0 ? -36 : 36;
+    const clipEl = rangeClipPaths[i % 2];
+    const clipId = i % 2 === 0 ? 'rangeArchClip0' : 'rangeArchClip1';
+
+    let h3Split = null;
+    if (window.SplitText && h3) {
+      h3Split = new SplitText(h3, { type: 'words' });
+      gsap.set(h3Split.words, { opacity: 0, y: '55%' });
     }
+
+    gsap.set(img,    { clipPath: `url(#${clipId})` });
+    gsap.set(clipEl, { morphSVG: RANGE_SLIVER });
+    gsap.set(vis,    { opacity: 0, x: fromX });
+    gsap.set(copy,   { opacity: 0, y: 28 });
+
+    /* Arch morphs open as the row scrolls into view — same scroll-bound aperture
+       technique as .sig-block, but a sharper/angular silhouette to differentiate
+       this "next tier" showcase from the rounded Signature Lines apertures. */
+    gsap.to(clipEl, {
+      morphSVG: RANGE_ARCH, ease: 'none',
+      scrollTrigger: { trigger: block, start: 'top 95%', end: 'top 35%', scrub: .6 }
+    });
+
+    ScrollTrigger.create({
+      trigger: block, start: 'top 80%', once: true,
+      onEnter: () => {
+        const tl = gsap.timeline();
+        tl.to(vis, {
+            opacity: 1, x: 0, duration: .85, ease: 'power3.out',
+            onComplete: () => gsap.set(vis, { clearProps: 'opacity,transform' })
+          })
+          .to(copy, {
+            opacity: 1, y: 0, duration: .75, ease: 'power3.out',
+            onComplete: () => gsap.set(copy, { clearProps: 'opacity,transform' })
+          }, '<.12');
+        if (h3Split) {
+          tl.to(h3Split.words, {
+            opacity: 1, y: '0%', duration: .65, stagger: .055, ease: 'power3.out',
+            onComplete: () => gsap.set(h3Split.words, { clearProps: 'all' })
+          }, '<');
+        }
+      }
+    });
+
+    gsap.to(img, {
+      yPercent: -7, ease: 'none',
+      scrollTrigger: { trigger: block, start: 'top bottom', end: 'bottom top', scrub: .8 }
+    });
   });
 
   /* ---- FINISHES STRIP: cascading scale-in + SplitText label reveal ---- */
