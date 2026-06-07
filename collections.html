@@ -533,6 +533,34 @@ footer {
 }
 
 /* ================================================================
+   COLLECTIONS PAGE — ARCH IMAGE FRAME (shared)
+================================================================ */
+.arch {
+  border-radius: 50% 50% 10px 10px / 26% 26% 10px 10px;
+  overflow: hidden;
+  position: relative;
+  background: var(--cream);
+}
+.arch img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* ================================================================
+   COLLECTIONS PAGE — SIGNATURE LINES
+================================================================ */
+.sig-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  margin-bottom: 88px;
+}
+.sig-block:last-child { margin-bottom: 0; }
+.sig-vis .arch { aspect-ratio: 4/3; }
+.sig-vis img { transition: transform .9s cubic-bezier(.2,.6,.2,1); }
+.sig-block:hover .sig-vis img { transform: scale(1.05); }
+.sig-copy h3 { font-weight: 400; font-size: clamp(36px, 4.4vw, 54px); line-height: 1; margin: 14px 0 18px; }
+.sig-copy p { color: var(--soft); max-width: 440px; margin-bottom: 26px; }
+
+/* ================================================================
    PAGE-SPECIFIC CSS — ADD ABOVE THIS LINE
 ================================================================ */
 </style>
@@ -649,6 +677,42 @@ footer {
       <div class="eyebrow">A Range, Considered</div>
       <h2 class="serif">Fifty years of brass, <em>poured into thirteen lines.</em></h2>
       <p>From the everyday Cube to the sculptural Aliva, every IPM collection is designed, machined and finished under one roof — solid brass, never plated zinc, in sixteen hand-perfected finishes.</p>
+    </div>
+  </div>
+</section>
+
+<div class="sec-divider"><span></span></div>
+
+<!-- ===== SIGNATURE LINES ===== -->
+<section class="sec sig-section">
+  <div class="wrap">
+    <div class="sec-title reveal">
+      <div class="eyebrow">Signature Lines</div>
+      <h2 class="serif">Two collections, <em>defined by detail.</em></h2>
+    </div>
+
+    <div class="sig-block reveal-left">
+      <div class="sig-vis">
+        <div class="arch"><img src="images/home/line-aliva.jpg" alt="Aliva collection — sculpted brass fittings"></div>
+      </div>
+      <div class="sig-copy">
+        <div class="e eyebrow">Signature Line</div>
+        <h3 class="serif">Aliva</h3>
+        <p>Soft, sculptural curves and a satin-smooth hand-finish — Aliva brings a quiet, contemporary warmth to faucets, showers and accessories alike.</p>
+        <a href="#" class="link-arrow">Discover Aliva</a>
+      </div>
+    </div>
+
+    <div class="sig-block reveal-right">
+      <div class="sig-copy">
+        <div class="e eyebrow">Signature Line</div>
+        <h3 class="serif">Opell Prima</h3>
+        <p>Sharp geometry and a confident, architectural silhouette — Opell Prima is built for spaces that favour clean lines and considered detail.</p>
+        <a href="#" class="link-arrow">Discover Opell Prima</a>
+      </div>
+      <div class="sig-vis">
+        <div class="arch"><img src="images/home/line-opell-prima.jpg" alt="Opell Prima collection — geometric brass fittings"></div>
+      </div>
     </div>
   </div>
 </section>
