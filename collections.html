@@ -1450,7 +1450,7 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
     });
   });
 
-  /* ---- FULL RANGE — PART B: pinned, scroll-scrubbed morphing index ---- */
+  /* ---- FULL RANGE — PART B: pinned, scroll-scrubbed crossfading index ---- */
   const rangeIndex = document.querySelector('.range-index');
   if (rangeIndex && window.matchMedia('(min-width: 861px)').matches) {
     const items      = gsap.utils.toArray('.range-index-item');
@@ -1458,42 +1458,59 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
     const indexClip  = document.querySelector('#rangeIndexPath');
     const n          = items.length;
 
-    /* Three-shape cycle echoing the brand's geometric vocabulary; consecutive
-       collections always land on a different shape so the morph reads clearly. */
-    const SHAPE_CIRCLE = 'M0.5,0 C0.78,0 1,0.22 1,0.5 C1,0.78 0.78,1 0.5,1 C0.22,1 0,0.78 0,0.5 C0,0.22 0.22,0 0.5,0 Z';
-    const SHAPE_ARCH   = 'M0,0.3 L0.16,0.06 L0.84,0.06 L1,0.3 L1,1 L0,1 Z';
-    const SHAPE_HEX    = 'M0.5,0 L1,0.27 L1,0.73 L0.5,1 L0,0.73 L0,0.27 Z';
-    const shapeCycle   = [SHAPE_CIRCLE, SHAPE_ARCH, SHAPE_HEX];
+    /* Constant viewport silhouette — the crossfade alone carries the transition,
+       so the shape stays put as a stable "frame" for every collection. */
+    const SHAPE_STAGE = 'M0.5,0 C0.78,0 1,0.22 1,0.5 C1,0.78 0.78,1 0.5,1 C0.22,1 0,0.78 0,0.5 C0,0.22 0.22,0 0.5,0 Z';
+    gsap.set(indexClip, { morphSVG: SHAPE_STAGE });
 
-    gsap.set(indexClip, { morphSVG: shapeCycle[0] });
+    let shownIdx  = 0;   // collection currently rendered on the stage
+    let activeIdx = 0;   // collection the scroll position calls active
+    let hovering  = false;
 
-    const master = gsap.timeline({
-      scrollTrigger: {
-        trigger: rangeIndex,
-        start: 'top top',
-        end: () => `+=${n * 260}`,
-        scrub: .7,
-        pin: true,
-        anticipatePin: 1
+    const setActiveClass = idx => items.forEach((it, k) => it.classList.toggle('is-active', k === idx));
+
+    /* Crossfade the stage to a given collection, alternating which <img>
+       fades in/out so the outgoing frame stays visible during the blend. */
+    const showCollection = (idx, dur) => {
+      if (idx === shownIdx) return;
+      const incoming = stageImgs[(shownIdx + 1) % 2];
+      const outgoing = stageImgs[shownIdx % 2];
+      incoming.setAttribute('src', items[idx].dataset.img);
+      incoming.setAttribute('alt', items[idx].dataset.alt);
+      gsap.to(outgoing, { opacity: 0, scale: 1.05, duration: dur, ease: 'power2.inOut' });
+      gsap.to(incoming, { opacity: 1, scale: 1,    duration: dur, ease: 'power2.inOut' });
+      shownIdx = idx;
+    };
+
+    ScrollTrigger.create({
+      trigger: rangeIndex,
+      start: 'top top',
+      end: () => `+=${n * 260}`,
+      scrub: .7,
+      pin: true,
+      anticipatePin: 1,
+      onUpdate: self => {
+        activeIdx = Math.min(n - 1, Math.round(self.progress * (n - 1)));
+        if (!hovering) {
+          setActiveClass(activeIdx);
+          showCollection(activeIdx, .9);
+        }
       }
     });
 
-    for (let idx = 1; idx < n; idx++) {
-      const segmentLabel = `to${idx}`;
-      master.addLabel(segmentLabel, idx - 1);
-
-      master.to(indexClip, { morphSVG: shapeCycle[idx % shapeCycle.length], duration: 1, ease: 'power2.inOut' }, segmentLabel);
-
-      master.to(stageImgs[(idx - 1) % 2], { opacity: 0, scale: 1.05, duration: 1, ease: 'power2.inOut' }, segmentLabel);
-      master.set(stageImgs[idx % 2], { attr: { src: items[idx].dataset.img, alt: items[idx].dataset.alt } }, segmentLabel);
-      master.to(stageImgs[idx % 2], { opacity: 1, scale: 1, duration: 1, ease: 'power2.inOut' }, segmentLabel);
-    }
-
-    /* Returning upward through the pinned section reverses the active state too. */
-    master.eventCallback('onUpdate', () => {
-      const p = master.progress();
-      const active = Math.min(n - 1, Math.round(p * (n - 1)));
-      items.forEach((it, k) => it.classList.toggle('is-active', k === active));
+    /* Hovering a list item previews its image via the same crossfade language;
+       leaving restores whatever the scroll position currently calls active. */
+    items.forEach((item, idx) => {
+      item.addEventListener('mouseenter', () => {
+        hovering = true;
+        setActiveClass(idx);
+        showCollection(idx, .5);
+      });
+      item.addEventListener('mouseleave', () => {
+        hovering = false;
+        setActiveClass(activeIdx);
+        showCollection(activeIdx, .5);
+      });
     });
   }
 
