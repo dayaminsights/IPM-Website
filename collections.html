@@ -196,7 +196,11 @@ body:has(button:hover) #cursor-ring { width: 52px; height: 52px; opacity: 0.85; 
   content: ''; position: absolute; top: 0; left: -100%; width: 60%; height: 100%;
   background: linear-gradient(90deg, transparent, rgba(196,155,90,.08), transparent);
   animation: utilShimmer 6s linear infinite;
+  animation-play-state: running;
 }
+body.tab-hidden .util::after,
+body.tab-hidden .util .mid-inner,
+body.tab-hidden #grain { animation-play-state: paused; }
 @keyframes utilShimmer { to { left: 200%; } }
 .util-in {
   display: flex; align-items: center; justify-content: space-between;
@@ -567,8 +571,9 @@ footer {
   margin-bottom: 88px;
 }
 .sig-block:last-child { margin-bottom: 0; }
-.sig-vis .arch { aspect-ratio: 4/3; }
+.sig-vis .arch { aspect-ratio: 4/3; transition: transform .4s cubic-bezier(.2,.6,.2,1); will-change: transform; }
 .sig-vis img { transition: filter .7s cubic-bezier(.2,.6,.2,1); }
+.sig-block:hover .sig-vis .arch { transform: scale(1.03); }
 .sig-block:hover .sig-vis img { filter: brightness(1.05) saturate(1.12); }
 .sig-copy h3 { font-weight: 400; font-size: clamp(36px, 4.4vw, 54px); line-height: 1; margin: 14px 0 18px; }
 .sig-copy p { color: var(--soft); max-width: 440px; margin-bottom: 26px; }
@@ -585,7 +590,7 @@ footer {
 }
 .range-feature:last-of-type { margin-bottom: 0; }
 .range-feature .arch { aspect-ratio: 4/3; }
-.range-feature .arch img { transform: scale(1.18); transform-origin: 50% 50%; }
+.range-feature .arch img { transform: scale(1.18); transform-origin: 50% 50%; will-change: transform; }
 .range-feature-copy .eyebrow { display: flex; align-items: center; gap: 10px; }
 .range-feature-copy .eyebrow::before { display: none; }
 .range-feature-copy .eyebrow .mark {
@@ -1180,15 +1185,21 @@ btns.forEach(b => b.addEventListener('click', () => applyTheme(b.dataset.theme))
 ================================================================ */
 const dot  = document.getElementById('cursor-dot');
 const ring = document.getElementById('cursor-ring');
-let rx = 0, ry = 0, mx = -200, my = -200;
+let rx = 0, ry = 0, mx = -200, my = -200, cursorRaf = null;
 function moveCursor() {
   rx += (mx - rx) * 0.14; ry += (my - ry) * 0.14;
   dot.style.left  = mx + 'px'; dot.style.top  = my + 'px';
   ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-  requestAnimationFrame(moveCursor);
+  cursorRaf = requestAnimationFrame(moveCursor);
 }
+function startCursor() { if (!cursorRaf && !document.hidden) moveCursor(); }
+function stopCursor()  { if (cursorRaf) { cancelAnimationFrame(cursorRaf); cursorRaf = null; } }
 document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-moveCursor();
+document.addEventListener('visibilitychange', () => {
+  document.body.classList.toggle('tab-hidden', document.hidden);
+  document.hidden ? stopCursor() : startCursor();
+});
+startCursor();
 
 /* ================================================================
    HEADER SYNC (transparent over dark hero, opaque elsewhere)
