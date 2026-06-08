@@ -1738,8 +1738,14 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
      viewport never leaves the emblem landing in the wrong spot. ---- */
   const miiHero = document.querySelector('.mii-hero');
   const miiDest = document.querySelector('.mii');
+  // .mii is a flex column: the chakra <svg> (68px) stacked above a wordmark
+  // and subtitle. The watermark should morph into the *icon*, not the whole
+  // labelled block — measuring .mii's full rect made the landing size/shape
+  // include the text, so the emblem visibly didn't match the static logo's
+  // actual dimensions. Measure the <svg> itself for size and position.
+  const miiDestIcon = miiDest ? miiDest.querySelector('svg') : null;
 
-  if (miiHero && miiDest) {
+  if (miiHero && miiDest && miiDestIcon) {
     let originX = 0, originY = 0, targetX = 0, targetY = 0, targetScale = 1;
 
     // The watermark is authored white to read against the hero's dark scrim,
@@ -1754,7 +1760,7 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
 
     function measureMiiJourney() {
       const heroRect = miiHero.getBoundingClientRect();
-      const destRect = miiDest.getBoundingClientRect();
+      const destRect = miiDestIcon.getBoundingClientRect();
       // Anchor everything to the emblem's current on-screen centre so the
       // computed deltas remain valid regardless of scroll position at measure time.
       originX = heroRect.left + heroRect.width  / 2;
