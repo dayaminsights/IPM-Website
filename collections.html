@@ -587,6 +587,7 @@ footer {
 .range-feature .arch { aspect-ratio: 4/3; }
 .range-feature .arch img { transform: scale(1.18); transform-origin: 50% 50%; }
 .range-feature-copy .eyebrow { display: flex; align-items: center; gap: 10px; }
+.range-feature-copy .eyebrow::before { display: none; }
 .range-feature-copy .eyebrow .mark {
   display: inline-block; width: 9px; height: 9px;
   border: 1px solid var(--gold); transform: rotate(45deg);
@@ -686,6 +687,7 @@ footer {
   .sig-block { grid-template-columns: 1fr; gap: 28px; margin-bottom: 56px; }
   .sig-block .sig-vis { order: -1; }
   .range-feature { grid-template-columns: 1fr; gap: 24px; margin-bottom: 52px; }
+  .range-feature .range-feature-vis { order: -1; }
   .range-index { grid-template-columns: 1fr; gap: 0; padding: 0; }
   .range-index-stage { display: none; }
   .range-index-item { border-bottom: none; padding: 0; }
