@@ -665,6 +665,59 @@ footer {
 @keyframes heroFadeUp { to { opacity: 1; transform: none; } }
 @keyframes wordReveal { to { opacity: 1; transform: none; } }
 
+/* Make in India — hero watermark emblem (decorative, static placement) */
+.mii-hero-stage {
+  position: relative;
+  /* No overflow set — this is the whole point: it sizes to wrap .about-hero
+     (a block-level section, so the stage's box matches the hero's box 1:1)
+     and gives .mii-hero the same `top/right` positioning context the hero
+     used to provide, but without clipping the emblem's flight path. */
+}
+.mii-hero {
+  position: absolute;
+  top: 50%; right: clamp(-120px, -6vw, -40px);
+  transform: translateY(-50%);
+  width: clamp(340px, 30vw, 440px);
+  height: clamp(340px, 30vw, 440px);
+  color: rgba(255,255,255,.5);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  animation: heroFadeUp 1.6s cubic-bezier(.2,.6,.2,1) .6s forwards;
+}
+.mii-hero-svg {
+  display: block; width: 100%; height: 100%; opacity: .4;
+  /* A flat watermark colour reads against either a busy hero photo or a
+     flat cream section, but not both — so it visually "vanishes" somewhere
+     along the journey regardless of hue-matching. A two-sided halo (dark +
+     light glow) keeps the silhouette legible against any background it
+     crosses, independent of the underlying scene. */
+  filter:
+    drop-shadow(0 0 14px rgba(0,0,0,.35))
+    drop-shadow(0 0 3px rgba(255,255,255,.5));
+}
+.about-hero .e,
+.about-hero h1,
+.about-hero .sub,
+.about-hero .mii-hero-tag { position: relative; z-index: 1; }
+.about-hero .mii-hero-tag {
+  display: inline-flex; align-items: center;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px; letter-spacing: .3em; text-transform: uppercase;
+  color: rgba(255,255,255,.6);
+  margin-top: 18px;
+  opacity: 0; transform: translateY(14px);
+  animation: heroFadeUp .9s cubic-bezier(.2,.6,.2,1) 1.5s forwards;
+}
+.about-hero .mii-hero-tag::before {
+  content: '';
+  display: inline-block;
+  width: 16px; height: 1px;
+  background: var(--gold-2);
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
 /* ================================================================
    GENERATIONS TIMELINE  (vertical, fill-up spine)
 ================================================================ */
@@ -975,6 +1028,8 @@ footer {
   .nav-left { display: none; }
   .about-hero .copy { padding: 0 28px; }
   .about-hero h1 { font-size: clamp(44px, 10vw, 80px); }
+  .mii-hero { width: clamp(220px, 56vw, 320px); height: clamp(220px, 56vw, 320px); right: -18vw; }
+  .mii-hero-svg { opacity: .3; }
   .gen-section, .sec { padding-top: 64px; padding-bottom: 64px; }
   .gen-head { padding-left: 28px; padding-right: 28px; }
   .tl { grid-template-columns: 1fr; row-gap: 34px; padding-left: 28px; padding-right: 28px; }
@@ -987,6 +1042,9 @@ footer {
   .cta-card { padding: 48px 28px; }
   .cta-actions { flex-direction: column; align-items: flex-start; }
   .about-hero { border-radius: 0 0 28px 28px; }
+}
+@media (max-width: 520px) {
+  .mii-hero { display: none; }
 }
 </style>
 </head>
@@ -1040,9 +1098,17 @@ footer {
 </header>
 
 <!-- ===== HERO ===== -->
+<!-- .mii-hero-stage wraps the hero and the travelling watermark together: it
+     gives .mii-hero a positioning context that visually overlays the hero
+     (so the emblem starts in the same spot as before) WITHOUT the hero's own
+     `overflow: hidden` clipping it once GSAP starts moving it toward the
+     destination. The stage itself sets no overflow, so the emblem can freely
+     cross the hero's edges as it travels. -->
+<div class="mii-hero-stage">
 <section class="about-hero" data-header-scheme="dark">
   <img src="images/home/heritage-poster.jpg" alt="IPM Bath Fittings Heritage" id="heroImg">
   <div class="scrim"></div>
+
   <div class="copy">
     <span class="e">Est. 1966 &nbsp;·&nbsp; Four Generations of Craft</span>
     <h1>
@@ -1051,9 +1117,56 @@ footer {
       <span class="word"><span>Heritage</span></span>
     </h1>
     <p class="sub">Six decades of precision, passion, and a promise to every Indian home.</p>
+    <span class="mii-hero-tag">A proud contributor to the Make in India movement</span>
   </div>
 </section>
 
+<!-- Make in India emblem — hero watermark, travels into the Superior Quality
+     emblem on scroll. Lives OUTSIDE .about-hero on purpose: that section has
+     `overflow: hidden` for its rounded corners, and an absolutely-positioned
+     descendant gets clipped the instant GSAP starts moving it toward the
+     destination — which is what made it "disappear right at the start." As a
+     sibling positioned against the page (not the hero), its scroll-relative
+     coordinate math (see the GSAP block near the end of body) is unaffected,
+     and nothing clips its flight path. -->
+<div class="mii-hero" aria-hidden="true">
+  <svg class="mii-hero-svg" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <!-- Ashoka Chakra emblem — outer seal ring -->
+    <circle cx="32" cy="32" r="30" fill="none" stroke="currentColor" stroke-width="1.3"/>
+    <!-- Chakra rim -->
+    <circle cx="32" cy="32" r="25.5" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    <!-- 24 spokes -->
+    <g stroke="currentColor" stroke-width="0.9">
+      <line x1="32" y1="8" x2="32" y2="28" transform="rotate(0 32 32)"/>
+      <line x1="32" y1="8" x2="32" y2="28" transform="rotate(15 32 32)"/>
+      <line x1="32" y1="8" x2="32" y2="28" transform="rotate(30 32 32)"/>
+      <line x1="32" y1="8" x2="32" y2="28" transform="rotate(45 32 32)"/>
+      <line x1="32" y1="8" x2="32" y2="28" transform="rotate(60 32 32)"/>
+      <line x1="32" y1="8" x2="32" y2="28" transform="rotate(75 32 32)"/>
+      <line x1="32" y1="8" x2="32" y2="28" transform="rotate(90 32 32)"/>
+      <line x1="32" y1="8" x2="32" y2="28" transform="rotate(105 32 32)"/>
+      <line x1="32" y1="8" x2="32" y2="28" transform="rotate(120 32 32)"/>
+      <line x1="32" y1="8" x2="32" y2="28" transform="rotate(135 32 32)"/>
+      <line x1="32" y1="8" x2="32" y2="28" transform="rotate(150 32 32)"/>
+      <line x1="32" y1="8" x2="32" y2="28" transform="rotate(165 32 32)"/>
+      <line x1="32" y1="8" x2="32" y2="28" transform="rotate(180 32 32)"/>
+      <line x1="32" y1="8" x2="32" y2="28" transform="rotate(195 32 32)"/>
+      <line x1="32" y1="8" x2="32" y2="28" transform="rotate(210 32 32)"/>
+      <line x1="32" y1="8" x2="32" y2="28" transform="rotate(225 32 32)"/>
+      <line x1="32" y1="8" x2="32" y2="28" transform="rotate(240 32 32)"/>
+      <line x1="32" y1="8" x2="32" y2="28" transform="rotate(255 32 32)"/>
+      <line x1="32" y1="8" x2="32" y2="28" transform="rotate(270 32 32)"/>
+      <line x1="32" y1="8" x2="32" y2="28" transform="rotate(285 32 32)"/>
+      <line x1="32" y1="8" x2="32" y2="28" transform="rotate(300 32 32)"/>
+      <line x1="32" y1="8" x2="32" y2="28" transform="rotate(315 32 32)"/>
+      <line x1="32" y1="8" x2="32" y2="28" transform="rotate(330 32 32)"/>
+      <line x1="32" y1="8" x2="32" y2="28" transform="rotate(345 32 32)"/>
+    </g>
+    <!-- Hub -->
+    <circle cx="32" cy="32" r="3.4" fill="currentColor"/>
+  </svg>
+</div>
+</div><!-- /.mii-hero-stage -->
 
 <!-- ===== FOUR GENERATIONS — VERTICAL TIMELINE ===== -->
 <section class="gen-section">
@@ -1437,6 +1550,10 @@ footer {
 <!-- ===== BACK TO TOP ===== -->
 <button id="backTop" class="back-top" aria-label="Back to top" hidden>&#8593;</button>
 
+<!-- GSAP + ScrollTrigger — scroll-driven motion for this page only -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+
 <script>
 /* ================================================================
    THEME TOGGLE
@@ -1603,6 +1720,125 @@ function onScroll() {
 window.addEventListener('scroll', () => {
   if (!scrollRaf) { scrollRaf = true; requestAnimationFrame(onScroll); }
 }, { passive: true });
+
+/* ================================================================
+   PAGE-SPECIFIC JS — ADD BELOW THIS LINE
+================================================================ */
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (!reduceMotion && window.gsap && window.ScrollTrigger) {
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* ---- MII SCROLL MORPH: the hero "Make in India" watermark spins clockwise and
+     travels — translating, scaling down, and fading — into the small static emblem
+     in the Superior Quality header, crossfading so the journey reads as one
+     continuous object rather than two separate emblems. The scroll range spans from
+     the top of the hero to the top-centre of the comparison strip; destination
+     coordinates are measured live (and re-measured on refresh) so resizing the
+     viewport never leaves the emblem landing in the wrong spot. ---- */
+  const miiHero = document.querySelector('.mii-hero');
+  const miiDest = document.querySelector('.mii');
+  // .mii is a flex column: the chakra <svg> (68px) stacked above a wordmark
+  // and subtitle. The watermark should morph into the *icon*, not the whole
+  // labelled block — measuring .mii's full rect made the landing size/shape
+  // include the text, so the emblem visibly didn't match the static logo's
+  // actual dimensions. Measure the <svg> itself for size and position.
+  const miiDestIcon = miiDest ? miiDest.querySelector('svg') : null;
+
+  if (miiHero && miiDest && miiDestIcon) {
+    let originX = 0, originY = 0, targetX = 0, targetY = 0, targetScale = 1;
+
+    // The watermark is authored white to read against the hero's dark scrim,
+    // but the journey ends over the cream Superior Quality background — white
+    // on cream is invisible. Interpolate toward --ink (the destination
+    // emblem's own colour token) as the emblem crosses the hero's lower edge.
+    // Read the custom property directly rather than .mii's computed colour:
+    // .mii has `transition: color .28s`, so its computed value lags mid-switch;
+    // the custom property itself flips instantly when [data-theme] changes.
+    const heroTone = 'rgba(255,255,255,.5)';
+    function destTone() { return getComputedStyle(document.documentElement).getPropertyValue('--ink').trim(); }
+
+    function measureMiiJourney() {
+      const heroRect = miiHero.getBoundingClientRect();
+      const destRect = miiDestIcon.getBoundingClientRect();
+      // Anchor everything to the emblem's current on-screen centre so the
+      // computed deltas remain valid regardless of scroll position at measure time.
+      originX = heroRect.left + heroRect.width  / 2;
+      originY = heroRect.top  + heroRect.height / 2;
+      targetX = (destRect.left + destRect.width  / 2) - originX;
+      targetY = (destRect.top  + destRect.height / 2) - originY;
+      targetScale = destRect.width / heroRect.width;
+    }
+    measureMiiJourney();
+
+    // Destination starts at a soft, half-visible state and resolves to full
+    // opacity only as the travelling watermark "becomes" it.
+    gsap.set(miiDest, { opacity: .35 });
+
+    // The hero emblem's CSS entrance (heroFadeUp) keeps "running" indefinitely
+    // under its forwards fill-mode, which would otherwise win the cascade and
+    // stomp GSAP's inline transform every frame. Strip it once it's done so the
+    // scroll morph can drive opacity/transform cleanly via inline styles.
+    miiHero.style.animation = 'none';
+    gsap.set(miiHero, { opacity: 1, transformOrigin: '50% 50%', force3D: true });
+
+    const miiTrigger = ScrollTrigger.create({
+      trigger: '.about-hero',
+      // .about-hero carries a negative top margin that pulls it above the
+      // document's natural scroll-0 position, so "top top" would already read
+      // as ~5% progress on load. Anchor to the page's actual top instead (a
+      // function so it's re-resolved on refresh/resize), so the watermark
+      // rests at its CSS-authored position until scrolling actually begins.
+      start: () => 'top top+=' + (document.querySelector('.about-hero').getBoundingClientRect().top + window.scrollY),
+      endTrigger: '.p-compare',
+      end: 'top center',
+      scrub: .6,
+      onRefresh: measureMiiJourney,
+      onUpdate(self) { renderMii(self.progress); }
+    });
+
+    // Render the morph at a given scroll progress `p`. Pulled out of onUpdate
+    // so a theme switch (which doesn't fire a scroll event) can re-render at
+    // the trigger's current progress with the freshly-resolved ink colour.
+    function renderMii(p) {
+      // Crossfade across the final ~25% of the journey: the travelling
+      // watermark dissolves while the static emblem resolves to full strength.
+      const fadeP = gsap.utils.clamp(0, 1, (p - .72) / .28);
+
+      // Recolour across the hero's lower edge: the emblem physically crosses
+      // from the dark hero photo onto the cream .p-compare/.p-timeline
+      // background around p≈0.32-0.36 (measured via getBoundingClientRect
+      // vs .about-hero's bottom edge). A wide ramp leaves it pale-grey for a
+      // long stretch — exactly the worst contrast against BOTH a dark photo
+      // and a light backdrop, which is what made it seem to vanish at the
+      // seam. Snap white→ink quickly (.28→.38), timed to finish just as it
+      // clears the photo, so it's never caught mid-grey on the boundary.
+      const colorP = gsap.utils.clamp(0, 1, (p - .28) / .1);
+      const colorNow = colorP <= 0 ? heroTone : gsap.utils.interpolate(heroTone, destTone())(colorP);
+
+      // Spin clockwise (left→right), translate, and scale down continuously —
+      // then fade out as the crossfade window opens.
+      gsap.set(miiHero, {
+        rotation: p * 360,
+        x: targetX * p,
+        y: targetY * p,
+        scale: gsap.utils.interpolate(1, targetScale, p),
+        opacity: 1 - fadeP,
+        color: colorNow
+      });
+      gsap.set(miiDest, { opacity: gsap.utils.interpolate(.35, 1, fadeP) });
+    }
+
+    // Theme can be switched without scrolling. A direct renderMii() call here
+    // gets clobbered on the next tick by the scrub tween re-rendering its last
+    // scroll position — so defer our re-render to land just after that, on the
+    // following animation frame, so it's the one that sticks.
+    // Theme can be switched without scrolling — re-render at the trigger's
+    // current progress so the morph's recolour target tracks --ink live.
+    new MutationObserver(() => renderMii(miiTrigger.progress))
+      .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  }
+}
 </script>
 </body>
 </html>
