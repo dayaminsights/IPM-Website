@@ -156,6 +156,7 @@ a { color: inherit; text-decoration: none; }
   z-index: 10000;
   transform: translate(-50%,-50%);
   transition: width .2s, height .2s, opacity .2s;
+  will-change: transform;
 }
 #cursor-ring {
   position: fixed;
@@ -168,6 +169,7 @@ a { color: inherit; text-decoration: none; }
   transform: translate(-50%,-50%);
   transition: width .35s cubic-bezier(.2,.6,.2,1), height .35s cubic-bezier(.2,.6,.2,1), opacity .35s, border-color .35s;
   opacity: 0.55;
+  will-change: transform;
 }
 body:has(a:hover) #cursor-ring,
 body:has(button:hover) #cursor-ring {
@@ -590,7 +592,6 @@ footer {
   object-fit: cover;
   transform: scale(1.05);
   transition: transform 10s cubic-bezier(.2,0,.2,1);
-  will-change: transform;
 }
 .about-hero img.loaded { transform: scale(1.0) translateY(0); }
 .about-hero .scrim {
@@ -1584,10 +1585,8 @@ let mx = -200, my = -200;
 function moveCursor() {
   rx += (mx - rx) * 0.14;
   ry += (my - ry) * 0.14;
-  dot.style.left  = mx + 'px';
-  dot.style.top   = my + 'px';
-  ring.style.left = rx + 'px';
-  ring.style.top  = ry + 'px';
+  dot.style.transform  = `translate(${mx}px, ${my}px) translate(-50%,-50%)`;
+  ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
   requestAnimationFrame(moveCursor);
 }
 document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
@@ -1631,28 +1630,42 @@ revealEls.forEach(el => revObs.observe(el));
    HERO IMAGE — LOAD ZOOM + SCROLL PARALLAX
 ================================================================ */
 const heroImg = document.getElementById('heroImg');
-if (heroImg.complete) {
+function startHeroZoom() {
+  heroImg.style.willChange = 'transform';
   heroImg.classList.add('loaded');
+  heroImg.addEventListener('transitionend', () => {
+    if (!parallaxStarted) heroImg.style.willChange = '';
+  }, { once: true });
+}
+if (heroImg.complete) {
+  startHeroZoom();
 } else {
-  heroImg.addEventListener('load', () => heroImg.classList.add('loaded'));
+  heroImg.addEventListener('load', startHeroZoom);
 }
 
 const aboutHero = document.querySelector('.about-hero');
 let parallaxStarted = false;
+let heroInView = true;
+let heroH = aboutHero ? aboutHero.offsetHeight : 0;
+window.addEventListener('resize', () => { if (aboutHero) heroH = aboutHero.offsetHeight; }, { passive: true });
 
-function updateParallax() {
-  if (!aboutHero) return;
+if (aboutHero) {
+  new IntersectionObserver(entries => {
+    heroInView = entries[0].isIntersecting;
+  }, { rootMargin: '200px 0px' }).observe(aboutHero);
+}
+
+function updateParallax(scrolled) {
+  if (!aboutHero || !heroInView) return;
   if (!parallaxStarted) {
     parallaxStarted = true;
     heroImg.style.transition = 'none';
+    heroImg.style.willChange = 'transform';
   }
-  const scrolled = window.scrollY;
-  const heroH = aboutHero.offsetHeight;
   if (scrolled < heroH) {
-    heroImg.style.transform = `scale(1.0) translateY(${scrolled * 0.26}px)`;
+    heroImg.style.transform = `translateY(${scrolled * 0.26}px)`;
   }
 }
-window.addEventListener('scroll', updateParallax, { passive: true });
 
 /* ================================================================
    GENERATION TIMELINE
@@ -1712,6 +1725,7 @@ let scrollRaf = false;
 function onScroll() {
   const y = window.scrollY;
   syncHeader();
+  updateParallax(y);
   backTop.hidden = y < 600;
   if (y > 400) floatCta.hidden = false;
   else if (floatPanel.hidden) floatCta.hidden = true;

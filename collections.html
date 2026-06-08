@@ -638,7 +638,7 @@ footer {
 .range-index-stage .stage-img {
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: cover; clip-path: url(#rangeIndexClip);
-  opacity: 0;
+  opacity: 0; will-change: opacity, transform;
 }
 .range-index-stage .stage-img.is-active { opacity: 1; }
 
@@ -1161,7 +1161,6 @@ footer {
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/MorphSVGPlugin.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/Flip.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.23/dist/lenis.min.js"></script>
 
 <script>
@@ -1192,7 +1191,8 @@ function moveCursor() {
   ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
   cursorRaf = requestAnimationFrame(moveCursor);
 }
-function startCursor() { if (!cursorRaf && !document.hidden) moveCursor(); }
+const hasHoverCursor = window.matchMedia('(hover: hover)').matches;
+function startCursor() { if (!cursorRaf && !document.hidden && hasHoverCursor) moveCursor(); }
 function stopCursor()  { if (cursorRaf) { cancelAnimationFrame(cursorRaf); cursorRaf = null; } }
 document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
 document.addEventListener('visibilitychange', () => {
@@ -1292,7 +1292,7 @@ window.addEventListener('scroll', () => {
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 if (!reduceMotion && window.gsap && window.ScrollTrigger) {
-  gsap.registerPlugin(ScrollTrigger, MorphSVGPlugin, SplitText, Flip);
+  gsap.registerPlugin(ScrollTrigger, MorphSVGPlugin, SplitText);
 
   /* ---- LENIS: inertial smooth scroll, proxied into ScrollTrigger ---- */
   let lenis;
@@ -1511,7 +1511,7 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
       gsap.set(stageImgs[1], { opacity: 0, scale: 1.05 });
     };
 
-    ScrollTrigger.create({
+    const indexTrigger = ScrollTrigger.create({
       trigger: rangeIndex,
       start: 'top top',
       end: () => `+=${n * 260}`,
@@ -1520,13 +1520,23 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
       anticipatePin: 1,
       onUpdate: self => {
         lastProgress = self.progress;
-        activeIdx = Math.min(n - 1, Math.round(lastProgress * (n - 1)));
+        const idx = Math.min(n - 1, Math.round(lastProgress * (n - 1)));
+        const idxChanged = idx !== activeIdx;
+        activeIdx = idx;
         if (hoverIdx === null) {
-          setActiveClass(activeIdx);
+          if (idxChanged) setActiveClass(activeIdx);
           renderSegment(lastProgress);
         }
       }
     });
+
+    /* Guard against a stale pin on a now-hidden element if the viewport is
+       resized/rotated below the breakpoint where CSS switches to the mobile
+       card fallback (.range-index gets display:none at ≤860px). */
+    const desktopMq = window.matchMedia('(min-width: 861px)');
+    const handleBreakpointChange = e => { if (!e.matches) indexTrigger.kill(); };
+    if (desktopMq.addEventListener) desktopMq.addEventListener('change', handleBreakpointChange);
+    else desktopMq.addListener(handleBreakpointChange);
 
     /* Hovering a list item previews its image instantly; leaving restores
        whatever the scroll position currently calls active. */

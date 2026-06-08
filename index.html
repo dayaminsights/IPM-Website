@@ -123,7 +123,10 @@ a { color: inherit; text-decoration: none; }
   border-radius: 50%;
   pointer-events: none;
   z-index: 10000;
-  transform: translate(-50%,-50%);
+  top: 0;
+  left: 0;
+  transform: translate3d(0,0,0) translate(-50%,-50%);
+  will-change: transform;
   transition: width .2s, height .2s, opacity .2s;
 }
 #cursor-ring {
@@ -134,7 +137,10 @@ a { color: inherit; text-decoration: none; }
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
-  transform: translate(-50%,-50%);
+  top: 0;
+  left: 0;
+  transform: translate3d(0,0,0) translate(-50%,-50%);
+  will-change: transform;
   transition: width .35s cubic-bezier(.2,.6,.2,1), height .35s cubic-bezier(.2,.6,.2,1), opacity .35s, border-color .35s;
   opacity: 0.55;
 }
@@ -2566,7 +2572,16 @@ function stopAutoScroll(ms) {
   caroEl._rt = setTimeout(() => { caroAutoPlay = true; }, ms || 3000);
 }
 
-startAutoScroll();
+function pauseAutoScroll() {
+  if (!caroTimer) return;
+  clearInterval(caroTimer);
+  caroTimer = null;
+}
+
+const caroVisibilityObs = new IntersectionObserver(entries => {
+  entries.forEach(e => e.isIntersecting ? startAutoScroll() : pauseAutoScroll());
+}, { threshold: 0 });
+caroVisibilityObs.observe(caroEl);
 
 /* ================================================================
    INSTAGRAM COLLAGE — random picks, new image swapped on each flip
@@ -2676,15 +2691,13 @@ let ringX = 0, ringY = 0;
 document.addEventListener('mousemove', e => {
   mouseX = e.clientX;
   mouseY = e.clientY;
-  dot.style.left  = mouseX + 'px';
-  dot.style.top   = mouseY + 'px';
-});
+  dot.style.transform = `translate3d(${mouseX}px,${mouseY}px,0) translate(-50%,-50%)`;
+}, { passive: true });
 
 function animateRing() {
   ringX += (mouseX - ringX) * 0.12;
   ringY += (mouseY - ringY) * 0.12;
-  ring.style.left = ringX + 'px';
-  ring.style.top  = ringY + 'px';
+  ring.style.transform = `translate3d(${ringX}px,${ringY}px,0) translate(-50%,-50%)`;
   requestAnimationFrame(animateRing);
 }
 animateRing();
@@ -2714,19 +2727,9 @@ const schemeObs = new IntersectionObserver(entries => {
 document.querySelectorAll('[data-header-scheme]').forEach(s => schemeObs.observe(s));
 
 function syncHeader() {
-  const midY = headerH() / 2;
-  const sections = [...document.querySelectorAll('[data-header-scheme]')];
-  let active = sections[0];
-  for (const s of sections) {
-    if (s.getBoundingClientRect().top <= midY) active = s;
-  }
-  header.dataset.header = active?.dataset.headerScheme === 'dark' ? 'over-dark' : '';
-  // Scroll shadow
-  if (window.scrollY > 10) {
-    header.classList.add('scrolled');
-  } else {
-    header.classList.remove('scrolled');
-  }
+  // Scheme (light/dark) is handled by schemeObs (IntersectionObserver) above —
+  // avoid a redundant getBoundingClientRect() sweep here on every scroll frame.
+  header.classList.toggle('scrolled', window.scrollY > 10);
 }
 syncHeader();
 
