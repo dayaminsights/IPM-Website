@@ -1422,7 +1422,7 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
       gsap.set(h3Split.words, { opacity: 0, y: '55%' });
     }
 
-    gsap.set(img,    { clipPath: `url(#${clipId})` });
+    gsap.set(img,    { clipPath: `url(#${clipId})`, scale: 1.15, transformOrigin: '50% 50%' });
     gsap.set(clipEl, { morphSVG: RANGE_SLIVER });
     gsap.set(vis,    { opacity: 0, x: fromX });
     gsap.set(copy,   { opacity: 0, y: 28 });
@@ -1443,6 +1443,10 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
             opacity: 1, x: 0, duration: .85, ease: 'power3.out',
             onComplete: () => gsap.set(vis, { clearProps: 'opacity,transform' })
           })
+          .to(img, {
+            scale: 1, duration: 1.1, ease: 'power3.out',
+            onComplete: () => gsap.set(img, { clearProps: 'scale,transformOrigin' })
+          }, '<')
           .to(copy, {
             opacity: 1, y: 0, duration: .75, ease: 'power3.out',
             onComplete: () => gsap.set(copy, { clearProps: 'opacity,transform' })
