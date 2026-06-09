@@ -1437,32 +1437,39 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
     gsap.set(vis,    { opacity: 0, x: fromX });
     gsap.set(copy,   { opacity: 0, y: 28 });
 
-    /* Aperture scrubs open exactly like sig-blocks: scroll-bound, reversible. */
+    /* Aperture scrubs open exactly like sig-blocks: scroll-bound, reversible.
+       clipPath stays on img so the reverse-scrub can close it on scroll-up. */
     gsap.to(clipEl, {
       morphSVG: RANGE_FULL, ease: 'none',
       scrollTrigger: { trigger: block, start: 'top 95%', end: 'top 30%', scrub: .6 }
     });
 
+    let enterTl = null;
     ScrollTrigger.create({
-      trigger: block, start: 'top 78%', once: true,
+      trigger: block, start: 'top 78%',
       onEnter: () => {
-        const tl = gsap.timeline();
-        tl.to(vis, {
-            opacity: 1, x: 0, duration: .9, ease: 'power3.out',
-            onComplete: () => gsap.set(vis, { clearProps: 'opacity,transform' })
-          })
-          .to(img, {
-            scale: 1, duration: 1.2, ease: 'power3.out',
-            onComplete: () => gsap.set(img, { clearProps: 'scale,transformOrigin,clipPath' })
-          }, '<')
-          .to(copy, {
-            opacity: 1, y: 0, duration: .8, ease: 'power3.out',
-            onComplete: () => gsap.set(copy, { clearProps: 'opacity,transform' })
-          }, '<.15');
+        if (enterTl) enterTl.kill();
+        enterTl = gsap.timeline();
+        enterTl
+          .to(vis, { opacity: 1, x: 0, duration: .9, ease: 'power3.out' })
+          .to(img, { scale: 1, duration: 1.2, ease: 'power3.out' }, '<')
+          .to(copy, { opacity: 1, y: 0, duration: .8, ease: 'power3.out' }, '<.15');
         if (h3Split) {
-          tl.to(h3Split.words, {
-            opacity: 1, y: '0%', duration: .7, stagger: .06, ease: 'power3.out',
-            onComplete: () => gsap.set(h3Split.words, { clearProps: 'all' })
+          enterTl.to(h3Split.words, {
+            opacity: 1, y: '0%', duration: .7, stagger: .06, ease: 'power3.out'
+          }, '<');
+        }
+      },
+      onLeaveBack: () => {
+        if (enterTl) enterTl.kill();
+        enterTl = gsap.timeline();
+        enterTl
+          .to(vis,  { opacity: 0, x: fromX, duration: .5, ease: 'power2.in' })
+          .to(copy, { opacity: 0, y: 28,    duration: .4, ease: 'power2.in' }, '<')
+          .to(img,  { scale: 1.18,           duration: .5, ease: 'power2.in' }, '<');
+        if (h3Split) {
+          enterTl.to(h3Split.words, {
+            opacity: 0, y: '55%', duration: .35, stagger: .04, ease: 'power2.in'
           }, '<');
         }
       }
