@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Option A — Cinematic Pin Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink: #1a1712;
+  --soft: #6b6558;
+  --gold: #c49b5a;
+  --gold-2: #a97c3a;
+  --cream: #f5f0e8;
+  --line: rgba(0,0,0,.1);
+  --line-2: rgba(0,0,0,.06);
+  --bg: #faf8f4;
+  --paper: #fff;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 300vh;
+}
+
+/* ---- SPACER sections to give scroll context ---- */
+.spacer {
+  height: 60vh;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px; color: var(--soft);
+  border-bottom: 1px solid var(--line-2);
+  letter-spacing: .04em;
+}
+
+/* ---- LABEL ---- */
+.option-label {
+  position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+  z-index: 999;
+  background: var(--ink); color: #fff;
+  font-family: 'DM Sans', sans-serif; font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  padding: 8px 20px; border-radius: 20px;
+  pointer-events: none;
+}
+
+/* ================================================================
+   OPTION A — FULL-BLEED CINEMATIC PIN
+================================================================ */
+.index-a {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* LEFT: list panel */
+.index-a-list-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 64px 80px 80px;
+  position: relative;
+  z-index: 2;
+  background: var(--bg);
+}
+.index-a-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 48px;
+}
+.index-a-label::before {
+  content: ''; display: inline-block;
+  width: 24px; height: 1px; background: var(--gold);
+  vertical-align: middle; margin-right: 10px;
+}
+
+.index-a-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line-2);
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+.index-a-item:first-child { border-top: 1px solid var(--line-2); }
+
+/* Gold bar that expands on active */
+.index-a-item::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--gold);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform .5s cubic-bezier(.16,1,.3,1);
+}
+.index-a-item.is-active::before { transform: scaleY(1); }
+
+.index-a-num {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; letter-spacing: .1em;
+  color: var(--soft); opacity: .45;
+  min-width: 28px;
+  transition: opacity .4s;
+}
+.index-a-item.is-active .index-a-num { opacity: 1; color: var(--gold); }
+
+.index-a-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 3vw, 42px);
+  font-weight: 400;
+  color: var(--soft);
+  transition: color .45s cubic-bezier(.2,.6,.2,1),
+              transform .45s cubic-bezier(.2,.6,.2,1),
+              font-size .45s cubic-bezier(.2,.6,.2,1);
+  line-height: 1;
+}
+.index-a-item.is-active .index-a-name {
+  color: var(--ink);
+  transform: translateX(10px);
+  font-size: clamp(34px, 3.8vw, 52px);
+}
+
+/* RIGHT: full-bleed image panel */
+.index-a-image-panel {
+  position: relative;
+  overflow: hidden;
+}
+.index-a-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity .8s cubic-bezier(.2,.6,.2,1),
+              transform 1.4s cubic-bezier(.2,.6,.2,1);
+  will-change: opacity, transform;
+}
+.index-a-img.is-active {
+  opacity: 1;
+  transform: scale(1.0);
+}
+
+/* Large watermark collection number */
+.index-a-watermark {
+  position: absolute;
+  bottom: 40px; left: -20px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(120px, 18vw, 200px);
+  font-weight: 300;
+  color: rgba(255,255,255,.12);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  transition: opacity .5s;
+  letter-spacing: -.02em;
+  z-index: 2;
+}
+
+/* Gold rule that draws across the bottom of active item */
+.index-a-rule {
+  position: absolute; bottom: 0; left: 28px;
+  height: 1px; background: var(--gold);
+  width: 0;
+  transition: width .6s cubic-bezier(.16,1,.3,1);
+}
+.index-a-item.is-active .index-a-rule { width: calc(100% - 28px); }
+
+/* Overlay gradient on image for luxury depth */
+.index-a-image-panel::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(250,248,244,.18) 0%,
+    transparent 30%
+  ), linear-gradient(
+    to top,
+    rgba(26,23,18,.45) 0%,
+    transparent 50%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Collection name on image (bottom-left of image panel) */
+.index-a-image-label {
+  position: absolute;
+  bottom: 40px; right: 48px;
+  z-index: 3;
+  text-align: right;
+}
+.index-a-image-label .coll-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(22px, 2.4vw, 32px);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(255,255,255,.9);
+  display: block;
+  transition: opacity .5s;
+}
+.index-a-image-label .coll-tagline {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(255,255,255,.55);
+  display: block; margin-top: 6px;
+  transition: opacity .5s;
+}
+
+/* scroll indicator */
+.scroll-hint {
+  text-align: center; padding: 20px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--soft); opacity: .5;
+}
+</style>
+</head>
+<body>
+
+<div class="option-label">Option A — Cinematic Pin (Scroll to interact)</div>
+
+<div class="spacer">↓ Scroll down to reach the section</div>
+
+<!-- OPTION A -->
+<div class="index-a" id="indexA">
+
+  <!-- LEFT: list -->
+  <div class="index-a-list-panel">
+    <div class="index-a-label">The Full Range</div>
+
+    <div class="index-a-item is-active" data-idx="0">
+      <span class="index-a-num">01</span>
+      <span class="index-a-name">Flora</span>
+      <span class="index-a-rule"></span>
+    </div>
+    <div class="index-a-item" data-idx="1">
+      <span class="index-a-num">02</span>
+      <span class="index-a-name">JP</span>
+      <span class="index-a-rule"></span>
+    </div>
+    <div class="index-a-item" data-idx="2">
+      <span class="index-a-num">03</span>
+      <span class="index-a-name">Premium</span>
+      <span class="index-a-rule"></span>
+    </div>
+    <div class="index-a-item" data-idx="3">
+      <span class="index-a-num">04</span>
+      <span class="index-a-name">Para Collection</span>
+      <span class="index-a-rule"></span>
+    </div>
+    <div class="index-a-item" data-idx="4">
+      <span class="index-a-num">05</span>
+      <span class="index-a-name">Allied</span>
+      <span class="index-a-rule"></span>
+    </div>
+    <div class="index-a-item" data-idx="5">
+      <span class="index-a-num">06</span>
+      <span class="index-a-name">Zenith</span>
+      <span class="index-a-rule"></span>
+    </div>
+    <div class="index-a-item" data-idx="6">
+      <span class="index-a-num">07</span>
+      <span class="index-a-name">Square Brass</span>
+      <span class="index-a-rule"></span>
+    </div>
+    <div class="index-a-item" data-idx="7">
+      <span class="index-a-num">08</span>
+      <span class="index-a-name">Round Brass</span>
+      <span class="index-a-rule"></span>
+    </div>
+  </div>
+
+  <!-- RIGHT: full-bleed image -->
+  <div class="index-a-image-panel">
+    <img class="index-a-img is-active" src="images/home/cat-coloured.jpg"   alt="Flora">
+    <img class="index-a-img"           src="images/home/cat-faucets.jpg"    alt="JP">
+    <img class="index-a-img"           src="images/home/cat-mixers.jpg"     alt="Premium">
+    <img class="index-a-img"           src="images/home/cat-showers.jpg"    alt="Para Collection">
+    <img class="index-a-img"           src="images/home/cat-faucets.jpg"    alt="Allied">
+    <img class="index-a-img"           src="images/home/cat-coloured.jpg"   alt="Zenith">
+    <img class="index-a-img"           src="images/home/cat-accessories.jpg" alt="Square Brass">
+    <img class="index-a-img"           src="images/home/cat-accessories.jpg" alt="Round Brass">
+
+    <div class="index-a-watermark" id="watermarkA">01</div>
+
+    <div class="index-a-image-label">
+      <span class="coll-name" id="imageNameA">Flora</span>
+      <span class="coll-tagline">Solid brass · 16 finishes</span>
+    </div>
+  </div>
+</div>
+
+<div class="spacer" style="margin-top:0;">↑ Scroll back up to replay</div>
+
+<script>
+/* Pure hover/click preview — no GSAP needed for prototype */
+const items   = document.querySelectorAll('.index-a-item');
+const imgs    = document.querySelectorAll('.index-a-img');
+const wmk     = document.getElementById('watermarkA');
+const nameEl  = document.getElementById('imageNameA');
+
+const names = ['Flora','JP','Premium','Para Collection','Allied','Zenith Collections','Square Brass Acc.','Round Brass Acc.'];
+
+function setActive(idx) {
+  items.forEach((it, k) => it.classList.toggle('is-active', k === idx));
+  imgs.forEach((img, k)  => img.classList.toggle('is-active', k === idx));
+  wmk.textContent = String(idx + 1).padStart(2, '0');
+  nameEl.textContent = names[idx];
+}
+
+/* Hover to preview */
+items.forEach((item, idx) => {
+  item.addEventListener('mouseenter', () => setActive(idx));
+});
+
+/* Auto-cycle to demonstrate scroll behaviour */
+let cur = 0;
+const cycle = setInterval(() => {
+  cur = (cur + 1) % items.length;
+  setActive(cur);
+}, 1800);
+
+document.getElementById('indexA').addEventListener('mouseenter', () => clearInterval(cycle));
+</script>
+</body>
+</html>
