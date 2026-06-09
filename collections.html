@@ -601,32 +601,101 @@ footer {
 .range-feature-copy p { color: var(--soft); max-width: 420px; margin-bottom: 24px; }
 
 /* ================================================================
-   COLLECTIONS PAGE — FULL RANGE: BANNER + GRID INDEX (Part B)
+   COLLECTIONS PAGE — FULL RANGE: EDITORIAL INDEX (Part B)
+   Inspired by Hermès / Poltrona Frau catalogue layout:
+   left panel = all names always visible, right panel = full image.
 ================================================================ */
-
-/* Break out of .wrap to bleed full viewport width */
 .range-index {
-  margin-left:  calc(-1 * (50vw - 50%));
-  margin-right: calc(-1 * (50vw - 50%));
+  display: grid;
+  grid-template-columns: 38fr 62fr;
+  min-height: 560px;
+  border: 1px solid var(--line-2);
+  border-radius: 4px;
+  overflow: hidden;
 }
 
-/* ---- Full-bleed cinematic banner ---- */
-.range-index-banner {
+/* ---- LEFT: names list panel ---- */
+.ri-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px 48px 48px 0;
+  border-right: 1px solid var(--line-2);
   position: relative;
-  width: 100%;
-  aspect-ratio: 21 / 7;
+}
+
+/* Eyebrow above the list */
+.ri-list-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 32px;
+  display: flex; align-items: center; gap: 10px;
+}
+.ri-list-eyebrow::before {
+  content: ''; display: block;
+  width: 20px; height: 1px; background: var(--gold); flex-shrink: 0;
+}
+
+/* Each collection row */
+.ri-item {
+  display: flex; align-items: baseline; gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line-2);
+  cursor: default;
+  position: relative;
+  transition: background .2s;
+}
+.ri-item:first-of-type { border-top: 1px solid var(--line-2); }
+
+/* Gold left accent bar */
+.ri-item::before {
+  content: '';
+  position: absolute; left: -48px; top: 0; bottom: 0;
+  width: 2px; background: var(--gold);
+  transform: scaleY(0); transform-origin: bottom;
+  transition: transform .5s cubic-bezier(.16,1,.3,1);
+}
+.ri-item.is-active::before { transform: scaleY(1); }
+
+.ri-item-num {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px; letter-spacing: .1em;
+  color: var(--soft); opacity: .35; min-width: 24px;
+  transition: opacity .4s, color .4s;
+}
+.ri-item.is-active .ri-item-num { opacity: 1; color: var(--gold); }
+
+.ri-item-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(18px, 2vw, 26px);
+  font-weight: 400; line-height: 1; color: var(--soft);
+  transition: color .4s cubic-bezier(.2,.6,.2,1),
+              transform .4s cubic-bezier(.2,.6,.2,1),
+              font-size .4s cubic-bezier(.2,.6,.2,1);
+  flex: 1;
+}
+.ri-item.is-active .ri-item-name {
+  color: var(--ink);
+  transform: translateX(6px);
+  font-size: clamp(22px, 2.4vw, 32px);
+}
+
+/* Small descriptor that fades in on active */
+.ri-item-desc {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; color: var(--soft); opacity: 0;
+  letter-spacing: .02em; text-align: right;
+  transition: opacity .45s;
+  max-width: 130px;
+}
+.ri-item.is-active .ri-item-desc { opacity: .55; }
+
+/* ---- RIGHT: full-height image panel ---- */
+.ri-stage {
+  position: relative;
   overflow: hidden;
   background: var(--cream);
-  cursor: default;
-}
-
-/* Dark gradient: heavier vignette at edges for arrow legibility */
-.range-index-banner::after {
-  content: '';
-  position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background:
-    linear-gradient(to bottom, transparent 25%, rgba(18,14,8,.65) 100%),
-    linear-gradient(to right,  rgba(18,14,8,.55) 0%, transparent 22%, transparent 78%, rgba(18,14,8,.55) 100%);
+  min-height: 460px;
 }
 
 .stage-img {
@@ -634,165 +703,69 @@ footer {
   width: 100%; height: 100%;
   object-fit: cover;
   opacity: 0;
-  transform: scale(1.04);
-  transition: opacity .9s cubic-bezier(.2,.6,.2,1),
-              transform 2s cubic-bezier(.2,.6,.2,1);
+  transform: scale(1.06);
+  transition: opacity 1s cubic-bezier(.2,.6,.2,1),
+              transform 1.8s cubic-bezier(.2,.6,.2,1);
   will-change: opacity, transform;
 }
 .stage-img.is-active { opacity: 1; transform: scale(1); }
 
-/* Subtle directional nudge when an arrow zone is hovered */
-.range-index-banner.nudge-left  .stage-img.is-active { transform: scale(1.03) translateX(-0.8%); }
-.range-index-banner.nudge-right .stage-img.is-active { transform: scale(1.03) translateX( 0.8%); }
-
-/* ---- Collection name overlay (bottom-left) ---- */
-.range-index-banner-label {
-  position: absolute; bottom: 32px; left: 72px; z-index: 3;
-  display: flex; align-items: flex-end; gap: 18px;
-  pointer-events: none;
-}
-.range-index-active-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(38px, 5.2vw, 68px);
-  font-weight: 300; font-style: italic;
-  color: rgba(255,255,255,.93); line-height: 1;
-  transition: opacity .4s;
-}
-.range-index-active-sub {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 11px; letter-spacing: .15em; text-transform: uppercase;
-  color: rgba(255,255,255,.42); padding-bottom: 8px;
-}
-
-/* ---- Navigation arrows — editorial hairline style ---- */
-.ri-arrow {
-  position: absolute; top: 0; bottom: 0; z-index: 4;
-  width: 22%; display: flex; align-items: center;
-  cursor: pointer;
-}
-.ri-arrow-prev { left: 0;  justify-content: flex-start; padding-left: 36px; }
-.ri-arrow-next { right: 0; justify-content: flex-end;   padding-right: 36px; }
-
-.ri-arrow-inner {
-  display: flex; align-items: center; gap: 0;
-  opacity: 0;
-  transition: opacity .4s cubic-bezier(.2,.6,.2,1);
-}
-.ri-arrow:hover .ri-arrow-inner { opacity: 1; }
-
-/* The hairline — a thin SVG line that extends on hover */
-.ri-arrow-line {
-  display: block; height: 1px;
-  background: rgba(255,255,255,.7);
-  width: 32px;
-  transition: width .5s cubic-bezier(.16,1,.3,1);
-  flex-shrink: 0;
-}
-.ri-arrow:hover .ri-arrow-line { width: 64px; }
-
-/* Arrowhead — tiny SVG drawn with CSS borders, not an icon */
-.ri-arrow-head {
-  width: 8px; height: 8px;
-  border-top:    1px solid rgba(255,255,255,.7);
-  border-right:  1px solid rgba(255,255,255,.7);
-  flex-shrink: 0;
-  transition: transform .35s cubic-bezier(.16,1,.3,1),
-              border-color .35s;
-}
-.ri-arrow:hover .ri-arrow-head { border-color: rgba(255,255,255,1); }
-
-/* Prev: point left; Next: point right */
-.ri-arrow-prev .ri-arrow-head { transform: rotate(-135deg); margin-right: -4px; }
-.ri-arrow-next .ri-arrow-head { transform: rotate(45deg);   margin-left:  -4px; }
-
-/* Nudge arrowhead forward on hover */
-.ri-arrow-prev:hover .ri-arrow-head { transform: rotate(-135deg) translate(-3px, 3px); }
-.ri-arrow-next:hover .ri-arrow-head { transform: rotate(45deg)   translate( 3px, 3px); }
-
-/* Prev: line grows leftward; reverse inner for correct order */
-.ri-arrow-prev .ri-arrow-inner { flex-direction: row-reverse; }
-.ri-arrow-prev .ri-arrow-head  { margin-right: 0; margin-left: -4px; }
-.ri-arrow-prev:hover .ri-arrow-head { transform: rotate(-135deg) translate(3px, -3px); }
-
-/* Collection counter — top-right of banner */
-.ri-counter {
-  position: absolute; top: 28px; right: 40px; z-index: 3;
-  font-family: 'DM Sans', sans-serif; font-size: 11px;
-  letter-spacing: .12em; color: rgba(255,255,255,.4);
-  pointer-events: none;
-}
-.ri-counter .ri-cur { color: rgba(255,255,255,.85); }
-
-/* ---- Progress bar ---- */
-.range-index-progress {
-  width: 100%; height: 2px;
-  background: rgba(0,0,0,.08);
-}
-[data-theme="dark"] .range-index-progress { background: rgba(255,255,255,.06); }
-.range-index-progress-fill {
-  height: 100%; background: var(--gold);
-  transition: width .55s cubic-bezier(.4,0,.2,1);
-  width: 12.5%;
-}
-
-/* ---- 2×4 grid of tabs (full-bleed, flush under banner) ---- */
-.range-index-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border-left: 1px solid var(--line-2);
-  border-bottom: 1px solid var(--line-2);
-}
-.range-index-tab {
-  border-right: 1px solid var(--line-2);
-  border-top: 1px solid var(--line-2);
-  padding: 22px 28px 20px;
-  cursor: default;
-  position: relative;
-  background: var(--bg);
-  transition: background .25s;
-  overflow: hidden;
-}
-.range-index-tab:hover { background: color-mix(in srgb, var(--gold) 5%, var(--bg)); }
-
-/* Gold top-bar draws in on active */
-.range-index-tab::before {
+/* Gradient over image — bottom-left for collection name legibility */
+.ri-stage::after {
   content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: var(--gold);
-  transform: scaleX(0); transform-origin: left;
-  transition: transform .5s cubic-bezier(.16,1,.3,1);
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    linear-gradient(to top,   rgba(18,14,8,.72) 0%, transparent 50%),
+    linear-gradient(to right, rgba(18,14,8,.3)  0%, transparent 40%);
 }
-.range-index-tab.is-active::before { transform: scaleX(1); }
 
-.range-index-tab .tab-num {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 10px; letter-spacing: .1em;
-  color: var(--soft); opacity: .38;
-  display: block; margin-bottom: 8px;
-  transition: color .35s, opacity .35s;
-}
-.range-index-tab.is-active .tab-num { opacity: 1; color: var(--gold); }
-
-.range-index-tab .tab-name {
+/* Large ghost name watermark behind image content */
+.ri-watermark {
+  position: absolute; bottom: -10px; right: -8px; z-index: 2;
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(15px, 1.5vw, 20px);
-  font-weight: 400; color: var(--soft); line-height: 1.2;
-  display: block;
-  transition: color .35s cubic-bezier(.2,.6,.2,1),
-              transform .35s cubic-bezier(.2,.6,.2,1);
+  font-size: clamp(80px, 12vw, 160px);
+  font-weight: 300; font-style: italic;
+  color: rgba(255,255,255,.07);
+  line-height: 1; pointer-events: none; user-select: none;
+  white-space: nowrap;
+  transition: opacity .5s;
 }
-.range-index-tab.is-active .tab-name { color: var(--ink); transform: translateY(-2px); }
 
-.range-index-tab .tab-dot {
-  display: inline-block;
+/* Active name + tagline bottom-left of image */
+.ri-image-label {
+  position: absolute; bottom: 28px; left: 32px; z-index: 3;
+  pointer-events: none;
+}
+.ri-image-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 3.2vw, 44px);
+  font-weight: 300; font-style: italic;
+  color: rgba(255,255,255,.9); line-height: 1; display: block;
+  transition: opacity .35s;
+}
+.ri-image-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(255,255,255,.4); display: block; margin-top: 8px;
+}
+
+/* Progress dots — bottom-right of image */
+.ri-dots {
+  position: absolute; bottom: 32px; right: 28px; z-index: 3;
+  display: flex; gap: 6px; align-items: center;
+  pointer-events: none;
+}
+.ri-dot {
   width: 4px; height: 4px; border-radius: 50%;
-  background: var(--gold); margin-top: 10px;
-  opacity: 0; transform: scale(0);
-  transition: opacity .4s, transform .4s cubic-bezier(.16,1,.3,1);
+  background: rgba(255,255,255,.28);
+  transition: background .4s, transform .4s cubic-bezier(.16,1,.3,1);
 }
-.range-index-tab.is-active .tab-dot { opacity: 1; transform: scale(1); }
+.ri-dot.is-active {
+  background: var(--gold);
+  transform: scale(1.5);
+}
 
-/* Mobile: hide grid, show cards */
+/* Mobile: hide the editorial layout, show stacked cards */
 .range-index-mobile { display: none; }
 @media (max-width: 860px) {
   .range-index { display: none; }
@@ -1097,90 +1070,82 @@ footer {
 
     <div class="range-index">
 
-      <!-- Wide cinematic banner -->
-      <div class="range-index-banner" aria-hidden="true">
-        <img class="stage-img is-active" src="images/home/cat-coloured.jpg"    alt="">
-        <img class="stage-img"           src="images/home/cat-faucets.jpg"     alt="">
-        <img class="stage-img"           src="images/home/cat-mixers.jpg"      alt="">
-        <img class="stage-img"           src="images/home/cat-showers.jpg"     alt="">
-        <img class="stage-img"           src="images/home/cat-faucets.jpg"     alt="">
-        <img class="stage-img"           src="images/home/cat-coloured.jpg"    alt="">
-        <img class="stage-img"           src="images/home/cat-accessories.jpg" alt="">
-        <img class="stage-img"           src="images/home/cat-accessories.jpg" alt="">
-        <!-- Prev arrow -->
-        <div class="ri-arrow ri-arrow-prev" id="riPrev" aria-label="Previous collection">
-          <div class="ri-arrow-inner">
-            <span class="ri-arrow-line"></span>
-            <span class="ri-arrow-head"></span>
-          </div>
-        </div>
+      <!-- LEFT: editorial names list -->
+      <div class="ri-list">
+        <div class="ri-list-eyebrow">Also in the Range</div>
 
-        <!-- Next arrow -->
-        <div class="ri-arrow ri-arrow-next" id="riNext" aria-label="Next collection">
-          <div class="ri-arrow-inner">
-            <span class="ri-arrow-line"></span>
-            <span class="ri-arrow-head"></span>
-          </div>
+        <div class="ri-item is-active" data-idx="0">
+          <span class="ri-item-num">01</span>
+          <span class="ri-item-name serif">Flora</span>
+          <span class="ri-item-desc">Coloured brass fittings</span>
         </div>
-
-        <!-- Counter -->
-        <div class="ri-counter">
-          <span class="ri-cur" id="riCur">01</span>
-          <span> / 08</span>
+        <div class="ri-item" data-idx="1">
+          <span class="ri-item-num">02</span>
+          <span class="ri-item-name serif">JP</span>
+          <span class="ri-item-desc">Classic proportions</span>
         </div>
-
-        <div class="range-index-banner-label">
-          <span class="range-index-active-name" id="riBannerName">Flora</span>
-          <span class="range-index-active-sub">Solid brass · 16 finishes</span>
+        <div class="ri-item" data-idx="2">
+          <span class="ri-item-num">03</span>
+          <span class="ri-item-name serif">Premium</span>
+          <span class="ri-item-desc">Elevated everyday</span>
+        </div>
+        <div class="ri-item" data-idx="3">
+          <span class="ri-item-num">04</span>
+          <span class="ri-item-name serif">Para Collection</span>
+          <span class="ri-item-desc">Shower-focused range</span>
+        </div>
+        <div class="ri-item" data-idx="4">
+          <span class="ri-item-num">05</span>
+          <span class="ri-item-name serif">Allied</span>
+          <span class="ri-item-desc">Complementary pieces</span>
+        </div>
+        <div class="ri-item" data-idx="5">
+          <span class="ri-item-num">06</span>
+          <span class="ri-item-name serif">Zenith Collections</span>
+          <span class="ri-item-desc">Peak craftsmanship</span>
+        </div>
+        <div class="ri-item" data-idx="6">
+          <span class="ri-item-num">07</span>
+          <span class="ri-item-name serif">Square Brass Accessories</span>
+          <span class="ri-item-desc">Geometric detailing</span>
+        </div>
+        <div class="ri-item" data-idx="7">
+          <span class="ri-item-num">08</span>
+          <span class="ri-item-name serif">Round Brass Accessories</span>
+          <span class="ri-item-desc">Soft-form detailing</span>
         </div>
       </div>
 
-      <!-- Progress bar -->
-      <div class="range-index-progress">
-        <div class="range-index-progress-fill" id="riProgressFill"></div>
-      </div>
+      <!-- RIGHT: full-height image stage -->
+      <div class="ri-stage">
+        <img class="stage-img is-active" src="images/home/cat-coloured.jpg"    alt="Flora collection">
+        <img class="stage-img"           src="images/home/cat-faucets.jpg"     alt="JP collection">
+        <img class="stage-img"           src="images/home/cat-mixers.jpg"      alt="Premium collection">
+        <img class="stage-img"           src="images/home/cat-showers.jpg"     alt="Para Collection">
+        <img class="stage-img"           src="images/home/cat-faucets.jpg"     alt="Allied collection">
+        <img class="stage-img"           src="images/home/cat-coloured.jpg"    alt="Zenith Collections">
+        <img class="stage-img"           src="images/home/cat-accessories.jpg" alt="Square Brass Accessories">
+        <img class="stage-img"           src="images/home/cat-accessories.jpg" alt="Round Brass Accessories">
 
-      <!-- 2×4 grid selector -->
-      <div class="range-index-grid">
-        <div class="range-index-tab is-active" data-img="images/home/cat-coloured.jpg"    data-name="Flora">
-          <span class="tab-num">01</span>
-          <span class="tab-name serif">Flora</span>
-          <span class="tab-dot" aria-hidden="true"></span>
+        <!-- Ghost watermark -->
+        <div class="ri-watermark" id="riWatermark">Flora</div>
+
+        <!-- Active name label -->
+        <div class="ri-image-label">
+          <span class="ri-image-name" id="riImageName">Flora</span>
+          <span class="ri-image-sub">Solid brass · 16 finishes</span>
         </div>
-        <div class="range-index-tab" data-img="images/home/cat-faucets.jpg"     data-name="JP">
-          <span class="tab-num">02</span>
-          <span class="tab-name serif">JP</span>
-          <span class="tab-dot" aria-hidden="true"></span>
-        </div>
-        <div class="range-index-tab" data-img="images/home/cat-mixers.jpg"      data-name="Premium">
-          <span class="tab-num">03</span>
-          <span class="tab-name serif">Premium</span>
-          <span class="tab-dot" aria-hidden="true"></span>
-        </div>
-        <div class="range-index-tab" data-img="images/home/cat-showers.jpg"     data-name="Para Collection">
-          <span class="tab-num">04</span>
-          <span class="tab-name serif">Para Collection</span>
-          <span class="tab-dot" aria-hidden="true"></span>
-        </div>
-        <div class="range-index-tab" data-img="images/home/cat-faucets.jpg"     data-name="Allied">
-          <span class="tab-num">05</span>
-          <span class="tab-name serif">Allied</span>
-          <span class="tab-dot" aria-hidden="true"></span>
-        </div>
-        <div class="range-index-tab" data-img="images/home/cat-coloured.jpg"    data-name="Zenith Collections">
-          <span class="tab-num">06</span>
-          <span class="tab-name serif">Zenith Collections</span>
-          <span class="tab-dot" aria-hidden="true"></span>
-        </div>
-        <div class="range-index-tab" data-img="images/home/cat-accessories.jpg" data-name="Square Brass Accessories">
-          <span class="tab-num">07</span>
-          <span class="tab-name serif">Square Brass Accessories</span>
-          <span class="tab-dot" aria-hidden="true"></span>
-        </div>
-        <div class="range-index-tab" data-img="images/home/cat-accessories.jpg" data-name="Round Brass Accessories">
-          <span class="tab-num">08</span>
-          <span class="tab-name serif">Round Brass Accessories</span>
-          <span class="tab-dot" aria-hidden="true"></span>
+
+        <!-- Progress dots -->
+        <div class="ri-dots" aria-hidden="true">
+          <span class="ri-dot is-active"></span>
+          <span class="ri-dot"></span>
+          <span class="ri-dot"></span>
+          <span class="ri-dot"></span>
+          <span class="ri-dot"></span>
+          <span class="ri-dot"></span>
+          <span class="ri-dot"></span>
+          <span class="ri-dot"></span>
         </div>
       </div>
 
@@ -1669,28 +1634,27 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
     });
   });
 
-  /* ---- FULL RANGE — PART B: banner + grid index, auto-cycle + hover + arrows ---- */
-  const riTabs       = gsap.utils.toArray('.range-index-tab');
-  const riImgs       = gsap.utils.toArray('.range-index-banner .stage-img');
-  const riBanner     = document.querySelector('.range-index-banner');
-  const riBannerName = document.getElementById('riBannerName');
-  const riProgress   = document.getElementById('riProgressFill');
-  const riCur        = document.getElementById('riCur');
-  const riPrev       = document.getElementById('riPrev');
-  const riNext       = document.getElementById('riNext');
+  /* ---- FULL RANGE — PART B: editorial left-panel index, auto-cycle + hover ---- */
+  const riItems    = gsap.utils.toArray('.ri-item');
+  const riImgs     = gsap.utils.toArray('.ri-stage .stage-img');
+  const riDots     = gsap.utils.toArray('.ri-dot');
+  const riImageName = document.getElementById('riImageName');
+  const riWatermark = document.getElementById('riWatermark');
 
-  if (riTabs.length) {
-    const n = riTabs.length;
+  const riNames = ['Flora','JP','Premium','Para Collection','Allied','Zenith Collections','Square Brass Accessories','Round Brass Accessories'];
+
+  if (riItems.length) {
+    const n = riItems.length;
     let activeIdx  = 0;
     let cycleTimer = null;
 
     const setActive = idx => {
       activeIdx = (idx + n) % n;
-      riTabs.forEach((t, k) => t.classList.toggle('is-active', k === activeIdx));
+      riItems.forEach((it, k) => it.classList.toggle('is-active', k === activeIdx));
       riImgs.forEach((img, k) => img.classList.toggle('is-active', k === activeIdx));
-      if (riBannerName) riBannerName.textContent = riTabs[activeIdx].dataset.name || '';
-      if (riProgress)   riProgress.style.width = `${((activeIdx + 1) / n) * 100}%`;
-      if (riCur)        riCur.textContent = String(activeIdx + 1).padStart(2, '0');
+      riDots.forEach((dot, k) => dot.classList.toggle('is-active', k === activeIdx));
+      if (riImageName) riImageName.textContent = riNames[activeIdx];
+      if (riWatermark) riWatermark.textContent = riNames[activeIdx];
     };
 
     const startCycle = () => {
@@ -1702,28 +1666,12 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
     setActive(0);
     startCycle();
 
-    /* Tab hover: pause cycle, preview, resume on grid leave */
-    const riGrid = document.querySelector('.range-index-grid');
-    riTabs.forEach((tab, idx) => {
-      tab.addEventListener('mouseenter', () => { stopCycle(); setActive(idx); });
+    /* Item hover: pause cycle, preview; resume on panel leave */
+    const riPanel = document.querySelector('.range-index');
+    riItems.forEach((item, idx) => {
+      item.addEventListener('mouseenter', () => { stopCycle(); setActive(idx); });
     });
-    if (riGrid) riGrid.addEventListener('mouseleave', () => startCycle());
-
-    /* Arrow clicks: step prev/next, restart cycle */
-    if (riPrev) riPrev.addEventListener('click', () => { setActive(activeIdx - 1); startCycle(); });
-    if (riNext) riNext.addEventListener('click', () => { setActive(activeIdx + 1); startCycle(); });
-
-    /* Arrow hover: subtle directional nudge on the active image */
-    if (riBanner) {
-      if (riPrev) {
-        riPrev.addEventListener('mouseenter', () => riBanner.classList.add('nudge-left'));
-        riPrev.addEventListener('mouseleave', () => riBanner.classList.remove('nudge-left'));
-      }
-      if (riNext) {
-        riNext.addEventListener('mouseenter', () => riBanner.classList.add('nudge-right'));
-        riNext.addEventListener('mouseleave', () => riBanner.classList.remove('nudge-right'));
-      }
-    }
+    if (riPanel) riPanel.addEventListener('mouseleave', () => startCycle());
   }
 
   /* ---- FULL RANGE — PART B mobile fallback: per-card reveal with one-shot shape clip ---- */
