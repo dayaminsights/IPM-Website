@@ -604,9 +604,7 @@ footer {
    COLLECTIONS PAGE — FULL RANGE: BANNER + GRID INDEX (Part B)
 ================================================================ */
 .range-index {
-  /* Horizontal padding matches .wrap; vertical gives breathing room above the
-     banner both normally and when GSAP pins it below the 80px nav. */
-  padding: 48px 64px 0;
+  padding: 0 64px 0;
 }
 
 /* Wide cinematic banner */
@@ -1022,6 +1020,11 @@ footer {
     </div>
 
     <!-- Part B: Banner + Grid Index -->
+    <div class="sec-title reveal" style="margin-top:80px">
+      <div class="eyebrow">Also in the Range</div>
+      <h2 class="serif">Eight more collections, <em>same solid brass standard.</em></h2>
+    </div>
+
     <div class="range-index">
 
       <!-- Wide cinematic banner -->
@@ -1574,68 +1577,28 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
     });
   });
 
-  /* ---- FULL RANGE — PART B: banner + grid index, scroll-scrubbed ---- */
-  const rangeIndex   = document.querySelector('.range-index');
+  /* ---- FULL RANGE — PART B: banner + grid index, hover-driven ---- */
   const riTabs       = gsap.utils.toArray('.range-index-tab');
   const riImgs       = gsap.utils.toArray('.range-index-banner .stage-img');
   const riBannerName = document.getElementById('riBannerName');
   const riProgress   = document.getElementById('riProgressFill');
 
-  if (rangeIndex && riTabs.length) {
+  if (riTabs.length) {
     const n = riTabs.length;
-    let activeIdx  = 0;
-    let hoverIdx   = null;
-    let lastProgress = 0;
-
-    /* Swap banner image instantly — CSS transition handles the crossfade. */
-    const showBannerImg = idx => {
-      riImgs.forEach((img, k) => img.classList.toggle('is-active', k === idx));
-    };
+    let activeIdx = 0;
 
     const setActive = idx => {
+      activeIdx = idx;
       riTabs.forEach((t, k) => t.classList.toggle('is-active', k === idx));
-      showBannerImg(idx);
+      riImgs.forEach((img, k) => img.classList.toggle('is-active', k === idx));
       if (riBannerName) riBannerName.textContent = riTabs[idx].dataset.name || '';
       if (riProgress)   riProgress.style.width = `${((idx + 1) / n) * 100}%`;
     };
 
-    /* Initial state */
     setActive(0);
 
-    /* Scroll-scrubbed: pin the section, step through tabs as user scrolls. */
-    const indexTrigger = ScrollTrigger.create({
-      trigger: rangeIndex,
-      start: 'top 80px',   /* pins below the fixed nav, not flush to viewport top */
-      end: () => `+=${n * 220}`,
-      scrub: .6,
-      pin: true,
-      anticipatePin: 1,
-      onUpdate: self => {
-        lastProgress = self.progress;
-        const idx = Math.min(n - 1, Math.round(lastProgress * (n - 1)));
-        if (idx !== activeIdx) {
-          activeIdx = idx;
-          if (hoverIdx === null) setActive(activeIdx);
-        }
-      }
-    });
-
-    /* Guard breakpoint change: kill pin when viewport drops to mobile. */
-    const desktopMq = window.matchMedia('(min-width: 861px)');
-    const onMqChange = e => { if (!e.matches) indexTrigger.kill(); };
-    if (desktopMq.addEventListener) desktopMq.addEventListener('change', onMqChange);
-    else desktopMq.addListener(onMqChange);
-
-    /* Hover to preview; leave to restore scroll-driven active. */
     riTabs.forEach((tab, idx) => {
-      tab.addEventListener('mouseenter', () => {
-        hoverIdx = idx;
-        setActive(idx);
-      });
-      tab.addEventListener('mouseleave', () => {
-        hoverIdx = null;
-        setActive(activeIdx);
-      });
+      tab.addEventListener('mouseenter', () => setActive(idx));
     });
   }
 
