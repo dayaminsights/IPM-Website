@@ -604,7 +604,9 @@ footer {
    COLLECTIONS PAGE — FULL RANGE: BANNER + GRID INDEX (Part B)
 ================================================================ */
 .range-index {
-  padding: 64px 0 0;
+  /* Horizontal padding matches .wrap; vertical gives breathing room above the
+     banner both normally and when GSAP pins it below the 80px nav. */
+  padding: 48px 64px 0;
 }
 
 /* Wide cinematic banner */
@@ -678,10 +680,11 @@ footer {
   padding: 20px 24px 18px;
   cursor: default;
   position: relative;
+  background: var(--bg);
   transition: background .25s;
   overflow: hidden;
 }
-.range-index-tab:hover { background: rgba(196,155,90,.04); }
+.range-index-tab:hover { background: color-mix(in srgb, var(--gold) 5%, var(--bg)); }
 
 /* Gold top-bar draws in on active */
 .range-index-tab::before {
@@ -1602,7 +1605,7 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
     /* Scroll-scrubbed: pin the section, step through tabs as user scrolls. */
     const indexTrigger = ScrollTrigger.create({
       trigger: rangeIndex,
-      start: 'top top',
+      start: 'top 80px',   /* pins below the fixed nav, not flush to viewport top */
       end: () => `+=${n * 220}`,
       scrub: .6,
       pin: true,
