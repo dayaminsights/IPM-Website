@@ -1577,7 +1577,7 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
     });
   });
 
-  /* ---- FULL RANGE — PART B: banner + grid index, hover-driven ---- */
+  /* ---- FULL RANGE — PART B: banner + grid index, auto-cycle + hover ---- */
   const riTabs       = gsap.utils.toArray('.range-index-tab');
   const riImgs       = gsap.utils.toArray('.range-index-banner .stage-img');
   const riBannerName = document.getElementById('riBannerName');
@@ -1586,6 +1586,7 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
   if (riTabs.length) {
     const n = riTabs.length;
     let activeIdx = 0;
+    let cycleTimer = null;
 
     const setActive = idx => {
       activeIdx = idx;
@@ -1595,11 +1596,27 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
       if (riProgress)   riProgress.style.width = `${((idx + 1) / n) * 100}%`;
     };
 
-    setActive(0);
+    const startCycle = () => {
+      stopCycle();
+      cycleTimer = setInterval(() => setActive((activeIdx + 1) % n), 2500);
+    };
 
+    const stopCycle = () => {
+      clearInterval(cycleTimer);
+      cycleTimer = null;
+    };
+
+    setActive(0);
+    startCycle();
+
+    /* Hover pauses the cycle and jumps to that tab; leaving resumes from there. */
+    const riGrid = document.querySelector('.range-index-grid');
     riTabs.forEach((tab, idx) => {
-      tab.addEventListener('mouseenter', () => setActive(idx));
+      tab.addEventListener('mouseenter', () => { stopCycle(); setActive(idx); });
     });
+    if (riGrid) {
+      riGrid.addEventListener('mouseleave', () => startCycle());
+    }
   }
 
   /* ---- FULL RANGE — PART B mobile fallback: per-card reveal with one-shot shape clip ---- */
