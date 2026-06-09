@@ -601,47 +601,127 @@ footer {
 .range-feature-copy p { color: var(--soft); max-width: 420px; margin-bottom: 24px; }
 
 /* ================================================================
-   COLLECTIONS PAGE — FULL RANGE: MORPHING INDEX (Part B)
+   COLLECTIONS PAGE — FULL RANGE: BANNER + GRID INDEX (Part B)
 ================================================================ */
 .range-index {
-  display: grid;
-  grid-template-columns: 0.85fr 1.15fr;
-  gap: 72px;
-  align-items: center;
-  padding: 64px 0;
+  padding: 64px 0 0;
 }
-.range-index-list { display: flex; flex-direction: column; gap: 4px; }
-.range-index-item {
-  display: flex; align-items: baseline; gap: 16px;
-  padding: 14px 0; cursor: default;
+
+/* Wide cinematic banner */
+.range-index-banner {
+  position: relative;
+  width: 100%; aspect-ratio: 21 / 8;
+  overflow: hidden;
+  border-radius: 8px 8px 0 0;
+  background: var(--cream);
+}
+.range-index-banner::after {
+  content: '';
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    linear-gradient(to bottom, transparent 30%, rgba(26,23,18,.6) 100%),
+    linear-gradient(to right,  rgba(26,23,18,.18) 0%, transparent 50%);
+}
+.stage-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity .85s cubic-bezier(.2,.6,.2,1),
+              transform 1.8s cubic-bezier(.2,.6,.2,1);
+  will-change: opacity, transform;
+}
+.stage-img.is-active { opacity: 1; transform: scale(1.0); }
+
+/* Active name + tagline floating over the banner */
+.range-index-banner-label {
+  position: absolute; bottom: 28px; left: 40px; z-index: 2;
+  display: flex; align-items: flex-end; gap: 20px;
+  pointer-events: none;
+}
+.range-index-active-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 300; font-style: italic;
+  color: rgba(255,255,255,.92); line-height: 1;
+  transition: opacity .35s;
+}
+.range-index-active-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(255,255,255,.45);
+  padding-bottom: 7px;
+}
+
+/* Progress bar */
+.range-index-progress {
+  width: 100%; height: 2px;
+  background: var(--line-2);
+}
+.range-index-progress-fill {
+  height: 100%; background: var(--gold);
+  transition: width .5s cubic-bezier(.4,0,.2,1);
+  width: 12.5%;
+}
+
+/* 2×4 grid of tabs */
+.range-index-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-left: 1px solid var(--line-2);
   border-bottom: 1px solid var(--line-2);
 }
-.range-index-item .num {
-  font-family: 'DM Sans', sans-serif; font-size: 12px; letter-spacing: .08em;
-  color: var(--soft); opacity: .55; min-width: 28px;
+.range-index-tab {
+  border-right: 1px solid var(--line-2);
+  border-top: 1px solid var(--line-2);
+  padding: 20px 24px 18px;
+  cursor: default;
+  position: relative;
+  transition: background .25s;
+  overflow: hidden;
 }
-.range-index-item .name {
-  font-size: clamp(20px, 2.4vw, 28px);
-  font-weight: 400; color: var(--soft); transition: color .4s, transform .4s;
-}
-.range-index-item.is-active .name { color: var(--gold); transform: translateX(8px); }
-.range-index-item .underline {
-  display: block; width: 0; height: 1px; background: var(--gold-2);
-  margin-top: 6px; transition: width .4s cubic-bezier(.4,0,.2,1);
-}
-.range-index-item.is-active .underline { width: 48px; }
+.range-index-tab:hover { background: rgba(196,155,90,.04); }
 
-.range-index-stage {
-  position: relative; width: 100%; aspect-ratio: 1/1; max-width: 520px; margin: 0 auto;
+/* Gold top-bar draws in on active */
+.range-index-tab::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--gold);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .5s cubic-bezier(.16,1,.3,1);
 }
-.range-index-stage svg.morph-host { position: absolute; inset: 0; width: 100%; height: 100%; }
-.range-index-stage .stage-img {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; clip-path: url(#rangeIndexClip);
-  opacity: 0; will-change: opacity, transform;
-}
-.range-index-stage .stage-img.is-active { opacity: 1; }
+.range-index-tab.is-active::before { transform: scaleX(1); }
 
+.range-index-tab .tab-num {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px; letter-spacing: .1em;
+  color: var(--soft); opacity: .38;
+  display: block; margin-bottom: 8px;
+  transition: color .35s, opacity .35s;
+}
+.range-index-tab.is-active .tab-num { opacity: 1; color: var(--gold); }
+
+.range-index-tab .tab-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(15px, 1.5vw, 20px);
+  font-weight: 400; color: var(--soft); line-height: 1.2;
+  display: block;
+  transition: color .35s cubic-bezier(.2,.6,.2,1),
+              transform .35s cubic-bezier(.2,.6,.2,1);
+}
+.range-index-tab.is-active .tab-name { color: var(--ink); transform: translateY(-2px); }
+
+.range-index-tab .tab-dot {
+  display: inline-block;
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--gold); margin-top: 10px;
+  opacity: 0; transform: scale(0);
+  transition: opacity .4s, transform .4s cubic-bezier(.16,1,.3,1);
+}
+.range-index-tab.is-active .tab-dot { opacity: 1; transform: scale(1); }
+
+/* Mobile: hide grid, show cards */
 .range-index-mobile { display: none; }
 @media (max-width: 860px) {
   .range-index { display: none; }
@@ -694,16 +774,10 @@ footer {
   .sig-block .sig-vis { order: -1; }
   .range-feature { grid-template-columns: 1fr; gap: 24px; margin-bottom: 52px; }
   .range-feature .range-feature-vis { order: -1; }
-  .range-index { grid-template-columns: 1fr; gap: 0; padding: 0; }
-  .range-index-stage { display: none; }
-  .range-index-item { border-bottom: none; padding: 0; }
   .range-index-card {
     margin-bottom: 36px; padding-bottom: 28px; border-bottom: 1px solid var(--line-2);
   }
   .range-index-card:last-child { margin-bottom: 0; border-bottom: none; }
-  .range-index-card .arch {
-    aspect-ratio: 4/3; margin-top: 14px; clip-path: url(#rangeIndexClip);
-  }
   .finishes-row { gap: 22px 26px; }
   .finish { width: 104px; }
   .cta-close-row { gap: 24px; }
@@ -897,9 +971,6 @@ footer {
     <clipPath id="rangeArchClip2" clipPathUnits="objectBoundingBox">
       <path id="rangeArchPath2" d="M0,0.3 L0.16,0.06 L0.84,0.06 L1,0.3 L1,1 L0,1 Z"/>
     </clipPath>
-    <clipPath id="rangeIndexClip" clipPathUnits="objectBoundingBox">
-      <path id="rangeIndexPath" d="M0.5,0 C0.78,0 1,0.22 1,0.5 C1,0.78 0.78,1 0.5,1 C0.22,1 0,0.78 0,0.5 C0,0.22 0.22,0 0.5,0 Z"/>
-    </clipPath>
   </defs>
 </svg>
 
@@ -947,55 +1018,74 @@ footer {
       </div>
     </div>
 
-    <!-- Part B: Morphing Index -->
+    <!-- Part B: Banner + Grid Index -->
     <div class="range-index">
-      <div class="range-index-list">
-        <div class="range-index-item is-active" data-img="images/home/cat-coloured.jpg" data-alt="Flora collection">
-          <span class="num">01</span>
-          <span class="name serif">Flora</span>
-          <span class="underline" aria-hidden="true"></span>
-        </div>
-        <div class="range-index-item" data-img="images/home/cat-faucets.jpg" data-alt="JP collection">
-          <span class="num">02</span>
-          <span class="name serif">JP</span>
-          <span class="underline" aria-hidden="true"></span>
-        </div>
-        <div class="range-index-item" data-img="images/home/cat-mixers.jpg" data-alt="Premium collection">
-          <span class="num">03</span>
-          <span class="name serif">Premium</span>
-          <span class="underline" aria-hidden="true"></span>
-        </div>
-        <div class="range-index-item" data-img="images/home/cat-showers.jpg" data-alt="Para Collection">
-          <span class="num">04</span>
-          <span class="name serif">Para Collection</span>
-          <span class="underline" aria-hidden="true"></span>
-        </div>
-        <div class="range-index-item" data-img="images/home/cat-faucets.jpg" data-alt="Allied collection">
-          <span class="num">05</span>
-          <span class="name serif">Allied</span>
-          <span class="underline" aria-hidden="true"></span>
-        </div>
-        <div class="range-index-item" data-img="images/home/cat-coloured.jpg" data-alt="Zenith Collections">
-          <span class="num">06</span>
-          <span class="name serif">Zenith Collections</span>
-          <span class="underline" aria-hidden="true"></span>
-        </div>
-        <div class="range-index-item" data-img="images/home/cat-accessories.jpg" data-alt="Square Brass Accessories collection">
-          <span class="num">07</span>
-          <span class="name serif">Square Brass Accessories</span>
-          <span class="underline" aria-hidden="true"></span>
-        </div>
-        <div class="range-index-item" data-img="images/home/cat-accessories.jpg" data-alt="Round Brass Accessories collection">
-          <span class="num">08</span>
-          <span class="name serif">Round Brass Accessories</span>
-          <span class="underline" aria-hidden="true"></span>
+
+      <!-- Wide cinematic banner -->
+      <div class="range-index-banner" aria-hidden="true">
+        <img class="stage-img is-active" src="images/home/cat-coloured.jpg"    alt="">
+        <img class="stage-img"           src="images/home/cat-faucets.jpg"     alt="">
+        <img class="stage-img"           src="images/home/cat-mixers.jpg"      alt="">
+        <img class="stage-img"           src="images/home/cat-showers.jpg"     alt="">
+        <img class="stage-img"           src="images/home/cat-faucets.jpg"     alt="">
+        <img class="stage-img"           src="images/home/cat-coloured.jpg"    alt="">
+        <img class="stage-img"           src="images/home/cat-accessories.jpg" alt="">
+        <img class="stage-img"           src="images/home/cat-accessories.jpg" alt="">
+        <div class="range-index-banner-label">
+          <span class="range-index-active-name" id="riBannerName">Flora</span>
+          <span class="range-index-active-sub">Solid brass · 16 finishes</span>
         </div>
       </div>
 
-      <div class="range-index-stage" aria-hidden="true">
-        <img class="stage-img is-active" src="images/home/cat-coloured.jpg" alt="">
-        <img class="stage-img" src="images/home/cat-faucets.jpg" alt="">
+      <!-- Progress bar -->
+      <div class="range-index-progress">
+        <div class="range-index-progress-fill" id="riProgressFill"></div>
       </div>
+
+      <!-- 2×4 grid selector -->
+      <div class="range-index-grid">
+        <div class="range-index-tab is-active" data-img="images/home/cat-coloured.jpg"    data-name="Flora">
+          <span class="tab-num">01</span>
+          <span class="tab-name serif">Flora</span>
+          <span class="tab-dot" aria-hidden="true"></span>
+        </div>
+        <div class="range-index-tab" data-img="images/home/cat-faucets.jpg"     data-name="JP">
+          <span class="tab-num">02</span>
+          <span class="tab-name serif">JP</span>
+          <span class="tab-dot" aria-hidden="true"></span>
+        </div>
+        <div class="range-index-tab" data-img="images/home/cat-mixers.jpg"      data-name="Premium">
+          <span class="tab-num">03</span>
+          <span class="tab-name serif">Premium</span>
+          <span class="tab-dot" aria-hidden="true"></span>
+        </div>
+        <div class="range-index-tab" data-img="images/home/cat-showers.jpg"     data-name="Para Collection">
+          <span class="tab-num">04</span>
+          <span class="tab-name serif">Para Collection</span>
+          <span class="tab-dot" aria-hidden="true"></span>
+        </div>
+        <div class="range-index-tab" data-img="images/home/cat-faucets.jpg"     data-name="Allied">
+          <span class="tab-num">05</span>
+          <span class="tab-name serif">Allied</span>
+          <span class="tab-dot" aria-hidden="true"></span>
+        </div>
+        <div class="range-index-tab" data-img="images/home/cat-coloured.jpg"    data-name="Zenith Collections">
+          <span class="tab-num">06</span>
+          <span class="tab-name serif">Zenith Collections</span>
+          <span class="tab-dot" aria-hidden="true"></span>
+        </div>
+        <div class="range-index-tab" data-img="images/home/cat-accessories.jpg" data-name="Square Brass Accessories">
+          <span class="tab-num">07</span>
+          <span class="tab-name serif">Square Brass Accessories</span>
+          <span class="tab-dot" aria-hidden="true"></span>
+        </div>
+        <div class="range-index-tab" data-img="images/home/cat-accessories.jpg" data-name="Round Brass Accessories">
+          <span class="tab-num">08</span>
+          <span class="tab-name serif">Round Brass Accessories</span>
+          <span class="tab-dot" aria-hidden="true"></span>
+        </div>
+      </div>
+
     </div>
 
     <!-- Mobile-only fallback cards (hidden on desktop via .range-index-mobile { display:none }; shown ≤860px) -->
@@ -1481,94 +1571,67 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
     });
   });
 
-  /* ---- FULL RANGE — PART B: pinned, scroll-scrubbed crossfading index ---- */
-  const rangeIndex = document.querySelector('.range-index');
-  if (rangeIndex && window.matchMedia('(min-width: 861px)').matches) {
-    const items      = gsap.utils.toArray('.range-index-item');
-    const stageImgs  = gsap.utils.toArray('.stage-img');
-    const indexClip  = document.querySelector('#rangeIndexPath');
-    const n          = items.length;
+  /* ---- FULL RANGE — PART B: banner + grid index, scroll-scrubbed ---- */
+  const rangeIndex   = document.querySelector('.range-index');
+  const riTabs       = gsap.utils.toArray('.range-index-tab');
+  const riImgs       = gsap.utils.toArray('.range-index-banner .stage-img');
+  const riBannerName = document.getElementById('riBannerName');
+  const riProgress   = document.getElementById('riProgressFill');
 
-    /* Constant viewport silhouette — the crossfade alone carries the transition,
-       so the shape stays put as a stable "frame" for every collection. */
-    const SHAPE_STAGE = 'M0.5,0 C0.78,0 1,0.22 1,0.5 C1,0.78 0.78,1 0.5,1 C0.22,1 0,0.78 0,0.5 C0,0.22 0.22,0 0.5,0 Z';
-    gsap.set(indexClip, { morphSVG: SHAPE_STAGE });
-
-    let activeIdx = 0;     // collection the scroll position currently calls active
-    let hoverIdx  = null;  // collection being previewed via hover (null = none)
+  if (rangeIndex && riTabs.length) {
+    const n = riTabs.length;
+    let activeIdx  = 0;
+    let hoverIdx   = null;
     let lastProgress = 0;
-    let segLo = -1;        // lower index of the segment currently loaded into stageImgs[0]/[1]
 
-    const setActiveClass = idx => items.forEach((it, k) => it.classList.toggle('is-active', k === idx));
-
-    /* Continuous scrub-driven crossfade: stageImgs[0] holds the segment's
-       lower collection, stageImgs[1] the upper, with opacity interpolated
-       directly from scroll progress — no discrete tweens to fall behind
-       fast scrolling, so the blend tracks the scrub 1:1. */
-    const renderSegment = p => {
-      const scaled = p * (n - 1);
-      const lo = Math.min(n - 2, Math.floor(scaled));
-      const frac = scaled - lo;
-      if (lo !== segLo) {
-        segLo = lo;
-        stageImgs[0].setAttribute('src', items[lo].dataset.img);
-        stageImgs[0].setAttribute('alt', items[lo].dataset.alt);
-        stageImgs[1].setAttribute('src', items[lo + 1].dataset.img);
-        stageImgs[1].setAttribute('alt', items[lo + 1].dataset.alt);
-      }
-      gsap.set(stageImgs[0], { opacity: 1 - frac, scale: 1 + frac * .05 });
-      gsap.set(stageImgs[1], { opacity: frac,     scale: 1.05 - frac * .05 });
-    };
-    renderSegment(0);
-
-    /* Instant single-image preview, used while hovering a list item. */
-    const showOnly = idx => {
-      segLo = -1;
-      stageImgs[0].setAttribute('src', items[idx].dataset.img);
-      stageImgs[0].setAttribute('alt', items[idx].dataset.alt);
-      gsap.set(stageImgs[0], { opacity: 1, scale: 1 });
-      gsap.set(stageImgs[1], { opacity: 0, scale: 1.05 });
+    /* Swap banner image instantly — CSS transition handles the crossfade. */
+    const showBannerImg = idx => {
+      riImgs.forEach((img, k) => img.classList.toggle('is-active', k === idx));
     };
 
+    const setActive = idx => {
+      riTabs.forEach((t, k) => t.classList.toggle('is-active', k === idx));
+      showBannerImg(idx);
+      if (riBannerName) riBannerName.textContent = riTabs[idx].dataset.name || '';
+      if (riProgress)   riProgress.style.width = `${((idx + 1) / n) * 100}%`;
+    };
+
+    /* Initial state */
+    setActive(0);
+
+    /* Scroll-scrubbed: pin the section, step through tabs as user scrolls. */
     const indexTrigger = ScrollTrigger.create({
       trigger: rangeIndex,
       start: 'top top',
-      end: () => `+=${n * 260}`,
-      scrub: .7,
+      end: () => `+=${n * 220}`,
+      scrub: .6,
       pin: true,
       anticipatePin: 1,
       onUpdate: self => {
         lastProgress = self.progress;
         const idx = Math.min(n - 1, Math.round(lastProgress * (n - 1)));
-        const idxChanged = idx !== activeIdx;
-        activeIdx = idx;
-        if (hoverIdx === null) {
-          if (idxChanged) setActiveClass(activeIdx);
-          renderSegment(lastProgress);
+        if (idx !== activeIdx) {
+          activeIdx = idx;
+          if (hoverIdx === null) setActive(activeIdx);
         }
       }
     });
 
-    /* Guard against a stale pin on a now-hidden element if the viewport is
-       resized/rotated below the breakpoint where CSS switches to the mobile
-       card fallback (.range-index gets display:none at ≤860px). */
+    /* Guard breakpoint change: kill pin when viewport drops to mobile. */
     const desktopMq = window.matchMedia('(min-width: 861px)');
-    const handleBreakpointChange = e => { if (!e.matches) indexTrigger.kill(); };
-    if (desktopMq.addEventListener) desktopMq.addEventListener('change', handleBreakpointChange);
-    else desktopMq.addListener(handleBreakpointChange);
+    const onMqChange = e => { if (!e.matches) indexTrigger.kill(); };
+    if (desktopMq.addEventListener) desktopMq.addEventListener('change', onMqChange);
+    else desktopMq.addListener(onMqChange);
 
-    /* Hovering a list item previews its image instantly; leaving restores
-       whatever the scroll position currently calls active. */
-    items.forEach((item, idx) => {
-      item.addEventListener('mouseenter', () => {
+    /* Hover to preview; leave to restore scroll-driven active. */
+    riTabs.forEach((tab, idx) => {
+      tab.addEventListener('mouseenter', () => {
         hoverIdx = idx;
-        setActiveClass(idx);
-        showOnly(idx);
+        setActive(idx);
       });
-      item.addEventListener('mouseleave', () => {
+      tab.addEventListener('mouseleave', () => {
         hoverIdx = null;
-        setActiveClass(activeIdx);
-        renderSegment(lastProgress);
+        setActive(activeIdx);
       });
     });
   }
