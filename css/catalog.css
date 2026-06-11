@@ -205,3 +205,11 @@
   .showcase.is-signature .showcase-main-lg { grid-column: span 1; }
   .showcase.is-signature .showcase-main-lg .arch { aspect-ratio: 4/3; }
 }
+
+.showcase--wide-range .showcase-sub { gap: 24px; }
+.showcase--wide-range.showcase { grid-template-columns: repeat(3, 1fr); }
+.showcase--focused.showcase { grid-template-columns: repeat(3, 1fr); }
+.showcase--focused .showcase-main:not(.showcase-main-lg) { grid-column: span 2; }
+.showcase--focused .showcase-sub:nth-of-type(n+3) { display: none; }
+
+.showcase-tagline--caption { margin-top: 24px; text-align: center; }

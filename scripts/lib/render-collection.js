@@ -57,9 +57,16 @@ function renderShowcase(collection, depth) {
   const mainTile = renderShowcaseTile(main, depth, mainSizeClass);
   const supportingTiles = supporting.map(g => renderShowcaseTile(g, depth, 'showcase-sub')).join('\n');
 
+  const captionUnderTile = !isSignature && collection.categories[0] === 'Accessories';
   const taglineLine = isSignature
     ? `\n      <p class="showcase-quote serif">"${escapeHtml(collection.tagline)}"</p>`
-    : `\n      <p class="showcase-tagline">${escapeHtml(collection.tagline)}</p>`;
+    : (captionUnderTile ? '' : `\n      <p class="showcase-tagline">${escapeHtml(collection.tagline)}</p>`);
+
+  const underTileCaption = captionUnderTile
+    ? `\n      <p class="showcase-tagline showcase-tagline--caption">${escapeHtml(collection.tagline)}</p>`
+    : '';
+
+  const rangeModifier = collection.categories.length >= 3 ? ' showcase--wide-range' : ' showcase--focused';
 
   return `<section class="sec">
   <div class="wrap">
@@ -67,17 +74,25 @@ function renderShowcase(collection, depth) {
       <div class="eyebrow">${eyebrowLabel}</div>
       <h2 class="serif">${heading}</h2>${taglineLine}
     </div>
-    <div class="showcase stagger-children${isSignature ? ' is-signature' : ''}">
+    <div class="showcase stagger-children${isSignature ? ' is-signature' : ''}${rangeModifier}">
 ${mainTile}
 ${supportingTiles}
-    </div>
+    </div>${underTileCaption}
   </div>
 </section>`;
 }
 
+const HUE_ACCENTS = {
+  flora: 3, cube: -2, 'cube-prima': -3, fuzone: 2, jp: -2, premium: 2,
+  'para-collection': -3, allied: 3, 'zenith-collections': -2,
+  'square-brass-accessories': 2, 'round-brass-accessories': -2,
+  // aliva and opell-prima intentionally omitted (signature gold lines, no hue shift)
+};
+
 function renderCollectionPage(collection, productGroups, allCollections, { siteBaseUrl }) {
   const depth = 2; // browser URL is /collections/<slug>/ (2 path segments)
   const groups = productGroups.filter(g => g.collectionSlug === collection.slug);
+  const hueAccent = HUE_ACCENTS[collection.slug];
 
   const title = `${collection.name} Collection — IPM Bath Fittings`;
   const description = collection.tagline || collection.description.slice(0, 155);
@@ -244,7 +259,11 @@ ${ctaHtml}
 
 ${renderFooter(depth)}`;
 
-  const pageCss = `.coll-story h2 { margin: 16px 0 18px; }`;
+  const accentCss = hueAccent
+    ? `.coll-card:hover .arch img, .showcase-tile:hover .arch img { filter: brightness(1.04) saturate(1.08) hue-rotate(${hueAccent}deg); }`
+    : '';
+
+  const pageCss = `.coll-story h2 { margin: 16px 0 18px; }${accentCss ? `\n${accentCss}` : ''}`;
 
   return renderPage({ head, bodyContent, pageCss });
 }

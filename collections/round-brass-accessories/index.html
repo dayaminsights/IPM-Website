@@ -544,6 +544,7 @@ footer {
    PAGE-SPECIFIC CSS
 ================================================================ */
 .coll-story h2 { margin: 16px 0 18px; }
+.coll-card:hover .arch img, .showcase-tile:hover .arch img { filter: brightness(1.04) saturate(1.08) hue-rotate(-2deg); }
 </style>
 </head>
 <body>
@@ -619,9 +620,8 @@ footer {
     <div class="sec-title reveal">
       <div class="eyebrow">The Range</div>
       <h2 class="serif">Inside <em>Round Brass Accessories</em></h2>
-      <p class="showcase-tagline">Soft-form detailing.</p>
     </div>
-    <div class="showcase stagger-children">
+    <div class="showcase stagger-children showcase--focused">
         <a class="showcase-tile showcase-main" href="round-brass-accessories-001/">
           <div class="arch product-shot"><img src="../../images/products/round-brass-accessories/round-brass-accessories-001-main.jpg" alt="Paper Holder Round in standard finish" loading="lazy"></div>
           <div class="cc-name serif">Paper Holder Round</div>
@@ -639,6 +639,7 @@ footer {
           <div class="cc-name serif">Towel Rack Round</div>
         </a>
     </div>
+      <p class="showcase-tagline showcase-tagline--caption">Soft-form detailing.</p>
   </div>
 </section>
 
