@@ -169,6 +169,12 @@
   color: var(--ink);
   max-width: 640px;
 }
+.showcase-tagline {
+  margin-top: 14px;
+  font-size: 17px;
+  color: var(--soft);
+  max-width: 560px;
+}
 .showcase {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

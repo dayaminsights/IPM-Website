@@ -57,15 +57,15 @@ function renderShowcase(collection, depth) {
   const mainTile = renderShowcaseTile(main, depth, mainSizeClass);
   const supportingTiles = supporting.map(g => renderShowcaseTile(g, depth, 'showcase-sub')).join('\n');
 
-  const pullQuote = isSignature
+  const taglineLine = isSignature
     ? `\n      <p class="showcase-quote serif">"${escapeHtml(collection.tagline)}"</p>`
-    : '';
+    : `\n      <p class="showcase-tagline">${escapeHtml(collection.tagline)}</p>`;
 
   return `<section class="sec showcase-sec${isSignature ? ' is-signature' : ''}">
   <div class="wrap">
     <div class="sec-title reveal">
       <div class="eyebrow">${eyebrowLabel}</div>
-      <h2 class="serif">${heading}</h2>${pullQuote}
+      <h2 class="serif">${heading}</h2>${taglineLine}
     </div>
     <div class="showcase stagger-children${isSignature ? ' is-signature' : ''}">
 ${mainTile}
