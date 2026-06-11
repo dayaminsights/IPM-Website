@@ -260,7 +260,7 @@ ${ctaHtml}
 ${renderFooter(depth)}`;
 
   const accentCss = hueAccent
-    ? `.coll-card:hover .arch img, .showcase-tile:hover .arch img { filter: brightness(1.04) saturate(1.08) hue-rotate(${hueAccent}deg); }`
+    ? `.showcase-tile:hover .arch img { filter: brightness(1.04) saturate(1.08) hue-rotate(${hueAccent}deg); }`
     : '';
 
   const pageCss = `.coll-story h2 { margin: 16px 0 18px; }${accentCss ? `\n${accentCss}` : ''}`;
