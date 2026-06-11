@@ -61,7 +61,7 @@ function renderShowcase(collection, depth) {
     ? `\n      <p class="showcase-quote serif">"${escapeHtml(collection.tagline)}"</p>`
     : `\n      <p class="showcase-tagline">${escapeHtml(collection.tagline)}</p>`;
 
-  return `<section class="sec showcase-sec${isSignature ? ' is-signature' : ''}">
+  return `<section class="sec">
   <div class="wrap">
     <div class="sec-title reveal">
       <div class="eyebrow">${eyebrowLabel}</div>

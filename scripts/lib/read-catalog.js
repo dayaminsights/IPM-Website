@@ -310,11 +310,10 @@ function resolveImageExistence(productGroups, collections, baseDir) {
       collection.heroImage = '';
     }
 
-    // Find this collection's product groups with a real (non-placeholder, non-category-fallback) image
+    // Find this collection's product groups with a real (non-category-fallback) image
     const collectionGroups = productGroups.filter(g => g.collectionSlug === collection.slug);
     const groupsWithRealImages = collectionGroups.filter(g =>
-      g.variants[0] && g.variants[0].image && g.variants[0].image !== PLACEHOLDER_IMAGE
-        && !g.variants[0].image.startsWith('/images/collections/cat-')
+      g.variants[0] && g.variants[0].image && !g.variants[0].image.startsWith('/images/collections/cat-')
     );
     collection.showcaseGroups = groupsWithRealImages;
 
