@@ -5,13 +5,10 @@
 const fs = require('fs');
 const path = require('path');
 const xlsx = require('xlsx');
-const { slugify } = require('./lib/slugify');
 
 const ROOT = path.join(__dirname, '..');
 const SCRAPE_DIR = path.join(__dirname, 'scrape-output');
 const XLSX_PATH = path.join(ROOT, 'product catalogue.xlsx');
-
-const KNOWN_CATEGORIES = ['Faucets', 'Showers', 'Mixers', 'Coloured', 'Accessories'];
 
 const COLLECTION_NAMES = {
   aliva: 'Aliva',
@@ -37,7 +34,7 @@ const EXISTING_GROUP_NUMBERS = {
 
 const CATEGORY_RULES = [
   { re: /shower/i, category: 'Showers' },
-  { re: /mixer|cock|val[v|b]e|spout|diverter|swan neck|nozzle|flush|table top|long body/i, category: 'Faucets' },
+  { re: /mixer|cock|valve|spout|diverter|swan neck|nozzle|flush|table top|long body/i, category: 'Faucets' },
   { re: /holder|hook|tray|dispenser|ring|rail|rod|bracket|tumbler|soap dish|robe|towel|paper/i, category: 'Accessories' },
 ];
 
@@ -126,7 +123,7 @@ async function main() {
     try {
       products = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
     } catch (e) {
-      report.push(`SKIP collection "${collection}": no scrape data (${jsonPath} not found)`);
+      report.push(`SKIP collection "${collection}": cannot read ${jsonPath} (${e.message})`);
       continue;
     }
     if (products.length === 0) {
