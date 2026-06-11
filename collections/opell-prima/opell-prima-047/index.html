@@ -615,7 +615,10 @@ footer {
         <div class="arch">
           <img id="mainImage" src="../../../images/products/opell-prima/opell-prima-047-main.jpg" alt="Single Lever Basin Mixer in standard finish">
         </div>
-
+        <div class="gallery-thumbs">
+          <button data-image="../../../images/products/opell-prima/opell-prima-047-main.jpg" class="is-active"><img src="../../../images/products/opell-prima/opell-prima-047-main.jpg" alt="Single Lever Basin Mixer view 1" loading="lazy"></button>
+          <button data-image="../../../images/products/opell-prima/opell-prima-059-main.png" class=""><img src="../../../images/products/opell-prima/opell-prima-059-main.png" alt="Single Lever Basin Mixer view 2" loading="lazy"></button>
+        </div>
       </div>
       <div class="info">
       <div class="eyebrow"><a href="../../../collections/opell-prima/">Opell Prima Collection</a></div>
@@ -657,10 +660,10 @@ footer {
           <div class="cc-name serif">Aliva Shower Head</div>
           <span class="cat-tag">Showers</span>
         </a>
-        <a class="coll-card" href="../../../collections/opell-prima/opell-prima-004/">
-          <div class="arch"><img src="../../../images/products/opell-prima/opell-prima-004-main.png" alt="Alive Shower Head in standard finish" loading="lazy"></div>
-          <div class="cc-name serif">Alive Shower Head</div>
-          <span class="cat-tag">Showers</span>
+        <a class="coll-card" href="../../../collections/opell-prima/opell-prima-005/">
+          <div class="arch"><img src="../../../images/products/opell-prima/opell-prima-005-main.jpg" alt="Angle Valve in standard finish" loading="lazy"></div>
+          <div class="cc-name serif">Angle Valve</div>
+          <span class="cat-tag">Faucets</span>
         </a>
     </div>
   </div>
@@ -858,6 +861,15 @@ window.addEventListener('scroll', () => {
 /* ================================================================
    PAGE-SPECIFIC JS
 ================================================================ */
+
+const thumbButtons = document.querySelectorAll('.gallery-thumbs button');
+thumbButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    thumbButtons.forEach(b => b.classList.remove('is-active'));
+    btn.classList.add('is-active');
+    document.getElementById('mainImage').src = btn.dataset.image;
+  });
+});
 
 </script>
 </body>

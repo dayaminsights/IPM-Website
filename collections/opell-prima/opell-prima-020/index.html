@@ -626,8 +626,15 @@ footer {
         <div class="row"><span class="k">Category</span><span class="v">Faucets</span></div>
         <div class="row"><span class="k">Currently Viewing</span><span class="v" id="current-finish">Not specified</span></div>
       </div>
-      <p class="finish-static">Finish: Not specified</p>
-      <a class="btn-gold" id="enquireBtn" href="../../../contact.html?product=Diverter+Body&collection=Opell+Prima&finish=">Enquire for Pricing</a>
+      <div class="finish-picker">
+        <h4>Available in 3 Finishes</h4>
+        <div class="finishes-row">
+          <button class="finish is-active" data-index="0"><span class="swatch f-unspecified" aria-hidden="true"></span><span class="label"></span></button>
+          <button class="finish" data-index="1"><span class="swatch f-rich-gold" aria-hidden="true"></span><span class="label">Rich Gold</span></button>
+          <button class="finish" data-index="2"><span class="swatch f-matt-beige" aria-hidden="true"></span><span class="label">Matt Beige</span></button>
+        </div>
+      </div>
+      <a class="btn-gold" id="enquireBtn" href="../../../contact.html?product=Diverter+Body&collection=Opell+Prima">Enquire for Pricing</a>
       </div>
     </div>
   </div>
@@ -657,10 +664,10 @@ footer {
           <div class="cc-name serif">Aliva Shower Head</div>
           <span class="cat-tag">Showers</span>
         </a>
-        <a class="coll-card" href="../../../collections/opell-prima/opell-prima-004/">
-          <div class="arch"><img src="../../../images/products/opell-prima/opell-prima-004-main.png" alt="Alive Shower Head in standard finish" loading="lazy"></div>
-          <div class="cc-name serif">Alive Shower Head</div>
-          <span class="cat-tag">Showers</span>
+        <a class="coll-card" href="../../../collections/opell-prima/opell-prima-005/">
+          <div class="arch"><img src="../../../images/products/opell-prima/opell-prima-005-main.jpg" alt="Angle Valve in standard finish" loading="lazy"></div>
+          <div class="cc-name serif">Angle Valve</div>
+          <span class="cat-tag">Faucets</span>
         </a>
     </div>
   </div>
@@ -858,6 +865,50 @@ window.addEventListener('scroll', () => {
 /* ================================================================
    PAGE-SPECIFIC JS
 ================================================================ */
+
+const variantData = [
+  {
+    "finish": "",
+    "sku": "OPELL-PRIMA-020",
+    "swatchClass": "f-unspecified",
+    "image": "../../../images/products/opell-prima/opell-prima-020-main.png",
+    "alt": "Diverter Body in standard finish"
+  },
+  {
+    "finish": "Rich Gold",
+    "sku": "OPELL-PRIMA-022",
+    "swatchClass": "f-rich-gold",
+    "image": "../../../images/products/opell-prima/opell-prima-022-main.png",
+    "alt": "Diverter Body in Rich Gold finish"
+  },
+  {
+    "finish": "Matt Beige",
+    "sku": "OPELL-PRIMA-023",
+    "swatchClass": "f-matt-beige",
+    "image": "../../../images/products/opell-prima/opell-prima-023-main.png",
+    "alt": "Diverter Body in Matt Beige finish"
+  }
+];
+const mainImage = document.getElementById('mainImage');
+const currentSku = document.getElementById('current-sku');
+const currentFinish = document.getElementById('current-finish');
+const enquireBtn = document.getElementById('enquireBtn');
+const finishButtons = document.querySelectorAll('.finish-picker .finish');
+
+finishButtons.forEach((btn, i) => {
+  btn.addEventListener('click', () => {
+    const v = variantData[i];
+    finishButtons.forEach(b => b.classList.remove('is-active'));
+    btn.classList.add('is-active');
+    mainImage.src = v.image;
+    mainImage.alt = v.alt;
+    currentSku.textContent = v.sku;
+    currentFinish.textContent = v.finish;
+    const url = new URL(enquireBtn.href, window.location.href);
+    url.searchParams.set('finish', v.finish);
+    enquireBtn.href = url.pathname + url.search;
+  });
+});
 
 </script>
 </body>
