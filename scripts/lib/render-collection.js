@@ -15,7 +15,7 @@ function renderCollectionCard(group, depth) {
   // direct child of the current directory.
   const href = `${group.groupSlug}/`;
   return `        <a class="coll-card" href="${href}" data-category="${escapeHtml(group.category)}">
-          <div class="arch"><img src="${rel(depth, primary.image.replace(/^\//, ''))}" alt="${escapeHtml(primary.alt)}" loading="lazy"></div>
+          <div class="arch product-shot"><img src="${rel(depth, primary.image.replace(/^\//, ''))}" alt="${escapeHtml(primary.alt)}" loading="lazy"></div>
           <div class="cc-name serif">${escapeHtml(group.skuName)}</div>
           <span class="cat-tag">${escapeHtml(group.category)}</span>
         </a>`;
@@ -35,7 +35,7 @@ function renderShowcaseTile(group, depth, sizeClass) {
   const primary = group.variants[0];
   const href = `${group.groupSlug}/`;
   return `        <a class="showcase-tile ${sizeClass}" href="${href}">
-          <div class="arch"><img src="${rel(depth, primary.image.replace(/^\//, ''))}" alt="${escapeHtml(primary.alt)}" loading="lazy"></div>
+          <div class="arch product-shot"><img src="${rel(depth, primary.image.replace(/^\//, ''))}" alt="${escapeHtml(primary.alt)}" loading="lazy"></div>
           <div class="cc-name serif">${escapeHtml(group.skuName)}</div>
         </a>`;
 }

@@ -1,22 +1,29 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="light">
-<head>
-<meta charset="UTF-8">
+// Shared page shell (head/header/footer/scripts) for generated catalog pages.
+// `depth` = number of path segments below site root (1 for /collections/<slug>/,
+// 2 for /collections/<slug>/<group>/), used to build relative `../` paths.
+
+function rel(depth, p) {
+  return '../'.repeat(depth) + p;
+}
+
+function renderHead({ title, description, canonicalPath, ogImage, depth }) {
+  const siteOrigin = canonicalPath.match(/^https?:\/\/[^/]+/)[0];
+  return `<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Round Hand Shower with Tube — Allied | IPM Bath Fittings</title>
-<meta name="description" content="Round Hand Shower with Tube — ">
-<link rel="canonical" href="https://ipmbathfittings.github.io/collections/allied/allied-019/">
-<meta property="og:title" content="Round Hand Shower with Tube — Allied | IPM Bath Fittings">
-<meta property="og:description" content="Round Hand Shower with Tube — ">
+<title>${title}</title>
+<meta name="description" content="${description}">
+<link rel="canonical" href="${canonicalPath}">
+<meta property="og:title" content="${title}">
+<meta property="og:description" content="${description}">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://ipmbathfittings.github.io/collections/allied/allied-019/">
-<meta property="og:image" content="https://ipmbathfittings.github.io/images/products/allied/allied-019-main.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<meta property="og:url" content="${canonicalPath}">
+${ogImage ? `<meta property="og:image" content="${siteOrigin}${ogImage}">\n` : ''}<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../../css/catalog.css">
-<style>
-/* ================================================================
+<link rel="stylesheet" href="${rel(depth, 'css/catalog.css')}">`;
+}
+
+const TOKENS_AND_BASE_CSS = `/* ================================================================
    DESIGN TOKENS
 ================================================================ */
 [data-theme="light"] {
@@ -538,26 +545,14 @@ footer {
   .page-hero h1 { font-size: clamp(44px, 10vw, 80px); }
   .sec { padding-top: 80px; padding-bottom: 80px; }
   .back-top { bottom: 88px; }
-}
+}`;
 
-/* ================================================================
-   PAGE-SPECIFIC CSS
-================================================================ */
-.product-main-sec { padding-top: 56px; }
-.info .eyebrow a { transition: color .25s; }
-.info .eyebrow a:hover { color: var(--gold-2); }
-.info h1 { font-weight: 400; font-size: clamp(36px, 4.4vw, 56px); line-height: 1.05; margin: 14px 0 0; }
-.info p { color: var(--soft); margin-top: 4px; }
-.info p + p { margin-top: 12px; }
-</style>
-</head>
-<body>
-
-<div id="grain" aria-hidden="true"></div>
-<div id="cursor-dot" aria-hidden="true"></div>
-<div id="cursor-ring" aria-hidden="true"></div>
-
-<!-- ===== UTILITY BAR ===== -->
+function renderHeader(depth) {
+  const home = rel(depth, 'index.html');
+  const collectionsHref = rel(depth, 'collections.html');
+  const aboutHref = rel(depth, 'about.html');
+  const contactHref = rel(depth, 'contact.html');
+  return `<!-- ===== UTILITY BAR ===== -->
 <div class="util">
   <div class="wrap">
     <div class="util-in">
@@ -580,13 +575,13 @@ footer {
 <header class="site" id="siteHeader">
   <div class="head-in">
     <nav class="nav-left">
-      <a href="../../../index.html">Home</a>
-      <a href="../../../collections.html" class="active">Collections</a>
-      <a href="../../../index.html#dealers">Dealers Network</a>
-      <a href="../../../about.html">About Us</a>
-      <a href="../../../contact.html">Contact Us</a>
+      <a href="${home}">Home</a>
+      <a href="${collectionsHref}" class="active">Collections</a>
+      <a href="${home}#dealers">Dealers Network</a>
+      <a href="${aboutHref}">About Us</a>
+      <a href="${contactHref}">Contact Us</a>
     </nav>
-    <a href="../../../index.html" class="brand">
+    <a href="${home}" class="brand">
       <b>IPM</b>
       <small>BATH FITTINGS</small>
     </a>
@@ -598,82 +593,20 @@ footer {
       </div>
     </div>
   </div>
-</header>
+</header>`;
+}
 
-<div class="wrap">
-  <div class="breadcrumb">
-    <a href="../../../index.html">Home</a><span class="sep">/</span>
-    <a href="../../../collections.html">Collections</a><span class="sep">/</span>
-    <a href="../../../collections/allied/">Allied</a><span class="sep">/</span>
-    <span class="current">Round Hand Shower with Tube</span>
-  </div>
-</div>
-
-<section class="sec product-main-sec">
-  <div class="wrap">
-    <div class="product-main">
-      <div class="gallery">
-        <div class="arch product-shot">
-          <img id="mainImage" src="../../../images/products/allied/allied-019-main.png" alt="Round Hand Shower with Tube in standard finish">
-        </div>
-
-      </div>
-      <div class="info">
-      <div class="eyebrow"><a href="../../../collections/allied/">Allied Collection</a></div>
-      <h1 class="serif">Round Hand Shower with Tube</h1>
-      <span class="sku-tag">SKU: <span id="current-sku">ALLIED-019</span></span>
-
-      <div class="spec-table">
-        <div class="row"><span class="k">Category</span><span class="v">Showers</span></div>
-        <div class="row"><span class="k">Currently Viewing</span><span class="v" id="current-finish">Not specified</span></div>
-      </div>
-      <p class="finish-static">Finish: Not specified</p>
-      <a class="btn-gold" id="enquireBtn" href="../../../contact.html?product=Round+Hand+Shower+with+Tube&collection=Allied&finish=">Enquire for Pricing</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="sec-divider"><span></span></div>
-
-<section class="sec">
-  <div class="wrap">
-    <div class="sec-title reveal">
-      <div class="eyebrow">You May Also Like</div>
-      <h2 class="serif">Related <em>Products</em></h2>
-    </div>
-    <div class="related-products stagger-children">
-        <a class="coll-card" href="../../../collections/allied/allied-001/">
-          <div class="arch product-shot"><img src="../../../images/products/allied/allied-001-main.jpg" alt="Abs Round Hand Shower with Brass Tube in standard finish" loading="lazy"></div>
-          <div class="cc-name serif">Abs Round Hand Shower with Brass Tube</div>
-          <span class="cat-tag">Showers</span>
-        </a>
-        <a class="coll-card" href="../../../collections/allied/allied-002/">
-          <div class="arch product-shot"><img src="../../../images/products/allied/allied-002-main.jpg" alt="Abs Square Hand Shower with Brass Tube in standard finish" loading="lazy"></div>
-          <div class="cc-name serif">Abs Square Hand Shower with Brass Tube</div>
-          <span class="cat-tag">Showers</span>
-        </a>
-        <a class="coll-card" href="../../../collections/allied/allied-003/">
-          <div class="arch product-shot"><img src="../../../images/products/allied/allied-003-main.png" alt="Aliva Maze Over Head Shower in standard finish" loading="lazy"></div>
-          <div class="cc-name serif">Aliva Maze Over Head Shower</div>
-          <span class="cat-tag">Showers</span>
-        </a>
-        <a class="coll-card" href="../../../collections/allied/allied-004/">
-          <div class="arch product-shot"><img src="../../../images/products/allied/allied-004-main.jpg" alt="Bottle Trap Full Brass in standard finish" loading="lazy"></div>
-          <div class="cc-name serif">Bottle Trap Full Brass</div>
-          <span class="cat-tag">Accessories</span>
-        </a>
-    </div>
-  </div>
-</section>
-
-<!-- ===== FOOTER ===== -->
+function renderFooter(depth) {
+  const home = rel(depth, 'index.html');
+  const aboutHref = rel(depth, 'about.html');
+  const contactHref = rel(depth, 'contact.html');
+  return `<!-- ===== FOOTER ===== -->
 <footer>
   <div class="foot-inner wrap">
     <div class="foot-cols">
       <div class="foot-col">
         <h5>Categories</h5>
-        <a href="../../../index.html#collection">New Arrivals</a>
+        <a href="${home}#collection">New Arrivals</a>
         <a href="#">Faucets</a>
         <a href="#">Showers</a>
         <a href="#">Mixers</a>
@@ -682,8 +615,8 @@ footer {
       </div>
       <div class="foot-col">
         <h5>Customer Care</h5>
-        <a href="../../../contact.html">Contact Us</a>
-        <a href="../../../about.html">Our Story</a>
+        <a href="${contactHref}">Contact Us</a>
+        <a href="${aboutHref}">Our Story</a>
         <a href="#">Warranty</a>
         <a href="#">Installation</a>
         <a href="#">Care Guide</a>
@@ -738,10 +671,10 @@ footer {
 </div>
 
 <!-- ===== BACK TO TOP ===== -->
-<button id="backTop" class="back-top" aria-label="Back to top" hidden>&#8593;</button>
+<button id="backTop" class="back-top" aria-label="Back to top" hidden>&#8593;</button>`;
+}
 
-<script>
-/* ================================================================
+const BASE_SCRIPT = `/* ================================================================
    THEME TOGGLE
 ================================================================ */
 const html = document.documentElement;
@@ -832,7 +765,7 @@ floatForm.addEventListener('submit', e => {
   const name  = floatForm.elements['name'].value.trim();
   const phone = floatForm.elements['phone'].value.trim();
   const msg   = floatForm.elements['message'].value.trim();
-  window.open(`mailto:ipmbathfittings@gmail.com?subject=${encodeURIComponent('Showroom Visit Enquiry')}&body=${encodeURIComponent(`Name: ${name}\nContact: ${phone}\n\n${msg}`)}`);
+  window.open(\`mailto:ipmbathfittings@gmail.com?subject=\${encodeURIComponent('Showroom Visit Enquiry')}&body=\${encodeURIComponent(\`Name: \${name}\\nContact: \${phone}\\n\\n\${msg}\`)}\`);
   floatForm.hidden = true;
   floatConf.hidden = false;
 });
@@ -854,12 +787,47 @@ function onScroll() {
 }
 window.addEventListener('scroll', () => {
   if (!scrollRaf) { scrollRaf = true; requestAnimationFrame(onScroll); }
-}, { passive: true });
+}, { passive: true });`;
+
+function renderPage({ head, bodyContent, pageCss = '', pageJs = '' }) {
+  return `<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+${head}
+<style>
+${TOKENS_AND_BASE_CSS}
+
+/* ================================================================
+   PAGE-SPECIFIC CSS
+================================================================ */
+${pageCss}
+</style>
+</head>
+<body>
+
+<div id="grain" aria-hidden="true"></div>
+<div id="cursor-dot" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+
+${bodyContent}
+
+<script>
+${BASE_SCRIPT}
 
 /* ================================================================
    PAGE-SPECIFIC JS
 ================================================================ */
-
+${pageJs}
 </script>
 </body>
 </html>
+`;
+}
+
+module.exports = {
+  rel,
+  renderHead,
+  renderHeader,
+  renderFooter,
+  renderPage,
+};
