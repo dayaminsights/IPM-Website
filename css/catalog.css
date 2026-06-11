@@ -1,0 +1,201 @@
+/* ================================================================
+   CATALOG.CSS — shared styles for generated collection & product pages
+   Loaded in addition to each page's inline <style> block (design tokens,
+   .wrap/.sec/.sec-title/.eyebrow/.serif/.arch/.reveal*/.link-arrow/etc.
+   are defined inline per _template.html and are NOT duplicated here).
+================================================================ */
+
+/* ----------------------------------------------------------------
+   BREADCRUMB
+---------------------------------------------------------------- */
+.breadcrumb {
+  padding: 140px 0 0;
+  font-family: 'DM Sans', sans-serif; font-size: 11px;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--soft);
+}
+.breadcrumb a { color: var(--soft); transition: color .2s; }
+.breadcrumb a:hover { color: var(--gold); }
+.breadcrumb .sep { margin: 0 10px; color: var(--line-2); }
+.breadcrumb .current { color: var(--ink); }
+
+/* ----------------------------------------------------------------
+   COLLECTION STORY
+---------------------------------------------------------------- */
+.coll-story { max-width: 720px; }
+.coll-story p { color: var(--soft); margin-top: 18px; }
+.coll-story p + p { margin-top: 14px; }
+
+/* ----------------------------------------------------------------
+   FILTER TABS
+---------------------------------------------------------------- */
+.filter-tabs {
+  display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 48px;
+}
+.filter-tab {
+  font-family: 'DM Sans', sans-serif; font-size: 10px;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--soft);
+  background: transparent; border: 1px solid var(--line-2); border-radius: 100px;
+  padding: 10px 22px; cursor: pointer; transition: color .2s, border-color .2s, background .2s;
+}
+.filter-tab:hover { color: var(--ink); border-color: var(--gold-2); }
+.filter-tab.is-active { color: var(--on-gold); background: var(--gold); border-color: var(--gold); }
+
+/* ----------------------------------------------------------------
+   PRODUCT / COLLECTION CARD GRID
+---------------------------------------------------------------- */
+.coll-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 40px 32px;
+}
+.coll-card { display: block; }
+.coll-card .arch { aspect-ratio: 4/3; transition: transform .4s cubic-bezier(.2,.6,.2,1); will-change: transform; }
+.coll-card:hover .arch { transform: scale(1.02); }
+.coll-card .arch img { transition: filter .6s cubic-bezier(.2,.6,.2,1); }
+.coll-card:hover .arch img { filter: brightness(1.04) saturate(1.08); }
+.coll-card .cc-name {
+  font-family: 'Cormorant Garamond', serif; font-weight: 400;
+  font-size: 22px; margin-top: 18px; color: var(--ink);
+}
+.cat-tag {
+  display: inline-block; margin-top: 8px;
+  font-family: 'DM Sans', sans-serif; font-size: 10px;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--soft);
+}
+.coll-card[data-category] { display: block; }
+.coll-card.is-hidden { display: none; }
+
+/* ----------------------------------------------------------------
+   RELATED COLLECTIONS / RELATED PRODUCTS
+---------------------------------------------------------------- */
+.related-collections, .related-products {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+}
+@media (max-width: 860px) {
+  .related-collections, .related-products { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .related-collections, .related-products { grid-template-columns: 1fr; }
+}
+.related-collections .arch, .related-products .arch { aspect-ratio: 4/3; }
+
+/* ----------------------------------------------------------------
+   PRODUCT MAIN — gallery + info two-column layout
+---------------------------------------------------------------- */
+.product-main {
+  display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: start;
+}
+@media (max-width: 860px) {
+  .product-main { grid-template-columns: 1fr; gap: 32px; }
+}
+
+.gallery .arch { aspect-ratio: 4/3; }
+.gallery-thumbs {
+  display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap;
+}
+.gallery-thumbs button {
+  width: 76px; height: 76px; padding: 0; border-radius: 10px; overflow: hidden;
+  border: 1px solid var(--line-2); background: var(--cream); cursor: pointer;
+  transition: border-color .2s;
+}
+.gallery-thumbs button img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.gallery-thumbs button.is-active { border-color: var(--gold); }
+
+.sku-tag {
+  display: inline-block; margin: 10px 0 24px;
+  font-family: 'DM Sans', sans-serif; font-size: 11px;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--soft);
+}
+
+.spec-table { margin: 28px 0; border-top: 1px solid var(--line); }
+.spec-table .row {
+  display: flex; justify-content: space-between; gap: 24px;
+  padding: 14px 0; border-bottom: 1px solid var(--line);
+  font-family: 'DM Sans', sans-serif; font-size: 13px;
+}
+.spec-table .row .k { color: var(--soft); letter-spacing: .08em; text-transform: uppercase; font-size: 10px; }
+.spec-table .row .v { color: var(--ink); text-align: right; }
+
+/* ----------------------------------------------------------------
+   FINISH PICKER (product page)
+---------------------------------------------------------------- */
+.finish-picker { margin: 28px 0; }
+.finish-picker h4 {
+  font-family: 'DM Sans', sans-serif; font-size: 11px;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--soft);
+  margin-bottom: 16px; font-weight: 400;
+}
+.finish-picker .finishes-row { justify-content: flex-start; gap: 18px 22px; }
+.finish-picker .finish { width: auto; cursor: pointer; background: none; border: 0; padding: 0; }
+.finish-picker .finish .swatch { transition: box-shadow .2s, transform .2s; }
+.finish-picker .finish.is-active .swatch {
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--gold);
+  transform: scale(1.05);
+}
+.finish-static {
+  font-family: 'DM Sans', sans-serif; font-size: 13px;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--soft);
+  margin: 28px 0;
+}
+
+/* ----------------------------------------------------------------
+   BUTTONS — filled gold CTA
+---------------------------------------------------------------- */
+.btn-gold {
+  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+  font-family: 'DM Sans', sans-serif; font-size: 11px;
+  letter-spacing: .2em; text-transform: uppercase;
+  background: var(--gold); color: var(--on-gold);
+  border-radius: 100px; padding: 16px 36px;
+  transition: background .25s, transform .25s, box-shadow .25s;
+}
+.btn-gold:hover {
+  background: var(--gold-2); transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(154,115,64,.35);
+}
+
+/* ----------------------------------------------------------------
+   NEW FINISH SWATCH — Chrome / Unspecified
+---------------------------------------------------------------- */
+.f-chrome      { background: linear-gradient(135deg,#e8e8e8,#9a9a9a); }
+.f-unspecified { background: linear-gradient(135deg,var(--cream-deep),var(--line-2)); }
+
+/* ----------------------------------------------------------------
+   SIGNATURE SHOWCASE
+----------------------------------------------------------------- */
+.showcase-quote {
+  margin-top: 18px;
+  font-size: clamp(20px, 2.2vw, 28px);
+  font-style: italic;
+  color: var(--ink);
+  max-width: 640px;
+}
+.showcase {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 48px;
+}
+.showcase-tile { display: block; }
+.showcase-tile .arch {
+  aspect-ratio: 4/3;
+  transition: transform .4s cubic-bezier(.2,.6,.2,1);
+  will-change: transform;
+}
+.showcase-tile:hover .arch { transform: scale(1.02); }
+.showcase-tile .arch img { transition: filter .6s cubic-bezier(.2,.6,.2,1); }
+.showcase-tile:hover .arch img { filter: brightness(1.04) saturate(1.08); }
+.showcase-tile .cc-name {
+  font-size: 20px; margin-top: 14px;
+}
+.showcase-main { grid-column: span 1; }
+.showcase-sub { grid-column: span 1; }
+.showcase.is-signature .showcase-main-lg {
+  grid-column: span 2;
+}
+.showcase.is-signature .showcase-main-lg .arch { aspect-ratio: 16/10; }
+
+@media (max-width: 860px) {
+  .showcase { grid-template-columns: 1fr; }
+  .showcase.is-signature .showcase-main-lg { grid-column: span 1; }
+  .showcase.is-signature .showcase-main-lg .arch { aspect-ratio: 4/3; }
+}
