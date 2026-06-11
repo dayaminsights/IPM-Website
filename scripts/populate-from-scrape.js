@@ -131,13 +131,28 @@ async function main() {
       continue;
     }
 
+    // Dedupe by cleaned title — reference site lists some products multiple
+    // times with different finish-variant photos; keep the first occurrence.
+    const seenNames = new Set();
+    const dedupedProducts = [];
+    for (const product of products) {
+      if (!product.title) {
+        dedupedProducts.push(product); // let the existing no-title SKIP handle it
+        continue;
+      }
+      const cleaned = cleanName(product.title);
+      if (seenNames.has(cleaned)) continue;
+      seenNames.add(cleaned);
+      dedupedProducts.push(product);
+    }
+
     const usedNumbers = new Set(EXISTING_GROUP_NUMBERS[collection] || []);
     let nextN = 1;
 
     const imgDir = path.join(ROOT, 'images', 'products', collection);
     fs.mkdirSync(imgDir, { recursive: true });
 
-    for (const product of products) {
+    for (const product of dedupedProducts) {
       if (!product.title) {
         report.push(`SKIP (no title): ${product.url}`);
         continue;
