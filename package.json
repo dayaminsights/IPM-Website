@@ -1,0 +1,12 @@
+{
+  "name": "ipm-bath-fittings-site",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Catalog-driven static site build for IPM Bath Fittings",
+  "scripts": {
+    "build": "node scripts/build-catalog.js"
+  },
+  "devDependencies": {
+    "xlsx": "^0.18.5"
+  }
+}

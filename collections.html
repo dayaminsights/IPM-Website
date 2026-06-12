@@ -780,6 +780,7 @@ footer {
 
 /* Mobile: hide the editorial layout, show stacked cards */
 .range-index-mobile { display: none; }
+.range-index-card { display: block; }
 @media (max-width: 860px) {
   .range-index { display: none; }
   .range-index-mobile { display: block; }
@@ -824,6 +825,20 @@ footer {
 .cta-close-row { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; }
 
 /* ================================================================
+   COLLECTIONS PAGE — SCROLL PROGRESS HAIRLINE
+================================================================ */
+#scrollProgress {
+  position: fixed; top: 0; left: 0; right: 0; height: 2px;
+  z-index: 300; pointer-events: none;
+}
+#scrollProgress span {
+  display: block; height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--gold-2));
+  transform: scaleX(0); transform-origin: left;
+  box-shadow: 0 0 8px rgba(196,155,90,.35);
+}
+
+/* ================================================================
    COLLECTIONS PAGE — RESPONSIVE OVERRIDES
 ================================================================ */
 @media (max-width: 860px) {
@@ -850,6 +865,7 @@ footer {
 <div id="grain" aria-hidden="true"></div>
 <div id="cursor-dot" aria-hidden="true"></div>
 <div id="cursor-ring" aria-hidden="true"></div>
+<div id="scrollProgress" aria-hidden="true"><span></span></div>
 
 <!-- ===== UTILITY BAR ===== -->
 <div class="util">
@@ -996,7 +1012,7 @@ footer {
         <div class="eyebrow">Signature Line</div>
         <h3 class="serif">Aliva</h3>
         <p>Soft, sculptural curves and a satin-smooth hand-finish — Aliva brings a quiet, contemporary warmth to faucets, showers and accessories alike.</p>
-        <a href="#" class="link-arrow">Discover Aliva</a>
+        <a href="collections/aliva/" class="link-arrow">Discover Aliva</a>
       </div>
     </div>
 
@@ -1005,7 +1021,7 @@ footer {
         <div class="eyebrow">Signature Line</div>
         <h3 class="serif">Opell Prima</h3>
         <p>Sharp geometry and a confident, architectural silhouette — Opell Prima is built for spaces that favour clean lines and considered detail.</p>
-        <a href="#" class="link-arrow">Discover Opell Prima</a>
+        <a href="collections/opell-prima/" class="link-arrow">Discover Opell Prima</a>
       </div>
       <div class="sig-vis">
         <div class="arch"><img src="images/collections/line-opell-prima.jpg" alt="Opell Prima collection — geometric brass fittings"></div>
@@ -1047,7 +1063,7 @@ footer {
         <div class="eyebrow"><span class="mark" aria-hidden="true"></span>Cube</div>
         <h3 class="serif">Geometry, perfected in brass.</h3>
         <p>Crisp angles and confident proportions — Cube brings an architectural precision to faucets, mixers and accessories built for considered spaces.</p>
-        <a href="#" class="link-arrow">Explore Cube</a>
+        <a href="collections/cube/" class="link-arrow">Explore Cube</a>
       </div>
     </div>
 
@@ -1056,7 +1072,7 @@ footer {
         <div class="eyebrow"><span class="mark" aria-hidden="true"></span>Cube Prima</div>
         <h3 class="serif">The Cube standard, elevated.</h3>
         <p>Every Cube proportion, refined further — Prima adds depth of finish and detail for spaces that ask a little more of their fittings.</p>
-        <a href="#" class="link-arrow">Explore Cube Prima</a>
+        <a href="collections/cube-prima/" class="link-arrow">Explore Cube Prima</a>
       </div>
       <div class="range-feature-vis">
         <div class="arch"><img src="images/collections/cat-mixers.jpg" alt="Cube Prima collection — refined geometric brass fittings"></div>
@@ -1071,7 +1087,7 @@ footer {
         <div class="eyebrow"><span class="mark" aria-hidden="true"></span>Fuzone</div>
         <h3 class="serif">Where form meets flow.</h3>
         <p>Engineered for the shower space — Fuzone pairs clean silhouettes with the kind of finish-grade detail that holds up to daily ritual.</p>
-        <a href="#" class="link-arrow">Explore Fuzone</a>
+        <a href="collections/fuzone/" class="link-arrow">Explore Fuzone</a>
       </div>
     </div>
 
@@ -1087,46 +1103,46 @@ footer {
       <div class="ri-list">
         <div class="ri-list-eyebrow">Also in the Range</div>
 
-        <div class="ri-item is-active" data-idx="0">
+        <a class="ri-item is-active" data-idx="0" href="collections/flora/">
           <span class="ri-item-num">01</span>
           <span class="ri-item-name serif">Flora</span>
           <span class="ri-item-desc">Coloured brass fittings</span>
-        </div>
-        <div class="ri-item" data-idx="1">
+        </a>
+        <a class="ri-item" data-idx="1" href="collections/jp/">
           <span class="ri-item-num">02</span>
           <span class="ri-item-name serif">JP</span>
           <span class="ri-item-desc">Classic proportions</span>
-        </div>
-        <div class="ri-item" data-idx="2">
+        </a>
+        <a class="ri-item" data-idx="2" href="collections/premium/">
           <span class="ri-item-num">03</span>
           <span class="ri-item-name serif">Premium</span>
           <span class="ri-item-desc">Elevated everyday</span>
-        </div>
-        <div class="ri-item" data-idx="3">
+        </a>
+        <a class="ri-item" data-idx="3" href="collections/para-collection/">
           <span class="ri-item-num">04</span>
           <span class="ri-item-name serif">Para Collection</span>
           <span class="ri-item-desc">Shower-focused range</span>
-        </div>
-        <div class="ri-item" data-idx="4">
+        </a>
+        <a class="ri-item" data-idx="4" href="collections/allied/">
           <span class="ri-item-num">05</span>
           <span class="ri-item-name serif">Allied</span>
           <span class="ri-item-desc">Complementary pieces</span>
-        </div>
-        <div class="ri-item" data-idx="5">
+        </a>
+        <a class="ri-item" data-idx="5" href="collections/zenith-collections/">
           <span class="ri-item-num">06</span>
           <span class="ri-item-name serif">Zenith Collections</span>
           <span class="ri-item-desc">Peak craftsmanship</span>
-        </div>
-        <div class="ri-item" data-idx="6">
+        </a>
+        <a class="ri-item" data-idx="6" href="collections/square-brass-accessories/">
           <span class="ri-item-num">07</span>
           <span class="ri-item-name serif">Square Brass Accessories</span>
           <span class="ri-item-desc">Geometric detailing</span>
-        </div>
-        <div class="ri-item" data-idx="7">
+        </a>
+        <a class="ri-item" data-idx="7" href="collections/round-brass-accessories/">
           <span class="ri-item-num">08</span>
           <span class="ri-item-name serif">Round Brass Accessories</span>
           <span class="ri-item-desc">Soft-form detailing</span>
-        </div>
+        </a>
       </div>
 
       <!-- RIGHT: full-height image stage -->
@@ -1166,38 +1182,38 @@ footer {
 
     <!-- Mobile-only fallback cards (hidden on desktop via .range-index-mobile { display:none }; shown ≤860px) -->
     <div class="range-index-mobile">
-      <div class="range-index-card">
+      <a class="range-index-card" href="collections/flora/">
         <span class="name serif">Flora</span>
         <div class="arch"><img src="images/collections/cat-coloured.jpg" alt="Flora collection"></div>
-      </div>
-      <div class="range-index-card">
+      </a>
+      <a class="range-index-card" href="collections/jp/">
         <span class="name serif">JP</span>
         <div class="arch"><img src="images/collections/cat-faucets.jpg" alt="JP collection"></div>
-      </div>
-      <div class="range-index-card">
+      </a>
+      <a class="range-index-card" href="collections/premium/">
         <span class="name serif">Premium</span>
         <div class="arch"><img src="images/collections/cat-mixers.jpg" alt="Premium collection"></div>
-      </div>
-      <div class="range-index-card">
+      </a>
+      <a class="range-index-card" href="collections/para-collection/">
         <span class="name serif">Para Collection</span>
         <div class="arch"><img src="images/collections/cat-showers.jpg" alt="Para Collection"></div>
-      </div>
-      <div class="range-index-card">
+      </a>
+      <a class="range-index-card" href="collections/allied/">
         <span class="name serif">Allied</span>
         <div class="arch"><img src="images/collections/cat-faucets.jpg" alt="Allied collection"></div>
-      </div>
-      <div class="range-index-card">
+      </a>
+      <a class="range-index-card" href="collections/zenith-collections/">
         <span class="name serif">Zenith Collections</span>
         <div class="arch"><img src="images/collections/cat-coloured.jpg" alt="Zenith Collections"></div>
-      </div>
-      <div class="range-index-card">
+      </a>
+      <a class="range-index-card" href="collections/square-brass-accessories/">
         <span class="name serif">Square Brass Accessories</span>
         <div class="arch"><img src="images/collections/cat-accessories.jpg" alt="Square Brass Accessories collection"></div>
-      </div>
-      <div class="range-index-card">
+      </a>
+      <a class="range-index-card" href="collections/round-brass-accessories/">
         <span class="name serif">Round Brass Accessories</span>
         <div class="arch"><img src="images/collections/cat-accessories.jpg" alt="Round Brass Accessories collection"></div>
-      </div>
+      </a>
     </div>
   </div>
 </section>
@@ -1466,7 +1482,7 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
   /* ---- LENIS: inertial smooth scroll, proxied into ScrollTrigger ---- */
   let lenis;
   if (window.Lenis) {
-    lenis = new Lenis({ lerp: .1, smoothWheel: true });
+    lenis = new Lenis({ lerp: .085, smoothWheel: true });
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add(time => lenis.raf(time * 1000));
     gsap.ticker.lagSmoothing(0);
@@ -1677,7 +1693,13 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
     const stopCycle = () => { clearInterval(cycleTimer); cycleTimer = null; };
 
     setActive(0);
-    startCycle();
+
+    /* Cycle only while the panel is actually on screen */
+    ScrollTrigger.create({
+      trigger: '.range-index', start: 'top 92%', end: 'bottom 8%',
+      onEnter: startCycle, onEnterBack: startCycle,
+      onLeave: stopCycle, onLeaveBack: stopCycle
+    });
 
     /* Item hover: pause cycle, preview; resume on panel leave */
     const riPanel = document.querySelector('.range-index');
@@ -1752,6 +1774,76 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
           onComplete: () => gsap.set(ctaLinks, { clearProps: 'opacity,transform' })
         }, .25);
       }
+    });
+  }
+
+  /* ---- RICH SCROLL: gold progress hairline across the whole page ---- */
+  gsap.to('#scrollProgress span', {
+    scaleX: 1, ease: 'none',
+    scrollTrigger: { start: 0, end: 'max', scrub: .4 }
+  });
+
+  /* ---- RICH SCROLL: section dividers draw themselves open as they enter ---- */
+  gsap.utils.toArray('.sec-divider span').forEach(line => {
+    gsap.fromTo(line, { scaleX: 0 }, {
+      scaleX: 1, ease: 'none',
+      scrollTrigger: { trigger: line, start: 'top 94%', end: 'top 62%', scrub: .6 }
+    });
+  });
+
+  /* ---- RICH SCROLL: intro copy ink-fills word by word, driven by scroll ---- */
+  const introCopy = document.querySelector('.intro-copy');
+  if (introCopy && window.SplitText) {
+    introCopy.classList.remove('reveal');            // GSAP owns this block now
+    const introEyebrow = introCopy.querySelector('.eyebrow');
+    const introSplit   = new SplitText(introCopy.querySelectorAll('h2, p'), { type: 'words' });
+
+    gsap.set(introEyebrow, { opacity: 0, y: 12 });
+    ScrollTrigger.create({
+      trigger: introCopy, start: 'top 84%', once: true,
+      onEnter: () => gsap.to(introEyebrow, { opacity: 1, y: 0, duration: .8, ease: 'power2.out' })
+    });
+
+    gsap.fromTo(introSplit.words, { opacity: .14 }, {
+      opacity: 1, duration: .6, stagger: .08, ease: 'none',
+      scrollTrigger: { trigger: introCopy, start: 'top 80%', end: 'top 30%', scrub: .5 }
+    });
+  }
+
+  /* ---- RICH SCROLL: headings drift at a different rate to the page (depth) ---- */
+  gsap.utils.toArray('.sec-title h2, .finishes-head h2').forEach(h => {
+    gsap.fromTo(h, { yPercent: 7 }, {
+      yPercent: -7, ease: 'none',
+      scrollTrigger: { trigger: h, start: 'top bottom', end: 'bottom top', scrub: .9 }
+    });
+  });
+
+  /* ---- RICH SCROLL: velocity shear — imagery skews with scroll momentum ---- */
+  if (lenis) {
+    const skewTargets = gsap.utils.toArray('.sig-vis .arch img, .range-feature-vis .arch img');
+    const skewSetters = skewTargets.map(img => gsap.quickTo(img, 'skewY', { duration: .45, ease: 'power3.out' }));
+    lenis.on('scroll', e => {
+      const s = gsap.utils.clamp(-1.4, 1.4, (e.velocity || 0) * .04);
+      skewSetters.forEach(set => set(s));
+    });
+  }
+
+  /* ---- RICH SCROLL: ghost watermark drifts within the image stage ---- */
+  gsap.fromTo('#riWatermark', { yPercent: 16 }, {
+    yPercent: -10, ease: 'none',
+    scrollTrigger: { trigger: '.ri-stage', start: 'top bottom', end: 'bottom top', scrub: .7 }
+  });
+
+  /* ---- RICH SCROLL: footer columns rise in sequence ---- */
+  const footCols = gsap.utils.toArray('.foot-col');
+  if (footCols.length) {
+    gsap.set(footCols, { opacity: 0, y: 28 });
+    ScrollTrigger.create({
+      trigger: 'footer', start: 'top 88%', once: true,
+      onEnter: () => gsap.to(footCols, {
+        opacity: 1, y: 0, duration: .9, stagger: .1, ease: 'power3.out',
+        onComplete: () => gsap.set(footCols, { clearProps: 'opacity,transform' })
+      })
     });
   }
 

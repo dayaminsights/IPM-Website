@@ -1111,6 +1111,31 @@ const contactForm = document.getElementById('contactForm');
 const formConfirm = document.getElementById('formConfirm');
 const formConfirmText = document.getElementById('formConfirmText');
 
+/* ---- Prefill from product/collection query params ---- */
+(function prefillFromQuery() {
+  const params = new URLSearchParams(window.location.search);
+  const product = params.get('product');
+  const collection = params.get('collection');
+  const finish = params.get('finish');
+  if (!product && !collection) return;
+
+  const subjectEl = contactForm.elements['subject'];
+  const messageEl = contactForm.elements['message'];
+
+  if (subjectEl) subjectEl.value = 'Product Information';
+
+  let regarding = 'Regarding: ';
+  if (product && collection) {
+    regarding += `${product} (${collection} Collection${finish ? `, ${finish}` : ''})`;
+  } else if (product) {
+    regarding += finish ? `${product} (${finish})` : product;
+  } else if (collection) {
+    regarding += `${collection} Collection`;
+  }
+
+  if (messageEl) messageEl.value = `${regarding}\n\n`;
+})();
+
 contactForm.addEventListener('submit', e => {
   e.preventDefault();
 
