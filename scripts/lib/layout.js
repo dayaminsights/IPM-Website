@@ -328,6 +328,7 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
   background: var(--cream);
 }
 .arch img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.arch.product-shot { background: #fff; }
 .arch.product-shot img { object-fit: contain; padding: 6%; box-sizing: border-box; }
 
 /* ================================================================
