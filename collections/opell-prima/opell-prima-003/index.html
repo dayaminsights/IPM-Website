@@ -617,10 +617,7 @@ footer {
         <div class="arch product-shot">
           <img id="mainImage" src="../../../images/products/opell-prima/opell-prima-003-main.png" alt="Aliva Shower Head in Chrome finish">
         </div>
-        <div class="gallery-thumbs">
-          <button data-image="../../../images/products/opell-prima/opell-prima-003-main.png" class="is-active"><img src="../../../images/products/opell-prima/opell-prima-003-main.png" alt="Aliva Shower Head view 1" loading="lazy"></button>
-          <button data-image="../../../images/products/opell-prima/opell-prima-004-main.png" class=""><img src="../../../images/products/opell-prima/opell-prima-004-main.png" alt="Aliva Shower Head view 2" loading="lazy"></button>
-        </div>
+
       </div>
       <div class="info">
       <div class="eyebrow"><a href="../../../collections/opell-prima/">Opell Prima Collection</a></div>
@@ -632,11 +629,12 @@ footer {
         <div class="row"><span class="k">Currently Viewing</span><span class="v" id="current-finish">Chrome</span></div>
       </div>
       <div class="finish-picker">
-        <h4>Available in 3 Finishes</h4>
+        <h4>Available in 4 Finishes</h4>
         <div class="finishes-row">
           <button class="finish is-active" data-index="0"><span class="swatch f-chrome" aria-hidden="true"></span><span class="label">Chrome</span></button>
-          <button class="finish" data-index="1"><span class="swatch f-profile-beige-gold" aria-hidden="true"></span><span class="label">Profile Beige Gold</span></button>
-          <button class="finish" data-index="2"><span class="swatch f-matt-beige" aria-hidden="true"></span><span class="label">Matt Beige</span></button>
+          <button class="finish" data-index="1"><span class="swatch f-profile-white-gold" aria-hidden="true"></span><span class="label">Profile White Gold</span></button>
+          <button class="finish" data-index="2"><span class="swatch f-profile-beige-gold" aria-hidden="true"></span><span class="label">Profile Beige Gold</span></button>
+          <button class="finish" data-index="3"><span class="swatch f-matt-beige" aria-hidden="true"></span><span class="label">Matt Beige</span></button>
         </div>
       </div>
       <a class="btn-gold" id="enquireBtn" href="../../../contact.html?product=Aliva+Shower+Head&collection=Opell+Prima">Enquire for Pricing</a>
@@ -670,7 +668,7 @@ footer {
           <span class="cat-tag">Faucets</span>
         </a>
         <a class="coll-card" href="../../../collections/opell-prima/opell-prima-006/">
-          <div class="arch product-shot"><img src="../../../images/products/opell-prima/opell-prima-058-main.jpg" alt="Basin Mixer Wall Mounted Upper Parts in Chrome finish" loading="lazy"></div>
+          <div class="arch product-shot"><img src="../../../images/products/opell-prima/opell-prima-006-main.png" alt="Basin Mixer Wall Mounted Upper Parts in Matt Black Gold finish" loading="lazy"></div>
           <div class="cc-name serif">Basin Mixer Wall Mounted Upper Parts</div>
           <span class="cat-tag">Faucets</span>
         </a>
@@ -880,6 +878,13 @@ const variantData = [
     "alt": "Aliva Shower Head in Chrome finish"
   },
   {
+    "finish": "Profile White Gold",
+    "sku": "OPELL-PRIMA-004",
+    "swatchClass": "f-profile-white-gold",
+    "image": "../../../images/products/opell-prima/opell-prima-004-main.png",
+    "alt": "Aliva Shower Head in Profile White Gold finish"
+  },
+  {
     "finish": "Profile Beige Gold",
     "sku": "OPELL-PRIMA-012",
     "swatchClass": "f-profile-beige-gold",
@@ -912,15 +917,6 @@ finishButtons.forEach((btn, i) => {
     const url = new URL(enquireBtn.href, window.location.href);
     url.searchParams.set('finish', v.finish);
     enquireBtn.href = url.pathname + url.search;
-  });
-});
-
-const thumbButtons = document.querySelectorAll('.gallery-thumbs button');
-thumbButtons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    thumbButtons.forEach(b => b.classList.remove('is-active'));
-    btn.classList.add('is-active');
-    document.getElementById('mainImage').src = btn.dataset.image;
   });
 });
 

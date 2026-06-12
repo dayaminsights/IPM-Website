@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shower Arm — Opell Prima | IPM Bath Fittings</title>
-<meta name="description" content="Shower Arm — ">
-<link rel="canonical" href="https://ipmbathfittings.github.io/collections/opell-prima/opell-prima-042/">
-<meta property="og:title" content="Shower Arm — Opell Prima | IPM Bath Fittings">
-<meta property="og:description" content="Shower Arm — ">
+<title>Wall Mixer Three in ONE — Opell Prima | IPM Bath Fittings</title>
+<meta name="description" content="Wall Mixer Three in ONE — ">
+<link rel="canonical" href="https://ipmbathfittings.github.io/collections/opell-prima/opell-prima-067/">
+<meta property="og:title" content="Wall Mixer Three in ONE — Opell Prima | IPM Bath Fittings">
+<meta property="og:description" content="Wall Mixer Three in ONE — ">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://ipmbathfittings.github.io/collections/opell-prima/opell-prima-042/">
-<meta property="og:image" content="https://ipmbathfittings.github.io/images/products/opell-prima/opell-prima-042-main.png">
+<meta property="og:url" content="https://ipmbathfittings.github.io/collections/opell-prima/opell-prima-067/">
+<meta property="og:image" content="https://ipmbathfittings.github.io/images/products/opell-prima/opell-prima-067-main.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
@@ -606,7 +606,7 @@ footer {
     <a href="../../../index.html">Home</a><span class="sep">/</span>
     <a href="../../../collections.html">Collections</a><span class="sep">/</span>
     <a href="../../../collections/opell-prima/">Opell Prima</a><span class="sep">/</span>
-    <span class="current">Shower Arm</span>
+    <span class="current">Wall Mixer Three in ONE</span>
   </div>
 </div>
 
@@ -615,27 +615,21 @@ footer {
     <div class="product-main">
       <div class="gallery">
         <div class="arch product-shot">
-          <img id="mainImage" src="../../../images/products/opell-prima/opell-prima-042-main.png" alt="Shower Arm in Rich Gold finish">
+          <img id="mainImage" src="../../../images/products/opell-prima/opell-prima-067-main.jpg" alt="Wall Mixer Three in ONE in standard finish">
         </div>
 
       </div>
       <div class="info">
       <div class="eyebrow"><a href="../../../collections/opell-prima/">Opell Prima Collection</a></div>
-      <h1 class="serif">Shower Arm</h1>
-      <span class="sku-tag">SKU: <span id="current-sku">OPELL-PRIMA-042</span></span>
+      <h1 class="serif">Wall Mixer Three in ONE</h1>
+      <span class="sku-tag">SKU: <span id="current-sku">OPELL-PRIMA-067</span></span>
 
       <div class="spec-table">
-        <div class="row"><span class="k">Category</span><span class="v">Showers</span></div>
-        <div class="row"><span class="k">Currently Viewing</span><span class="v" id="current-finish">Rich Gold</span></div>
+        <div class="row"><span class="k">Category</span><span class="v">Faucets</span></div>
+        <div class="row"><span class="k">Currently Viewing</span><span class="v" id="current-finish">Not specified</span></div>
       </div>
-      <div class="finish-picker">
-        <h4>Available in 2 Finishes</h4>
-        <div class="finishes-row">
-          <button class="finish is-active" data-index="0"><span class="swatch f-rich-gold" aria-hidden="true"></span><span class="label">Rich Gold</span></button>
-          <button class="finish" data-index="1"><span class="swatch f-matt-black-gold" aria-hidden="true"></span><span class="label">Matt Black Gold</span></button>
-        </div>
-      </div>
-      <a class="btn-gold" id="enquireBtn" href="../../../contact.html?product=Shower+Arm&collection=Opell+Prima">Enquire for Pricing</a>
+      <p class="finish-static">Finish: Not specified</p>
+      <a class="btn-gold" id="enquireBtn" href="../../../contact.html?product=Wall+Mixer+Three+in+ONE&collection=Opell+Prima&finish=">Enquire for Pricing</a>
       </div>
     </div>
   </div>
@@ -866,43 +860,6 @@ window.addEventListener('scroll', () => {
 /* ================================================================
    PAGE-SPECIFIC JS
 ================================================================ */
-
-const variantData = [
-  {
-    "finish": "Rich Gold",
-    "sku": "OPELL-PRIMA-042",
-    "swatchClass": "f-rich-gold",
-    "image": "../../../images/products/opell-prima/opell-prima-042-main.png",
-    "alt": "Shower Arm in Rich Gold finish"
-  },
-  {
-    "finish": "Matt Black Gold",
-    "sku": "OPELL-PRIMA-043",
-    "swatchClass": "f-matt-black-gold",
-    "image": "../../../images/products/opell-prima/opell-prima-043-main.png",
-    "alt": "Shower Arm in Matt Black Gold finish"
-  }
-];
-const mainImage = document.getElementById('mainImage');
-const currentSku = document.getElementById('current-sku');
-const currentFinish = document.getElementById('current-finish');
-const enquireBtn = document.getElementById('enquireBtn');
-const finishButtons = document.querySelectorAll('.finish-picker .finish');
-
-finishButtons.forEach((btn, i) => {
-  btn.addEventListener('click', () => {
-    const v = variantData[i];
-    finishButtons.forEach(b => b.classList.remove('is-active'));
-    btn.classList.add('is-active');
-    mainImage.src = v.image;
-    mainImage.alt = v.alt;
-    currentSku.textContent = v.sku;
-    currentFinish.textContent = v.finish;
-    const url = new URL(enquireBtn.href, window.location.href);
-    url.searchParams.set('finish', v.finish);
-    enquireBtn.href = url.pathname + url.search;
-  });
-});
 
 </script>
 </body>

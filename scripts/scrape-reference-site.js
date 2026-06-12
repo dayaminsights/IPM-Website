@@ -36,7 +36,7 @@ async function fetchHtml(url) {
 // Fetch all listing pages for a category (page 1, 2, 3... until a non-OK response)
 async function fetchAllListingPages(refSlug) {
   const pages = [];
-  for (let page = 1; page <= 10; page++) {
+  for (let page = 1; page <= 15; page++) {
     const url = page === 1
       ? `https://ipmbathfittings.com/product-category/${refSlug}/`
       : `https://ipmbathfittings.com/product-category/${refSlug}/page/${page}/`;
