@@ -615,7 +615,7 @@ footer {
     <div class="product-main">
       <div class="gallery">
         <div class="arch product-shot">
-          <img id="mainImage" src="../../../images/products/opell-prima/opell-prima-003-main.png" alt="Aliva Shower Head in standard finish">
+          <img id="mainImage" src="../../../images/products/opell-prima/opell-prima-003-main.png" alt="Aliva Shower Head in Chrome finish">
         </div>
         <div class="gallery-thumbs">
           <button data-image="../../../images/products/opell-prima/opell-prima-003-main.png" class="is-active"><img src="../../../images/products/opell-prima/opell-prima-003-main.png" alt="Aliva Shower Head view 1" loading="lazy"></button>
@@ -629,10 +629,17 @@ footer {
 
       <div class="spec-table">
         <div class="row"><span class="k">Category</span><span class="v">Showers</span></div>
-        <div class="row"><span class="k">Currently Viewing</span><span class="v" id="current-finish">Not specified</span></div>
+        <div class="row"><span class="k">Currently Viewing</span><span class="v" id="current-finish">Chrome</span></div>
       </div>
-      <p class="finish-static">Finish: Not specified</p>
-      <a class="btn-gold" id="enquireBtn" href="../../../contact.html?product=Aliva+Shower+Head&collection=Opell+Prima&finish=">Enquire for Pricing</a>
+      <div class="finish-picker">
+        <h4>Available in 3 Finishes</h4>
+        <div class="finishes-row">
+          <button class="finish is-active" data-index="0"><span class="swatch f-chrome" aria-hidden="true"></span><span class="label">Chrome</span></button>
+          <button class="finish" data-index="1"><span class="swatch f-profile-beige-gold" aria-hidden="true"></span><span class="label">Profile Beige Gold</span></button>
+          <button class="finish" data-index="2"><span class="swatch f-matt-beige" aria-hidden="true"></span><span class="label">Matt Beige</span></button>
+        </div>
+      </div>
+      <a class="btn-gold" id="enquireBtn" href="../../../contact.html?product=Aliva+Shower+Head&collection=Opell+Prima">Enquire for Pricing</a>
       </div>
     </div>
   </div>
@@ -863,6 +870,50 @@ window.addEventListener('scroll', () => {
 /* ================================================================
    PAGE-SPECIFIC JS
 ================================================================ */
+
+const variantData = [
+  {
+    "finish": "Chrome",
+    "sku": "OPELL-PRIMA-003",
+    "swatchClass": "f-chrome",
+    "image": "../../../images/products/opell-prima/opell-prima-003-main.png",
+    "alt": "Aliva Shower Head in Chrome finish"
+  },
+  {
+    "finish": "Profile Beige Gold",
+    "sku": "OPELL-PRIMA-012",
+    "swatchClass": "f-profile-beige-gold",
+    "image": "../../../images/products/opell-prima/opell-prima-012-main.png",
+    "alt": "Aliva Shower Head in Profile Beige Gold finish"
+  },
+  {
+    "finish": "Matt Beige",
+    "sku": "OPELL-PRIMA-033",
+    "swatchClass": "f-matt-beige",
+    "image": "../../../images/products/opell-prima/opell-prima-033-main.png",
+    "alt": "Aliva Shower Head in Matt Beige finish"
+  }
+];
+const mainImage = document.getElementById('mainImage');
+const currentSku = document.getElementById('current-sku');
+const currentFinish = document.getElementById('current-finish');
+const enquireBtn = document.getElementById('enquireBtn');
+const finishButtons = document.querySelectorAll('.finish-picker .finish');
+
+finishButtons.forEach((btn, i) => {
+  btn.addEventListener('click', () => {
+    const v = variantData[i];
+    finishButtons.forEach(b => b.classList.remove('is-active'));
+    btn.classList.add('is-active');
+    mainImage.src = v.image;
+    mainImage.alt = v.alt;
+    currentSku.textContent = v.sku;
+    currentFinish.textContent = v.finish;
+    const url = new URL(enquireBtn.href, window.location.href);
+    url.searchParams.set('finish', v.finish);
+    enquireBtn.href = url.pathname + url.search;
+  });
+});
 
 const thumbButtons = document.querySelectorAll('.gallery-thumbs button');
 thumbButtons.forEach(btn => {
