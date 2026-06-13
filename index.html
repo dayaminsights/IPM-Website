@@ -332,6 +332,20 @@ header.site.scrolled {
 
 .nav-right { justify-self: end; display: flex; align-items: center; gap: 28px; }
 
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--soft);
+  transition: color .3s;
+}
+.contact-link:hover { color: var(--ink); }
+.contact-link svg { width: 18px; height: 18px; stroke: currentColor; flex-shrink: 0; }
+
 /* Theme toggle */
 .toggle {
   display: flex;
@@ -382,6 +396,8 @@ header.site[data-header="over-dark"] .brand b { color: #fff; }
 header.site[data-header="over-dark"] .brand small { color: rgba(255,255,255,.5); }
 header.site[data-header="over-dark"] .toggle { border-color: rgba(255,255,255,.28); }
 header.site[data-header="over-dark"] .toggle button { color: rgba(255,255,255,.55); }
+header.site[data-header="over-dark"] .contact-link { color: rgba(255,255,255,.65); }
+header.site[data-header="over-dark"] .contact-link:hover { color: #fff; }
 header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); }
 
 /* ================================================================
@@ -2177,15 +2193,21 @@ footer {
     <nav class="nav-left">
       <a href="index.html">Home</a>
       <a href="collections.html">Collections</a>
-      <a href="#dealers">Dealers Network</a>
       <a href="about.html">About Us</a>
-      <a href="contact.html">Contact Us</a>
     </nav>
     <a href="#" class="brand">
       <b>IPM</b>
       <small>BATH FITTINGS</small>
     </a>
     <div class="nav-right">
+      <a href="contact.html" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 13v-1a8 8 0 0 1 16 0v1"></path>
+          <rect x="2.5" y="13" width="4" height="6" rx="1.5"></rect>
+          <rect x="17.5" y="13" width="4" height="6" rx="1.5"></rect>
+        </svg>
+        <span>Contact Us</span>
+      </a>
       <div class="toggle" id="themeToggle" role="group" aria-label="Theme">
         <span class="pill"></span>
         <button data-theme="light" class="on">Light</button>
@@ -2217,7 +2239,7 @@ footer {
     <h1 class="serif">
       <span class="word"><span>The</span></span>&#32;<span class="word"><span>Colour</span></span>&#32;<span class="word"><span><em>of</em></span></span>&#32;<span class="word"><span>Water</span></span>
     </h1>
-    <a href="#collection" class="cta">
+    <a href="collections.html" class="cta">
       <span class="label">Explore the Collection</span>
       <span class="arrow"></span>
     </a>
@@ -2231,7 +2253,7 @@ footer {
       <div class="e eyebrow">Shop by Category</div>
       <h2 class="serif">Every fitting, <em>considered.</em></h2>
     </div>
-    <a href="#" class="link-arrow">See All</a>
+    <a href="collections.html" class="link-arrow">See All</a>
   </div>
   <div class="cats stagger-children">
     <a href="#cat-faucets" id="cat-faucets" class="cat">
@@ -2279,10 +2301,10 @@ footer {
       <div class="e eyebrow">Collections</div>
       <h2 class="serif">Our Signature Lines</h2>
     </div>
-    <a href="#" class="link-arrow">All Collections</a>
+    <a href="collections.html" class="link-arrow">All Collections</a>
   </div>
   <div class="promos stagger-children">
-    <a href="#" class="promo">
+    <a href="collections/aliva/" class="promo">
       <img src="images/home/line-aliva.jpg" alt="Aliva collection">
       <div class="ov">
         <div class="e">Signature Line</div>
@@ -2290,7 +2312,7 @@ footer {
         <span class="promo-cta">Discover Aliva →</span>
       </div>
     </a>
-    <a href="#" class="promo">
+    <a href="collections/opell-prima/" class="promo">
       <img src="images/home/line-opell-prima.jpg" alt="Opell Prima collection">
       <div class="ov">
         <div class="e">Signature Line</div>
@@ -2315,7 +2337,7 @@ footer {
   </div>
   <div class="caro" id="caro"></div>
   <div class="caro-foot">
-    <a href="#" class="link-arrow">View All Products</a>
+    <a href="collections.html" class="link-arrow">View All Products</a>
   </div>
 </section>
 
@@ -2329,7 +2351,7 @@ footer {
       <p>What began fifty years ago as a single brass workshop in Patparganj, Delhi, has matured into one of India's most trusted names in bath fittings.</p>
       <p>Every valve, spout and mixer is designed, machined and finished under one roof — solid brass, never plated zinc, in sixteen hand-perfected finishes. You will find creativity and meticulous craftsmanship throughout the collection.</p>
       <div class="cta-row">
-        <a href="#" class="link-arrow">Our Story</a>
+        <a href="about.html" class="link-arrow">Our Story</a>
       </div>
     </div>
     <div class="her-vis reveal-right">
@@ -2368,12 +2390,12 @@ footer {
     <h2 class="serif">More from <em>IPM</em></h2>
   </div>
   <div class="trip stagger-children">
-    <a href="#" class="tri">
-      <img src="images/home/promo-instock.jpg" alt="In-Stock Finishes">
+    <a href="contact.html" class="tri">
+      <img src="images/home/promo-support.jpg" alt="24/7 Customer Support">
       <div class="ov">
-        <div class="e">Ready to Ship</div>
-        <h3 class="serif">In-Stock Finishes</h3>
-        <span class="tri-link">Explore →</span>
+        <div class="e">We're Here to Help</div>
+        <h3 class="serif">24/7 Customer Support</h3>
+        <span class="tri-link">Contact Us →</span>
       </div>
     </a>
     <a href="https://www.instagram.com/ipmbathfittings?utm_source=qr&igsh=MXA4ZGwzdG51ZGtjYQ%3D%3D" target="_blank" rel="noopener" class="tri insta-tri">
@@ -2419,7 +2441,7 @@ footer {
         <dt>Appointments</dt>
         <dd><a href="tel:01143048462">011-43048462</a><br><a href="tel:+919818939899">+91 98189 39899</a></dd>
       </dl>
-      <a href="#" class="link-arrow">Get Directions</a>
+      <a href="https://www.google.com/maps/search/?api=1&query=459+Patparganj+Industrial+Area+Delhi+110092" target="_blank" rel="noopener" class="link-arrow">Get Directions</a>
     </div>
   </div>
 </section>
@@ -2462,7 +2484,7 @@ footer {
       <div class="foot-col">
         <h5>Customer Care</h5>
         <a href="contact.html">Contact Us</a>
-        <a href="#">Our Story</a>
+        <a href="about.html">Our Story</a>
         <a href="#">Warranty</a>
         <a href="#">Installation</a>
         <a href="#">Care Guide</a>
