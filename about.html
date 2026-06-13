@@ -923,6 +923,88 @@ footer {
 [data-theme="dark"] .cert-name { color: rgba(237,231,216,.9); }
 
 /* ================================================================
+   GLOBAL PRESENCE — full-bleed atlas band
+================================================================ */
+.gp-section {
+  position: relative;
+  background: linear-gradient(160deg, #15130c 0%, #1c1810 55%, #100e08 100%);
+  padding: 108px 0 0;
+  overflow: hidden;
+  isolation: isolate;
+}
+[data-theme="light"] .gp-section { border-top: 1px solid var(--line); }
+
+/* Full-bleed map layer */
+.gp-map-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  line-height: 0;
+}
+.gp-map-bg svg {
+  display: block;
+  width: 100%; height: 100%;
+  position: absolute; inset: 0;
+}
+.gp-map-land { fill: rgba(196,155,90,.10); }
+.gp-map-grat { fill: none; stroke: rgba(196,155,90,.08); stroke-width: 0.4; }
+.gp-map-scrim {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 16% 28%, rgba(21,19,12,0) 0%, rgba(16,14,8,.55) 60%, rgba(16,14,8,.92) 100%),
+    linear-gradient(180deg, rgba(16,14,8,.15) 0%, rgba(16,14,8,.35) 55%, rgba(16,14,8,.97) 100%);
+}
+
+.gp-marker { transform-box: fill-box; transform-origin: center; }
+.gp-marker-ping {
+  fill: none; stroke: var(--gold-2); stroke-width: 1.2;
+  transform-box: fill-box; transform-origin: center;
+  animation: gp-ping 2.8s cubic-bezier(.2,.6,.2,1) infinite;
+}
+.gp-marker-dot { fill: var(--gold-2); filter: drop-shadow(0 0 6px rgba(226,196,142,.7)); }
+.gp-marker-label {
+  font-family: 'DM Sans', sans-serif; font-size: 4px; font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase; fill: rgba(237,231,216,.78);
+}
+@keyframes gp-ping {
+  0%   { transform: scale(.4); opacity: .85; }
+  70%  { transform: scale(3.2); opacity: 0; }
+  100% { transform: scale(3.2); opacity: 0; }
+}
+.gp-marker:nth-of-type(2) .gp-marker-ping { animation-delay: .45s; }
+.gp-marker:nth-of-type(3) .gp-marker-ping { animation-delay: .9s; }
+.gp-marker:nth-of-type(4) .gp-marker-ping { animation-delay: 1.35s; }
+.gp-marker:nth-of-type(5) .gp-marker-ping { animation-delay: 1.8s; }
+
+/* Content layer */
+.gp-inner { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; padding: 0 64px; }
+.gp-head { max-width: 540px; margin: 0 0 64px; }
+.gp-head .sc-eyebrow { color: var(--gold-2); }
+.gp-head .sc-title { color: #f5f1e6; }
+.gp-head .sc-title em { color: var(--gold-2); }
+.gp-head .sc-sub { color: rgba(237,231,216,.62); }
+
+/* Waypoint ledger */
+.gp-ledger {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border-top: 1px solid rgba(237,231,216,.12);
+}
+.gp-region {
+  padding: 28px 28px 36px;
+  border-right: 1px solid rgba(237,231,216,.12);
+  display: flex; flex-direction: column; gap: 10px;
+}
+.gp-region:last-child { border-right: none; }
+.gp-region-num {
+  font-family: 'DM Sans', sans-serif; font-size: 10px; letter-spacing: .3em;
+  color: var(--gold-2); opacity: .65;
+}
+.gp-region-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(20px, 2.1vw, 26px); font-weight: 500; color: #f5f1e6; line-height: 1.15; }
+.gp-region-cities { font-family: 'DM Sans', sans-serif; font-size: 12.5px; font-weight: 300; color: rgba(237,231,216,.55); line-height: 1.55; letter-spacing: .01em; }
+
+/* ================================================================
    CTA SECTION
 ================================================================ */
 .cta-section {
@@ -1030,6 +1112,11 @@ footer {
   .p-compare-title-wrap { order: 0; }
   .p-compare-title { max-width: 100%; }
   .cert-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .gp-section { padding-top: 84px; }
+  .gp-ledger { grid-template-columns: repeat(2, 1fr); }
+  .gp-region:nth-child(2n) { border-right: none; }
+  .gp-region:nth-child(-n+4) { border-bottom: 1px solid rgba(237,231,216,.12); }
+  .gp-region:last-child { grid-column: span 2; border-right: none; }
   .cta-card { grid-template-columns: 1fr; padding: 56px 48px; }
   .cta-actions { flex-direction: row; align-items: center; justify-content: flex-start; }
   /* Timeline → 2-up; centered self-contained fill bar per era */
@@ -1051,6 +1138,10 @@ footer {
   .tl { grid-template-columns: 1fr; row-gap: 34px; padding-left: 28px; padding-right: 28px; }
   .cert-inner { padding-left: 28px; padding-right: 28px; }
   .cert-grid { grid-template-columns: 1fr; }
+  .gp-inner { padding-left: 28px; padding-right: 28px; }
+  .gp-ledger { grid-template-columns: 1fr; }
+  .gp-region { border-right: none; border-bottom: 1px solid rgba(237,231,216,.12); }
+  .gp-region:last-child { border-bottom: none; }
   .p-ghost { font-size: 90px; right: 16px; }
   .wrap, .pad-x { padding-left: 28px; padding-right: 28px; }
   .foot-cols, .foot-bottom { padding-left: 28px; padding-right: 28px; }
@@ -1475,6 +1566,86 @@ footer {
         <span class="cert-tag">CPC/081/2018</span>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<!-- ===== GLOBAL PRESENCE ===== -->
+<section class="gp-section" id="global-presence" aria-label="Global Presence">
+  <div class="gp-map-bg" aria-hidden="true">
+    <svg viewBox="0 0 540 340" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Map highlighting IPM dealer presence in India, UAE, Nepal, Bhutan and South Africa">
+      <defs>
+        <pattern id="gp-grat" width="27" height="34" patternUnits="userSpaceOnUse">
+          <path class="gp-map-grat" d="M0,0 L0,34 M27,0 L27,34 M0,0 L27,0 M0,34 L27,34" />
+        </pattern>
+      </defs>
+      <rect class="gp-map-grat" x="0" y="0" width="540" height="340" fill="url(#gp-grat)" />
+      <!-- Simplified world map (Africa, Middle East, South &amp; Central Asia), derived from Natural Earth 110m land data -->
+      <path class="gp-map-land" fill-rule="evenodd" d="M265.064,75.066L266.17,78.333L276.864,82.195L282.657,80.014L282.506,72.245L278.372,67.353L279.138,63.486L285.497,63.142L281.953,57.672L277.693,59.269L270.028,45.731L279.578,42.526L279.578,34.514L273.119,33.51L265.83,36.819L257.386,45.731L264.021,59.15L267.627,64.882ZM540,68.339L539.604,68.608L540,69.323L540,90.798L540,90.798L535.947,92.108L534.867,77.594L529.752,76.006L532.114,70.279L528.194,67.831L516.984,72.488L520.88,65.573L519.033,63.158L504.694,73.201L512.272,80.207L516.18,77.063L522.099,81.191L517.16,82.408L510.349,89.903L514.107,92.237L519.975,103.344L517.726,107.488L520.616,110.901L508.615,131.649L498.964,138.377L491.688,139.261L481.145,143.593L471.594,143.015L466.932,146.214L463.263,152.296L474.485,166.119L475.616,179.074L461.503,189.95L458.626,183.276L452.518,177.22L443.835,172.852L440.542,185.131L445.104,194.079L450.973,198.322L455.295,203.118L455.786,215.805L448.346,210.443L443.797,197.472L438.268,190.721L438.444,185.239L439.185,179.882L433.593,160.111L427.335,164.531L423.213,163.358L423.691,155.407L416.855,146.315L413.537,138.441L409.541,141.947L405.205,141.119L398.03,143.225L396.371,148.244L391.345,150.743L381.342,159.796L374.82,163.862L373.186,183.733L365.093,192.189L361.788,188.892L351.107,163.53L347.952,143.752L340.413,145.544L337.535,139.632L332.408,134.924L326.112,128.272L309.097,129.611L294.784,127.054L291.629,121.577L285.422,124.172L274.275,118.739L269.362,109.625L263.958,110.519L261.897,110.322L263.43,116.017L269.5,123.359L271.787,130.856L273.81,131.343L274.476,132.81L282.959,133.283L290.159,125.826L290.813,127.152L291.29,130.198L299.433,135.401L303.191,140.162L296.153,152.264L287.369,159.017L279.817,161.129L276.537,164.954L264.348,170.711L246.214,175.611L243.764,162.232L237.33,150.712L231.046,143.993L230.795,139.145L217.06,117.957L216.444,112.81L216.331,112.227L212.838,119.594L208.691,115.412L219.02,134.027L218.442,137.165L223.117,141.329L225.266,153.937L228.508,156.202L231.499,163.776L244.807,175.387L245.033,179.804L248.426,183.42L265.29,179.99L272.843,177.8L272.616,182.723L267.049,196.276L256.971,210.112L245.008,219.067L239.592,225.963L234.98,229.072L231.273,236.426L231.273,236.426L229.865,242.736L231.222,249.815L235.156,256.295L236.764,271.943L232.14,279.296L225.014,282.462L215.853,290.558L218.568,299.181L216.746,308.257L208.138,313.073L209.03,317.018L207.748,323.154L199.341,334.572L194.159,340L158.062,340L158.062,340L158.035,336.704L151.488,324.249L147.529,318.383L144.199,299.257L141.033,294.609L135.39,281.422L138.896,266.349L142.025,262.42L140.63,250.084L137.439,241.416L136.948,240.329L136.019,237.694L133.153,233.984L125.136,223.965L127.561,216.562L128.114,212.111L128.617,209.355L124.105,203.409L115.02,205.193L109.528,198.156L103.823,198.191L100.945,198.601L98.131,199.35L87.575,203.622L84.458,202.626L74.066,202.632L67.506,204.837L62.995,203.195L54.5,196.342L49.234,192.78L48.191,188.88L41.619,181.304L36.215,176.513L35.637,173.768L36.09,172.177L32.91,168.095L36.957,163.001L37.61,148.464L34.871,145.082L35.022,143.504L44.019,125.056L50.378,118.057L53.633,117.622L61.047,110.492L60.167,105.449L64.214,96.936L70.296,93.287L73.726,86.267L86.858,88.799L99.551,82.607L116.289,80.407L123.829,81.125L127.624,79.353L131.432,83.46L129.861,92.358L134.536,97.367L147.643,100.983L149.276,104.64L161.051,109.147L167.221,99.155L174.346,99.443L182.276,103.851L195.358,106.704L199.479,104.239L214.044,105.276L217.047,97.564L220.088,91.025L220.616,85.998L215.602,81.782L207.911,84.764L201.314,82.291L198.097,84.603L190.922,82.379L186.297,75.563L185.782,69.935L196.501,61.896L203.149,62.508L211.418,58.166L217.186,58.062L228.294,63.15L239.478,60.423L239.127,55.208L233.899,51.433L222.451,42.602L227.892,37.615L227.854,33.232L219.473,35.566L216.645,40.149L221.257,43.247L212.699,46.948L207.71,42.19L211.141,38.97L201.766,35.884L197.77,42.358L194.113,50.12L192.153,58.213L194.981,62.657L186.435,66.812L185.38,63.728L174.07,65.325L174.623,72.154L178.292,75.51L170.074,81.568L164.771,69.207L162.044,58.825L158.827,55.987L150.332,51.083L146.449,43.431L142.302,41.332L143.081,40.876L137.464,41.921L138.368,48.259L149.892,60.4L158.575,65.876L153.31,65.48L154.366,70.111L150.633,76.547L148.233,67.283L139.411,61.739L125.463,46.923L120.386,50.186L117.219,52.902L110.333,51.604L104.854,56.019L101.737,61.864L97.263,62.845L93.456,70.631L94.813,73.201L86.934,82.305L79.18,82.291L75.662,85.458L68.411,80.459L63.372,81.457L61.172,73.201L63.824,64.017L62.894,58.809L61.637,53.388L66.576,49.924L87.788,51.49L90.264,38.757L78.401,25.002L88.781,25.207L99.098,17.256L103.207,11.638L105.997,10.534L110.86,0.59L112.844,0L540,0ZM531.071,253.021L530.657,251.25L531.071,253.021ZM497.431,201.042L501.88,195.854L510.45,201.179L505.913,205.631L503.928,208.787L509.809,216.934L505.675,217.348L504.657,222.89L501.301,225.277L499.869,234.103L495.383,234.435L489.765,230.977L485.618,232.232L479.184,230.332L475.226,221.69L477.224,213.081L482.477,213.624L483.181,210.668L488.861,209.248L493.083,204.268ZM537.304,233.327L537.304,233.327L537.304,233.327ZM540,218.911L539.139,216.556L540,214.676L540,218.911ZM523.532,217.029L531.599,215.126L528.797,218.594L513.943,219.256L516.57,225.005L524.964,222.234L518.568,226.737L524.348,238.756L521.119,238.555L514.371,230.321L514.81,239.415L511.103,238.893L511.556,232.291L509.005,229.871L513.428,218.11L516.406,215.516ZM514.333,256.085L514.333,256.085L514.333,256.085ZM517.99,249.995L517.99,249.995L517.99,249.995ZM507.233,249.379L507.233,249.379L507.233,249.379ZM473.115,242.552L487.529,244.39L488.798,246.671L498.323,249.409L494.34,250.754L472.386,247.279L462.22,244.057L464.62,240.704ZM458.751,223.871L464.821,230.776L463.803,240.549L459.933,240.62L452.518,234.831L438.607,213.719L427.373,202.709L434.712,201.748L445.732,212.755L449.289,212.809L456.891,219.723ZM124.96,55.289L124.96,55.289L124.96,55.289ZM267.364,263.962L270.631,273.87L258.831,310.033L252.937,312.581L248.162,310.215L245.41,299.053L249.331,291.633L247.885,281.818L249.582,277.46L256.091,275.881ZM186.197,88.235L186.197,88.235L186.197,88.235ZM71.921,0L70.736,5.374L59.602,7.872L62.429,1.905L61.846,0L71.921,0ZM498.304,340L498.65,338.938L495.998,327.783L492.97,322.43L490.243,307.894L492.882,297.92L516.293,290.188L521.131,284.703L523.821,278.15L533.158,270.278L537.97,268.792L540,270.491L540,338.124L540,338.124L534.766,338.98L534.766,338.98L532.544,340L498.304,340ZM379.922,193.752L379.394,197.412L374.895,199.213L372.621,191.36L374.204,185.623ZM476.571,155.469L473.705,154.33L475.326,149.476L481.145,148.521ZM519.51,132.239L515.916,141.444L513.679,135.44L518.53,128.769ZM145.959,75.849L147.14,82.541L137.828,78.199ZM124.834,63.377L128.667,65.216L128.177,71.233L123.854,71.256ZM95.541,0L96.07,1.523L100.305,2.628L96.346,13.758L74.267,17.081L79.381,11.29L78.567,0L95.541,0ZM516.218,175.369L516.218,175.369L516.218,175.369ZM522.338,185.065L527.54,180.623L523.77,188.462ZM535.57,190.608L532.152,200.573L528.043,198.536L525.907,192.655L520.591,195.943L521.383,191.945L535.03,187.528ZM508.087,187.42L508.087,187.42L508.087,187.42ZM521.471,155.37L519.108,163.745L519.347,169.541L527.1,171.508L527.54,175.968L523.532,172.329L515.502,171.235L513.554,167.221L515.803,154.336ZM520.428,179.972L520.428,179.972L520.428,179.972ZM532.517,177.305L530.066,184.525L528.206,175.895ZM208.691,88.922L213.026,89.268L208.691,88.922Z" />
+
+      <!-- Markers -->
+      <g class="gp-marker">
+        <circle class="gp-marker-ping" cx="183" cy="324" r="4" />
+        <circle class="gp-marker-dot" cx="183" cy="324" r="3.6" />
+        <text class="gp-marker-label" x="193" y="327">South Africa</text>
+      </g>
+      <g class="gp-marker">
+        <circle class="gp-marker-ping" cx="285" cy="134" r="4" />
+        <circle class="gp-marker-dot" cx="285" cy="134" r="3.6" />
+        <text class="gp-marker-label" x="277" y="124" text-anchor="end">UAE</text>
+      </g>
+      <g class="gp-marker">
+        <circle class="gp-marker-ping" cx="367" cy="141" r="4" />
+        <circle class="gp-marker-dot" cx="367" cy="141" r="3.6" />
+        <text class="gp-marker-label" x="377" y="144">India</text>
+      </g>
+      <g class="gp-marker">
+        <circle class="gp-marker-ping" cx="388" cy="118" r="4" />
+        <circle class="gp-marker-dot" cx="388" cy="118" r="3.6" />
+        <text class="gp-marker-label" x="388" y="108" text-anchor="middle">Nepal</text>
+      </g>
+      <g class="gp-marker">
+        <circle class="gp-marker-ping" cx="410" cy="120" r="4" />
+        <circle class="gp-marker-dot" cx="410" cy="120" r="3.6" />
+        <text class="gp-marker-label" x="420" y="132">Bhutan</text>
+      </g>
+    </svg>
+    <div class="gp-map-scrim"></div>
+  </div>
+
+  <div class="gp-inner">
+    <div class="gp-head reveal">
+      <div class="sc-eyebrow">Global Presence</div>
+      <h2 class="sc-title">Trusted Across <em>Five Nations</em></h2>
+      <p class="sc-sub">From our Delhi workshop to dealer showrooms across South Asia and Southern Africa, IPM fittings are installed in homes and projects on three continents.</p>
+    </div>
+
+    <div class="gp-ledger stagger-children reveal">
+      <div class="gp-region">
+        <div class="gp-region-num">01</div>
+        <div class="gp-region-name">India</div>
+        <div class="gp-region-cities">Delhi NCR · Mumbai · Bengaluru</div>
+      </div>
+      <div class="gp-region">
+        <div class="gp-region-num">02</div>
+        <div class="gp-region-name">UAE</div>
+        <div class="gp-region-cities">Dubai · Abu Dhabi</div>
+      </div>
+      <div class="gp-region">
+        <div class="gp-region-num">03</div>
+        <div class="gp-region-name">Nepal</div>
+        <div class="gp-region-cities">Kathmandu</div>
+      </div>
+      <div class="gp-region">
+        <div class="gp-region-num">04</div>
+        <div class="gp-region-name">Bhutan</div>
+        <div class="gp-region-cities">Thimphu</div>
+      </div>
+      <div class="gp-region">
+        <div class="gp-region-num">05</div>
+        <div class="gp-region-name">South Africa</div>
+        <div class="gp-region-cities">Johannesburg · Cape Town</div>
+      </div>
     </div>
   </div>
 </section>
