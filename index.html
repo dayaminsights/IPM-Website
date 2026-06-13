@@ -2490,6 +2490,73 @@ footer {
   </div>
 </footer>
 
+<!-- ===== QUICK ENQUIRY MODAL ===== -->
+<div id="enquiryModal" class="qmodal" role="dialog" aria-modal="true" aria-labelledby="qmodal-title" hidden>
+  <div class="qmodal-scrim" id="qmodalScrim"></div>
+  <div class="qmodal-panel">
+    <button class="qmodal-close" id="qmodalClose" aria-label="Close">&#x2715;</button>
+    <div class="qmodal-product">
+      <div class="qmodal-swatch" id="qmodalSwatch"></div>
+      <div class="qmodal-info">
+        <div class="eyebrow" id="qmodalSku"></div>
+        <h3 class="serif" id="qmodal-title"></h3>
+        <p id="qmodalDim"></p>
+        <span class="qmodal-finish" id="qmodalFin"></span>
+      </div>
+    </div>
+    <form class="qmodal-form" id="qmodalForm">
+      <input type="text" name="name" placeholder="Your name" autocomplete="name" required>
+      <input type="tel" name="phone" placeholder="Phone number" autocomplete="tel" required>
+      <textarea name="message" placeholder="Any specific requirements?" rows="3"></textarea>
+      <button type="submit" class="qmodal-submit">Send Enquiry</button>
+    </form>
+    <div class="qmodal-confirm" id="qmodalConfirm" hidden>
+      <span class="qmodal-tick">&#10003;</span>
+      <p class="serif">We&rsquo;ll be in touch within 24 hours.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FLOATING CONTACT CTA ===== -->
+<div id="floatCta" class="float-cta" hidden>
+  <div class="float-cta-panel" id="floatCtaPanel" hidden>
+    <div class="float-cta-head">
+      <span class="eyebrow">Get in Touch</span>
+      <button class="float-cta-x" id="floatCtaClose" aria-label="Close">&#x2715;</button>
+    </div>
+    <form id="floatForm">
+      <input type="text" name="name" placeholder="Your name" required autocomplete="name">
+      <input type="tel" name="phone" placeholder="Phone / Email" required>
+      <textarea name="message" rows="3" placeholder="How can we help?"></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+    <div id="floatConfirm" class="float-confirm" hidden>
+      <span class="float-confirm-icon">&#10003;</span>
+      <p class="serif">Thank you. We&rsquo;ll call you back soon.</p>
+    </div>
+  </div>
+  <button class="float-cta-btn" id="floatCtaBtn" aria-label="Book a Showroom Visit" aria-expanded="false">
+    <span class="float-cta-icon">&#9742;</span>
+    <span class="float-cta-label">Book a Visit</span>
+  </button>
+</div>
+
+<!-- ===== HERITAGE VIDEO MODAL ===== -->
+<div id="videoModal" class="vmodal" hidden role="dialog" aria-modal="true" aria-label="Our Story Video">
+  <div class="vmodal-scrim" id="vmodalScrim" onclick="document.getElementById('videoModal').setAttribute('hidden','');document.body.style.overflow='';var v=document.getElementById('heritageVideo');v.pause();v.currentTime=0;"></div>
+  <div class="vmodal-inner">
+    <button class="vmodal-close" id="vmodalClose" aria-label="Close" onclick="document.getElementById('videoModal').setAttribute('hidden','');document.body.style.overflow='';var v=document.getElementById('heritageVideo');v.pause();v.currentTime=0;">&#x2715;</button>
+    <div class="vmodal-frame">
+      <video id="heritageVideo" controls playsinline preload="metadata" poster="images/home/first%20frame%20of%20video.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000;display:block;">
+        <source src="images/home/ipm%20home%20page%20video.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</div>
+
+<!-- ===== BACK TO TOP ===== -->
+<button id="backTop" class="back-top" aria-label="Back to top" hidden>&#8593;</button>
+
 <script>
 /* ================================================================
    PRODUCT DATA
@@ -2982,72 +3049,5 @@ window.addEventListener('scroll', () => {
   }
 }, { passive: true });
 </script>
-
-<!-- ===== QUICK ENQUIRY MODAL ===== -->
-<div id="enquiryModal" class="qmodal" role="dialog" aria-modal="true" aria-labelledby="qmodal-title" hidden>
-  <div class="qmodal-scrim" id="qmodalScrim"></div>
-  <div class="qmodal-panel">
-    <button class="qmodal-close" id="qmodalClose" aria-label="Close">&#x2715;</button>
-    <div class="qmodal-product">
-      <div class="qmodal-swatch" id="qmodalSwatch"></div>
-      <div class="qmodal-info">
-        <div class="eyebrow" id="qmodalSku"></div>
-        <h3 class="serif" id="qmodal-title"></h3>
-        <p id="qmodalDim"></p>
-        <span class="qmodal-finish" id="qmodalFin"></span>
-      </div>
-    </div>
-    <form class="qmodal-form" id="qmodalForm">
-      <input type="text" name="name" placeholder="Your name" autocomplete="name" required>
-      <input type="tel" name="phone" placeholder="Phone number" autocomplete="tel" required>
-      <textarea name="message" placeholder="Any specific requirements?" rows="3"></textarea>
-      <button type="submit" class="qmodal-submit">Send Enquiry</button>
-    </form>
-    <div class="qmodal-confirm" id="qmodalConfirm" hidden>
-      <span class="qmodal-tick">&#10003;</span>
-      <p class="serif">We&rsquo;ll be in touch within 24 hours.</p>
-    </div>
-  </div>
-</div>
-
-<!-- ===== FLOATING CONTACT CTA ===== -->
-<div id="floatCta" class="float-cta" hidden>
-  <div class="float-cta-panel" id="floatCtaPanel" hidden>
-    <div class="float-cta-head">
-      <span class="eyebrow">Get in Touch</span>
-      <button class="float-cta-x" id="floatCtaClose" aria-label="Close">&#x2715;</button>
-    </div>
-    <form id="floatForm">
-      <input type="text" name="name" placeholder="Your name" required autocomplete="name">
-      <input type="tel" name="phone" placeholder="Phone / Email" required>
-      <textarea name="message" rows="3" placeholder="How can we help?"></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-    <div id="floatConfirm" class="float-confirm" hidden>
-      <span class="float-confirm-icon">&#10003;</span>
-      <p class="serif">Thank you. We&rsquo;ll call you back soon.</p>
-    </div>
-  </div>
-  <button class="float-cta-btn" id="floatCtaBtn" aria-label="Book a Showroom Visit" aria-expanded="false">
-    <span class="float-cta-icon">&#9742;</span>
-    <span class="float-cta-label">Book a Visit</span>
-  </button>
-</div>
-
-<!-- ===== HERITAGE VIDEO MODAL ===== -->
-<div id="videoModal" class="vmodal" hidden role="dialog" aria-modal="true" aria-label="Our Story Video">
-  <div class="vmodal-scrim" id="vmodalScrim" onclick="document.getElementById('videoModal').setAttribute('hidden','');document.body.style.overflow='';var v=document.getElementById('heritageVideo');v.pause();v.currentTime=0;"></div>
-  <div class="vmodal-inner">
-    <button class="vmodal-close" id="vmodalClose" aria-label="Close" onclick="document.getElementById('videoModal').setAttribute('hidden','');document.body.style.overflow='';var v=document.getElementById('heritageVideo');v.pause();v.currentTime=0;">&#x2715;</button>
-    <div class="vmodal-frame">
-      <video id="heritageVideo" controls playsinline preload="metadata" poster="images/home/first%20frame%20of%20video.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000;display:block;">
-        <source src="images/home/ipm%20home%20page%20video.mp4" type="video/mp4">
-      </video>
-    </div>
-  </div>
-</div>
-
-<!-- ===== BACK TO TOP ===== -->
-<button id="backTop" class="back-top" aria-label="Back to top" hidden>&#8593;</button>
 </body>
 </html>
