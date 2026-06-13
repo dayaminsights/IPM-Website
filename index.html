@@ -853,6 +853,9 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
   min-width: 210px;
   max-width: 280px;
   cursor: pointer;
+  display: block;
+  text-decoration: none;
+  color: inherit;
 }
 .pcard .img {
   position: relative;
@@ -870,6 +873,9 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
 .pcard .img .ph {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   transition: transform .7s cubic-bezier(.2,.6,.2,1);
 }
 .pcard:hover .img .ph { transform: scale(1.06); }
@@ -908,19 +914,6 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
   transition: opacity .3s, transform .3s;
 }
 .pcard:hover .fav { opacity: 1; transform: scale(1); }
-
-/* Finish dot */
-.pcard .finish-dot {
-  position: absolute;
-  bottom: 14px;
-  right: 14px;
-  z-index: 2;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border: 2px solid rgba(255,255,255,.55);
-  box-shadow: 0 2px 8px rgba(0,0,0,.25);
-}
 
 .pcard .meta { padding-top: 16px; }
 .pcard .stock {
@@ -968,16 +961,6 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
 }
 
 .caro-foot { display: flex; justify-content: center; margin-top: 52px; }
-
-/* Shimmer animation for gradient placeholders */
-.c-chrome { background: linear-gradient(135deg,#eef0f2,#9aa0a6 40%,#f4f6f8 60%,#7f868d); background-size: 200% 200%; animation: shimmer 3s ease-in-out infinite; }
-.c-richgold { background: linear-gradient(135deg,#f6e7b0,#caa53d 55%,#8a6d1e); background-size: 200% 200%; animation: shimmer 3s ease-in-out .5s infinite; }
-.c-rosegold { background: linear-gradient(135deg,#f3d3cf,#c98b88 55%,#9b5e5a); background-size: 200% 200%; animation: shimmer 3s ease-in-out 1s infinite; }
-.c-gunmetal { background: linear-gradient(135deg,#4a4f55,#23262a 60%,#0f1113); background-size: 200% 200%; animation: shimmer 3s ease-in-out 1.5s infinite; }
-@keyframes shimmer {
-  0%, 100% { background-position: 0% 50%; }
-  50%       { background-position: 100% 50%; }
-}
 
 /* ================================================================
    HERITAGE
