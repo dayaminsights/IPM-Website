@@ -860,7 +860,7 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
 .pcard .img {
   position: relative;
   aspect-ratio: 3/5;
-  background: var(--cream);
+  background: var(--paper);
   overflow: hidden;
   border-radius: 16px;
   border: 1px solid var(--line);
@@ -870,15 +870,17 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
   box-shadow: var(--shadow-md);
   border-color: var(--line-2);
 }
-.pcard .img .ph {
+.pcard .img .pshot {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  padding: 10%;
+  box-sizing: border-box;
   transition: transform .7s cubic-bezier(.2,.6,.2,1);
 }
-.pcard:hover .img .ph { transform: scale(1.06); }
+.pcard:hover .img .pshot { transform: scale(1.06); }
 .pcard .badge {
   position: absolute;
   top: 12px;
@@ -2563,11 +2565,14 @@ footer {
 ================================================================ */
 const PRODUCTS = [
   { n:'Basin Mixer Wall Mounted Upper Parts', sku:'OPELL-PRIMA-006', collection:'Opell Prima', fin:'Matt Black Gold', img:'images/products/opell-prima/opell-prima-006-main.png', link:'collections/opell-prima/opell-prima-006/', badge:''    },
+  { n:'Basin Mixer Wall Mounted Upper Parts', sku:'OPELL-PRIMA-007', collection:'Opell Prima', fin:'Matt White Gold', img:'images/products/opell-prima/opell-prima-007-main.png', link:'collections/opell-prima/opell-prima-006/', badge:''    },
   { n:'Bottle Trap',                          sku:'OPELL-PRIMA-011', collection:'Opell Prima', fin:'Rich Gold',       img:'images/products/opell-prima/opell-prima-011-main.png', link:'collections/opell-prima/opell-prima-011/', badge:''    },
   { n:'Diverter Body',                        sku:'OPELL-PRIMA-020', collection:'Opell Prima', fin:'Rose Gold',       img:'images/products/opell-prima/opell-prima-020-main.png', link:'collections/opell-prima/opell-prima-020/', badge:'NEW' },
   { n:'Square Shower Head',                   sku:'OPELL-PRIMA-027', collection:'Opell Prima', fin:'Rich Gold',       img:'images/products/opell-prima/opell-prima-027-main.png', link:'collections/opell-prima/opell-prima-027/', badge:''    },
   { n:'Hand Shower',                          sku:'OPELL-PRIMA-028', collection:'Opell Prima', fin:'Rose Gold',       img:'images/products/opell-prima/opell-prima-028-main.png', link:'collections/opell-prima/opell-prima-028/', badge:''    },
+  { n:'Hand Shower',                          sku:'OPELL-PRIMA-029', collection:'Opell Prima', fin:'Matt Black',      img:'images/products/opell-prima/opell-prima-029-main.png', link:'collections/opell-prima/opell-prima-028/', badge:''    },
   { n:'Single Lever Basin Mixer Tall',        sku:'OPELL-PRIMA-038', collection:'Opell Prima', fin:'Matt Beige',      img:'images/products/opell-prima/opell-prima-038-main.png', link:'collections/opell-prima/opell-prima-038/', badge:''    },
+  { n:'Single Lever Basin Mixer Tall',        sku:'OPELL-PRIMA-060', collection:'Opell Prima', fin:'Rich Gold',       img:'images/products/opell-prima/opell-prima-060-main.png', link:'collections/opell-prima/opell-prima-038/', badge:''    },
   { n:'Aliva Basin Mixer',                    sku:'ALIVA-001-RGD',   collection:'Aliva',       fin:'Rich Gold',       img:'images/collections/cat-faucets.jpg',                    link:'collections/aliva/aliva-001/',             badge:'NEW' }
 ];
 
@@ -2579,7 +2584,7 @@ const cardHTML = PRODUCTS.map((p, i) => `
   <a class="pcard" href="${p.link}" data-index="${i}">
     <div class="img">
       ${p.badge ? `<span class="badge">${p.badge}</span>` : ''}
-      <img class="ph" src="${p.img}" alt="${p.n}" loading="lazy">
+      <img class="pshot" src="${p.img}" alt="${p.n}" loading="lazy">
       <button class="pcard-enquire" type="button" data-index="${i}">Enquire</button>
     </div>
     <div class="meta">
