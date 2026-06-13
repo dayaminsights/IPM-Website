@@ -2045,6 +2045,12 @@ footer {
   height: 72px;
   border-radius: 12px;
   flex-shrink: 0;
+  overflow: hidden;
+}
+.qmodal-swatch img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .qmodal-info .eyebrow { margin-bottom: 6px; }
 .qmodal-info h3 {
@@ -2519,24 +2525,30 @@ const PRODUCTS = [
    BUILD CAROUSEL
 ================================================================ */
 const caroEl = document.getElementById('caro');
-const cardHTML = PRODUCTS.map(p => `
-  <article class="pcard" data-product='${JSON.stringify(p).replace(/'/g, "&#39;")}'>
+const cardHTML = PRODUCTS.map((p, i) => `
+  <a class="pcard" href="${p.link}" data-index="${i}">
     <div class="img">
       ${p.badge ? `<span class="badge">${p.badge}</span>` : ''}
-      <span class="fav">♡</span>
-      <div class="finish-dot" style="background:${FINISH_COLORS[p.cls].split(',')[1] || '#aaa'}"></div>
-      <div class="ph ${p.cls}"><span>${p.n}</span></div>
-      <button class="pcard-enquire" type="button">Enquire</button>
+      <img class="ph" src="${p.img}" alt="${p.n}" loading="lazy">
+      <button class="pcard-enquire" type="button" data-index="${i}">Enquire</button>
     </div>
     <div class="meta">
       <div class="stock">In Stock · Ships Free</div>
-      <div class="dim">${p.dim} · ${p.fin}</div>
+      <div class="dim">${p.collection} · ${p.fin}</div>
       <h4>${p.n}</h4>
       <div class="sku">${p.sku}</div>
     </div>
-  </article>`).join('');
+  </a>`).join('');
 
 caroEl.innerHTML = `<div class="caro-track">${cardHTML}</div>`;
+
+caroEl.querySelectorAll('.pcard-enquire').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    openEnquiry(PRODUCTS[Number(btn.dataset.index)]);
+  });
+});
 
 /* Carousel: scroll-based with auto-scroll and working prev/next */
 const cardW = () => {
@@ -2777,11 +2789,10 @@ const qDim     = document.getElementById('qmodalDim');
 const qFin     = document.getElementById('qmodalFin');
 
 function openEnquiry(product) {
-  const grad = FINISH_COLORS[product.cls] || 'linear-gradient(135deg,#aaa,#ccc)';
-  qSwatch.style.background = grad;
+  qSwatch.innerHTML = `<img src="${product.img}" alt="${product.n}">`;
   qSku.textContent = product.sku;
   qTitle.textContent = product.n;
-  qDim.textContent = product.dim;
+  qDim.textContent = product.collection;
   qFin.textContent = product.fin;
   qForm.hidden = false;
   qConfirm.hidden = true;
@@ -2811,16 +2822,6 @@ qForm.addEventListener('submit', e => {
   window.open(`mailto:ipmbathfittings@gmail.com?subject=${subj}&body=${body}`);
   qForm.hidden = true;
   qConfirm.hidden = false;
-});
-
-document.getElementById('caro').addEventListener('click', e => {
-  const card = e.target.closest('.pcard');
-  if (!card) return;
-  e.preventDefault();
-  try {
-    const product = JSON.parse(card.dataset.product);
-    openEnquiry(product);
-  } catch(err) {}
 });
 
 /* ================================================================
