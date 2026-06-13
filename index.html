@@ -432,7 +432,8 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
   border-radius: 0 0 40px 40px;
   margin-top: -80px;
 }
-.hero img {
+.hero img,
+.hero video {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -2216,7 +2217,9 @@ footer {
 
 <!-- ===== HERO ===== -->
 <section class="hero" data-header-scheme="dark">
-  <img src="images/home/hero.jpg" alt="Luxury bathroom with IPM faucet" id="heroImg">
+  <video id="heroVideo" autoplay muted loop playsinline poster="images/home/hero.jpg">
+    <source src="images/home/hero.mp4" type="video/mp4">
+  </video>
   <div class="scrim"></div>
   <div class="copy">
     <div class="e">The 2026 Collection</div>
