@@ -1,0 +1,45 @@
+// Emits a flat JSON search index consumed by /search.html.
+// Searchable fields: product name, SKU(s), collection, category.
+
+function renderSearchIndex(collections, productGroups) {
+  const items = productGroups.map(g => {
+    const primary = g.variants[0];
+    // Carry up to 6 variant images for cycling on search cards.
+    // isColoured: true when any finish is not Chrome (i.e. has real coloured variants).
+    const variantImages = g.variants
+      .filter(v => v.image)
+      .slice(0, 6)
+      .map(v => ({ finish: v.finish, image: (v.image || '').replace(/^\//, '') }));
+    const isColoured = g.variants.some(v => v.finish !== 'Chrome');
+    // Swatch classes for the first 5 colour variants (skip Chrome for the dots)
+    const swatches = g.variants
+      .filter(v => v.finish !== 'Chrome' && v.swatchClass && v.swatchClass !== 'f-chrome')
+      .slice(0, 5)
+      .map(v => ({ finish: v.finish, swatch: v.swatchClass }));
+
+    return {
+      name: g.skuName,
+      collection: g.collectionName,
+      collectionSlug: g.collectionSlug,
+      category: g.category,
+      url: `collections/${g.collectionSlug}/${g.groupSlug}/`,
+      image: (primary.image || '').replace(/^\//, ''),
+      skus: g.variants.map(v => v.sku).join(' '),
+      finishes: g.variants.map(v => v.finish).join(', '),
+      finishCount: g.variants.length,
+      price: primary.price || '',
+      isColoured,
+      variantImages,
+      swatches,
+    };
+  });
+
+  return JSON.stringify({
+    generatedAt: new Date().toISOString(),
+    count: items.length,
+    collections: collections.map(c => ({ name: c.name, slug: c.slug })),
+    items,
+  });
+}
+
+module.exports = { renderSearchIndex };

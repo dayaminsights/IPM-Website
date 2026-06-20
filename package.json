@@ -4,9 +4,15 @@
   "version": "1.0.0",
   "description": "Catalog-driven static site build for IPM Bath Fittings",
   "scripts": {
-    "build": "node scripts/build-catalog.js"
+    "build": "node scripts/build-catalog.js",
+    "migrate": "node scripts/migrate/transform-master.js && node scripts/migrate/match-assets.js && node scripts/migrate/merge-sizes.js && node scripts/migrate/write-workbook.js",
+    "migrate:dry": "node scripts/migrate/transform-master.js && node scripts/migrate/match-assets.js --dry && node scripts/migrate/merge-sizes.js && node scripts/migrate/write-workbook.js",
+    "migrate:data": "node scripts/migrate/transform-master.js && node scripts/migrate/merge-sizes.js && node scripts/migrate/write-workbook.js",
+    "remove-bg": "node scripts/migrate/remove-white-bg.js",
+    "remove-bg:dry": "node scripts/migrate/remove-white-bg.js --dry"
   },
   "devDependencies": {
+    "sharp": "^0.35.1",
     "xlsx": "^0.18.5"
   }
 }

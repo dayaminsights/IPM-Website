@@ -1,3 +1,7 @@
 .worktrees/
 node_modules/
 scripts/scrape-output/
+
+# Migration artifacts (source photography is too large for git; xls is kept as source of truth)
+PICTURES FOR WEBSITE-*.zip
+.migrate-tmp/

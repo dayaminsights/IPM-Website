@@ -192,8 +192,8 @@ body:has(button:hover) #cursor-ring { width: 52px; height: 52px; opacity: 0.85; 
 header.site {
   position: fixed; top: 0; left: 0; right: 0; z-index: 60;
   background: color-mix(in srgb, var(--bg) 86%, transparent);
-  backdrop-filter: blur(12px) saturate(1.4);
-  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  backdrop-filter: blur(8px) saturate(1.4);
+  -webkit-backdrop-filter: blur(8px) saturate(1.4);
   border-bottom: 1px solid var(--line);
   transition: background .5s, border-color .5s, box-shadow .5s;
 }
@@ -202,7 +202,7 @@ header.site.scrolled { box-shadow: 0 1px 32px rgba(18,14,8,.08); }
   display: grid; grid-template-columns: 1fr auto 1fr;
   align-items: center; height: 80px; padding: 0 64px; width: 100%;
 }
-.nav-left { display: flex; gap: 36px; }
+.nav-left { display: flex; gap: 36px; align-items: center; }
 .nav-left a {
   font-family: 'DM Sans', sans-serif; font-size: 11px;
   letter-spacing: .16em; text-transform: uppercase; color: var(--soft);
@@ -216,6 +216,7 @@ header.site.scrolled { box-shadow: 0 1px 32px rgba(18,14,8,.08); }
 .nav-left a:hover { color: var(--ink); }
 .nav-left a:hover::after, .nav-left a.active::after { width: 100%; }
 .nav-left a.active { color: var(--ink); }
+
 .brand { justify-self: center; text-align: center; line-height: 1; }
 .brand b {
   font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 600;
@@ -266,6 +267,8 @@ header.site[data-header="over-dark"] .toggle button { color: rgba(255,255,255,.5
 header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); }
 header.site[data-header="over-dark"] .contact-link { color: rgba(255,255,255,.65); }
 header.site[data-header="over-dark"] .contact-link:hover { color: #fff; }
+header.site[data-header="over-dark"] .wa-link { color: rgba(255,255,255,.65); }
+header.site[data-header="over-dark"] .wa-link:hover { color: #25D366; }
 
 /* ================================================================
    SCROLL REVEAL
@@ -337,8 +340,9 @@ header.site[data-header="over-dark"] .contact-link:hover { color: #fff; }
   background: var(--cream);
 }
 .arch img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.arch.product-shot { background: #fff; }
+.arch.product-shot { background: var(--cream); }
 .arch.product-shot img { object-fit: contain; padding: 6%; box-sizing: border-box; }
+[data-theme="light"] .arch.product-shot img { mix-blend-mode: multiply; }
 
 /* ================================================================
    FINISHES STRIP (swatches)
@@ -357,6 +361,7 @@ header.site[data-header="over-dark"] .contact-link:hover { color: #fff; }
 .f-rich-gold          { background: linear-gradient(135deg,#ecd6a6,#a9762f); }
 .f-rose-gold          { background: linear-gradient(135deg,#f1cdbe,#bd7c63); }
 .f-gunmetal           { background: linear-gradient(135deg,#75787d,#202225); }
+.f-gunmetal-black-gold { background: linear-gradient(135deg,#5c5b57,#8a6f3c); }
 .f-matt-white-gold    { background: linear-gradient(135deg,#f6efdc,#dac89c); }
 .f-matt-black-gold    { background: linear-gradient(135deg,#4b463d,#8a6f3c); }
 .f-matt-beige-gold    { background: linear-gradient(135deg,#ecdfc6,#c5ab7c); }
@@ -478,25 +483,42 @@ footer {
 /* ================================================================
    BACK TO TOP
 ================================================================ */
-.back-top {
-  position: fixed; bottom: 32px; right: 28px; z-index: 140;
-  width: 44px; height: 44px; background: var(--ink); color: var(--bg);
-  border: 0; border-radius: 50%; cursor: pointer; font-size: 18px;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: var(--shadow-md);
-  transition: background .25s, transform .25s, opacity .3s; opacity: 0.8;
+/* ================================================================
+   WHATSAPP NAV LINK
+================================================================ */
+.wa-link {
+  display: flex; align-items: center; gap: 7px;
+  color: var(--soft); font-family: 'DM Sans', sans-serif;
+  font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+  transition: color .2s;
 }
-.back-top:hover { background: var(--gold); transform: translateY(-3px); opacity: 1; }
-.back-top[hidden] { display: none; }
+.wa-link:hover { color: #25D366; }
+.wa-icon { width: 18px; height: 18px; flex-shrink: 0; transition: color .2s; }
+.wa-label { display: none; }
+@media (min-width: 1100px) { .wa-label { display: inline; } }
 
 /* ================================================================
-   FLOATING CONTACT CTA
+   FLOATING CONTACT CTA + BACK-TO-TOP CLUSTER
 ================================================================ */
 .float-cta {
-  position: fixed; bottom: 86px; right: 28px; z-index: 150;
+  position: fixed; bottom: 32px; right: 28px; z-index: 150;
   display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
   animation: floatIn .4s cubic-bezier(.2,.6,.2,1) forwards;
 }
+
+/* Back-to-top: now inside the float cluster, row-level */
+.float-btn-row {
+  display: flex; align-items: center; gap: 10px; flex-direction: row;
+}
+.back-top {
+  width: 44px; height: 44px; background: var(--ink); color: var(--bg);
+  border: 0; border-radius: 50%; cursor: pointer; font-size: 18px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow-md); flex-shrink: 0;
+  transition: background .25s, transform .25s, opacity .3s; opacity: 0.85;
+}
+.back-top:hover { background: var(--gold); transform: translateY(-3px); opacity: 1; }
+.back-top[hidden] { display: none; }
 .float-cta[hidden] { display: none; }
 .float-cta-btn {
   display: flex; align-items: center; gap: 10px;
@@ -554,14 +576,16 @@ footer {
   .page-hero { border-radius: 0 0 28px 28px; }
   .page-hero h1 { font-size: clamp(44px, 10vw, 80px); }
   .sec { padding-top: 80px; padding-bottom: 80px; }
-  .back-top { bottom: 88px; }
+  .float-cta { bottom: 20px; right: 16px; }
 }`;
 
-function renderHeader(depth) {
+function renderHeader(depth, activePage = 'collections') {
   const home = rel(depth, 'index.html');
   const collectionsHref = rel(depth, 'collections.html');
   const aboutHref = rel(depth, 'about.html');
   const contactHref = rel(depth, 'contact.html');
+  const searchHref = rel(depth, 'search.html');
+  const a = p => activePage === p ? ' class="active"' : '';
   return `<!-- ===== UTILITY BAR ===== -->
 <div class="util">
   <div class="wrap">
@@ -585,15 +609,23 @@ function renderHeader(depth) {
 <header class="site" id="siteHeader">
   <div class="head-in">
     <nav class="nav-left">
-      <a href="${home}">Home</a>
-      <a href="${collectionsHref}" class="active">Collections</a>
-      <a href="${aboutHref}">About Us</a>
+      <a href="${home}"${a('home')}>Home</a>
+      <a href="${collectionsHref}"${a('collections')}>Collections</a>
+      <a href="${aboutHref}"${a('about')}>About Us</a>
+      <a href="${searchHref}"${a('search')}>Search</a>
     </nav>
     <a href="${home}" class="brand">
       <b>IPM</b>
       <small>BATH FITTINGS</small>
     </a>
     <div class="nav-right">
+      <a href="https://wa.me/917827025280?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20IPM%20Bath%20Fittings" target="_blank" rel="noopener" class="wa-link" aria-label="Chat on WhatsApp">
+        <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.122.554 4.118 1.523 5.851L.057 23.082a.75.75 0 0 0 .917.928l5.347-1.477A11.955 11.955 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.651-.52-5.157-1.424l-.37-.22-3.167.875.882-3.082-.242-.382A9.961 9.961 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+        </svg>
+        <span class="wa-label">WhatsApp</span>
+      </a>
       <a href="${contactHref}" class="contact-link">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M4 13v-1a8 8 0 0 1 16 0v1"></path>
@@ -616,6 +648,7 @@ function renderFooter(depth) {
   const home = rel(depth, 'index.html');
   const aboutHref = rel(depth, 'about.html');
   const contactHref = rel(depth, 'contact.html');
+  const searchHref = rel(depth, 'search.html');
   return `<!-- ===== FOOTER ===== -->
 <footer>
   <div class="foot-inner wrap">
@@ -662,7 +695,7 @@ function renderFooter(depth) {
   </div>
 </footer>
 
-<!-- ===== FLOATING CONTACT CTA ===== -->
+<!-- ===== BOTTOM-RIGHT CLUSTER (Book a Visit + Back to Top) ===== -->
 <div id="floatCta" class="float-cta" hidden>
   <div class="float-cta-panel" id="floatCtaPanel" hidden>
     <div class="float-cta-head">
@@ -680,14 +713,14 @@ function renderFooter(depth) {
       <p class="serif">Thank you. We'll call you back soon.</p>
     </div>
   </div>
-  <button class="float-cta-btn" id="floatCtaBtn" aria-label="Book a Showroom Visit" aria-expanded="false">
-    <span class="float-cta-icon">&#9742;</span>
-    <span class="float-cta-label">Book a Visit</span>
-  </button>
-</div>
-
-<!-- ===== BACK TO TOP ===== -->
-<button id="backTop" class="back-top" aria-label="Back to top" hidden>&#8593;</button>`;
+  <div class="float-btn-row">
+    <button id="backTop" class="back-top" aria-label="Back to top" hidden>&#8593;</button>
+    <button class="float-cta-btn" id="floatCtaBtn" aria-label="Book a Showroom Visit" aria-expanded="false">
+      <span class="float-cta-icon">&#9742;</span>
+      <span class="float-cta-label">Book a Visit</span>
+    </button>
+  </div>
+</div>`;
 }
 
 const BASE_SCRIPT = `/* ================================================================

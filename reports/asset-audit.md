@@ -1,0 +1,456 @@
+# Asset Audit — Image Matching
+
+_Images copied into images/products/<collection>/._
+
+## Summary
+
+| Metric | Value |
+| --- | --- |
+| Source images | 583 |
+| Catalog variants | 924 |
+| Variants matched | 445 (48.2%) |
+| — high confidence (≥0.5) | 394 |
+| — fuzzy (0.34–0.5) | 51 |
+| Variants missing image (category fallback) | 479 |
+| Orphan images (no product) | 160 |
+| Duplicate images (extra for matched product) | 208 |
+| Ambiguous (image ~equal for 2 products) | 75 |
+| Copied | 445 |
+| Copy errors | 0 |
+
+
+### Fuzzy matches — review (image → product @score) (51)
+
+- `Single Lever Concealed Basin Mixer Upper Parts Flora.png` → flora/exposed-parts-for-concealed-basin-mixer [Chrome] @0.44
+- `Single Lever Concealed Basin Mixer Upper Parts Fuzone.png` → fuzone/exposed-parts-for-concealed-basin-mixer [Chrome] @0.44
+- `EXPOSED PARTS OF WALL MOUNT BASIN MIXER GUNMETAL BLACK.png` → opell-prima/exposed-parts-for-concealed-basin-mixer [Gunmetal Black] @0.44
+- `TWO WAY ANGLE VALVE JP.png` → jp/2-way-angle-valve-with-flange [Chrome] @0.43
+- `TWO WAY BOB COCK JP.png` → jp/2-way-bib-cock-with-flange [Chrome] @0.43
+- `WALL MIXER 3 in 1 ALIVA.png` → aliva/wall-mixer-three-in-one [Chrome] @0.43
+- `TWO WAY BIB COCK FUZONE.png` → fuzone/2-way-bib-cock-with-flange [Chrome] @0.43
+- `SINGE LEVER KITCHEN MIXER WALL MOUNTED GUNMETAL BLACK GOLD.png` → opell-prima/single-lever-wall-mixer [Gunmetal Black Gold] @0.43
+- `TWO WAY ANGLE VALVE FUZONE.png` → fuzone/2-way-angle-valve-with-flange [Chrome] @0.43
+- `TWO WAY BIB COCK PEBBLE.jpg` → pebble/2-way-bib-cock-with-flange [Chrome] @0.43
+- `CONCEALED STOP COCK PHEONIX.png` → allied/concealed-stop-cock-1-2-body [Chrome] @0.43
+- `SQUARE SHOWER HEAD GOLD.png` → allied/elegant-over-head-shower-square-10x10 [Rich Gold] @0.43
+- `CONCELAED BASIN MIXER EXPOSED PARTS GUNMETAL BLACK GOLD.png` → opell-prima/exposed-parts-for-deusch-mixer [Gunmetal Black Gold] @0.43
+- `CENTRE HOLE MIXER FLORA.png` → flora/center-hole-basin-mixer [Chrome] @0.40
+- `Single Lever Sink Mixer Side Handle Flora.png` → flora/single-lever-sink-mixer-table-mounted-round-spout [Chrome] @0.40
+- `Single Lever Sink Mixer Side Handle Aliva.png` → aliva/single-lever-sink-mixer-wall-mounted-regular-spout [Chrome] @0.40
+- `SINGLE LEVER WALL MOUNT KITCHEN MIXER ZENITH.png` → zenith/single-lever-sink-mixer-wall-mounted-round-spout [Chrome] @0.40
+- `TWO WAY BIB COCK MATT BEIGE.png` → opell-prima/nozzle-bib-cock [Matt Beige] @0.40
+- `EXPOSED PARTS FOR SINGLE LEVER HIGH FLOW DIVERTER BODY OPELL PRIMA.jpg` → opell-prima/exposed-parts-for-diverter-35mm [Chrome] @0.40
+- `SINGLE LEVER SINK MIXER SIDE HANDLE FUZONE.png` → fuzone/single-lever-sink-mixer-table-mounted-angular-spout [Chrome] @0.40
+- `SINGE LEVER KITCHEN MIXER TABLE MOUNTED GUNMETAL BLACK GOLD.png` → opell-prima/single-lever-sink-mixer-table-mounted-angular-spout [Gunmetal Black Gold] @0.40
+- `BOTTLE TRAP MATT BLACK.jpg` → allied/bottle-trap-with-12-pipe [Matt Black] @0.40
+- `TWO WAY BIB COCK MATT BEIGE GOLD.png` → opell-prima/nozzle-bib-cock [Matt Beige Gold] @0.40
+- `LONG BODY PHEONIX.png` → premium/long-body-with-flange [Chrome] @0.40
+- `ANGLE VALVE PHEONIX.png` → premium/angle-valve-with-flange [Chrome] @0.40
+- `2 WAY BIB COCK GUNMETAL BLACK GOLD.png` → opell-prima/nozzle-bib-cock [Gunmetal Black Gold] @0.40
+- `SINGE LEVER KITCHEN MIXER WALL MOUNTED GUNMETAL BLACK GOLD.png` → opell-prima/single-lever-sink-mixer-wall-mounted-angular-spout [Gunmetal Black Gold] @0.40
+- `BIB COCK PHEONIX.png` → premium/bib-cock-with-flange [Chrome] @0.40
+- `Single Lever Sink Mixer Side Handle Cube Prima.png` → cube-prima/single-lever-sink-mixer-table-mounted-round-spout [Chrome] @0.40
+- `SINGE LEVER KITCHEN MIXER TABLE MOUNTED GUNMETAL BLACK GOLD.png` → opell-prima/single-lever-sink-mixer-table-mounted-round-spout [Gunmetal Black Gold] @0.40
+- `concealed stop cock ALIVA.png` → aliva/exposed-parts-for-concealed-stop-cock-1-2 [Chrome] @0.38
+- `CONCELAED BASIN MIXER WALL MOUNTED MATT BLACK GOLD.png` → opell-prima/exposed-parts-for-concealed-basin-mixer [Matt Black Gold] @0.38
+- `CONCEALED STOP COCK JP.png` → jp/exposed-parts-for-concealed-stop-cock-1-2 [Chrome] @0.38
+- `CONCELAED BASIN MIXER WALL MOUNTED MATT BEIGE.png` → opell-prima/exposed-parts-for-concealed-basin-mixer [Matt Beige] @0.38
+- `CONCEALED STOP COCK OPELL PRIMA.jpg` → opell-prima/exposed-parts-for-concealed-stop-cock-1-2 [Chrome] @0.38
+- `CONCEALED SHOWER DIVERTER UPPER 35mm ZENTIH.png` → zenith/concealed-body-for-diverter-35mm [Chrome] @0.38
+- `Single Lever Deusch Mixer Upper Parts Aliva.png` → aliva/exposed-parts-for-deusch-mixer [Chrome] @0.38
+- `CONCEALED STOP COCK FLORA.png` → flora/exposed-parts-for-concealed-stop-cock-1-2 [Chrome] @0.38
+- `SINGLE LEVER CONCEALED BASIN MIXER PARA.png` → para/exposed-parts-for-concealed-basin-mixer [Chrome] @0.38
+- `CONCEALED STOP COCK FUZONE.png` → fuzone/exposed-parts-for-concealed-stop-cock-1-2 [Chrome] @0.38
+- `CONCEALED STOP COCK GUNMETAL BLACK.png` → zenith/exposed-parts-for-concealed-stop-cock-1-2 [Gunmetal Black] @0.38
+- `CONCELAED BASIN MIXER WALL MOUNTED MATT BLACK.png` → opell-prima/exposed-parts-for-concealed-basin-mixer [Matt Black] @0.38
+- `SINGLE LEVER DIVERTER EXPOSED PARTS PHEONIX.png` → aliva/exposed-parts-for-diverter-35mm [Chrome] @0.38
+- `CONCEALED STOP COCK ROSE GOLD.png` → zenith/exposed-parts-for-concealed-stop-cock-1-2 [Rose Gold] @0.38
+- `CONCEALED STOP COCK  PEBBLE.jpg` → pebble/exposed-parts-for-concealed-stop-cock-1-2 [Chrome] @0.38
+- `CONCEALED STOP COCK CUBE PRIMA.png` → cube-prima/exposed-parts-for-concealed-stop-cock-1-2 [Chrome] @0.38
+- `SINGLE LEVER CONCEALED DIVERTER EXPOSED PARTS  PEBBLE.png` → pebble/exposed-parts-for-diverter-35mm [Chrome] @0.38
+- `CONCEALED STOP COCK RICH GOLD.png` → zenith/exposed-parts-for-concealed-stop-cock-1-2 [Rich Gold] @0.38
+- `SINGLE LEVER DIVERTER EXPOSED PARTS 35MM.png` → neo/exposed-parts-for-diverter-40mm [Chrome] @0.38
+- `211-SL   SINGLE LEVER SINK MIXER SMART FUZONE.jpg` → fuzone/single-lever-sink-mixer-table-mounted-round-spout [Chrome] @0.36
+- `411-SL   SINGLE LEVER SINK MIXER SMART PEBBLE.jpg` → pebble/single-lever-sink-mixer-table-mounted-round-spout [Chrome] @0.36
+
+
+### Ambiguous matches (75)
+
+- `SINGLE LEVER BASIN MIXER GUNMETAL BLACK.png` → single-lever-basin-mixer @1.00 vs single-lever-basin-mixer-1918 @1.00
+- `SINGLE LEVER BASIN MIXER ROSE GOLD.png` → single-lever-basin-mixer @1.00 vs single-lever-basin-mixer-1918 @1.00
+- `SINGLE LEVER BASIN MIXER EXTENDED MATT WHITE.png` → single-lever-basin-mixer-extended-body @0.83 vs single-lever-basin-mixer @0.80
+- `WASTE COUPLING WITH CAP MATT BEIGE.png` → waste-coupling-3-with-cap @0.80 vs waste-coupling-5-with-cap @0.80
+- `WASTE COUPLING WITH CAP MATT BEIGE GOLD.png` → waste-coupling-3-with-cap @0.80 vs waste-coupling-5-with-cap @0.80
+- `Single lever Sink Mixer Wall Mounted Aliva.png` → single-lever-sink-mixer-wall-mounted-angular-spout @0.75 vs single-lever-sink-mixer-wall-mounted-regular-spout @0.75
+- `SINGLE LEVER SINK MIXER ROUND SPOUT ZENITH GUNMETAL BLACK.png` → single-lever-sink-mixer-table-mounted-round-spout @0.75 vs single-lever-sink-mixer-wall-mounted-round-spout @0.75
+- `SINGLE LEVER SINK MIXER TABLE MOUNTED OPELL PRIMA.jpg` → single-lever-sink-mixer-table-mounted-angular-spout @0.75 vs single-lever-sink-mixer-table-mounted-round-spout @0.75
+- `Single lever Sink Mixer Wall Mounted Flora.png` → single-lever-sink-mixer-wall-mounted-angular-spout @0.75 vs single-lever-sink-mixer-wall-mounted-regular-spout @0.75
+- `Single lever Sink Mixer Wall Mounted Fuzone.png` → single-lever-sink-mixer-wall-mounted-angular-spout @0.75 vs single-lever-sink-mixer-wall-mounted-regular-spout @0.75
+- `Single lever Sink Mixer Wall Mounted Cube Prima.png` → single-lever-sink-mixer-wall-mounted-angular-spout @0.75 vs single-lever-sink-mixer-wall-mounted-regular-spout @0.75
+- `SINGLE LEVER BASIN MIXER EXTEMDED BODY ROSE GOLD.png` → single-lever-basin-mixer-extended-body @0.71 vs single-lever-basin-mixer-extended-body-1919 @0.71
+- `SINGLE LEVER SINK MIXER TABLE MOUNTED TALL OPELL PRIMA.jpg` → single-lever-sink-mixer-table-mounted-angular-spout @0.67 vs single-lever-sink-mixer-table-mounted-round-spout @0.67
+- `SINGLE LEVER WALL MIXER WITH BEND PARA.png` → single-lever-wall-mixer @0.67 vs wall-mixer-with-bend @0.67
+- `SINGLE LEVER WALL MOUNTED BASIN MIXER OPELL PRIMA.jpg` → single-lever-basin-mixer @0.67 vs single-lever-wall-mixer @0.67
+- `BASIN MIXER EXTENDED BODY GUNMETAL BLACK.png` → single-lever-basin-mixer-extended-body @0.67 vs single-lever-basin-mixer-extended-body-1919 @0.67
+- `WASTE COUPLING WITH CAP 3INCH MATT WHITE.png` → waste-coupling-3-with-cap @0.67 vs waste-coupling-5-with-cap @0.67
+- `WASTE COUPLING WITH CAP MATT BLACK 5INCH.png` → waste-coupling-3-with-cap @0.67 vs waste-coupling-5-with-cap @0.67
+- `WASTE COUPLING WITH CAP MATT WHITE GOLD 3inch.png` → waste-coupling-3-with-cap @0.67 vs waste-coupling-5-with-cap @0.67
+- `WASTE COUPLING WITH CAP ROSE GOLD 3INCH.png` → waste-coupling-3-with-cap @0.67 vs waste-coupling-5-with-cap @0.67
+- `Single Lever Sink Mixer Angular Flora.png` → single-lever-sink-mixer-table-mounted-angular-spout @0.63 vs single-lever-sink-mixer-wall-mounted-angular-spout @0.63
+- `Single Lever Sink Mixer Angular Aliva.png` → single-lever-sink-mixer-table-mounted-angular-spout @0.63 vs single-lever-sink-mixer-wall-mounted-angular-spout @0.63
+- `Single Lever Sink Mixer Angular Cube Prima.png` → single-lever-sink-mixer-table-mounted-angular-spout @0.63 vs single-lever-sink-mixer-wall-mounted-angular-spout @0.63
+- `SINGLE LEVER SHOWER MIXER OPELL PRIMA.png` → single-lever-basin-mixer @0.60 vs single-lever-wall-mixer @0.60
+- `Single Lever Concealed Basin Mixer High Flow Body GUNMETAL BLACK.png` → single-lever-concealed-diverter-body-45mm-high-flow @0.60 vs single-lever-basin-mixer-extended-body @0.56
+- `WASTE COUPLING WITH CAP GOLD 3INCH.png` → waste-coupling-3-with-cap @0.57 vs waste-coupling-5-with-cap @0.57
+- `SINGLE LEVER CONCEALED BASIN MIXER EXPOSED PARTS PHEONIX.png` → exposed-parts-for-concealed-basin-mixer @0.56 vs single-lever-concealed-basin-mixer-body @0.56
+- `SINK COCK PILLAR MOUNTED FLORA.png` → pillar-cock @0.50 vs sink-cock @0.50
+- `MAZE SHOWER HEAD MATT GREY GOLD.png` → maze-over-head-shower-square-10x10 @0.50 vs maze-over-head-shower-square-12x12 @0.50
+- `SINGLE LEVER EXPOSED SHOWER MIXER OPELL PRIMA.jpg` → single-lever-basin-mixer @0.50 vs single-lever-wall-mixer @0.50
+- `MAZE SHOWER HEAD  MATT BLACK GOLD.png` → maze-over-head-shower-square-10x10 @0.50 vs maze-over-head-shower-square-12x12 @0.50
+- `MAZE SHOWER HEAD  MATT BEIGE.png` → maze-over-head-shower-square-10x10 @0.50 vs maze-over-head-shower-square-12x12 @0.50
+- `MAZE SHOWER HEAD MATT GREY.png` → maze-over-head-shower-square-10x10 @0.50 vs maze-over-head-shower-square-12x12 @0.50
+- `SINGLE LEVER KITCHEN MIXER OPTIMA MATT BLACK.png` → single-lever-wall-mixer @0.50 vs single-lever-basin-mixer-1918 @0.50
+- `CONCEALED DIVERTER EXPOSED PARTS GUNMETAL BLACK GOLD.png` → exposed-parts-for-diverter-35mm @0.50 vs exposed-parts-for-diverter-45mm @0.50
+- `MAZE SHOWER HEAD MATT BLACK.png` → maze-over-head-shower-square-10x10 @0.50 vs maze-over-head-shower-square-12x12 @0.50
+- `MAZE SHOWER HEAD  MATT BEIGE GOLD.png` → maze-over-head-shower-square-10x10 @0.50 vs maze-over-head-shower-square-12x12 @0.50
+- `228-WB   SINGLE LEVER WALL MIXER WITH BEND FUZONE .jpg` → single-lever-wall-mixer @0.50 vs wall-mixer-with-bend @0.50
+- `SINGLE LEVER KITCHEN MIXER TM GUNMETAL BLACK.png` → single-lever-basin-mixer @0.50 vs single-lever-wall-mixer @0.50
+- `MAZE SHOWER HEAD MATT WHITE.png` → maze-over-head-shower-square-10x10 @0.50 vs maze-over-head-shower-square-12x12 @0.50
+- `SQUARE SHOWER HEAD ROSE GOLD.png` → elegant-over-head-shower-square-10x10 @0.50 vs elegant-over-head-shower-square-12x12 @0.50
+- `MAZE SHOWER HEAD MATT WHITE GOLD.png` → maze-over-head-shower-square-10x10 @0.50 vs maze-over-head-shower-square-12x12 @0.50
+- `CONCEALED DIVERTER EXPOSED PARTS GUNMETAL BLACK GOLD.png` → exposed-parts-for-diverter-35mm @0.50 vs exposed-parts-for-diverter-45mm @0.50
+- `Concealed Stop Cock Neo.png` → concealed-stop-cock-1-2-set @0.50 vs concealed-stop-cock-3-4-set @0.50
+- `Single Lever Sink Mixer Side Handle Flora.png` → single-lever-basin-mixer @0.43 vs single-lever-wall-mixer @0.43
+- `Single Lever Sink Mixer Side Handle Aliva.png` → single-lever-basin-mixer @0.43 vs single-lever-wall-mixer @0.43
+- `Single Lever Deusch Mixer Upper Parts Aliva.png` → single-lever-basin-mixer @0.43 vs single-lever-wall-mixer @0.43
+- `SINGLE LEVER SINK MIXER SIDE HANDLE FUZONE.png` → single-lever-basin-mixer @0.43 vs single-lever-wall-mixer @0.43
+- `SINGE LEVER KITCHEN MIXER WALL MOUNTED GUNMETAL BLACK GOLD.png` → single-lever-wall-mixer @0.43 vs single-lever-sink-mixer-wall-mounted-angular-spout @0.40
+- `CONCEALED STOP COCK PHEONIX.png` → concealed-stop-cock-1-2-body @0.43 vs concealed-stop-cock-3-4-body @0.43
+- `SQUARE SHOWER HEAD GOLD.png` → elegant-over-head-shower-square-10x10 @0.43 vs elegant-over-head-shower-square-12x12 @0.43
+- `SINGE LEVER KITCHEN MIXER WALL MOUNTED GUNMETAL BLACK GOLD.png` → single-lever-wall-mixer @0.43 vs single-lever-sink-mixer-wall-mounted-angular-spout @0.40
+- `Single Lever Sink Mixer Side Handle Cube Prima.png` → single-lever-basin-mixer @0.43 vs single-lever-wall-mixer @0.43
+- `SINGLE LEVER DIVERTER ALIVA.png` → single-lever-basin-mixer @0.40 vs single-lever-wall-mixer @0.40
+- `EXPOSED PARTS FOR SINGLE LEVER HIGH FLOW DIVERTER BODY OPELL PRIMA.jpg` → exposed-parts-for-diverter-35mm @0.40 vs exposed-parts-for-diverter-45mm @0.40
+- `SINGE LEVER KITCHEN MIXER TABLE MOUNTED GUNMETAL BLACK GOLD.png` → single-lever-sink-mixer-table-mounted-angular-spout @0.40 vs single-lever-sink-mixer-table-mounted-round-spout @0.40
+- `SINGE LEVER KITCHEN MIXER TABLE MOUNTED GUNMETAL BLACK GOLD.png` → single-lever-sink-mixer-table-mounted-angular-spout @0.40 vs single-lever-sink-mixer-table-mounted-round-spout @0.40
+- `concealed stop cock ALIVA.png` → exposed-parts-for-concealed-stop-cock-1-2 @0.38 vs exposed-parts-for-concealed-stop-cock-3-4 @0.38
+- `Single Lever Concealed Deusch Mixer Upper Parts Flora.png` → single-lever-basin-mixer @0.38 vs single-lever-wall-mixer @0.38
+- `CONCEALED STOP COCK JP.png` → exposed-parts-for-concealed-stop-cock-1-2 @0.38 vs exposed-parts-for-concealed-stop-cock-3-4 @0.38
+- …and 15 more
+
+
+### Missing assets (product, no image) (479)
+
+- aliva/exposed-parts-for-diverter-45mm [Chrome] — "Exposed Parts For Diverter 45mm"
+- aliva/exposed-parts-for-concealed-stop-cock-3-4 [Chrome] — "Exposed Parts For Concealed Stop Cock 3/4"
+- aliva/exposed-parts-for-diverter-40mm [Chrome] — "Exposed Parts For Diverter 40mm"
+- allied/bottle-trap-with-12-pipe [Chrome] — "Bottle Trap With 12" Pipe"
+- allied/bottle-trap-with-12-pipe [Rich Gold] — "Bottle Trap With 12" Pipe"
+- allied/bottle-trap-with-12-pipe [Rose Gold] — "Bottle Trap With 12" Pipe"
+- allied/bottle-trap-with-12-pipe [Gunmetal Black] — "Bottle Trap With 12" Pipe"
+- allied/bottle-trap-with-12-pipe [Gunmetal Black Gold] — "Bottle Trap With 12" Pipe"
+- allied/bottle-trap-with-12-pipe [Matt Black Gold] — "Bottle Trap With 12" Pipe"
+- allied/bottle-trap-with-12-pipe [Matt White] — "Bottle Trap With 12" Pipe"
+- allied/bottle-trap-with-12-pipe [Matt White Gold] — "Bottle Trap With 12" Pipe"
+- allied/bottle-trap-with-12-pipe [Matt Beige] — "Bottle Trap With 12" Pipe"
+- allied/bottle-trap-with-12-pipe [Matt Beige Gold] — "Bottle Trap With 12" Pipe"
+- allied/bottle-trap-with-12-pipe [Matt Grey] — "Bottle Trap With 12" Pipe"
+- allied/bottle-trap-with-12-pipe [Matt Grey Gold] — "Bottle Trap With 12" Pipe"
+- allied/brass-bottle-trap-with-7-pipe [Chrome] — "Brass Bottle Trap with 7" Pipe"
+- allied/cuba-hand-shower-with-tube [Chrome] — "Cuba Hand Shower With Tube"
+- allied/donut-hand-shower-with-tube [Chrome] — "Donut Hand Shower with Tube"
+- allied/elegant-over-head-shower-round-10-inch [Chrome] — "Elegant Over Head Shower Round 10 Inch"
+- allied/elegant-over-head-shower-round-12-inch [Chrome] — "Elegant Over Head Shower Round 12 Inch"
+- allied/elegant-over-head-shower-round-6-inch [Chrome] — "Elegant Over Head Shower Round 6 Inch"
+- allied/elegant-over-head-shower-round-8-inch [Chrome] — "Elegant Over Head Shower Round 8 Inch"
+- allied/elegant-over-head-shower-square-10x10 [Chrome] — "Elegant Over Head Shower Square 10x10"
+- allied/elegant-over-head-shower-square-12x12 [Chrome] — "Elegant Over Head Shower Square 12x12"
+- allied/elegant-over-head-shower-square-12x12 [Rich Gold] — "Elegant Over Head Shower Square 12x12"
+- allied/elegant-over-head-shower-square-12x12 [Rose Gold] — "Elegant Over Head Shower Square 12x12"
+- allied/elegant-over-head-shower-square-6x6 [Chrome] — "Elegant Over Head Shower Square 6x6"
+- allied/elegant-over-head-shower-square-8x8 [Chrome] — "Elegant Over Head Shower Square 8x8"
+- allied/elegant-over-head-shower-square-8x8 [Rich Gold] — "Elegant Over Head Shower Square 8x8"
+- allied/elegant-over-head-shower-square-8x8 [Rose Gold] — "Elegant Over Head Shower Square 8x8"
+- allied/essence-mutli-flow-hand-shower-with-tube [Chrome] — "Essence Mutli Flow Hand Shower With Tube"
+- allied/glory-hand-shower-with-tube [Chrome] — "Glory Hand Shower With Tube"
+- allied/graha-multi-flow-hand-shower-with-tube [Chrome] — "Graha Multi Flow Hand Shower With Tube"
+- allied/health-faucet-dual-flow-with-tube [Chrome] — "Health Faucet Dual Flow With Tube"
+- allied/health-faucet-with-tube [Chrome] — "Health Faucet with Tube"
+- allied/maze-over-head-shower-4x6 [Chrome] — "Maze Over Head Shower 4x6"
+- allied/maze-over-head-shower-6x10 [Chrome] — "Maze Over Head Shower 6x10"
+- allied/maze-over-head-shower-8x12 [Chrome] — "Maze Over Head Shower 8x12"
+- allied/maze-over-head-shower-oval-5x7 [Chrome] — "Maze Over Head Shower Oval 5x7"
+- allied/maze-over-head-shower-oval-7x10 [Chrome] — "Maze Over Head Shower Oval 7x10"
+- allied/maze-over-head-shower-oval-9x14 [Chrome] — "Maze Over Head Shower Oval 9x14"
+- allied/maze-over-head-shower-round-10-inch [Chrome] — "Maze Over Head Shower Round 10 Inch"
+- allied/maze-over-head-shower-round-12-inch [Chrome] — "Maze Over Head Shower Round 12 Inch"
+- allied/maze-over-head-shower-round-4-inch [Chrome] — "Maze Over Head Shower Round 4 Inch"
+- allied/maze-over-head-shower-round-6-inch [Chrome] — "Maze Over Head Shower Round 6 Inch"
+- allied/maze-over-head-shower-round-8-inch [Chrome] — "Maze Over Head Shower Round 8 Inch"
+- allied/maze-over-head-shower-square-10x10 [Chrome] — "Maze Over Head Shower Square 10x10"
+- allied/maze-over-head-shower-square-10x10 [Rich Gold] — "Maze Over Head Shower Square 10x10"
+- allied/maze-over-head-shower-square-10x10 [Gunmetal Black] — "Maze Over Head Shower Square 10x10"
+- allied/maze-over-head-shower-square-10x10 [Gunmetal Black Gold] — "Maze Over Head Shower Square 10x10"
+- allied/maze-over-head-shower-square-12x12 [Chrome] — "Maze Over Head Shower Square 12x12"
+- allied/maze-over-head-shower-square-12x12 [Rich Gold] — "Maze Over Head Shower Square 12x12"
+- allied/maze-over-head-shower-square-12x12 [Gunmetal Black] — "Maze Over Head Shower Square 12x12"
+- allied/maze-over-head-shower-square-12x12 [Gunmetal Black Gold] — "Maze Over Head Shower Square 12x12"
+- allied/maze-over-head-shower-square-12x12 [Matt Black] — "Maze Over Head Shower Square 12x12"
+- allied/maze-over-head-shower-square-12x12 [Matt Black Gold] — "Maze Over Head Shower Square 12x12"
+- allied/maze-over-head-shower-square-12x12 [Matt White] — "Maze Over Head Shower Square 12x12"
+- allied/maze-over-head-shower-square-12x12 [Matt White Gold] — "Maze Over Head Shower Square 12x12"
+- allied/maze-over-head-shower-square-12x12 [Matt Beige] — "Maze Over Head Shower Square 12x12"
+- allied/maze-over-head-shower-square-12x12 [Matt Beige Gold] — "Maze Over Head Shower Square 12x12"
+- allied/maze-over-head-shower-square-12x12 [Matt Grey] — "Maze Over Head Shower Square 12x12"
+- allied/maze-over-head-shower-square-12x12 [Matt Grey Gold] — "Maze Over Head Shower Square 12x12"
+- allied/maze-over-head-shower-square-16x16 [Chrome] — "Maze Over Head Shower Square 16x16"
+- allied/maze-over-head-shower-square-16x16 [Gunmetal Black] — "Maze Over Head Shower Square 16x16"
+- allied/maze-over-head-shower-square-16x16 [Gunmetal Black Gold] — "Maze Over Head Shower Square 16x16"
+- allied/maze-over-head-shower-square-16x16 [Matt Black] — "Maze Over Head Shower Square 16x16"
+- allied/maze-over-head-shower-square-16x16 [Matt Black Gold] — "Maze Over Head Shower Square 16x16"
+- allied/maze-over-head-shower-square-16x16 [Matt White] — "Maze Over Head Shower Square 16x16"
+- allied/maze-over-head-shower-square-16x16 [Matt White Gold] — "Maze Over Head Shower Square 16x16"
+- allied/maze-over-head-shower-square-16x16 [Matt Beige] — "Maze Over Head Shower Square 16x16"
+- allied/maze-over-head-shower-square-16x16 [Matt Beige Gold] — "Maze Over Head Shower Square 16x16"
+- allied/maze-over-head-shower-square-16x16 [Matt Grey] — "Maze Over Head Shower Square 16x16"
+- allied/maze-over-head-shower-square-16x16 [Matt Grey Gold] — "Maze Over Head Shower Square 16x16"
+- allied/maze-over-head-shower-square-4x4 [Chrome] — "Maze Over Head Shower Square 4x4"
+- allied/maze-over-head-shower-square-6x6 [Chrome] — "Maze Over Head Shower Square 6x6"
+- allied/maze-over-head-shower-square-6x6 [Rich Gold] — "Maze Over Head Shower Square 6x6"
+- allied/maze-over-head-shower-square-6x6 [Gunmetal Black] — "Maze Over Head Shower Square 6x6"
+- allied/maze-over-head-shower-square-6x6 [Gunmetal Black Gold] — "Maze Over Head Shower Square 6x6"
+- allied/maze-over-head-shower-square-6x6 [Matt Black] — "Maze Over Head Shower Square 6x6"
+- allied/maze-over-head-shower-square-6x6 [Matt Black Gold] — "Maze Over Head Shower Square 6x6"
+- allied/maze-over-head-shower-square-6x6 [Matt White] — "Maze Over Head Shower Square 6x6"
+- allied/maze-over-head-shower-square-6x6 [Matt White Gold] — "Maze Over Head Shower Square 6x6"
+- allied/maze-over-head-shower-square-6x6 [Matt Beige] — "Maze Over Head Shower Square 6x6"
+- allied/maze-over-head-shower-square-6x6 [Matt Beige Gold] — "Maze Over Head Shower Square 6x6"
+- allied/maze-over-head-shower-square-6x6 [Matt Grey] — "Maze Over Head Shower Square 6x6"
+- allied/maze-over-head-shower-square-6x6 [Matt Grey Gold] — "Maze Over Head Shower Square 6x6"
+- allied/maze-over-head-shower-square-8x8 [Chrome] — "Maze Over Head Shower Square 8x8"
+- allied/maze-over-head-shower-square-8x8 [Rich Gold] — "Maze Over Head Shower Square 8x8"
+- allied/maze-over-head-shower-square-8x8 [Gunmetal Black] — "Maze Over Head Shower Square 8x8"
+- allied/maze-over-head-shower-square-8x8 [Gunmetal Black Gold] — "Maze Over Head Shower Square 8x8"
+- allied/maze-over-head-shower-square-8x8 [Matt Black] — "Maze Over Head Shower Square 8x8"
+- allied/maze-over-head-shower-square-8x8 [Matt Black Gold] — "Maze Over Head Shower Square 8x8"
+- allied/maze-over-head-shower-square-8x8 [Matt White] — "Maze Over Head Shower Square 8x8"
+- allied/maze-over-head-shower-square-8x8 [Matt White Gold] — "Maze Over Head Shower Square 8x8"
+- allied/maze-over-head-shower-square-8x8 [Matt Beige] — "Maze Over Head Shower Square 8x8"
+- allied/maze-over-head-shower-square-8x8 [Matt Beige Gold] — "Maze Over Head Shower Square 8x8"
+- allied/maze-over-head-shower-square-8x8 [Matt Grey] — "Maze Over Head Shower Square 8x8"
+- allied/maze-over-head-shower-square-8x8 [Matt Grey Gold] — "Maze Over Head Shower Square 8x8"
+- allied/maze-round-hand-shower-with-tube [Chrome] — "Maze Round Hand Shower With Tube"
+- allied/maze-square-hand-shower-with-tube [Chrome] — "Maze Square Hand Shower With Tube"
+- allied/pressmatic-pillar-cock [Chrome] — "Pressmatic Pillar Cock"
+- allied/round-hand-shower-with-tube [Chrome] — "Round Hand Shower With Tube"
+- allied/round-hand-shower-with-tube [Matt Black Gold] — "Round Hand Shower With Tube"
+- allied/round-hand-shower-with-tube [Matt White] — "Round Hand Shower With Tube"
+- allied/round-hand-shower-with-tube [Matt White Gold] — "Round Hand Shower With Tube"
+- allied/round-hand-shower-with-tube [Matt Beige] — "Round Hand Shower With Tube"
+- allied/round-hand-shower-with-tube [Matt Beige Gold] — "Round Hand Shower With Tube"
+- allied/round-hand-shower-with-tube [Matt Grey] — "Round Hand Shower With Tube"
+- allied/shower-arm-round-12 [Chrome] — "Shower Arm Round 12""
+- allied/shower-arm-round-15 [Chrome] — "Shower Arm Round 15""
+- allied/shower-arm-round-18 [Chrome] — "Shower Arm Round 18""
+- allied/shower-arm-round-18 [Gunmetal Black] — "Shower Arm Round 18""
+- allied/shower-arm-round-18 [Gunmetal Black Gold] — "Shower Arm Round 18""
+- allied/shower-arm-round-24 [Chrome] — "Shower Arm Round 24""
+- allied/shower-arm-round-24 [Rich Gold] — "Shower Arm Round 24""
+- allied/shower-arm-round-24 [Rose Gold] — "Shower Arm Round 24""
+- allied/shower-arm-round-24 [Gunmetal Black] — "Shower Arm Round 24""
+- allied/shower-arm-round-24 [Gunmetal Black Gold] — "Shower Arm Round 24""
+- allied/shower-arm-round-24 [Matt Black] — "Shower Arm Round 24""
+- allied/shower-arm-round-24 [Matt Black Gold] — "Shower Arm Round 24""
+- …and 359 more
+
+
+### Orphan assets (image, no product) (160)
+
+- `PICTURES FOR WEBSITE/Wall Mixer 3-1 with Bend Flora.png`
+- `PICTURES FOR WEBSITE/SINK COCK PILLAR MOUNTED FLORA.png`
+- `PICTURES FOR WEBSITE/Bib Cock FLORA.png`
+- `PICTURES FOR WEBSITE/SINK MIXER PILLAR MOUNTED FLORA.png`
+- `PICTURES FOR WEBSITE/TWO WAY BIB COCK ALIVA.png`
+- `PICTURES FOR WEBSITE/Single Lever Concealed Deusch Mixer Upper Parts Flora.png`
+- `PICTURES FOR WEBSITE/SINGLE LEVER EXPOSED PARTS KIT OF HIGH FLOW DIVERTER FLORA.png`
+- `PICTURES FOR WEBSITE/CENTRE HOLE MIXER ALIVA.png`
+- `PICTURES FOR WEBSITE/Two Way Angle Valve ALIVA.png`
+- `PICTURES FOR WEBSITE/PROFILE BEIGE GOLD/SINGLE LEVER BASIN MIXER EXTENDED BODY PROFILE BEIGE GOLD.png`
+- `PICTURES FOR WEBSITE/JP Collection PNG WEBSITE/WALL IXER WITH CRUTCH JP.png`
+- `PICTURES FOR WEBSITE/PROFILE WHITE GOLD/BATH SPOUT PROFILE WHITE GOLD.png`
+- `PICTURES FOR WEBSITE/Opell Prima WEBSITE/SHOWER MIXER FOR SPOUT ONLY OPELL PRIMA.jpg`
+- `PICTURES FOR WEBSITE/PROFILE BEIGE GOLD/TABLE MOUNTED SINGLE LEVER KITCHEN MIXER BEIGE GOLD.png`
+- `PICTURES FOR WEBSITE/PROFILE BEIGE GOLD/PILLAR COCK PROFILE BEIGE GOLD.png`
+- `PICTURES FOR WEBSITE/ZENITH EDITED PICTURES WEBSITE/ANGLE VAVLE ZENITH.png`
+- `PICTURES FOR WEBSITE/Opell Prima WEBSITE/SINGLE LEVER EXPOSED SHOWER MIXER OPELL PRIMA.jpg`
+- `PICTURES FOR WEBSITE/PROFILE BLACK GOLD/BATH SPOUT PROFILE BLACK GOLD.png`
+- `PICTURES FOR WEBSITE/SWARN NECK ALIVA.png`
+- `PICTURES FOR WEBSITE/PROFILE BLACK GOLD/TWO WAY BIB COCK PROFILE BLACK GOLD.png`
+- `PICTURES FOR WEBSITE/ZENITH MATT BLACK/BATH SHOWER MIXER ZENITH MATT BLACK.png`
+- `PICTURES FOR WEBSITE/PROFILE BLACK GOLD/SINGLE LEVER BASIN MIXER PROFILE BLACK GOLD.png`
+- `PICTURES FOR WEBSITE/PROFILE BLACK GOLD/SINGLE LEVER BASIN MIXER EXTENDED BODY PROFILE BLACK GOLD.png`
+- `PICTURES FOR WEBSITE/PROFILE WHITE GOLD/BASIN MIXER EXTENDED BODY PROFILE WHITE GOLD.png`
+- `PICTURES FOR WEBSITE/S.L CONCEALED BASIN MIXER EXPOED PARTS ALIVA.png`
+- `PICTURES FOR WEBSITE/PROFILE BLACK GOLD/EXPOSED PARTS FOR CONCEALED DIVERTER HIGH FLOW 45MM PROFILE BEIGE GOLD.png`
+- `PICTURES FOR WEBSITE/PROFILE WHITE GOLD/EXPOSED PARTS FOR CONCEALED DIVERTER HIGH FLOW 45MM PROFILE WHITE GOLD.png`
+- `PICTURES FOR WEBSITE/PROFILE BEIGE GOLD/SINGLE LEVER BASIN MIXER PROFILE BEIGE GOLD.png`
+- `PICTURES FOR WEBSITE/Opell Prima WEBSITE/NON TELEPHONIC OPELL PRIMA.jpg`
+- `PICTURES FOR WEBSITE/SINGLE LEVER DIVERTER ALIVA.png`
+- `PICTURES FOR WEBSITE/PROFILE WHITE GOLD/BASIN MIXER PROFILE WHITE GOLD.png`
+- `PICTURES FOR WEBSITE/PROFILE WHITE GOLD/LONG BODY PROFILE WHITE GOLD.png`
+- `PICTURES FOR WEBSITE/PROFILE WHITE GOLD/PILLAR COCK EXTENDED BODY PROFILE WHITE GOLD.png`
+- `PICTURES FOR WEBSITE/PROFILE BEIGE GOLD/BATH SPOUT PROFILE BEIGE GOLD.png`
+- `PICTURES FOR WEBSITE/PROFILE BLACK GOLD/ANGLE VALVE PROFILE BLACK GOLD.png`
+- `PICTURES FOR WEBSITE/PARA PNG FILES WEBSITE/SINGLE LEVER WALL MIXER WITH BEND PARA.png`
+- `PICTURES FOR WEBSITE/PARA PNG FILES WEBSITE/PILLA COCK EXTENDED BODY PARA.png`
+- `PICTURES FOR WEBSITE/GUNMETAL BLACK GOLD/HAND SHOWER WITH TUBE CUBA GUNMETAL BLACK GOLD.png`
+- `PICTURES FOR WEBSITE/GUNMETAL BLACK GOLD/MAZR OVERHEAD SHOWER GUNMETAL BLACK GOLD.png`
+- `PICTURES FOR WEBSITE/PROFILE BLACK GOLD/BUTTON SPOUT PROFILE BLACK GOLD.png`
+- `PICTURES FOR WEBSITE/Opell Prima WEBSITE/SINGLE LEVER SHOWER MIXER OPELL PRIMA.png`
+- `PICTURES FOR WEBSITE/PROFILE BLACK GOLD/PILLAR COCK EXTENDED BODY PROFILE BLACK GOLD.png`
+- `PICTURES FOR WEBSITE/PROFILE BLACK GOLD/PILLAR COCK PROFILE BLACK GOLD.png`
+- `PICTURES FOR WEBSITE/PROFILE BLACK GOLD/TWO WAY ANGLE VAVLE PROFILE BLACK GOLD.png`
+- `PICTURES FOR WEBSITE/PROFILE BLACK GOLD/LONG BODY PROFILE BLACK GOLD.png`
+- `PICTURES FOR WEBSITE/PARA PNG FILES WEBSITE/PLAIN SPOUT PARA.png`
+- `PICTURES FOR WEBSITE/Fusion PNG WEBSITE/CONCEALED FLUSH COCK FUZONE.png`
+- `PICTURES FOR WEBSITE/GUNMETAL BLACK/DIVERTER BODY 45MM GUNMETAL BLACK.png`
+- `PICTURES FOR WEBSITE/GUNMETAL BLACK GOLD/TWO WAY ANGLE VALVER GUNMETAL BLACK GOLD.png`
+- `PICTURES FOR WEBSITE/Fusion PNG WEBSITE/BIB COCK FUZONE.png`
+- `PICTURES FOR WEBSITE/GUNMETAL BLACK GOLD/OPELL PRIMA GUNMETAL GOLD BASIN MIXER OPELL PRIMA GUNMETAL BLACK GOLD.png`
+- `PICTURES FOR WEBSITE/MATT BLACK/WASTE COUPLING MATT BLACK 3 INCH.png`
+- `PICTURES FOR WEBSITE/GUNMETAL BLACK GOLD/CONCEALED STOP COCK GUNMETAL BLACK GOLD.png`
+- `PICTURES FOR WEBSITE/MATT GREY/ALIVA SHOWER HEAD MATT GREY.png`
+- `PICTURES FOR WEBSITE/GUNMETAL BLACK GOLD/HEALTH FAUCET GUNMETAL BLACK GOLD.png`
+- `PICTURES FOR WEBSITE/GUNMETAL BLACK/HAND SHOWER CUBA WITH TUBE GUNMETAL BLACK.png`
+- `PICTURES FOR WEBSITE/GUNMETAL BLACK GOLD/2 WAY BIB COCK SINGLE HANDLE GUNMETAL BLACK GOLD.png`
+- `PICTURES FOR WEBSITE/MATT BLACK/TOWEL RING MATT BLACK.jpeg`
+- `PICTURES FOR WEBSITE/MATT BLACK/SOAP DISH MATT BLACK.jpeg`
+- `PICTURES FOR WEBSITE/Fusion PNG WEBSITE/SINGEL LEVER SINK MIXER ANGULAR SIDE HANDLE FUZONE.png`
+- `PICTURES FOR WEBSITE/Fusion PNG WEBSITE/SINGLE LEVER EXPOSED PARTS KIT OF HIGH FLOW DIVERTER FUZONE.png`
+- `PICTURES FOR WEBSITE/Fusion PNG WEBSITE/Single Lever Concealed Deusch Mixer Upper Parts Fuzone.png`
+- `PICTURES FOR WEBSITE/Fusion PNG WEBSITE/Wall Mixer 3-1 with Bend Fuzone.png`
+- `PICTURES FOR WEBSITE/MATT BLACK/TUMBLER HOLDER MATT BLACK.jpeg`
+- `PICTURES FOR WEBSITE/MATT BLACK/TOWEL RAIL MATT BLACK.jpeg`
+- `PICTURES FOR WEBSITE/Fusion PNG WEBSITE/228-WB   SINGLE LEVER WALL MIXER WITH BEND FUZONE .jpg`
+- `PICTURES FOR WEBSITE/MATT BEIGE GOLD/HEALTH FAUCET MATT BEIGE GOLD.png`
+- `PICTURES FOR WEBSITE/GUNMETAL BLACK GOLD/PILLAR COCK GUNMETAL BLACK GOLD GUNMETAL BLACK GOLD.png`
+- `PICTURES FOR WEBSITE/MATT BLACK/PAPER HOLDER.jpeg`
+- `PICTURES FOR WEBSITE/GUNMETAL BLACK/HEALTH FAUCET WITH TUBE GUNMETAL BLACK.png`
+- `PICTURES FOR WEBSITE/GUNMETAL BLACK/SINGLE LEVER KITCHEN MIXER TM GUNMETAL BLACK.png`
+- `PICTURES FOR WEBSITE/MATT WHITE/HEALTH FAUCET WITH TUBE MATT WHITE.png`
+- `PICTURES FOR WEBSITE/Fusion PNG WEBSITE/SINK MIXER PILLAR MOUNTED FUZONE.png`
+- `PICTURES FOR WEBSITE/PEBBLE COLLECTION WEBSITE/WALL MOUNTED KITCHEN MIXER PEBBLE.png`
+- `PICTURES FOR WEBSITE/PEBBLE COLLECTION WEBSITE/SINK COCK  PEBBLE.jpg`
+- `PICTURES FOR WEBSITE/MATT BLACK/ALIVA SHOWER HEAD MATT BLACK.png`
+- `PICTURES FOR WEBSITE/ROSE GOLD/SL KITCHEN MIXER ROSE GOLD.png`
+- `PICTURES FOR WEBSITE/PEBBLE COLLECTION WEBSITE/WALL MIXER 3-1  PEBBLE.jpg`
+- `PICTURES FOR WEBSITE/PHEONIX COLLECTION WEBSITE/Button Spout PHEONIX.png`
+- `PICTURES FOR WEBSITE/PHEONIX COLLECTION WEBSITE/WALL MIXER 3-1 PHEONIX.png`
+- `PICTURES FOR WEBSITE/MATT BEIGE GOLD/CONCELAED BASIN MIXER WALL MOUNTED MATT BEIGE GOLD.png`
+- `PICTURES FOR WEBSITE/PEBBLE COLLECTION WEBSITE/KITCHEN MIXER ROUND SPOUT PEBBLE.png`
+- `PICTURES FOR WEBSITE/Cube Prime Collection PNG WEBSITE/3-IN-1 WALL MIXER WITH BEND CUBE PRIMA.png`
+- `PICTURES FOR WEBSITE/Cube Prime Collection PNG WEBSITE/Single Lever Concealed Deusch Mixer Upper Parts Cube Prima.png`
+- `PICTURES FOR WEBSITE/MATT WHITE GOLD/ALIVE SHOWER HEAD MATT WHITE GOLD.png`
+- `PICTURES FOR WEBSITE/Cube Prime Collection PNG WEBSITE/BATH SPOUT CUBE PRIMA.png`
+- `PICTURES FOR WEBSITE/Cube Prime Collection PNG WEBSITE/PILLAR COCK EXTENDED BODY CUBE PRIMA.png`
+- `PICTURES FOR WEBSITE/NEO EDITED PNG WEBSITE/BUTTON SPOUT NEO.jpg`
+- `PICTURES FOR WEBSITE/Cube Prime Collection PNG WEBSITE/ANGLE VALVE CUBE PRIMA.png`
+- `PICTURES FOR WEBSITE/NEO EDITED PNG WEBSITE/BATH TUB SPOUT NEO.jpg`
+- `PICTURES FOR WEBSITE/Cube Prime Collection PNG WEBSITE/SWARN NECK CUBE PRIMA.png`
+- `PICTURES FOR WEBSITE/GUNMETAL BLACK/GUNMETAL BLACK GOLD/HAND SHOWER ROUND WITH TUBE GUNMETAL GOLD.png`
+- `PICTURES FOR WEBSITE/GUNMETAL BLACK/GUNMETAL BLACK GOLD/MAZR OVERHEAD SHOWER GUNMETAL BLACK GOLD.png`
+- `PICTURES FOR WEBSITE/GUNMETAL BLACK/GUNMETAL BLACK GOLD/CONCEALED STOP COCK GUNMETAL BLACK GOLD.png`
+- `PICTURES FOR WEBSITE/GUNMETAL BLACK/GUNMETAL BLACK GOLD/HEALTH FAUCET GUNMETAL BLACK GOLD.png`
+- `PICTURES FOR WEBSITE/GUNMETAL BLACK/GUNMETAL BLACK GOLD/LONG BODY GUNMETAL BLACK GOLD.png`
+- `PICTURES FOR WEBSITE/GUNMETAL BLACK/GUNMETAL BLACK GOLD/TWO WAY ANGLE VALVER GUNMETAL BLACK GOLD.png`
+- `PICTURES FOR WEBSITE/GUNMETAL BLACK/GUNMETAL BLACK GOLD/BATH SPOUT GUNMETAL BLACK GOLD.png`
+- `PICTURES FOR WEBSITE/GUNMETAL BLACK/GUNMETAL BLACK GOLD/PILLAR COCK GUNMETAL BLACK GOLD GUNMETAL BLACK GOLD.png`
+- `PICTURES FOR WEBSITE/GUNMETAL BLACK/GUNMETAL BLACK GOLD/HAND SHOWER WITH TUBE CUBA GUNMETAL BLACK GOLD.png`
+- `PICTURES FOR WEBSITE/Cube Prime Collection PNG WEBSITE/SINGLE LEVER HIGH FLOW DIVERTER EXPOSED PARTS CUBE PRIMA.png`
+- `PICTURES FOR WEBSITE/GUNMETAL BLACK/GUNMETAL BLACK GOLD/OPELL PRIMA GUNMETAL GOLD BASIN MIXER OPELL PRIMA GUNMETAL BLACK GOLD.png`
+- `PICTURES FOR WEBSITE/ROSE GOLD/ROSE GOLD ACCESSORIES/ROUND TUMBLER_RG.png`
+- `PICTURES FOR WEBSITE/MATT WHITE GOLD/HEALTH FAUCET WITH TUBE MATT WHITE GOLD.png`
+- `PICTURES FOR WEBSITE/GUNMETAL BLACK/GUNMETAL BLACK GOLD/BUTTON SPOUT GUNMETAL BLACK GOLD.png`
+- `PICTURES FOR WEBSITE/GUNMETAL BLACK/GUNMETAL BLACK GOLD/ACCESSORIES/TOWEL RING GMBG.JPG`
+- `PICTURES FOR WEBSITE/GUNMETAL BLACK GOLD/ACCESSORIES/TOWEL ROD.png`
+- `PICTURES FOR WEBSITE/GUNMETAL BLACK GOLD/ACCESSORIES/TOWEL RING GMBG.png`
+- `PICTURES FOR WEBSITE/NEO EDITED PNG WEBSITE/NOZZLE BC NEO.png`
+- `PICTURES FOR WEBSITE/ROSE GOLD/ROSE GOLD ACCESSORIES/TOWEL RING ROUND_RG.png`
+- `PICTURES FOR WEBSITE/GUNMETAL BLACK/GUNMETAL BLACK GOLD/ACCESSORIES/TOWEL ROD.png`
+- `PICTURES FOR WEBSITE/Cube Prime Collection PNG WEBSITE/LONG BODY CUBE PRIMA.png`
+- `PICTURES FOR WEBSITE/RICH GOLD/GOLD ACCESSORIES/ROUND TUMBLER_G.png`
+- `PICTURES FOR WEBSITE/GUNMETAL BLACK/GUNMETAL BLACK GOLD/ACCESSORIES/TOWEL RING GMBG.png`
+- `PICTURES FOR WEBSITE/Cube Prime Collection PNG WEBSITE/BUTTON SPOUT cube prima.png`
+- `PICTURES FOR WEBSITE/GUNMETAL BLACK GOLD/ACCESSORIES/PAPER HOLDER WITHOUT FLAP.png`
+- `PICTURES FOR WEBSITE/GUNMETAL BLACK/GUNMETAL BLACK GOLD/ACCESSORIES/PAPER HOLDER WITHOUT FLAP.png`
+- `PICTURES FOR WEBSITE/RICH GOLD/Bottle Trap Gold.jpg`
+- `PICTURES FOR WEBSITE/Cube Prime Collection PNG WEBSITE/CENTER HOLE BASIN MIXER CUBE PRIMA.png`
+- `PICTURES FOR WEBSITE/Cube Prime Collection PNG WEBSITE/2 WAY ANGLE VALVE CUBE PRIMA.png`
+- …and 40 more
+
+
+### Duplicate assets (extra images for a matched product) (208)
+
+- `SINK COCK  PEBBLE.jpg` ~ sink-cock [Chrome] @1.00
+- `ANGLE VALVE GUNMETAL BLACK GOLD.png` ~ angle-valve [Gunmetal Black Gold] @1.00
+- `LONG BODY GUNMETAL BLACK GOLD.png` ~ long-body [Gunmetal Black Gold] @1.00
+- `WALL MIXER WITH BEND GUNMETAL BLACK GOLD.png` ~ wall-mixer-with-bend [Gunmetal Black Gold] @1.00
+- `BATH SPOUT GUNMETAL BLACK GOLD.png` ~ bath-spout [Gunmetal Black Gold] @1.00
+- `SINGLE LEVER BASIN MIXER EXTENDED BODY GUNMETAL BLACK GOLD.png` ~ single-lever-basin-mixer-extended-body [Gunmetal Black Gold] @1.00
+- `PILLAR COCK EXTENDED BODY GUNMETAL BLACK GOLD.png` ~ pillar-cock-extended-body [Gunmetal Black Gold] @1.00
+- `2 WAY BIB COCK GUNMETAL BLACK GOLD.png` ~ 2-way-bib-cock [Gunmetal Black Gold] @1.00
+- `BUTTON SPOUT GUNMETAL BLACK GOLD.png` ~ button-spout [Gunmetal Black Gold] @1.00
+- `CONCELAED BASIN MIXER EXPOSED PARTS GUNMETAL BLACK GOLD.png` ~ exposed-parts-for-concealed-basin-mixer [Gunmetal Black Gold] @0.83
+- `SINGLE LEVER CONCEALED BASIN MIXER PARA.png` ~ single-lever-basin-mixer [Chrome] @0.80
+- `SINGLE LEVER BASIN MIXER PHEONIX.png` ~ single-lever-basin-mixer [Chrome] @0.80
+- `SINGLE LEVER BASIN MIXER PHEONIX.png` ~ single-lever-basin-mixer [Chrome] @0.80
+- `SINGLE LEVER BASIN MIXER PHEONIX.png` ~ single-lever-basin-mixer [Chrome] @0.80
+- `SINGLE LEVER BASIN MIXER PHEONIX.png` ~ single-lever-basin-mixer [Chrome] @0.80
+- `SINGLE LEVER BASIN MIXER PHEONIX.png` ~ single-lever-basin-mixer [Chrome] @0.80
+- `SINGLE LEVER BASIN MIXER PHEONIX.png` ~ single-lever-basin-mixer [Chrome] @0.80
+- `SINGLE LEVER BASIN MIXER PHEONIX.png` ~ single-lever-basin-mixer [Chrome] @0.80
+- `SINGLE LEVER BASIN MIXER PHEONIX.png` ~ single-lever-basin-mixer [Chrome] @0.80
+- `SINGLE LEVER BASIN MIXER PHEONIX.png` ~ single-lever-basin-mixer [Chrome] @0.80
+- `2 WAY BIB COCK PHEONIX.png` ~ 2-way-bib-cock [Chrome] @0.80
+- `2 WAY ANGLE VALVE PHEONIX.png` ~ 2-way-angle-valve [Chrome] @0.80
+- `WALL MIXER WITH CRUTCH PHEONIX.png` ~ wall-mixer-with-crutch [Chrome] @0.80
+- `WALL MIXER WITH CRUTCH PHEONIX.png` ~ wall-mixer-with-crutch [Chrome] @0.80
+- `WALL MIXER WITH CRUTCH PHEONIX.png` ~ wall-mixer-with-crutch [Chrome] @0.80
+- `WALL MIXER WITH CRUTCH PHEONIX.png` ~ wall-mixer-with-crutch [Chrome] @0.80
+- `PILLAR COCK EXTENDED BODY PHEONIX.png` ~ pillar-cock-extended-body [Chrome] @0.80
+- `PILLAR COCK EXTENDED BODY PHEONIX.png` ~ pillar-cock-extended-body [Chrome] @0.80
+- `PILLAR COCK EXTENDED BODY PHEONIX.png` ~ pillar-cock-extended-body [Chrome] @0.80
+- `PILLAR COCK EXTENDED BODY PHEONIX.png` ~ pillar-cock-extended-body [Chrome] @0.80
+- `WALL MIXER WITH BEND PHEONIX.png` ~ wall-mixer-with-bend [Chrome] @0.80
+- `WALL MIXER WITH BEND PHEONIX.png` ~ wall-mixer-with-bend [Chrome] @0.80
+- `WALL MIXER WITH BEND PHEONIX.png` ~ wall-mixer-with-bend [Chrome] @0.80
+- `WALL MIXER WITH BEND PHEONIX.png` ~ wall-mixer-with-bend [Chrome] @0.80
+- `WALL MIXER WITH BEND PHEONIX.png` ~ wall-mixer-with-bend [Chrome] @0.80
+- `WALL MIXER WITH BEND PHEONIX.png` ~ wall-mixer-with-bend [Chrome] @0.80
+- `WALL MIXER WITH BEND PHEONIX.png` ~ wall-mixer-with-bend [Chrome] @0.80
+- `WALL MIXER WITH BEND PHEONIX.png` ~ wall-mixer-with-bend [Chrome] @0.80
+- `WALL MIXER WITH BEND PHEONIX.png` ~ wall-mixer-with-bend [Chrome] @0.80
+- `SINGLE LEVER SINK MIXER TABLE MOUNTED OPELL PRIMA.jpg` ~ single-lever-sink-mixer-table-mounted-angular-spout [Chrome] @0.75
+- `NOZZLE BIB COCK PHEONIX.png` ~ nozzle-bib-cock [Chrome] @0.75
+- `HAND SHOWER ROUND WITH TUBE GUNMETAL GOLD.png` ~ round-hand-shower-with-tube [Gunmetal Black Gold] @0.71
+- `Wall Mixer 3-1 with Bend Flora.png` ~ wall-mixer-with-bend [Chrome] @0.67
+- `SINGLE LEVER SINK MIXER TABLE MOUNTED TALL OPELL PRIMA.jpg` ~ single-lever-sink-mixer-table-mounted-angular-spout [Chrome] @0.67
+- `SINGLE LEVER SINK MIXER TABLE MOUNTED TALL OPELL PRIMA.jpg` ~ single-lever-sink-mixer-table-mounted-round-spout [Chrome] @0.67
+- `SINGLE LEVER BASIN MIXER TALL BOY FLORA.png` ~ single-lever-basin-mixer [Chrome] @0.67
+- `SINGLE LEVER WALL MOUNT KITCHEN MIXER ZENITH.png` ~ single-lever-wall-mixer [Chrome] @0.67
+- `SINGLE LEVER WALL MIXER WITH BEND PARA.png` ~ single-lever-wall-mixer [Chrome] @0.67
+- `SINGLE LEVER WALL MIXER WITH BEND PARA.png` ~ wall-mixer-with-bend [Chrome] @0.67
+- `HAND SHOWER WITH TUBE CUBA GUNMETAL BLACK GOLD.png` ~ round-hand-shower-with-tube [Gunmetal Black Gold] @0.67
+- `SINGLE LEVER WALL MOUNTED BASIN MIXER OPELL PRIMA.jpg` ~ single-lever-basin-mixer [Chrome] @0.67
+- `HAND SHOWER CUBA WITH TUBE GUNMETAL BLACK.png` ~ round-hand-shower-with-tube [Gunmetal Black] @0.67
+- `2 WAY BIB COCK SINGLE HANDLE GUNMETAL BLACK GOLD.png` ~ 2-way-bib-cock [Gunmetal Black Gold] @0.67
+- `Wall Mixer 3-1 with Bend Fuzone.png` ~ wall-mixer-with-bend [Chrome] @0.67
+- `LONG BODY PHEONIX.png` ~ long-body [Chrome] @0.67
+- `Button Spout PHEONIX.png` ~ button-spout [Chrome] @0.67
+- `Button Spout PHEONIX.png` ~ button-spout [Chrome] @0.67
+- `Button Spout PHEONIX.png` ~ button-spout [Chrome] @0.67
+- `Button Spout PHEONIX.png` ~ button-spout [Chrome] @0.67
+- `Button Spout PHEONIX.png` ~ button-spout [Chrome] @0.67
+- …and 148 more
+
+

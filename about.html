@@ -260,8 +260,8 @@ header.site {
   top: 0; left: 0; right: 0;
   z-index: 60;
   background: color-mix(in srgb, var(--bg) 86%, transparent);
-  backdrop-filter: blur(12px) saturate(1.4);
-  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  backdrop-filter: blur(8px) saturate(1.4);
+  -webkit-backdrop-filter: blur(8px) saturate(1.4);
   border-bottom: 1px solid var(--line);
   transition: background .5s, border-color .5s, box-shadow .5s;
 }
@@ -274,7 +274,7 @@ header.site.scrolled { box-shadow: 0 1px 32px rgba(18,14,8,.08); }
   padding: 0 64px;
   width: 100%;
 }
-.nav-left { display: flex; gap: 36px; }
+.nav-left { display: flex; gap: 36px; align-items: center; }
 .nav-left a {
   font-family: 'DM Sans', sans-serif;
   font-size: 11px;
@@ -331,6 +331,11 @@ header.site.scrolled { box-shadow: 0 1px 32px rgba(18,14,8,.08); }
 }
 .contact-link:hover { color: var(--ink); }
 .contact-link svg { width: 18px; height: 18px; stroke: currentColor; flex-shrink: 0; }
+.wa-link { display: flex; align-items: center; gap: 7px; color: var(--soft); font-family: 'DM Sans', sans-serif; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; transition: color .2s; }
+.wa-link:hover { color: #25D366; }
+.wa-icon { width: 18px; height: 18px; flex-shrink: 0; }
+.wa-label { display: none; }
+@media (min-width: 1100px) { .wa-label { display: inline; } }
 .toggle {
   display: flex;
   align-items: center;
@@ -373,6 +378,8 @@ header.site[data-header="over-dark"] .toggle button { color: rgba(255,255,255,.5
 header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); }
 header.site[data-header="over-dark"] .contact-link { color: rgba(255,255,255,.65); }
 header.site[data-header="over-dark"] .contact-link:hover { color: #fff; }
+header.site[data-header="over-dark"] .wa-link { color: rgba(255,255,255,.65); }
+header.site[data-header="over-dark"] .wa-link:hover { color: #25D366; }
 
 /* ================================================================
    SCROLL REVEAL
@@ -1187,12 +1194,17 @@ footer {
       <a href="index.html">Home</a>
       <a href="collections.html">Collections</a>
       <a href="about.html" class="active">About Us</a>
+      <a href="search.html">Search</a>
     </nav>
     <a href="index.html" class="brand">
       <b>IPM</b>
       <small>BATH FITTINGS</small>
     </a>
     <div class="nav-right">
+      <a href="https://wa.me/917827025280?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20IPM%20Bath%20Fittings" target="_blank" rel="noopener" class="wa-link" aria-label="Chat on WhatsApp">
+        <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.122.554 4.118 1.523 5.851L.057 23.082a.75.75 0 0 0 .917.928l5.347-1.477A11.955 11.955 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.651-.52-5.157-1.424l-.37-.22-3.167.875.882-3.082-.242-.382A9.961 9.961 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        <span class="wa-label">WhatsApp</span>
+      </a>
       <a href="contact.html" class="contact-link">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M4 13v-1a8 8 0 0 1 16 0v1"></path>
@@ -2045,6 +2057,7 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
       .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   }
 }
+
 </script>
 </body>
 </html>

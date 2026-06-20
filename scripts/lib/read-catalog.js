@@ -3,7 +3,7 @@ const path = require('path');
 const xlsx = require('xlsx');
 const { slugify } = require('./slugify');
 
-const KNOWN_CATEGORIES = ['Faucets', 'Showers', 'Mixers', 'Coloured', 'Accessories'];
+const KNOWN_CATEGORIES = ['Faucets', 'Kitchen Mixers', 'Shower', 'Accessories'];
 const PLACEHOLDER_IMAGE = '/images/products/_placeholder.jpg';
 
 function parseList(value) {
@@ -35,7 +35,7 @@ function readFinishes(workbook, warnings) {
 
 function categoryFallbackImage(category) {
   const known = KNOWN_CATEGORIES.includes(category) ? category : 'Accessories';
-  return `/images/collections/cat-${known.toLowerCase()}.jpg`;
+  return `/images/collections/cat-${slugify(known)}.jpg`;
 }
 
 function checkAndWarn(group, row, field, label, warnings) {

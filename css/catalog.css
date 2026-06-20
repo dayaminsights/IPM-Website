@@ -48,9 +48,10 @@
   gap: 40px 32px;
 }
 .coll-card { display: block; }
-.coll-card .arch { aspect-ratio: 4/3; transition: transform .4s cubic-bezier(.2,.6,.2,1); will-change: transform; }
+.coll-card .arch { aspect-ratio: 4/3; background: var(--cream); transition: transform .4s cubic-bezier(.2,.6,.2,1); will-change: transform; }
 .coll-card:hover .arch { transform: scale(1.02); }
 .coll-card .arch img { transition: filter .6s cubic-bezier(.2,.6,.2,1); }
+[data-theme="light"] .coll-card .arch img { mix-blend-mode: multiply; }
 .coll-card:hover .arch img { filter: brightness(1.04) saturate(1.08); }
 .coll-card .cc-name {
   font-family: 'Cormorant Garamond', serif; font-weight: 400;
@@ -76,7 +77,7 @@
 @media (max-width: 560px) {
   .related-collections, .related-products { grid-template-columns: 1fr; }
 }
-.related-collections .arch, .related-products .arch { aspect-ratio: 4/3; }
+.related-collections .arch, .related-products .arch { aspect-ratio: 4/3; background: var(--cream); }
 
 /* ----------------------------------------------------------------
    PRODUCT MAIN — gallery + info two-column layout
@@ -88,7 +89,7 @@
   .product-main { grid-template-columns: 1fr; gap: 32px; }
 }
 
-.gallery .arch { aspect-ratio: 4/3; }
+.gallery .arch { aspect-ratio: 1/1; }
 .gallery-thumbs {
   display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap;
 }
@@ -189,6 +190,7 @@
 }
 .showcase-tile:hover .arch { transform: scale(1.02); }
 .showcase-tile .arch img { transition: filter .6s cubic-bezier(.2,.6,.2,1); }
+[data-theme="light"] .showcase-tile .arch img { mix-blend-mode: multiply; }
 .showcase-tile:hover .arch img { filter: brightness(1.04) saturate(1.08); }
 .showcase-tile .cc-name {
   font-size: 20px; margin-top: 14px;

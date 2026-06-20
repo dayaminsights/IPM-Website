@@ -8,16 +8,20 @@
 - **Navigation:** Sync across all pages — when updating nav links, update: `_template.html:557`, `index.html:2181`, `about.html:1023/1361`, `contact.html:802`
 
 ## Catalog Build (generated collection/product pages)
-- `/collections/<slug>/index.html` and `/collections/<slug>/<product>/index.html` are **generated** from `product catalogue.xlsx` — never hand-edit files under `/collections/`.
-- Workflow: edit `product catalogue.xlsx` (sheets: Products, Collections, Finishes), then run:
+- `/collections/<slug>/index.html` and `/collections/<slug>/<product>/index.html` are **generated** — never hand-edit files under `/collections/`.
+- **Source of truth:** `ITEM MASTER FOR WEBSITE.xls` (single `ItemMaster` sheet) + client photography zip `PICTURES FOR WEBSITE-*.zip`. The old `product catalogue.xlsx` is **gone** (migrated away).
+- Workflow: edit the master `.xls`, then run:
   ```
-  npm install   (one-time)
-  npm run build
+  npm install            (one-time)
+  npm run migrate        (transform → match images → write catalog.generated.xlsx)
+  npm run build          (render pages + sitemap + search-index.json)
   ```
-- Source for the generator: `scripts/build-catalog.js` + `scripts/lib/` (`read-catalog.js` parses/validates the workbook, `render-collection.js`/`render-product.js` render pages, `layout.js` holds shared head/header/footer/CSS/JS, `render-sitemap.js` generates `sitemap.xml`/`robots.txt`).
-- Build also regenerates `sitemap.xml` (always) and `robots.txt` (only if missing).
-- `SITE_BASE_URL` in `scripts/build-catalog.js` is a placeholder (`https://ipmbathfittings.github.io`) — update it once the live domain is set.
-- Images: variant → group primary → category fallback (`images/collections/cat-<category>.jpg`) → `images/products/_placeholder.jpg`. Missing images are logged as warnings, not errors.
+  `npm run migrate:data` skips image matching (fast, when only data changed). `npm run migrate:dry` previews matches without copying.
+- **Migration pipeline** (`scripts/migrate/`): `transform-master.js` derives finish variants (ItemCode base + finish-suffix; see `lib-migrate.js`), canonicalizes collections/categories → `catalog.model.json`; `match-assets.js` name-matches photos → `images/products/<slug>/`; `write-workbook.js` emits `catalog.generated.xlsx`; `cleanup.js` removes legacy; `qa-check.js` validates. Stage reports in `reports/*.md`.
+- **Variant rule:** finish-only. Multiple ItemCodes sharing a base code (after stripping a finish suffix like `-GLD`/`-MB`) collapse into one product with a finish picker. Size/type variants (`-35EXP`, `/1` vs `/2`) stay separate products. Per-finish "collections" (Opell Prima, Zenith) collapse into one each.
+- Build consumer (`scripts/build-catalog.js` + `scripts/lib/`): `read-catalog.js` parses `catalog.generated.xlsx`, `render-collection.js`/`render-product.js` render pages, `layout.js` holds shared head/header/footer/CSS/JS + finish swatches, `render-sitemap.js`/`render-search-index.js` emit `sitemap.xml`/`search-index.json`.
+- `SITE_BASE_URL` in `scripts/build-catalog.js` is a placeholder (`https://ipmbathfittings.github.io`) — update once the live domain is set.
+- Images: variant → group primary → category fallback (`images/collections/cat-<category>.jpg`) → `images/products/_placeholder.jpg`. Categories: `Faucets`, `Kitchen Mixers`, `Shower`.
 
 ## Page Template Workflow
 All new pages start from `_template.html`. Copy it, fill in three marked blocks:
