@@ -12,7 +12,11 @@
     "remove-bg:dry": "node scripts/migrate/remove-white-bg.js --dry"
   },
   "devDependencies": {
+    "@turf/simplify": "^7.3.5",
+    "playwright": "^1.61.0",
     "sharp": "^0.35.1",
+    "topojson-server": "^3.0.1",
+    "topojson-simplify": "^3.0.3",
     "xlsx": "^0.18.5"
   }
 }

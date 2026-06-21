@@ -2516,16 +2516,29 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
   start();
 
   // Land outlines (Natural Earth 110m via world-atlas).
-  fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
-    .then(r => r.json())
-    .then(w => {
-      land  = topojson.feature(w, w.objects.countries);
-      focus = { type: 'FeatureCollection', features: land.features.filter(f => FOCUS_IDS.has(+f.id)) };
-      // Exterior coastline only (shared borders removed → no busy mesh).
-      coast = topojson.mesh(w, w.objects.countries, (a, b) => a === b);
-      redraw();
-    })
-    .catch(() => {});
+  // India (id 356) is replaced with a correct boundary (Survey of India / GoI claimed territory)
+  // that includes J&K, PoK, Ladakh, Aksai Chin, and full Arunachal Pradesh up to 37°N.
+  // Source: github.com/AbhinavSwami28/India-Official-GeoJSON (bbox 37.08°N confirmed).
+  // Land outlines: world-atlas base + pre-simplified correct India boundary (17KB, 461 verts).
+  // India outline pre-built via scripts/generate-india-outline.js using Survey of India data —
+  // includes J&K, PoK, Ladakh, Aksai Chin, full Arunachal Pradesh (bbox 37.08°N confirmed).
+  Promise.all([
+    fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json').then(r => r.json()),
+    fetch('/data/india-outline.json').then(r => r.json()).catch(() => null)
+  ]).then(([w, indiaGeom]) => {
+    const all = topojson.feature(w, w.objects.countries);
+    coast = topojson.mesh(w, w.objects.countries, (a, b) => a === b);
+    if (indiaGeom) {
+      const INDIA  = { type: 'Feature', id: 356, geometry: indiaGeom, properties: {} };
+      const others = all.features.filter(f => +f.id !== 356);
+      land  = { type: 'FeatureCollection', features: [...others, INDIA] };
+      focus = { type: 'FeatureCollection', features: [...others.filter(f => FOCUS_IDS.has(+f.id)), INDIA] };
+    } else {
+      land  = all;
+      focus = { type: 'FeatureCollection', features: all.features.filter(f => FOCUS_IDS.has(+f.id)) };
+    }
+    redraw();
+  }).catch(() => {});
 })();
 
 /* ================================================================
