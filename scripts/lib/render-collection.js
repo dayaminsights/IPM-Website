@@ -321,7 +321,7 @@ ${accentCss || ''}
 .card-name { font-family:'Cormorant Garamond',serif; font-weight:400; font-size:20px; line-height:1.2; color:var(--ink); flex:1; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
 .card-meta { display:flex; justify-content:space-between; align-items:baseline; gap:8px; margin-top:14px; padding-top:12px; border-top:1px solid var(--line); }
 .card-cat { font-family:'DM Sans',sans-serif; font-size:11px; letter-spacing:.06em; color:var(--soft); }
-.card-price { font-family:'Cormorant Garamond',serif; font-size:20px; color:var(--gold-2); font-variant-numeric:tabular-nums; white-space:nowrap; flex-shrink:0; }
+.card-price { font-family:'DM Sans',sans-serif; font-weight:600; font-size:15px; color:var(--gold-2); font-variant-numeric:tabular-nums; letter-spacing:-0.01em; white-space:nowrap; flex-shrink:0; }
 .search-empty { text-align:center; padding:60px 0; color:var(--soft); display:none; }
 .search-empty p.serif { font-size:clamp(24px,3.5vw,36px); color:var(--ink); margin-bottom:12px; }
 @media (max-width:560px) { .search-grid { grid-template-columns:repeat(2,1fr); gap:12px; } .card-body { padding:10px 12px 14px; } .card-name { font-size:16px; } }

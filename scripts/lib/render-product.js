@@ -282,9 +282,9 @@ ${enquiryModalHtml}`;
   background: var(--gold-pale); padding: 5px 12px; border-radius: 99px;
 }
 
-.price-tag { display: flex; align-items: baseline; gap: 10px; margin: 20px 0 6px; }
-.price-tag #current-price { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 3.6vw, 44px); color: var(--gold-2); line-height: 1; }
-.price-tag .price-note { font-family: 'DM Sans', sans-serif; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--soft); }
+.price-tag { display: flex; align-items: baseline; gap: 8px; margin: 20px 0 6px; }
+.price-tag #current-price { font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: clamp(26px, 2.8vw, 34px); color: var(--gold-2); line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+.price-tag .price-note { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--soft); }
 
 /* ── finish picker (product page) ── */
 .finish-picker { margin: 24px 0 0; }
