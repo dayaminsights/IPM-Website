@@ -2235,8 +2235,8 @@ footer {
     <a href="search.html?category=Faucets">Faucets</a>
     <a href="search.html?category=Shower">Showers</a>
     <a href="search.html?category=Kitchen+Mixers">Mixers</a>
-    <a href="collections/opell-prima/">Coloured</a>
-    <a href="collections/allied/">Accessories</a>
+    <a href="search.html?coloured=1">Coloured</a>
+    <a href="search.html">Accessories</a>
   </div>
 </div>
 
@@ -3034,11 +3034,14 @@ if (catsSection) {
 }
 
 catSubnav.querySelectorAll('a').forEach(a => {
-  a.addEventListener('click', e => {
-    e.preventDefault();
-    const target = document.querySelector(a.getAttribute('href'));
-    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
+  const href = a.getAttribute('href');
+  if (href && href.startsWith('#')) {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
 });
 
 /* ================================================================
