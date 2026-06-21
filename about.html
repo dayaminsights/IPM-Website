@@ -9,6 +9,14 @@
 <meta property="og:title" content="About IPM Bath Fittings | Philosophy, Sustainability, Precision &amp; Leadership Since 1966">
 <meta property="og:description" content="Four generations of craft. Brass faucets using 85% less water. Precision manufacturing in Delhi NCR. The four principles behind India's most trusted bath fittings brand.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://ipmbathfittings.github.io/about.html">
+<meta property="og:image" content="https://ipmbathfittings.github.io/images/home/hero.jpg">
+<meta property="og:site_name" content="IPM Bath Fittings">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="About IPM Bath Fittings | Philosophy, Sustainability, Precision &amp; Leadership Since 1966">
+<meta name="twitter:description" content="Four generations of craft. Brass faucets using 85% less water. Precision manufacturing in Delhi NCR.">
+<meta name="twitter:image" content="https://ipmbathfittings.github.io/images/home/hero.jpg">
+<link rel="canonical" href="https://ipmbathfittings.github.io/about.html">
 <meta name="robots" content="index, follow">
 <script type="application/ld+json">
 {
@@ -35,6 +43,8 @@
   }
 }
 </script>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.svg" sizes="any">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
@@ -1187,8 +1197,49 @@ footer {
   .tl-col:last-child .tl-rail::after { display: block; }
   .tl.in .tl-col .tl-rail::after { width: 48px; }
 }
+.mob-menu-btn {
+  display: none; flex-direction: column; gap: 5px;
+  background: transparent; border: 0; cursor: pointer; padding: 4px;
+}
+.mob-menu-btn span {
+  display: block; width: 22px; height: 1.5px;
+  background: var(--ink);
+  transition: transform .35s cubic-bezier(.4,0,.2,1), opacity .25s;
+  transform-origin: center;
+}
+.mob-menu-btn[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.mob-menu-btn[aria-expanded="true"] span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.mob-menu-btn[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
+.mob-nav {
+  position: fixed; inset: 0; top: 116px;
+  background: color-mix(in srgb, var(--bg) 97%, transparent);
+  backdrop-filter: blur(12px); z-index: 59;
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: flex-start; padding: 48px 28px 32px; gap: 6px;
+  transform: translateY(-100%); opacity: 0;
+  transition: transform .4s cubic-bezier(.4,0,.2,1), opacity .35s;
+  pointer-events: none;
+}
+.mob-nav.open { transform: none; opacity: 1; pointer-events: auto; }
+.mob-nav a {
+  font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 400;
+  color: var(--ink); letter-spacing: .02em;
+  padding: 10px 0; border-bottom: 1px solid var(--line);
+  width: 100%; text-align: center; transition: color .25s;
+}
+.mob-nav a:hover { color: var(--gold); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  #grain { animation: none; }
+}
 @media (max-width: 860px) {
   .nav-left { display: none; }
+  .mob-menu-btn { display: flex; }
   .about-hero .copy { padding: 0 28px; }
   .about-hero h1 { font-size: clamp(44px, 10vw, 80px); }
   .mii-hero { width: clamp(220px, 56vw, 320px); height: clamp(220px, 56vw, 320px); right: -18vw; }
@@ -1228,12 +1279,12 @@ footer {
       <span>Delhi Showroom · Mon–Sat 10–7</span>
       <div class="mid">
         <span class="mid-inner">
-          <span>Free Shipping on Orders Above ₹5,000&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;The 2026 Collection is Now Live</span>
-          <span>Free Shipping on Orders Above ₹5,000&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;The 2026 Collection is Now Live</span>
+          <span>Premium Brass · 16 Finishes · Made in India&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;The 2026 Collection is Now Live</span>
+          <span>Premium Brass · 16 Finishes · Made in India&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;The 2026 Collection is Now Live</span>
         </span>
       </div>
       <div class="right">
-        <a href="#">Trade Login</a>
+        <a href="contact.html">Become a Dealer</a>
         <a href="tel:01143048462">011-43048462</a>
       </div>
     </div>
@@ -1271,9 +1322,21 @@ footer {
         <button data-theme="light" class="on">Light</button>
         <button data-theme="dark">Dark</button>
       </div>
+      <button class="mob-menu-btn" id="mobMenuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobNav">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </header>
+
+<!-- Mobile nav -->
+<nav class="mob-nav" id="mobNav" aria-label="Mobile navigation">
+  <a href="index.html">Home</a>
+  <a href="collections.html">Collections</a>
+  <a href="about.html">About Us</a>
+  <a href="search.html">Search</a>
+  <a href="contact.html">Contact</a>
+</nav>
 
 <!-- ===== HERO ===== -->
 <!-- .mii-hero-stage wraps the hero and the travelling watermark together: it
@@ -2464,6 +2527,26 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
     })
     .catch(() => {});
 })();
+
+/* ================================================================
+   MOBILE MENU
+================================================================ */
+const mobMenuBtn = document.getElementById('mobMenuBtn');
+const mobNav = document.getElementById('mobNav');
+if (mobMenuBtn && mobNav) {
+  function toggleMobNav(force) {
+    const open = force !== undefined ? force : mobNav.classList.contains('open');
+    mobNav.classList.toggle('open', !open);
+    mobMenuBtn.setAttribute('aria-expanded', String(!open));
+    mobMenuBtn.setAttribute('aria-label', open ? 'Open menu' : 'Close menu');
+    document.body.style.overflow = open ? '' : 'hidden';
+  }
+  mobMenuBtn.addEventListener('click', () => toggleMobNav());
+  mobNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMobNav(false)));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && mobNav.classList.contains('open')) toggleMobNav(false);
+  });
+}
 
 </script>
 </body>

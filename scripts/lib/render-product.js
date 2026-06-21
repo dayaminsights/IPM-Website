@@ -18,8 +18,11 @@ function renderProductPage(group, collection, { siteBaseUrl, sizeData = null }) 
   const hasSizes = !!(sizeData && sizeData.sizes && sizeData.sizes.length > 1);
 
   const title = `${group.skuName} — ${collection.name} | IPM Bath Fittings`;
+  const baseDesc = group.description ? group.description.slice(0, 120) : '';
   const description = group.metaDescription ||
-    `${group.skuName} — ${group.description.slice(0, 120)}`;
+    (baseDesc
+      ? `${group.skuName} — ${baseDesc}`
+      : `${group.skuName} from the ${collection.name} collection by IPM Bath Fittings. Premium solid brass, available in multiple finishes.`);
   const canonicalPath = `${siteBaseUrl}/collections/${group.collectionSlug}/${group.groupSlug}/`;
 
   const head = renderHead({

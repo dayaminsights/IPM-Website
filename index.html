@@ -3,7 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IPM Bath Fittings</title>
+<title>IPM Bath Fittings | Premium Brass Faucets &amp; Bath Fittings — Delhi, India</title>
+<meta name="description" content="IPM Bath Fittings — India's premier brass bath fittings manufacturer since 1966. Solid brass faucets, showers, mixers and accessories in 16 hand-perfected finishes. Showroom in Patparganj, Delhi.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ipmbathfittings.github.io/">
+<meta property="og:title" content="IPM Bath Fittings | Premium Brass Faucets &amp; Bath Fittings">
+<meta property="og:description" content="Six decades of craft. Solid brass. 16 hand-perfected finishes. India's most trusted bath fittings brand, made in Delhi since 1966.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ipmbathfittings.github.io/">
+<meta property="og:image" content="https://ipmbathfittings.github.io/images/home/hero.jpg">
+<meta property="og:site_name" content="IPM Bath Fittings">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="IPM Bath Fittings | Premium Brass Faucets &amp; Bath Fittings">
+<meta name="twitter:description" content="Six decades of craft. Solid brass. 16 hand-perfected finishes. India's most trusted bath fittings brand, made in Delhi since 1966.">
+<meta name="twitter:image" content="https://ipmbathfittings.github.io/images/home/hero.jpg">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.svg" sizes="any">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
@@ -1648,8 +1663,85 @@ footer {
   .her-vis { min-height: 440px; }
   .her-copy { max-width: 100%; padding: 80px 64px; }
 }
+/* Mobile menu */
+.mob-menu-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  padding: 4px;
+}
+.mob-menu-btn span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--ink);
+  transition: transform .35s cubic-bezier(.4,0,.2,1), opacity .25s;
+  transform-origin: center;
+}
+.mob-menu-btn[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.mob-menu-btn[aria-expanded="true"] span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.mob-menu-btn[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
+
+.mob-nav {
+  position: fixed;
+  inset: 0;
+  top: 116px;
+  background: color-mix(in srgb, var(--bg) 97%, transparent);
+  backdrop-filter: blur(12px);
+  z-index: 59;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 48px 28px 32px;
+  gap: 6px;
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform .4s cubic-bezier(.4,0,.2,1), opacity .35s;
+  pointer-events: none;
+}
+.mob-nav.open {
+  transform: none;
+  opacity: 1;
+  pointer-events: auto;
+}
+.mob-nav a {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: .02em;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  width: 100%;
+  text-align: center;
+  transition: color .25s;
+}
+.mob-nav a:hover { color: var(--gold); }
+.mob-nav .mob-wa {
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--soft);
+  padding: 14px 24px;
+  border: 1px solid var(--line-2);
+  border-radius: 100px;
+  transition: color .25s, border-color .25s;
+}
+.mob-nav .mob-wa:hover { color: #25D366; border-color: #25D366; }
+
 @media (max-width: 860px) {
   .nav-left { display: none; }
+  .mob-menu-btn { display: flex; }
   .head-in { grid-template-columns: 1fr auto 1fr; }
   .promos, .trip { grid-template-columns: 1fr; }
   .news { grid-template-columns: 1fr; }
@@ -1672,6 +1764,19 @@ footer {
   .showroom { border-radius: 18px; }
   .foot-cols, .foot-bottom { padding-left: 28px; padding-right: 28px; }
   .foot-cols { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ================================================================
+   REDUCED MOTION
+================================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  #grain { animation: none; }
+  .hero img, .hero video { transform: none !important; }
 }
 
 /* ================================================================
@@ -2182,12 +2287,12 @@ footer {
       <span>Delhi Showroom · Mon–Sat 10–7</span>
       <div class="mid">
         <span class="mid-inner">
-          <span>Free Shipping on Orders Above ₹5,000&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;The 2026 Collection is Now Live</span>
-          <span>Free Shipping on Orders Above ₹5,000&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;The 2026 Collection is Now Live</span>
+          <span>Premium Brass · 16 Finishes · Made in India&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;The 2026 Collection is Now Live</span>
+          <span>Premium Brass · 16 Finishes · Made in India&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;The 2026 Collection is Now Live</span>
         </span>
       </div>
       <div class="right">
-        <a href="#">Trade Login</a>
+        <a href="contact.html">Become a Dealer</a>
         <a href="tel:01143048462">011-43048462</a>
       </div>
     </div>
@@ -2203,7 +2308,7 @@ footer {
       <a href="about.html">About Us</a>
       <a href="search.html">Search</a>
     </nav>
-    <a href="#" class="brand">
+    <a href="index.html" class="brand" aria-label="IPM Bath Fittings — Home">
       <b>IPM</b>
       <small>BATH FITTINGS</small>
     </a>
@@ -2225,9 +2330,25 @@ footer {
         <button data-theme="light" class="on">Light</button>
         <button data-theme="dark">Dark</button>
       </div>
+      <button class="mob-menu-btn" id="mobMenuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobNav">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </header>
+
+<!-- Mobile nav -->
+<nav class="mob-nav" id="mobNav" aria-label="Mobile navigation">
+  <a href="index.html">Home</a>
+  <a href="collections.html">Collections</a>
+  <a href="about.html">About Us</a>
+  <a href="search.html">Search</a>
+  <a href="contact.html">Contact</a>
+  <a href="https://wa.me/917827025280?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20IPM%20Bath%20Fittings" target="_blank" rel="noopener" class="mob-wa">
+    <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.122.554 4.118 1.523 5.851L.057 23.082a.75.75 0 0 0 .917.928l5.347-1.477A11.955 11.955 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.651-.52-5.157-1.424l-.37-.22-3.167.875.882-3.082-.242-.382A9.961 9.961 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    WhatsApp
+  </a>
+</nav>
 
 <!-- ===== CATEGORY SUB-NAV ===== -->
 <div id="catSubnav" class="cat-subnav" hidden aria-label="Product categories">
@@ -2358,9 +2479,9 @@ footer {
   <div class="her-grid">
     <div class="her-copy reveal-left">
       <div class="accent-line"></div>
-      <div class="e eyebrow">Since 1974</div>
+      <div class="e eyebrow">Since 1966</div>
       <h2 class="serif">A Heritage of <em>Distinction</em></h2>
-      <p>What began fifty years ago as a single brass workshop in Patparganj, Delhi, has matured into one of India's most trusted names in bath fittings.</p>
+      <p>What began six decades ago as a single brass workshop in Patparganj, Delhi, has matured into one of India's most trusted names in bath fittings.</p>
       <p>Every valve, spout and mixer is designed, machined and finished under one roof — solid brass, never plated zinc, in sixteen hand-perfected finishes. You will find creativity and meticulous craftsmanship throughout the collection.</p>
       <div class="cta-row">
         <a href="about.html" class="link-arrow">Our Story</a>
@@ -2374,7 +2495,7 @@ footer {
   <div class="vals stagger-children">
     <div class="val">
       <span class="vn">Est.</span>
-      <span class="vcount serif" data-target="1974" data-suffix="">1974</span>
+      <span class="vcount serif" data-target="1966" data-suffix="">1966</span>
       <h4>Founded in Delhi</h4>
     </div>
     <div class="val">
@@ -2406,7 +2527,7 @@ footer {
       <img src="images/home/promo-support.jpg" alt="24/7 Customer Support" loading="lazy">
       <div class="ov">
         <div class="e">We're Here to Help</div>
-        <h3 class="serif">24/7 Customer Support</h3>
+        <h3 class="serif">Dedicated Support</h3>
         <span class="tri-link">Contact Us →</span>
       </div>
     </a>
@@ -2518,9 +2639,7 @@ footer {
     <div class="foot-bottom">
       <span>© 2026 IPM Bath Fittings. All Rights Reserved.</span>
       <span>
-        <a href="#">Privacy</a><span class="foot-divider">·</span>
-        <a href="#">Terms</a><span class="foot-divider">·</span>
-        <a href="#">Sitemap</a>
+        <a href="sitemap.xml">Sitemap</a>
       </span>
     </div>
   </div>
@@ -2622,7 +2741,7 @@ const cardHTML = PRODUCTS.map((p, i) => `
       <button class="pcard-enquire" type="button" data-index="${i}">Enquire</button>
     </div>
     <div class="meta">
-      <div class="stock">In Stock · Ships Free</div>
+      <div class="stock">Available · Request a Quote</div>
       <div class="dim">${p.collection} · ${p.fin}</div>
       <h4>${p.n}</h4>
       <div class="sku">${p.sku}</div>
@@ -2646,21 +2765,27 @@ const cardW = () => {
 };
 
 let caroAutoPlay = true;
-let caroTimer = null;
+let caroRaf = null;
+let caroLastTime = 0;
+const CARO_PX_PER_SEC = 40;
 
-function caroStep() {
-  if (!caroAutoPlay) return;
+function caroStep(ts) {
+  if (!caroAutoPlay) { caroRaf = requestAnimationFrame(caroStep); return; }
+  const dt = Math.min(ts - caroLastTime, 100);
+  caroLastTime = ts;
   const maxScroll = caroEl.scrollWidth - caroEl.clientWidth;
-  if (caroEl.scrollLeft >= maxScroll - 4) {
+  if (caroEl.scrollLeft >= maxScroll - 2) {
     caroEl.scrollTo({ left: 0, behavior: 'instant' });
   } else {
-    caroEl.scrollLeft += 1;
+    caroEl.scrollLeft += (CARO_PX_PER_SEC * dt) / 1000;
   }
+  caroRaf = requestAnimationFrame(caroStep);
 }
 
 function startAutoScroll() {
-  if (caroTimer) return;
-  caroTimer = setInterval(caroStep, 20);
+  if (caroRaf) return;
+  caroLastTime = performance.now();
+  caroRaf = requestAnimationFrame(caroStep);
 }
 
 function stopAutoScroll(ms) {
@@ -2670,9 +2795,9 @@ function stopAutoScroll(ms) {
 }
 
 function pauseAutoScroll() {
-  if (!caroTimer) return;
-  clearInterval(caroTimer);
-  caroTimer = null;
+  if (!caroRaf) return;
+  cancelAnimationFrame(caroRaf);
+  caroRaf = null;
 }
 
 const caroVisibilityObs = new IntersectionObserver(entries => {
@@ -3090,6 +3215,26 @@ window.addEventListener('scroll', () => {
     requestAnimationFrame(onScroll);
   }
 }, { passive: true });
+
+/* ================================================================
+   MOBILE MENU
+================================================================ */
+const mobMenuBtn = document.getElementById('mobMenuBtn');
+const mobNav     = document.getElementById('mobNav');
+
+function toggleMobNav(force) {
+  const open = force !== undefined ? force : mobNav.classList.contains('open');
+  mobNav.classList.toggle('open', !open);
+  mobMenuBtn.setAttribute('aria-expanded', String(!open));
+  mobMenuBtn.setAttribute('aria-label', open ? 'Open menu' : 'Close menu');
+  document.body.style.overflow = open ? '' : 'hidden';
+}
+
+mobMenuBtn.addEventListener('click', () => toggleMobNav());
+mobNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMobNav(false)));
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && mobNav.classList.contains('open')) toggleMobNav(false);
+});
 
 </script>
 </body>

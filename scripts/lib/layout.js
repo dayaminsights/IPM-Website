@@ -17,7 +17,13 @@ function renderHead({ title, description, canonicalPath, ogImage, depth }) {
 <meta property="og:description" content="${description}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="${canonicalPath}">
-${ogImage ? `<meta property="og:image" content="${siteOrigin}${ogImage}">\n` : ''}<link rel="preconnect" href="https://fonts.googleapis.com">
+${ogImage ? `<meta property="og:image" content="${siteOrigin}${ogImage}">\n` : ''}<meta property="og:site_name" content="IPM Bath Fittings">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${title}">
+<meta name="twitter:description" content="${description}">
+${ogImage ? `<meta name="twitter:image" content="${siteOrigin}${ogImage}">\n` : ''}<link rel="icon" href="${rel(depth, 'favicon.svg')}" type="image/svg+xml">
+<link rel="icon" href="${rel(depth, 'favicon.svg')}" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${rel(depth, 'css/catalog.css')}">`;
@@ -593,12 +599,12 @@ function renderHeader(depth, activePage = 'collections') {
       <span>Delhi Showroom · Mon–Sat 10–7</span>
       <div class="mid">
         <span class="mid-inner">
-          <span>Free Shipping on Orders Above ₹5,000&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;The 2026 Collection is Now Live</span>
-          <span>Free Shipping on Orders Above ₹5,000&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;The 2026 Collection is Now Live</span>
+          <span>Premium Brass · 16 Finishes · Made in India&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;The 2026 Collection is Now Live</span>
+          <span>Premium Brass · 16 Finishes · Made in India&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;The 2026 Collection is Now Live</span>
         </span>
       </div>
       <div class="right">
-        <a href="#">Trade Login</a>
+        <a href="${rel(depth, 'contact.html')}">Become a Dealer</a>
         <a href="tel:01143048462">011-43048462</a>
       </div>
     </div>
