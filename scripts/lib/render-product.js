@@ -182,7 +182,7 @@ ${swatchesHtml}
   const infoHtml = `      <div class="eyebrow"><a href="${rel(depth, `collections/${group.collectionSlug}/`)}">${escapeHtml(collection.name)} Collection</a></div>
       <h1 class="serif">${escapeHtml(group.skuName)}</h1>
       <div class="sku-trust">
-        <span class="sku-tag">SKU: <span id="current-sku">${escapeHtml(primary.sku)}</span></span>
+        <span class="sku-tag">Product code: <span id="current-sku">${escapeHtml(primary.sku)}</span></span>
       </div>
       <span class="trust-badge">Solid Brass · Made in India</span>
 ${priceHtml}
@@ -274,6 +274,7 @@ ${enquiryModalHtml}`;
 .info p + p { margin-top: 10px; }
 
 .sku-trust { margin-top: 10px; }
+.sku-tag { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 400; color: var(--soft); letter-spacing: .02em; }
 .trust-badge {
   display: inline-block; margin-top: 8px;
   font-family: 'DM Sans', sans-serif; font-size: 10px;

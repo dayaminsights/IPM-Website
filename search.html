@@ -578,11 +578,8 @@ footer {
 /* ── hero ── */
 .sh-hero {
   position: relative; height: 62vh; min-height: 440px; max-height: 700px;
-  display: flex; align-items: flex-end;
+  overflow: hidden; display: flex; align-items: flex-end;
   margin-top: -80px;
-}
-.sh-hero-bg {
-  position: absolute; inset: 0; overflow: hidden;
 }
 .sh-hero-img {
   position: absolute; inset: 0; width: 100%; height: 100%;
@@ -874,8 +871,8 @@ footer {
 }
 .card-cat { font-family: 'DM Sans', sans-serif; font-size: 11px; letter-spacing: .06em; color: var(--soft); }
 .card-price {
-  font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--gold-2);
-  font-variant-numeric: tabular-nums; white-space: nowrap; flex-shrink: 0;
+  font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; color: var(--gold-2);
+  font-variant-numeric: tabular-nums; white-space: nowrap; flex-shrink: 0; letter-spacing: -0.01em;
 }
 
 mark { background: var(--gold-pale); color: inherit; border-radius: 2px; padding: 0 1px; }
@@ -977,7 +974,7 @@ mark { background: var(--gold-pale); color: inherit; border-radius: 2px; padding
 <div class="sticky-search" id="stickySearch">
   <div class="wrap sticky-search-in">
     <svg class="ss-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-    <input id="stickyQ" type="text" placeholder="Search products, SKUs, collections…" autocomplete="off" spellcheck="false" aria-label="Search products" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="stickySuggest">
+    <input id="stickyQ" type="search" placeholder="Search products, SKUs, collections…" autocomplete="off" spellcheck="false" aria-label="Search products" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="stickySuggest">
     <button class="ss-clear" id="stickyClear" hidden aria-label="Clear search">&#x2715;</button>
     <span class="ss-count" id="stickyCount"></span>
     <div class="search-suggest ss-suggest" id="stickySuggest" role="listbox" aria-label="Search suggestions"></div>
@@ -986,16 +983,14 @@ mark { background: var(--gold-pale); color: inherit; border-radius: 2px; padding
 
 <!-- ===== SEARCH HERO ===== -->
 <div class="sh-hero">
-  <div class="sh-hero-bg">
-    <img class="sh-hero-img" src="images/collections/hero.jpg" alt="IPM Bath Fittings catalogue" loading="eager">
-    <div class="sh-hero-scrim"></div>
-  </div>
+  <img class="sh-hero-img" src="images/collections/hero.jpg" alt="IPM Bath Fittings catalogue" loading="eager">
+  <div class="sh-hero-scrim"></div>
   <div class="sh-hero-content wrap">
     <div class="eyebrow reveal">Catalogue · 924 SKUs · 16 Finishes</div>
     <h1 class="serif sh-title reveal">Find your <em>fitting</em></h1>
     <div class="search-box reveal">
       <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-      <input id="searchQ" type="text" placeholder="Name, SKU, collection or finish…" autocomplete="off" spellcheck="false" aria-label="Search products" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="heroSuggest">
+      <input id="searchQ" type="search" placeholder="Name, SKU, collection or finish…" autocomplete="off" spellcheck="false" aria-label="Search products" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="heroSuggest">
       <button class="search-clear" id="searchClear" hidden aria-label="Clear search">&#x2715;</button>
       <span class="search-hint" aria-hidden="true">Press <kbd>/</kbd> to focus</span>
       <div class="search-suggest" id="heroSuggest" role="listbox" aria-label="Search suggestions"></div>

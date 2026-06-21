@@ -402,8 +402,8 @@ ${renderFooter(depth)}`;
 }
 .card-cat { font-family: 'DM Sans', sans-serif; font-size: 11px; letter-spacing: .06em; color: var(--soft); }
 .card-price {
-  font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--gold-2);
-  font-variant-numeric: tabular-nums; white-space: nowrap; flex-shrink: 0;
+  font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; color: var(--gold-2);
+  font-variant-numeric: tabular-nums; white-space: nowrap; flex-shrink: 0; letter-spacing: -0.01em;
 }
 
 mark { background: var(--gold-pale); color: inherit; border-radius: 2px; padding: 0 1px; }
