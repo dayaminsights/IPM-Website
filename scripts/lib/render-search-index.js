@@ -9,7 +9,7 @@ function renderSearchIndex(collections, productGroups) {
     const variantImages = g.variants
       .filter(v => v.image)
       .slice(0, 6)
-      .map(v => ({ finish: v.finish, image: (v.image || '').replace(/^\//, '') }));
+      .map(v => ({ finish: v.finish, image: (v.image || '').replace(/^\//, ''), price: v.price || '' }));
     const isColoured = g.variants.some(v => v.finish !== 'Chrome');
     // Swatch classes for the first 5 colour variants (skip Chrome for the dots)
     const swatches = g.variants

@@ -28,9 +28,10 @@ function renderSearchPage(collections, { siteBaseUrl }) {
 <div class="sticky-search" id="stickySearch">
   <div class="wrap sticky-search-in">
     <svg class="ss-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-    <input id="stickyQ" type="search" placeholder="Search products, SKUs, collections…" autocomplete="off" spellcheck="false" aria-label="Search products">
+    <input id="stickyQ" type="search" placeholder="Search products, SKUs, collections…" autocomplete="off" spellcheck="false" aria-label="Search products" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="stickySuggest">
     <button class="ss-clear" id="stickyClear" hidden aria-label="Clear search">&#x2715;</button>
     <span class="ss-count" id="stickyCount"></span>
+    <div class="search-suggest ss-suggest" id="stickySuggest" role="listbox" aria-label="Search suggestions"></div>
   </div>
 </div>
 
@@ -43,9 +44,10 @@ function renderSearchPage(collections, { siteBaseUrl }) {
     <h1 class="serif sh-title reveal">Find your <em>fitting</em></h1>
     <div class="search-box reveal">
       <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-      <input id="searchQ" type="search" placeholder="Name, SKU, collection or finish…" autocomplete="off" spellcheck="false" aria-label="Search products">
+      <input id="searchQ" type="search" placeholder="Name, SKU, collection or finish…" autocomplete="off" spellcheck="false" aria-label="Search products" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="heroSuggest">
       <button class="search-clear" id="searchClear" hidden aria-label="Clear search">&#x2715;</button>
       <span class="search-hint" aria-hidden="true">Press <kbd>/</kbd> to focus</span>
+      <div class="search-suggest" id="heroSuggest" role="listbox" aria-label="Search suggestions"></div>
     </div>
   </div>
 </div>
@@ -169,6 +171,56 @@ ${renderFooter(depth)}`;
 .search-box:focus-within .search-hint,
 .search-box input:not(:placeholder-shown) + .search-clear + .search-hint { opacity: 0; }
 
+/* ── search suggestions (typeahead dropdown) ── */
+.search-suggest {
+  position: absolute; top: calc(100% + 10px); left: 0; right: 0; z-index: 40;
+  background: var(--paper); border: 1px solid var(--line);
+  border-radius: 18px; box-shadow: var(--shadow-lg);
+  padding: 6px; max-height: 64vh; overflow-y: auto;
+  opacity: 0; transform: translateY(-8px) scale(.99); pointer-events: none;
+  transition: opacity .2s cubic-bezier(.2,.6,.2,1), transform .2s cubic-bezier(.2,.6,.2,1);
+}
+.search-suggest.is-open { opacity: 1; transform: none; pointer-events: auto; }
+.suggest-group-label {
+  font-family: 'DM Sans', sans-serif; font-size: 9px; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--faint); padding: 13px 14px 6px;
+}
+.suggest-group-label:first-child { padding-top: 8px; }
+.suggest-item {
+  display: flex; align-items: center; gap: 13px; width: 100%;
+  padding: 9px 12px; border: 0; background: transparent; cursor: pointer;
+  border-radius: 12px; text-align: left; color: var(--ink);
+  font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 300;
+  transition: background .14s;
+}
+.suggest-item:hover, .suggest-item.is-active { background: var(--cream); }
+.suggest-thumb {
+  width: 40px; height: 40px; border-radius: 9px; flex-shrink: 0;
+  background: var(--cream); object-fit: contain; padding: 3px;
+  border: 1px solid var(--line);
+}
+[data-theme="light"] .suggest-thumb { mix-blend-mode: multiply; }
+.suggest-ic {
+  width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--gold-pale); color: var(--gold);
+}
+.suggest-ic svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.suggest-main { flex: 1; min-width: 0; line-height: 1.3; }
+.suggest-name { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.suggest-name mark { background: var(--gold-pale); color: inherit; padding: 0 1px; border-radius: 2px; }
+.suggest-sub {
+  display: block; font-size: 11px; color: var(--soft);
+  letter-spacing: .02em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.suggest-kind {
+  font-family: 'DM Sans', sans-serif; font-size: 9px; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--faint); flex-shrink: 0; padding-left: 6px;
+}
+.ss-suggest { top: calc(100% + 1px); left: 64px; right: 64px; border-radius: 0 0 18px 18px; }
+@media (max-width: 860px) { .ss-suggest { left: 28px; right: 28px; } }
+@media (max-width: 600px) { .ss-suggest { left: 16px; right: 16px; } }
+
 /* ── filters ── */
 /* ── sticky search (slides in when hero box scrolls away) ── */
 .sticky-search {
@@ -180,7 +232,7 @@ ${renderFooter(depth)}`;
   transition: transform .32s cubic-bezier(.2,.6,.2,1);
 }
 .sticky-search.is-visible { transform: translateY(0); }
-.sticky-search-in { display: flex; align-items: center; gap: 12px; height: 60px; }
+.sticky-search-in { display: flex; align-items: center; gap: 14px; height: 64px; position: relative; }
 .ss-icon { width: 18px; height: 18px; stroke: var(--soft); flex-shrink: 0; }
 .sticky-search:focus-within .ss-icon { stroke: var(--gold-2); }
 #stickyQ {
@@ -196,8 +248,10 @@ ${renderFooter(depth)}`;
 }
 .ss-clear:hover { background: var(--gold); color: #fff; }
 .ss-count {
-  font-family: 'DM Sans', sans-serif; font-size: 11px; letter-spacing: .14em;
+  font-family: 'DM Sans', sans-serif; font-size: 10px; letter-spacing: .14em;
   text-transform: uppercase; color: var(--soft); white-space: nowrap; flex-shrink: 0;
+  padding: 6px 14px; border: 1px solid var(--line); border-radius: 100px;
+  background: var(--cream); font-variant-numeric: tabular-nums;
 }
 @media (max-width: 600px) { .sticky-search { top: 60px; } .ss-count { display: none; } }
 
@@ -443,7 +497,11 @@ mark { background: var(--gold-pale); color: inherit; border-radius: 2px; padding
     const arrows = isMulti ? \`
   <button class="card-arrow card-arrow-prev" aria-label="Previous finish" tabindex="-1">&#8249;</button>
   <button class="card-arrow card-arrow-next" aria-label="Next finish" tabindex="-1">&#8250;</button>\` : '';
-    return \`<a class="search-card" href="\${esc(it.url)}" data-multi="\${isMulti ? '1' : '0'}">
+    // Per-variant prices — embed as JSON so cycling JS can swap the displayed price
+    const pricesAttr = isMulti
+      ? \` data-prices='\${JSON.stringify(it.variantImages.map(v => v.price || it.price || '')).replace(/'/g, '&#39;')}'\`
+      : '';
+    return \`<a class="search-card" href="\${esc(it.url)}" data-multi="\${isMulti ? '1' : '0'}"\${pricesAttr}>
   <div class="card-stage">
     \${mainImg}\${extraImgs}\${dots}\${arrows}
   </div>
@@ -497,10 +555,12 @@ mark { background: var(--gold-pale); color: inherit; border-radius: 2px; padding
     cycleTimers.forEach(t => clearInterval(t));
     cycleTimers.clear();
     grid.querySelectorAll('.search-card[data-multi="1"]').forEach(card => {
-      const imgs  = Array.from(card.querySelectorAll('.card-stage img'));
-      const dots  = Array.from(card.querySelectorAll('.card-swatch-dot'));
-      const prev  = card.querySelector('.card-arrow-prev');
-      const next  = card.querySelector('.card-arrow-next');
+      const imgs     = Array.from(card.querySelectorAll('.card-stage img'));
+      const dots     = Array.from(card.querySelectorAll('.card-swatch-dot'));
+      const prev     = card.querySelector('.card-arrow-prev');
+      const next     = card.querySelector('.card-arrow-next');
+      const priceEl  = card.querySelector('.card-price');
+      const prices   = card.dataset.prices ? JSON.parse(card.dataset.prices) : null;
       if (imgs.length < 2) return;
       let idx = 0;
 
@@ -510,6 +570,11 @@ mark { background: var(--gold-pale); color: inherit; border-radius: 2px; padding
         idx = (newIdx + imgs.length) % imgs.length;
         imgs[idx].classList.remove('is-hidden'); imgs[idx].classList.add('is-visible');
         if (dots[idx]) dots[idx].classList.add('is-active');
+        // Swap price when it differs per finish
+        if (priceEl && prices) {
+          const p = prices[idx];
+          if (p) priceEl.textContent = p;
+        }
       }
       function advance() { goTo(idx + 1); }
 
@@ -582,6 +647,111 @@ mark { background: var(--gold-pale); color: inherit; border-radius: 2px; padding
   /* ── sort ── */
   sortSelect.addEventListener('change', () => { state.sort = sortSelect.value; render(); });
 
+  /* ── typeahead suggestions ── */
+  let suggestIdx = null;
+  function buildSuggestIdx() {
+    const colls = new Map(), cats = new Map(), fins = new Map();
+    data.items.forEach(it => {
+      if (it.collectionSlug) colls.set(it.collectionSlug, it.collection);
+      if (it.category) cats.set(it.category, it.category);
+      String(it.finishes || '').split(/,\\s*/).forEach(f => { f = f.trim(); if (f) fins.set(f.toLowerCase(), f); });
+    });
+    suggestIdx = {
+      products: data.items,
+      collections: [...colls].map(([slug, name]) => ({ slug, name })),
+      categories: [...cats.values()],
+      finishes: [...fins.values()]
+    };
+  }
+  const KIND_ICON = {
+    collection: '<svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg>',
+    category:   '<svg viewBox="0 0 24 24"><path d="M3 5h7l11 11-7 7L3 12V5z"/><circle cx="7.5" cy="9.5" r="1.5" fill="currentColor" stroke="none"/></svg>',
+    finish:     '<svg viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg>'
+  };
+  function getSuggestions(raw) {
+    const q = String(raw).trim().toLowerCase();
+    if (!q || !suggestIdx) return [];
+    const rank = s => { const i = s.toLowerCase().indexOf(q); return i < 0 ? 999 : i; };
+    const prods = suggestIdx.products
+      .filter(p => p.name.toLowerCase().includes(q) || String(p.skus).toLowerCase().includes(q))
+      .sort((a, b) => rank(a.name) - rank(b.name)).slice(0, 6)
+      .map(p => ({ kind: 'product', label: p.name, sub: p.collection + ' · ' + p.category, url: p.url, image: p.image }));
+    const colls = suggestIdx.collections.filter(c => c.name.toLowerCase().includes(q)).slice(0, 3)
+      .map(c => ({ kind: 'collection', label: c.name, value: c.slug }));
+    const cats = suggestIdx.categories.filter(c => c.toLowerCase().includes(q)).slice(0, 2)
+      .map(c => ({ kind: 'category', label: c, value: c }));
+    const fins = suggestIdx.finishes.filter(f => f.toLowerCase().includes(q)).slice(0, 3)
+      .map(f => ({ kind: 'finish', label: f, value: f }));
+    return [...prods, ...colls, ...cats, ...fins];
+  }
+  function suggestHtml(items, raw) {
+    const q = raw.trim();
+    const groups = [['product','Products'],['collection','Collections'],['category','Categories'],['finish','Finishes']];
+    let html = '';
+    groups.forEach(([k, lbl]) => {
+      const g = items.filter(it => it.kind === k);
+      if (!g.length) return;
+      html += \`<div class="suggest-group-label">\${lbl}</div>\`;
+      g.forEach((it, gi) => {
+        const i = items.indexOf(it);
+        const media = it.kind === 'product'
+          ? \`<img class="suggest-thumb" src="\${esc(it.image)}" alt="" loading="lazy">\`
+          : \`<span class="suggest-ic">\${KIND_ICON[it.kind] || ''}</span>\`;
+        const sub  = it.sub ? \`<span class="suggest-sub">\${esc(it.sub)}</span>\` : '';
+        const kind = it.kind !== 'product' ? \`<span class="suggest-kind">\${lbl.slice(0,-1)}</span>\` : '';
+        html += \`<button type="button" class="suggest-item" role="option" data-i="\${i}">\${media}<span class="suggest-main"><span class="suggest-name">\${highlight(it.label, q)}</span>\${sub}</span>\${kind}</button>\`;
+      });
+    });
+    return html;
+  }
+  function chooseSuggestion(items, idx) {
+    const it = items[idx]; if (!it) return;
+    suggesters.forEach(s => s.close());
+    if (it.kind === 'product') { window.location.href = it.url; return; }
+    if (it.kind === 'finish') { setQuery(it.label); }
+    else {
+      if (it.kind === 'collection') { state.collection = it.value; activateChip(collChips, it.value); }
+      if (it.kind === 'category')   { state.coloured = false; state.category = it.value; activateChip(catChips, it.value); }
+      setQuery('');
+    }
+    render();
+    const sec = document.querySelector('.search-results-sec');
+    if (sec) setTimeout(() => sec.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
+  }
+  function makeSuggester(inp, box) {
+    if (!inp || !box) return { close() {} };
+    let items = [], active = -1;
+    function open() {
+      items = getSuggestions(inp.value); active = -1;
+      if (!items.length) { close(); return; }
+      box.innerHTML = suggestHtml(items, inp.value);
+      box.classList.add('is-open'); inp.setAttribute('aria-expanded', 'true');
+    }
+    function close() { box.classList.remove('is-open'); inp.setAttribute('aria-expanded', 'false'); active = -1; }
+    function move(d) {
+      const btns = box.querySelectorAll('.suggest-item'); if (!btns.length) return;
+      active = (active + d + btns.length) % btns.length;
+      btns.forEach((b, i) => b.classList.toggle('is-active', i === active));
+      btns[active].scrollIntoView({ block: 'nearest' });
+    }
+    inp.addEventListener('input', open);
+    inp.addEventListener('focus', () => { if (inp.value.trim()) open(); });
+    inp.addEventListener('keydown', e => {
+      if (!box.classList.contains('is-open')) return;
+      if (e.key === 'ArrowDown') { e.preventDefault(); move(1); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); move(-1); }
+      else if (e.key === 'Enter' && active >= 0) { e.preventDefault(); chooseSuggestion(items, active); }
+      else if (e.key === 'Escape') { e.stopPropagation(); close(); }
+    });
+    inp.addEventListener('blur', () => setTimeout(close, 130));
+    box.addEventListener('mousedown', e => {
+      const btn = e.target.closest('.suggest-item'); if (!btn) return;
+      e.preventDefault(); chooseSuggestion(items, +btn.dataset.i);
+    });
+    return { close };
+  }
+  const suggesters = [];
+
   /* ── keyboard shortcut ── */
   document.addEventListener('keydown', e => {
     if (e.key === '/' && document.activeElement !== input && document.activeElement.tagName !== 'INPUT') {
@@ -602,6 +772,11 @@ mark { background: var(--gold-pale); color: inherit; border-radius: 2px; padding
     .then(r => r.json())
     .then(d => {
       data = d;
+      buildSuggestIdx();
+      suggesters.push(
+        makeSuggester(input, document.getElementById('heroSuggest')),
+        makeSuggester(stickyInput, document.getElementById('stickySuggest'))
+      );
       // Activate chips matching URL state
       if (state.category)   activateChip(catChips,  state.category);
       else if (state.coloured) { catChips.querySelectorAll('.chip').forEach(b => b.classList.remove('is-active')); catChips.querySelector('.chip-coloured').classList.add('is-active'); }
