@@ -935,57 +935,110 @@ footer {
 .gp-section {
   position: relative;
   background: linear-gradient(160deg, #15130c 0%, #1c1810 55%, #100e08 100%);
-  padding: 108px 0 0;
+  padding: 108px 0 80px;
   overflow: hidden;
   isolation: isolate;
 }
 [data-theme="light"] .gp-section { border-top: 1px solid var(--line); }
 
-/* Full-bleed map layer */
-.gp-map-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  line-height: 0;
-}
-.gp-map-bg svg {
-  display: block;
-  width: 100%; height: 100%;
-  position: absolute; inset: 0;
-}
-.gp-map-land { fill: rgba(196,155,90,.10); }
-.gp-map-grat { fill: none; stroke: rgba(196,155,90,.08); stroke-width: 0.4; }
-.gp-map-scrim {
-  position: absolute; inset: 0;
+/* Legacy flat-map markup is retained in the DOM as a no-JS / no-WebGL fallback
+   but hidden — the interactive globe (canvas) is the live visual. */
+.gp-map-bg, .gp-map-scrim { display: none; }
+
+/* Soft glow behind the globe band */
+.gp-glow {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
   background:
-    radial-gradient(ellipse 70% 60% at 16% 28%, rgba(21,19,12,0) 0%, rgba(16,14,8,.55) 60%, rgba(16,14,8,.92) 100%),
-    linear-gradient(180deg, rgba(16,14,8,.15) 0%, rgba(16,14,8,.35) 55%, rgba(16,14,8,.97) 100%);
+    radial-gradient(ellipse 46% 56% at 74% 44%, rgba(196,155,90,.16) 0%, rgba(196,155,90,0) 62%),
+    radial-gradient(ellipse 90% 70% at 50% 118%, rgba(16,14,8,.55) 0%, rgba(16,14,8,0) 60%);
 }
 
-.gp-marker { transform-box: fill-box; transform-origin: center; }
-.gp-marker-ping {
-  fill: none; stroke: var(--gold-2); stroke-width: 1.2;
-  transform-box: fill-box; transform-origin: center;
-  animation: gp-ping 2.8s cubic-bezier(.2,.6,.2,1) infinite;
+/* Full-bleed interactive globe layer — the canvas spans the whole band so
+   the sphere always renders as a clean circle and can zoom out to full bleed. */
+.gp-globe-stage { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+#gpGlobe {
+  display: block; width: 100%; height: 100%;
+  cursor: grab; touch-action: none;
+  -webkit-tap-highlight-color: transparent;
 }
-.gp-marker-dot { fill: var(--gold-2); filter: drop-shadow(0 0 6px rgba(226,196,142,.7)); }
-.gp-marker-label {
-  font-family: 'DM Sans', sans-serif; font-size: 4px; font-weight: 500;
-  letter-spacing: .1em; text-transform: uppercase; fill: rgba(237,231,216,.78);
+#gpGlobe.grabbing { cursor: grabbing; }
+
+/* Scrim keeps the copy legible over the globe: dark on the left/bottom,
+   clear on the right where the sphere sits. */
+.gp-globe-scrim {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(16,14,8,.92) 0%, rgba(16,14,8,.6) 30%, rgba(16,14,8,0) 58%),
+    linear-gradient(0deg, rgba(16,14,8,.9) 0%, rgba(16,14,8,0) 24%);
 }
-@keyframes gp-ping {
-  0%   { transform: scale(.4); opacity: .85; }
-  70%  { transform: scale(3.2); opacity: 0; }
-  100% { transform: scale(3.2); opacity: 0; }
+
+.gp-globe-hint {
+  position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); z-index: 2;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'DM Sans', sans-serif; font-size: 10.5px; letter-spacing: .16em;
+  text-transform: uppercase; color: rgba(237,231,216,.42);
+  pointer-events: none; white-space: nowrap; transition: opacity .6s ease;
 }
-.gp-marker:nth-of-type(2) .gp-marker-ping { animation-delay: .45s; }
-.gp-marker:nth-of-type(3) .gp-marker-ping { animation-delay: .9s; }
-.gp-marker:nth-of-type(4) .gp-marker-ping { animation-delay: 1.35s; }
-.gp-marker:nth-of-type(5) .gp-marker-ping { animation-delay: 1.8s; }
+.gp-globe-hint svg { opacity: .8; }
+.gp-globe-hint.gone { opacity: 0; }
+
+/* Legend now sits in the copy column (in-flow). */
+.gp-globe-legend {
+  display: inline-flex; align-items: center; gap: 22px; margin-top: 24px;
+  font-family: 'DM Sans', sans-serif; font-size: 10.5px; letter-spacing: .16em;
+  text-transform: uppercase; color: rgba(237,231,216,.5); white-space: nowrap;
+}
+.gp-leg-item { display: inline-flex; align-items: center; gap: 8px; }
+.gp-leg-dot { width: 7px; height: 7px; border-radius: 50%; background: #e2c48e; box-shadow: 0 0 6px rgba(226,196,142,.6); }
+.gp-leg-dot.hub { width: 9px; height: 9px; background: #fbeecb; box-shadow: 0 0 9px rgba(251,238,203,.85); }
+
+.gp-globe-tip {
+  position: absolute; z-index: 3; pointer-events: none;
+  padding: 7px 11px; border-radius: 9px;
+  background: rgba(20,18,11,.94); border: 1px solid rgba(226,196,142,.3);
+  box-shadow: 0 10px 28px rgba(0,0,0,.5);
+  transform: translate(-50%, -132%);
+}
+.gp-globe-tip b {
+  display: block; font-family: 'Cormorant Garamond', serif; font-weight: 600;
+  font-size: 15px; color: #f3dca6; line-height: 1.1;
+}
+.gp-globe-tip span {
+  font-family: 'DM Sans', sans-serif; font-size: 10px; letter-spacing: .12em;
+  text-transform: uppercase; color: rgba(237,231,216,.58);
+}
+.gp-hub-note {
+  margin-top: 18px;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 300;
+  color: rgba(237,231,216,.5); line-height: 1.6; max-width: 380px;
+}
+.gp-hub-note strong { color: var(--gold-2); font-weight: 500; }
+
+/* Content overlays the globe: copy at the top, ledger pinned to the bottom.
+   The layer is click-through so the globe is draggable behind it; only the
+   copy block itself keeps pointer events. */
+.gp-inner {
+  display: flex; flex-direction: column;
+  min-height: 640px;
+  pointer-events: none;
+}
+.gp-inner .gp-head { pointer-events: auto; }
+.gp-head { margin-bottom: auto; }
+.gp-ledger { margin-top: 64px; }
+
+@media (max-width: 860px) {
+  .gp-globe-scrim {
+    background:
+      linear-gradient(0deg, rgba(16,14,8,.94) 0%, rgba(16,14,8,.42) 32%, rgba(16,14,8,0) 56%),
+      linear-gradient(180deg, rgba(16,14,8,.85) 0%, rgba(16,14,8,0) 30%);
+  }
+  .gp-inner { min-height: 560px; }
+  .gp-globe-hint { bottom: 12px; }
+}
 
 /* Content layer */
-.gp-inner { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; padding: 0 64px; }
-.gp-head { max-width: 540px; margin: 0 0 64px; }
+.gp-inner { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; padding: 0 64px; }
+.gp-head { max-width: 540px; margin: 0; }
 .gp-head .sc-eyebrow { color: var(--gold-2); }
 .gp-head .sc-title { color: #f5f1e6; }
 .gp-head .sc-title em { color: var(--gold-2); }
@@ -1625,11 +1678,30 @@ footer {
     <div class="gp-map-scrim"></div>
   </div>
 
+  <!-- Full-bleed interactive globe layer -->
+  <div class="gp-globe-stage">
+    <canvas id="gpGlobe" width="560" height="560" role="img"
+      aria-label="Interactive globe highlighting the five nations IPM serves — India, the UAE, Nepal, Bhutan and South Africa — with gold routes from the Delhi workshop to each dealer city. Drag to rotate, scroll to zoom; the same cities are listed below."></canvas>
+    <div class="gp-globe-scrim" aria-hidden="true"></div>
+    <div class="gp-globe-tip" id="gpTip" role="status" aria-live="polite" hidden></div>
+    <div class="gp-globe-hint" id="gpHint" aria-hidden="true">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg>
+      Drag to rotate · scroll to zoom · double-click to reset
+    </div>
+  </div>
+
+  <div class="gp-glow" aria-hidden="true"></div>
+
   <div class="gp-inner">
     <div class="gp-head reveal">
       <div class="sc-eyebrow">Global Presence</div>
       <h2 class="sc-title">Trusted Across <em>Five Nations</em></h2>
       <p class="sc-sub">From our Delhi workshop to dealer showrooms across South Asia and Southern Africa, IPM fittings are installed in homes and projects on three continents.</p>
+      <p class="gp-hub-note">Every fitting ships from our <strong>Delhi</strong> workshop — the gold threads trace each route out to our dealer cities.</p>
+      <div class="gp-globe-legend" aria-hidden="true">
+        <span class="gp-leg-item"><i class="gp-leg-dot hub"></i> Delhi workshop</span>
+        <span class="gp-leg-item"><i class="gp-leg-dot"></i> Dealer city</span>
+      </div>
     </div>
 
     <div class="gp-ledger stagger-children reveal">
@@ -1758,6 +1830,11 @@ footer {
 <!-- GSAP + ScrollTrigger — scroll-driven motion for this page only -->
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+
+<!-- Global Presence globe: d3-array (required by d3-geo) → d3-geo (orthographic projection) → topojson (decode land outlines) -->
+<script src="https://cdn.jsdelivr.net/npm/d3-array@3/dist/d3-array.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3-geo@3/dist/d3-geo.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
 
 <script>
 /* ================================================================
@@ -2057,6 +2134,336 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
       .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   }
 }
+
+/* ================================================================
+   GLOBAL PRESENCE — premium presence globe
+   Vanilla canvas + d3-geo orthographic projection. Opens framed on the
+   five dealer nations (India, UAE, Nepal, Bhutan, South Africa), which
+   are lit in gold and joined to Delhi by animated great-circle arcs.
+   The user may drag to rotate and scroll / pinch to zoom; double-click
+   resets the framing. Clean coastlines (no busy internal borders).
+   Degrades silently to the numbered ledger if libs/data fail to load.
+================================================================ */
+(function initGlobe() {
+  const canvas = document.getElementById('gpGlobe');
+  if (!canvas || !canvas.getContext || !window.d3 || !window.topojson) return;
+
+  const stage = canvas.parentElement;
+  const ctx   = canvas.getContext('2d');
+  const tip   = document.getElementById('gpTip');
+  const hint  = document.getElementById('gpHint');
+  const dpr   = Math.min(window.devicePixelRatio || 1, 2);
+
+  // [lon, lat]. Delhi is the hub; every other city links back to it.
+  // `primary` cities carry a larger marker (one anchor per nation).
+  const cities = [
+    { name: 'Delhi',        country: 'India',        coord: [77.21,  28.61], hub: true },
+    { name: 'Mumbai',       country: 'India',        coord: [72.87,  19.07] },
+    { name: 'Bengaluru',    country: 'India',        coord: [77.59,  12.97] },
+    { name: 'Dubai',        country: 'UAE',          coord: [55.27,  25.20], primary: true },
+    { name: 'Abu Dhabi',    country: 'UAE',          coord: [54.38,  24.45] },
+    { name: 'Kathmandu',    country: 'Nepal',        coord: [85.32,  27.71], primary: true },
+    { name: 'Thimphu',      country: 'Bhutan',       coord: [89.64,  27.47], primary: true },
+    { name: 'Johannesburg', country: 'South Africa', coord: [28.04, -26.20], primary: true },
+    { name: 'Cape Town',    country: 'South Africa', coord: [18.42, -33.92] }
+  ];
+  const hub  = cities[0];
+  const arcs = cities.filter(c => !c.hub)
+    .map(c => ({ interp: d3.geoInterpolate(hub.coord, c.coord) }));
+
+  // ISO 3166-1 numeric ids of the five nations, used to light their land.
+  const FOCUS_IDS = new Set([356 /*India*/, 784 /*UAE*/, 524 /*Nepal*/, 64 /*Bhutan*/, 710 /*South Africa*/]);
+
+  // Default framing: centre between the Gulf and the Himalayas so all five
+  // nations sit on the near face. Used as the reset target too.
+  const HOME = [-60, -12];
+  const ZOOM_MIN = 0.85, ZOOM_MAX = 4.5;
+
+  const projection = d3.geoOrthographic().precision(0.5).clipAngle(90).rotate(HOME.slice());
+  const path       = d3.geoPath(projection, ctx);
+  const sphere     = { type: 'Sphere' };
+  const graticule  = d3.geoGraticule10();
+  let land = null, focus = null, coast = null;
+  let width = 0, height = 0, baseR = 0, radius = 0, cx = 0, cy = 0, zoom = 1;
+
+  function applyScale() { radius = baseR * zoom; projection.scale(radius); }
+
+  function resize() {
+    const r = stage.getBoundingClientRect();
+    width = r.width; height = r.height;
+    if (!width || !height) return;
+    canvas.width  = Math.round(width  * dpr);
+    canvas.height = Math.round(height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    // The canvas is a full-bleed layer, so there's always room around the
+    // sphere — it stays a clean circle as you zoom, growing to full bleed.
+    // Offset the centre to the right on desktop so it clears the copy.
+    if (width < 860) {
+      cx = width * 0.5;  cy = height * 0.40; baseR = Math.min(width * 0.46, height * 0.34);
+    } else {
+      cx = width * 0.72; cy = height * 0.50; baseR = Math.min(width * 0.42, height * 0.46);
+    }
+    applyScale();
+    projection.translate([cx, cy]);
+  }
+
+  // A point is on the near hemisphere when its angular distance from the
+  // projection's centre is under 90° — used to hide back-of-globe markers.
+  function isVisible(coord) {
+    const rot = projection.rotate();
+    return d3.geoDistance(coord, [-rot[0], -rot[1]]) < Math.PI / 2 - 0.02;
+  }
+
+  function drawArc(arc, progress, color, lw, leadDot, glow) {
+    const steps = 54, end = Math.max(0.001, progress), pts = [];
+    for (let i = 0; i <= steps; i++) pts.push(arc.interp(end * i / steps));
+    ctx.save();
+    if (glow) { ctx.shadowColor = 'rgba(243,220,166,0.55)'; ctx.shadowBlur = 8; }
+    ctx.beginPath();
+    path({ type: 'LineString', coordinates: pts });
+    ctx.strokeStyle = color; ctx.lineWidth = lw; ctx.lineCap = 'round'; ctx.stroke();
+    ctx.restore();
+    if (leadDot) {
+      const c = arc.interp(end);
+      if (isVisible(c)) {
+        const p = projection(c);
+        ctx.save();
+        ctx.shadowColor = 'rgba(243,220,166,0.85)'; ctx.shadowBlur = 10;
+        ctx.beginPath(); ctx.arc(p[0], p[1], 2.4, 0, 2 * Math.PI);
+        ctx.fillStyle = '#fbeecb'; ctx.fill();
+        ctx.restore();
+      }
+    }
+  }
+
+  function draw(now) {
+    if (!width) return;
+    ctx.clearRect(0, 0, width, height);
+
+    // Atmosphere halo just beyond the limb (kept thin so it reads as glow).
+    const atm = ctx.createRadialGradient(cx, cy, radius * 0.97, cx, cy, radius * 1.14);
+    atm.addColorStop(0,    'rgba(226,196,142,0)');
+    atm.addColorStop(0.5,  'rgba(226,196,142,0.16)');
+    atm.addColorStop(1,    'rgba(226,196,142,0)');
+    ctx.beginPath(); ctx.arc(cx, cy, radius * 1.14, 0, 2 * Math.PI);
+    ctx.fillStyle = atm; ctx.fill();
+
+    // Ocean sphere with a top-left lit radial for a sense of volume.
+    ctx.beginPath(); path(sphere);
+    const g = ctx.createRadialGradient(cx - radius * 0.34, cy - radius * 0.38, radius * 0.08, cx, cy, radius * 1.05);
+    g.addColorStop(0,    'rgba(74,62,36,0.62)');
+    g.addColorStop(0.5,  'rgba(32,27,16,0.66)');
+    g.addColorStop(1,    'rgba(7,6,3,0.95)');
+    ctx.fillStyle = g; ctx.fill();
+
+    // Graticule
+    ctx.beginPath(); path(graticule);
+    ctx.strokeStyle = 'rgba(196,155,90,0.07)'; ctx.lineWidth = 0.5; ctx.stroke();
+
+    // Base land — single flat fill, no internal country borders.
+    if (land) {
+      ctx.beginPath(); path(land);
+      ctx.fillStyle = 'rgba(150,120,70,0.20)'; ctx.fill();
+    }
+
+    // The five nations, lit brighter so presence reads at a glance.
+    if (focus) {
+      ctx.beginPath(); path(focus);
+      ctx.fillStyle = 'rgba(228,196,140,0.42)'; ctx.fill();
+      ctx.beginPath(); path(focus);
+      ctx.strokeStyle = 'rgba(243,220,166,0.85)'; ctx.lineWidth = 0.9; ctx.stroke();
+    }
+
+    // Clean coastline only (drawn after fills so it crisps the edges).
+    if (coast) {
+      ctx.beginPath(); path(coast);
+      ctx.strokeStyle = 'rgba(226,196,142,0.18)'; ctx.lineWidth = 0.5; ctx.stroke();
+    }
+
+    // Limb
+    ctx.beginPath(); path(sphere);
+    ctx.strokeStyle = 'rgba(243,220,166,0.40)'; ctx.lineWidth = 1.1; ctx.stroke();
+
+    // Arcs: faint full path + an animated travelling comet (skipped under reduced-motion).
+    const sweep = reduceMotion ? 1 : ((now / 3000) % 1);
+    arcs.forEach((arc, i) => {
+      drawArc(arc, 1, 'rgba(226,196,142,0.22)', 0.9, false, false);
+      if (!reduceMotion) {
+        const ph = (sweep + i / arcs.length) % 1;
+        drawArc(arc, ph, 'rgba(243,220,166,0.95)', 1.6, true, true);
+      }
+    });
+
+    // Labels fade in as you zoom: nation anchors first, secondary cities later.
+    const clamp01 = v => v < 0 ? 0 : (v > 1 ? 1 : v);
+    const aPrimary   = clamp01((zoom - 1.35) / 0.5);
+    const aSecondary = clamp01((zoom - 2.3) / 0.6);
+
+    // Markers: Delhi hub (pulsing) > primary nation anchor > secondary city.
+    cities.forEach(c => {
+      if (!isVisible(c.coord)) return;
+      const p = projection(c.coord);
+      const rr = c.hub ? 5.5 : (c.primary ? 3.4 : 2.2);
+      if (c.hub && !reduceMotion) {
+        const pr = (now / 2000) % 1;
+        ctx.beginPath(); ctx.arc(p[0], p[1], rr + pr * 22, 0, 2 * Math.PI);
+        ctx.strokeStyle = 'rgba(243,220,166,' + (0.5 * (1 - pr)) + ')';
+        ctx.lineWidth = 1.3; ctx.stroke();
+      }
+      ctx.beginPath(); ctx.arc(p[0], p[1], rr * 2.4, 0, 2 * Math.PI);
+      ctx.fillStyle = c.hub ? 'rgba(243,220,166,0.24)' : 'rgba(226,196,142,0.15)'; ctx.fill();
+      ctx.save();
+      ctx.shadowColor = 'rgba(243,220,166,0.85)'; ctx.shadowBlur = c.hub ? 14 : 8;
+      ctx.beginPath(); ctx.arc(p[0], p[1], rr, 0, 2 * Math.PI);
+      ctx.fillStyle = c.hub ? '#fbeecb' : '#e2c48e'; ctx.fill();
+      ctx.restore();
+      if (c.hub) {
+        ctx.beginPath(); ctx.arc(p[0], p[1], rr + 3, 0, 2 * Math.PI);
+        ctx.strokeStyle = 'rgba(251,238,203,0.8)'; ctx.lineWidth = 1; ctx.stroke();
+      }
+
+      // City label (revealed on zoom). Hub always once primary labels show.
+      const la = (c.hub || c.primary) ? aPrimary : aSecondary;
+      if (la > 0.02) {
+        const fs = c.hub ? 14 : 12.5;
+        ctx.save();
+        ctx.globalAlpha = la;
+        ctx.font = (c.hub ? '600 ' : '500 ') + fs + 'px "DM Sans", system-ui, sans-serif';
+        ctx.textBaseline = 'middle';
+        ctx.textAlign = 'left';
+        const tx = p[0] + rr + 7, ty = p[1];
+        ctx.lineJoin = 'round';
+        ctx.strokeStyle = 'rgba(8,7,4,0.85)'; ctx.lineWidth = 3.5;
+        ctx.strokeText(c.name, tx, ty);
+        ctx.fillStyle = c.hub ? '#fbeecb' : '#edd9ad';
+        ctx.fillText(c.name, tx, ty);
+        if (c.hub) {
+          ctx.font = '500 9.5px "DM Sans", system-ui, sans-serif';
+          ctx.strokeText('WORKSHOP', tx, ty + 13);
+          ctx.fillStyle = 'rgba(237,231,216,0.55)';
+          ctx.fillText('WORKSHOP', tx, ty + 13);
+        }
+        ctx.restore();
+      }
+    });
+  }
+
+  // Render loop keeps the arcs flowing / hub pulsing while motion is allowed;
+  // static draw under reduced-motion (we re-draw manually on interaction).
+  let raf = null;
+  function loop(now) { draw(now); raf = requestAnimationFrame(loop); }
+  function start() {
+    if (reduceMotion) draw(performance.now());
+    else if (!raf) raf = requestAnimationFrame(loop);
+  }
+  function redraw() { if (reduceMotion) draw(performance.now()); }
+
+  // ---- Interaction: drag to rotate, wheel / pinch to zoom ----
+  const pointers = new Map();
+  let dragging = false, rot0 = null, p0 = null, pinch0 = 0, zoom0 = 1, hintGone = false;
+
+  function killHint() { if (!hintGone && hint) { hint.classList.add('gone'); hintGone = true; } }
+  function localXY(e) { const r = canvas.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; }
+
+  canvas.addEventListener('pointerdown', e => {
+    pointers.set(e.pointerId, [e.clientX, e.clientY]);
+    try { canvas.setPointerCapture(e.pointerId); } catch (_) {}
+    killHint();
+    if (tip) tip.hidden = true;
+    if (pointers.size === 1) {
+      dragging = true; p0 = [e.clientX, e.clientY]; rot0 = projection.rotate();
+      canvas.classList.add('grabbing');
+    } else if (pointers.size === 2) {
+      dragging = false;
+      const pts = [...pointers.values()];
+      pinch0 = Math.hypot(pts[0][0] - pts[1][0], pts[0][1] - pts[1][1]);
+      zoom0 = zoom;
+    }
+  });
+
+  canvas.addEventListener('pointermove', e => {
+    if (pointers.has(e.pointerId)) pointers.set(e.pointerId, [e.clientX, e.clientY]);
+
+    // Pinch-zoom (two pointers).
+    if (pointers.size === 2 && pinch0) {
+      const pts = [...pointers.values()];
+      const d = Math.hypot(pts[0][0] - pts[1][0], pts[0][1] - pts[1][1]);
+      zoom = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, zoom0 * d / pinch0));
+      applyScale(); redraw();
+      return;
+    }
+
+    // Drag-rotate (one pointer). Sensitivity eases as you zoom in.
+    if (dragging) {
+      const k = 0.26 / zoom;
+      const lon = rot0[0] + (e.clientX - p0[0]) * k;
+      let   lat = rot0[1] - (e.clientY - p0[1]) * k;
+      lat = Math.max(-90, Math.min(90, lat));
+      projection.rotate([lon, lat, rot0[2] || 0]);
+      redraw();
+      return;
+    }
+
+    // Hover a marker → tooltip with its city + country.
+    if (!tip) return;
+    const [mx, my] = localXY(e);
+    let hit = null;
+    for (const c of cities) {
+      if (!isVisible(c.coord)) continue;
+      const p = projection(c.coord);
+      if (Math.hypot(p[0] - mx, p[1] - my) < 15) { hit = c; break; }
+    }
+    if (hit) {
+      const p = projection(hit.coord);
+      tip.innerHTML = '<b>' + hit.name + '</b><span>' + hit.country + '</span>';
+      tip.style.left = p[0] + 'px'; tip.style.top = p[1] + 'px';
+      tip.hidden = false; canvas.style.cursor = 'pointer';
+    } else {
+      tip.hidden = true; canvas.style.cursor = 'grab';
+    }
+  });
+
+  function releasePointer(e) {
+    pointers.delete(e.pointerId);
+    if (pointers.size < 2) pinch0 = 0;
+    if (pointers.size === 0) { dragging = false; canvas.classList.remove('grabbing'); canvas.style.cursor = 'grab'; }
+  }
+  canvas.addEventListener('pointerup', releasePointer);
+  canvas.addEventListener('pointercancel', releasePointer);
+  canvas.addEventListener('pointerleave', e => { releasePointer(e); if (tip) tip.hidden = true; });
+
+  canvas.addEventListener('wheel', e => {
+    e.preventDefault();
+    killHint();
+    zoom = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, zoom * (1 - e.deltaY * 0.0014)));
+    applyScale(); redraw();
+  }, { passive: false });
+
+  // Double-click / double-tap → return to the framed home view.
+  canvas.addEventListener('dblclick', () => {
+    zoom = 1; applyScale(); projection.rotate(HOME.slice()); redraw();
+  });
+
+  let rt; window.addEventListener('resize', () => {
+    clearTimeout(rt);
+    rt = setTimeout(() => { resize(); redraw(); }, 120);
+  });
+
+  resize();
+  start();
+
+  // Land outlines (Natural Earth 110m via world-atlas).
+  fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+    .then(r => r.json())
+    .then(w => {
+      land  = topojson.feature(w, w.objects.countries);
+      focus = { type: 'FeatureCollection', features: land.features.filter(f => FOCUS_IDS.has(+f.id)) };
+      // Exterior coastline only (shared borders removed → no busy mesh).
+      coast = topojson.mesh(w, w.objects.countries, (a, b) => a === b);
+      redraw();
+    })
+    .catch(() => {});
+})();
 
 </script>
 </body>
