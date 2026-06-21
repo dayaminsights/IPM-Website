@@ -36,14 +36,16 @@ async function processImage(filePath) {
   // If the corner isn't white-ish, image probably has no white bg — skip
   if (seedR < THRESHOLD || seedG < THRESHOLD || seedB < THRESHOLD) return false;
 
-  // Flood fill from all four corners simultaneously
+  // Flood fill from all four edges (not just corners) so enclosed background
+  // pockets between product parts are also reachable.
   const visited = new Uint8Array(width * height);
   const queue   = [];
-  const corners = [[0,0],[width-1,0],[0,height-1],[width-1,height-1]];
-  for (const [x,y] of corners) {
+  const seed = (x, y) => {
     const idx = y * width + x;
-    if (!visited[idx]) { visited[idx] = 1; queue.push([x,y]); }
-  }
+    if (!visited[idx]) { visited[idx] = 1; queue.push([x, y]); }
+  };
+  for (let x = 0; x < width; x++)  { seed(x, 0); seed(x, height - 1); }
+  for (let y = 1; y < height - 1; y++) { seed(0, y); seed(width - 1, y); }
 
   function isBackground(x, y) {
     const i = px(x, y);
@@ -64,6 +66,29 @@ async function processImage(filePath) {
       const ni = ny * width + nx;
       if (!visited[ni]) { visited[ni] = 1; queue.push([nx, ny]); }
     }
+  }
+
+  // Fringe erosion: remove near-white pixels stranded at the transparent border
+  // (anti-aliased edge pixels that the fill couldn't reach through dark neighbours).
+  // Safe for chrome highlights — those are interior to the product, surrounded
+  // by opaque non-white pixels, so they'll never have 2+ transparent neighbours.
+  const FRINGE_THRESHOLD = THRESHOLD - 15; // 223 — slightly looser than main threshold
+  for (let pass = 0; pass < 3; pass++) {
+    let changed = false;
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        const i = px(x, y);
+        if (buf[i + 3] === 0) continue;
+        if (buf[i] < FRINGE_THRESHOLD || buf[i+1] < FRINGE_THRESHOLD || buf[i+2] < FRINGE_THRESHOLD) continue;
+        let transparentNeighbours = 0;
+        for (const [nx, ny] of [[x+1,y],[x-1,y],[x,y+1],[x,y-1]]) {
+          if (nx < 0 || ny < 0 || nx >= width || ny >= height) { transparentNeighbours++; continue; }
+          if (buf[px(nx, ny) + 3] === 0) transparentNeighbours++;
+        }
+        if (transparentNeighbours >= 2) { buf[i + 3] = 0; changed = true; }
+      }
+    }
+    if (!changed) break;
   }
 
   // Save as PNG (preserves transparency)
