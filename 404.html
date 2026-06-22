@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page Not Found — IPM Bath Fittings</title>
+<meta name="robots" content="noindex, follow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #faf8f4; --ink: #1a1610; --gold: #9a7340; --gold-2: #c49b5a;
+  --soft: #6b5f4e; --line: #e8e2d9; --cream: #f5f1e8;
+}
+body { background: var(--bg); color: var(--ink); font-family: 'DM Sans', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
+a { color: inherit; text-decoration: none; }
+
+header { display: flex; align-items: center; justify-content: center; padding: 28px 40px; border-bottom: 1px solid var(--line); }
+.logo { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; letter-spacing: .18em; text-transform: uppercase; color: var(--ink); }
+.logo span { display: block; font-size: 9px; letter-spacing: .38em; text-transform: uppercase; color: var(--soft); margin-top: 2px; text-align: center; }
+
+main { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 24px; text-align: center; }
+.err-num { font-family: 'Cormorant Garamond', serif; font-size: clamp(96px, 16vw, 160px); font-weight: 300; color: var(--line); line-height: 1; letter-spacing: -.04em; }
+.err-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 4vw, 42px); font-weight: 400; margin: 8px 0 20px; }
+.err-sub { font-size: 15px; font-weight: 300; color: var(--soft); max-width: 460px; line-height: 1.7; margin-bottom: 48px; }
+.err-sub strong { color: var(--gold); font-weight: 400; }
+
+.err-actions { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-bottom: 64px; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--gold); color: #fff; border-radius: 100px;
+  padding: 14px 36px; font-size: 10px; letter-spacing: .24em; text-transform: uppercase;
+  font-family: 'DM Sans', sans-serif; font-weight: 500;
+  transition: background .25s, transform .25s;
+}
+.btn-primary:hover { background: #7d5d32; transform: translateY(-1px); }
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 10px;
+  border: 1px solid var(--line); border-radius: 100px; color: var(--soft);
+  padding: 14px 36px; font-size: 10px; letter-spacing: .24em; text-transform: uppercase;
+  font-family: 'DM Sans', sans-serif; font-weight: 400;
+  transition: border-color .25s, color .25s;
+}
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+.quick-links { border-top: 1px solid var(--line); padding-top: 48px; width: 100%; max-width: 640px; }
+.quick-links-label { font-size: 9px; letter-spacing: .28em; text-transform: uppercase; color: var(--soft); margin-bottom: 24px; }
+.quick-links-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.ql { border: 1px solid var(--line); border-radius: 100px; padding: 9px 22px; font-size: 12.5px; font-weight: 300; color: var(--soft); transition: border-color .2s, color .2s; }
+.ql:hover { border-color: var(--gold); color: var(--gold); }
+
+footer { text-align: center; padding: 28px; font-size: 12px; color: var(--soft); border-top: 1px solid var(--line); }
+</style>
+</head>
+<body>
+<header>
+  <a href="/" class="logo">IPM<span>Bath Fittings</span></a>
+</header>
+
+<main>
+  <div class="err-num">404</div>
+  <h1 class="err-title">Page not found</h1>
+  <p class="err-sub">This page may have moved when we launched our new website. Use the search or browse our collections to find what you're looking for.</p>
+
+  <div class="err-actions">
+    <a href="/search.html" class="btn-primary">Search Products</a>
+    <a href="/" class="btn-outline">Go to Homepage</a>
+  </div>
+
+  <div class="quick-links">
+    <div class="quick-links-label">Browse Collections</div>
+    <div class="quick-links-grid">
+      <a href="/collections/aliva/" class="ql">Aliva</a>
+      <a href="/collections/opell-prima/" class="ql">Opell Prima</a>
+      <a href="/collections/fuzone/" class="ql">Fuzone</a>
+      <a href="/collections/flora/" class="ql">Flora</a>
+      <a href="/collections/zenith/" class="ql">Zenith</a>
+      <a href="/collections/cube/" class="ql">Cube</a>
+      <a href="/collections/jp/" class="ql">JP</a>
+      <a href="/collections/allied/" class="ql">Allied</a>
+      <a href="/collections/para/" class="ql">Para</a>
+      <a href="/collections.html" class="ql">All Collections →</a>
+    </div>
+  </div>
+</main>
+
+<footer>© 2026 IPM Bath Fittings · 459 Patparganj Industrial Area, Delhi – 110092</footer>
+
+<script>
+// Try to auto-redirect common old URL patterns to new equivalents
+(function() {
+  const p = window.location.pathname.toLowerCase();
+  if (p.includes('product') || p.includes('catalogue') || p.includes('catalog')) {
+    window.location.replace('/search.html');
+  } else if (p.includes('premium') || p.includes('opell')) {
+    window.location.replace('/collections/opell-prima/');
+  } else if (p.includes('aliva')) {
+    window.location.replace('/collections/aliva/');
+  } else if (p.includes('fuzone')) {
+    window.location.replace('/collections/fuzone/');
+  } else if (p.includes('flora')) {
+    window.location.replace('/collections/flora/');
+  } else if (p.includes('zenith')) {
+    window.location.replace('/collections/zenith/');
+  } else if (p.includes('contact')) {
+    window.location.replace('/contact.html');
+  } else if (p.includes('about')) {
+    window.location.replace('/about.html');
+  }
+})();
+</script>
+</body>
+</html>
