@@ -1643,7 +1643,7 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
     <div class="gp-globe-tip" id="gpTip" role="status" aria-live="polite" hidden></div>
     <div class="gp-globe-hint" id="gpHint" aria-hidden="true">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg>
-      Drag to rotate · scroll to zoom · double-click to reset
+      Drag to rotate · Ctrl + scroll to zoom · double-click to reset
     </div>
   </div>
 
@@ -2251,10 +2251,11 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
       }
     });
 
-    // Labels fade in as you zoom: nation anchors first, secondary cities later.
+    // Labels fade in only when zoomed enough that nearby cities (Kathmandu/Thimphu)
+    // are visually separated. Primary at zoom>2.2, secondary at zoom>3.2.
     const clamp01 = v => v < 0 ? 0 : (v > 1 ? 1 : v);
-    const aPrimary   = clamp01((zoom - 1.35) / 0.5);
-    const aSecondary = clamp01((zoom - 2.3) / 0.6);
+    const aPrimary   = clamp01((zoom - 2.2) / 0.5);
+    const aSecondary = clamp01((zoom - 3.2) / 0.5);
 
     // Markers: Delhi hub (pulsing) > primary nation anchor > secondary city.
     cities.forEach(c => {
@@ -2390,6 +2391,9 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
   canvas.addEventListener('pointerleave', e => { releasePointer(e); if (tip) tip.hidden = true; });
 
   canvas.addEventListener('wheel', e => {
+    // Only capture scroll when Ctrl/Meta held — lets page scroll pass through freely.
+    // Trackpad pinch-to-zoom naturally sends ctrlKey=true so pinch still works.
+    if (!e.ctrlKey && !e.metaKey) return;
     e.preventDefault();
     killHint();
     zoom = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, zoom * (1 - e.deltaY * 0.0014)));
