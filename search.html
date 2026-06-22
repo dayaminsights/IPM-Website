@@ -10,6 +10,10 @@
 <meta property="og:description" content="Search the full IPM Bath Fittings catalogue by product name, SKU, collection or category.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ipmbathfittings.github.io/search.html">
+<meta property="og:site_name" content="IPM Bath Fittings">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Search — IPM Bath Fittings">
+<meta name="twitter:description" content="Search the full IPM Bath Fittings catalogue by product name, SKU, collection or category.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon.svg" sizes="any">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -580,7 +584,7 @@ footer {
 /* ── hero ── */
 .sh-hero {
   position: relative; height: 62vh; min-height: 440px; max-height: 700px;
-  display: flex; align-items: flex-end;
+  overflow: hidden; display: flex; align-items: flex-end;
   margin-top: -80px;
 }
 .sh-hero-img {
@@ -641,8 +645,6 @@ footer {
 }
 .search-box:focus-within .search-hint,
 .search-box input:not(:placeholder-shown) + .search-clear + .search-hint { opacity: 0; }
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-decoration { display: none; }
 
 /* ── search suggestions (typeahead dropdown) ── */
 .search-suggest {
@@ -1346,11 +1348,13 @@ window.addEventListener('scroll', () => {
     if (state.category)    items = items.filter(it => it.category === state.category);
     if (state.collection)  items = items.filter(it => it.collectionSlug === state.collection);
     if (q) {
-      const tokens = q.split(/\s+/).filter(Boolean);
-      items = items.filter(it => {
-        const hay = [it.name, it.skus, it.collection, it.category, it.finishes].join(' ').toLowerCase();
-        return tokens.every(t => hay.includes(t));
-      });
+      items = items.filter(it =>
+        it.name.toLowerCase().includes(q) ||
+        it.skus.toLowerCase().includes(q) ||
+        it.collection.toLowerCase().includes(q) ||
+        it.category.toLowerCase().includes(q) ||
+        it.finishes.toLowerCase().includes(q)
+      );
     }
     items = sortItems(items);
     const shown = items.slice(0, 300);
@@ -1389,10 +1393,11 @@ window.addEventListener('scroll', () => {
         idx = (newIdx + imgs.length) % imgs.length;
         imgs[idx].classList.remove('is-hidden'); imgs[idx].classList.add('is-visible');
         if (dots[idx]) dots[idx].classList.add('is-active');
-        // Swap price when it differs per finish
+        // Swap price when it differs per finish; hide when empty
         if (priceEl && prices) {
           const p = prices[idx];
-          if (p) priceEl.textContent = p;
+          if (p) { priceEl.textContent = p; priceEl.style.display = ''; }
+          else { priceEl.style.display = 'none'; }
         }
       }
       function advance() { goTo(idx + 1); }
@@ -1490,10 +1495,9 @@ window.addEventListener('scroll', () => {
   function getSuggestions(raw) {
     const q = String(raw).trim().toLowerCase();
     if (!q || !suggestIdx) return [];
-    const tokens = q.split(/\s+/).filter(Boolean);
-    const rank = s => { const i = s.toLowerCase().indexOf(tokens[0] || q); return i < 0 ? 999 : i; };
+    const rank = s => { const i = s.toLowerCase().indexOf(q); return i < 0 ? 999 : i; };
     const prods = suggestIdx.products
-      .filter(p => { const hay = [p.name, String(p.skus)].join(' ').toLowerCase(); return tokens.every(t => hay.includes(t)); })
+      .filter(p => p.name.toLowerCase().includes(q) || String(p.skus).toLowerCase().includes(q))
       .sort((a, b) => rank(a.name) - rank(b.name)).slice(0, 6)
       .map(p => ({ kind: 'product', label: p.name, sub: p.collection + ' · ' + p.category, url: p.url, image: p.image }));
     const colls = suggestIdx.collections.filter(c => c.name.toLowerCase().includes(q)).slice(0, 3)
