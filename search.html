@@ -1322,7 +1322,7 @@ window.addEventListener('scroll', () => {
   <button class="card-arrow card-arrow-next" aria-label="Next finish" tabindex="-1">&#8250;</button>` : '';
     // Per-variant prices — embed as JSON so cycling JS can swap the displayed price
     const pricesAttr = isMulti
-      ? ` data-prices='${JSON.stringify(it.variantImages.map(v => v.price || it.price || '')).replace(/'/g, '&#39;')}'`
+      ? ` data-prices='${JSON.stringify(it.variantImages.map(v => v.price || '')).replace(/'/g, '&#39;')}'`
       : '';
     return `<a class="search-card" href="${esc(it.url)}" data-multi="${isMulti ? '1' : '0'}"${pricesAttr}>
   <div class="card-stage">
