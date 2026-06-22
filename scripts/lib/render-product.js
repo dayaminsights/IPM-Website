@@ -169,10 +169,8 @@ ${swatchesHtml}
     });
   })() : null;
 
-  // Price (MRP). Shown when available; otherwise the Enquire CTA stands alone.
-  const priceHtml = primary.price
-    ? `      <div class="price-tag"><span id="current-price">${escapeHtml(primary.price)}</span><span class="price-note">MRP</span></div>`
-    : '';
+  // MRP not displayed — shown only when verified price data is in Excel.
+  const priceHtml = '';
 
   // Enquire CTA
   const enquireParams = new URLSearchParams({

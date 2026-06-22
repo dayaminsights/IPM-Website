@@ -2437,12 +2437,12 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
     <a href="collections.html" class="link-arrow">All Collections</a>
   </div>
   <div class="promos stagger-children">
-    <a href="collections/aliva/" class="promo">
-      <img src="images/home/line-aliva.jpg" alt="Aliva collection" loading="lazy">
+    <a href="collections/zenith/" class="promo">
+      <img src="images/home/line-aliva.jpg" alt="Zenith collection" loading="lazy">
       <div class="ov">
         <div class="e">Signature Line</div>
-        <h3 class="serif">Aliva</h3>
-        <span class="promo-cta">Discover Aliva →</span>
+        <h3 class="serif">Zenith</h3>
+        <span class="promo-cta">Discover Zenith →</span>
       </div>
     </a>
     <a href="collections/opell-prima/" class="promo">
@@ -2561,7 +2561,7 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
   <div class="showroom reveal">
     <div class="vis">
       <span class="tag">Delhi · Flagship</span>
-      <img src="images/home/showroom-delhi.jpg" alt="IPM Showroom Delhi interior" loading="lazy">
+      <img src="images/home/newsletter.jpg" alt="IPM showroom atmosphere" loading="lazy">
     </div>
     <div class="info">
       <div class="sub">Flagship Showroom</div>
@@ -2578,28 +2578,6 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
     </div>
   </div>
 </section>
-
-<!-- ===== NEWSLETTER ===== -->
-<div class="news-section">
-  <div class="news reveal">
-    <div class="news-copy">
-      <div class="e eyebrow">The IPM List</div>
-      <h2 class="serif">Design, <em>Delivered</em></h2>
-      <p>Curated collections and exclusive previews of new finishes — straight to your inbox.</p>
-      <form class="news-form" id="newsForm" novalidate>
-        <input type="email" id="newsEmail" placeholder="Your email address" autocomplete="email">
-        <button type="submit" id="newsBtn">Subscribe</button>
-      </form>
-      <div id="newsConfirm" class="news-confirm" hidden>
-        <span class="news-confirm-icon">&#10003;</span>
-        <span id="newsConfirmText"></span>
-      </div>
-    </div>
-    <div class="news-vis">
-      <img src="images/home/newsletter.jpg" alt="Styled bathroom" loading="lazy">
-    </div>
-  </div>
-</div>
 
 <!-- ===== FOOTER ===== -->
 <footer>
@@ -3104,36 +3082,6 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && !vModal.hidden) closeVideo();
 });
 
-/* ================================================================
-   NEWSLETTER FORM
-================================================================ */
-const newsForm    = document.getElementById('newsForm');
-const newsEmail   = document.getElementById('newsEmail');
-const newsConfirm = document.getElementById('newsConfirm');
-const newsConfirmText = document.getElementById('newsConfirmText');
-
-newsForm.addEventListener('submit', e => {
-  e.preventDefault();
-  const email = newsEmail.value.trim();
-  const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  if (!valid) {
-    newsEmail.style.borderColor = '#c0392b';
-    newsEmail.focus();
-    setTimeout(() => newsEmail.style.borderColor = '', 1800);
-    return;
-  }
-  newsForm.style.transition = 'opacity .35s, transform .35s';
-  newsForm.style.opacity = '0';
-  newsForm.style.transform = 'translateY(-8px)';
-  setTimeout(() => {
-    newsForm.hidden = true;
-    newsForm.style.opacity = '';
-    newsForm.style.transform = '';
-    newsConfirmText.textContent = `Thank you, ${email.split('@')[0]}. Watch your inbox.`;
-    newsConfirm.hidden = false;
-    requestAnimationFrame(() => requestAnimationFrame(() => newsConfirm.classList.add('visible')));
-  }, 350);
-});
 
 /* ================================================================
    CATEGORY SUB-NAV
