@@ -1207,7 +1207,7 @@ function applyVariant(idx, crossfade) {
   liveFinishBtns().forEach((b, k) => b.classList.toggle('is-active', k === idx));
   if (fpSelected) { fpSelected.classList.add('is-fading'); setTimeout(() => { fpSelected.textContent = v.finish; fpSelected.classList.remove('is-fading'); }, 180); }
   if (currentSku) currentSku.textContent = v.sku;
-  if (currentPrice) { const pt = currentPrice.closest('.price-tag'); if (v.price) { currentPrice.textContent = v.price; if (pt) pt.hidden = false; } else { if (pt) pt.hidden = true; } }
+  if (currentPrice) { const pt = currentPrice.closest('.price-tag'); if (v.price) { currentPrice.textContent = v.price; if (pt) pt.style.display = ''; } else { if (pt) pt.style.display = 'none'; } }
   const url = new URL(enquireBtn.href, window.location.href);
   url.searchParams.set('finish', v.finish);
   enquireBtn.href = url.pathname + url.search;

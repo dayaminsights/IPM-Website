@@ -1220,7 +1220,7 @@ window.addEventListener('scroll', () => {
     const label = sizePills[si] ? sizePills[si].textContent : '';
     window._ipmActiveSize = label;
     if (currentSku) currentSku.textContent = v.sku;
-    if (currentPrice) { const pt = currentPrice.closest('.price-tag'); if (v.price) { currentPrice.textContent = v.price; if (pt) pt.hidden = false; } else { if (pt) pt.hidden = true; } }
+    if (currentPrice) { const pt = currentPrice.closest('.price-tag'); if (v.price) { currentPrice.textContent = v.price; if (pt) pt.style.display = ''; } else { if (pt) pt.style.display = 'none'; } }
     if (fpSelected) {
       fpSelected.classList.add('is-fading');
       setTimeout(() => { fpSelected.textContent = v.finish + (label ? ' · ' + label : ''); fpSelected.classList.remove('is-fading'); }, 180);
