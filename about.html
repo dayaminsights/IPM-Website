@@ -1054,19 +1054,22 @@ footer {
 .gp-head .sc-title em { color: var(--gold-2); }
 .gp-head .sc-sub { color: rgba(237,231,216,.62); }
 
-/* Waypoint ledger */
+/* Waypoint ledger — constrained to left text column so it never overlaps the globe */
 .gp-ledger {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 560px;
   border-top: 1px solid rgba(237,231,216,.12);
 }
 .gp-region {
-  padding: 28px 28px 36px;
+  padding: 20px 24px 28px;
   border-right: 1px solid rgba(237,231,216,.12);
-  display: flex; flex-direction: column; gap: 10px;
+  border-bottom: 1px solid rgba(237,231,216,.12);
+  display: flex; flex-direction: column; gap: 8px;
 }
-.gp-region:last-child { border-right: none; }
+.gp-region:nth-child(2n) { border-right: none; }
+.gp-region:nth-last-child(-n+2) { border-bottom: none; }
 .gp-region-num {
   font-family: 'DM Sans', sans-serif; font-size: 10px; letter-spacing: .3em;
   color: var(--gold-2); opacity: .65;
@@ -1183,10 +1186,7 @@ footer {
   .p-compare-title { max-width: 100%; }
   .cert-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
   .gp-section { padding-top: 84px; }
-  .gp-ledger { grid-template-columns: repeat(2, 1fr); }
-  .gp-region:nth-child(2n) { border-right: none; }
-  .gp-region:nth-child(-n+4) { border-bottom: 1px solid rgba(237,231,216,.12); }
-  .gp-region:last-child { grid-column: span 2; border-right: none; }
+  .gp-ledger { grid-template-columns: 1fr 1fr; }
   .cta-card { grid-template-columns: 1fr; padding: 56px 48px; }
   .cta-actions { flex-direction: row; align-items: center; justify-content: flex-start; }
   /* Timeline → 2-up; centered self-contained fill bar per era */
@@ -1638,7 +1638,7 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
   <!-- Full-bleed interactive globe layer -->
   <div class="gp-globe-stage">
     <canvas id="gpGlobe" width="560" height="560" role="img"
-      aria-label="Interactive globe highlighting the five nations IPM serves — India, the UAE, Nepal, Bhutan and South Africa — with gold routes from the Delhi workshop to each dealer city. Drag to rotate, scroll to zoom; the same cities are listed below."></canvas>
+      aria-label="Interactive globe showing IPM's ten markets — Nepal, Bhutan, Sri Lanka, Dubai, Oman, Bahrain, Tanzania, Uganda, Zanzibar and Rwanda — with gold routes from the Delhi workshop to each dealer city. Drag to rotate, Ctrl+scroll to zoom; markets listed below."></canvas>
     <div class="gp-globe-scrim" aria-hidden="true"></div>
     <div class="gp-globe-tip" id="gpTip" role="status" aria-live="polite" hidden></div>
     <div class="gp-globe-hint" id="gpHint" aria-hidden="true">
@@ -1652,8 +1652,8 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
   <div class="gp-inner">
     <div class="gp-head reveal">
       <div class="sc-eyebrow">Global Presence</div>
-      <h2 class="sc-title">Trusted Across <em>Five Nations</em></h2>
-      <p class="sc-sub">From our Delhi workshop to dealer showrooms across South Asia and Southern Africa, IPM fittings are installed in homes and projects on three continents.</p>
+      <h2 class="sc-title">Trusted Across <em>Ten Markets</em></h2>
+      <p class="sc-sub">From our Delhi workshop to dealer showrooms across South Asia, the Middle East and East Africa, IPM fittings are installed in homes and projects on three continents.</p>
       <p class="gp-hub-note">Every fitting ships from our <strong>Delhi</strong> workshop — the gold threads trace each route out to our dealer cities.</p>
       <div class="gp-globe-legend" aria-hidden="true">
         <span class="gp-leg-item"><i class="gp-leg-dot hub"></i> Delhi workshop</span>
@@ -1664,28 +1664,53 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
     <div class="gp-ledger stagger-children reveal">
       <div class="gp-region">
         <div class="gp-region-num">01</div>
-        <div class="gp-region-name">India</div>
-        <div class="gp-region-cities">Delhi NCR · Mumbai · Bengaluru</div>
-      </div>
-      <div class="gp-region">
-        <div class="gp-region-num">02</div>
-        <div class="gp-region-name">UAE</div>
-        <div class="gp-region-cities">Dubai · Abu Dhabi</div>
-      </div>
-      <div class="gp-region">
-        <div class="gp-region-num">03</div>
         <div class="gp-region-name">Nepal</div>
         <div class="gp-region-cities">Kathmandu</div>
       </div>
       <div class="gp-region">
-        <div class="gp-region-num">04</div>
+        <div class="gp-region-num">02</div>
         <div class="gp-region-name">Bhutan</div>
         <div class="gp-region-cities">Thimphu</div>
       </div>
       <div class="gp-region">
+        <div class="gp-region-num">03</div>
+        <div class="gp-region-name">Sri Lanka</div>
+        <div class="gp-region-cities">Colombo</div>
+      </div>
+      <div class="gp-region">
+        <div class="gp-region-num">04</div>
+        <div class="gp-region-name">Dubai</div>
+        <div class="gp-region-cities">UAE</div>
+      </div>
+      <div class="gp-region">
         <div class="gp-region-num">05</div>
-        <div class="gp-region-name">South Africa</div>
-        <div class="gp-region-cities">Johannesburg · Cape Town</div>
+        <div class="gp-region-name">Oman</div>
+        <div class="gp-region-cities">Muscat</div>
+      </div>
+      <div class="gp-region">
+        <div class="gp-region-num">06</div>
+        <div class="gp-region-name">Bahrain</div>
+        <div class="gp-region-cities">Manama</div>
+      </div>
+      <div class="gp-region">
+        <div class="gp-region-num">07</div>
+        <div class="gp-region-name">Tanzania</div>
+        <div class="gp-region-cities">Dar es Salaam</div>
+      </div>
+      <div class="gp-region">
+        <div class="gp-region-num">08</div>
+        <div class="gp-region-name">Uganda</div>
+        <div class="gp-region-cities">Kampala</div>
+      </div>
+      <div class="gp-region">
+        <div class="gp-region-num">09</div>
+        <div class="gp-region-name">Zanzibar</div>
+        <div class="gp-region-cities">Stone Town</div>
+      </div>
+      <div class="gp-region">
+        <div class="gp-region-num">10</div>
+        <div class="gp-region-name">Rwanda</div>
+        <div class="gp-region-cities">Kigali</div>
       </div>
     </div>
   </div>
@@ -2114,22 +2139,28 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
   // [lon, lat]. Delhi is the hub; every other city links back to it.
   // `primary` cities carry a larger marker (one anchor per nation).
   const cities = [
-    { name: 'Delhi',        country: 'India',        coord: [77.21,  28.61], hub: true },
-    { name: 'Mumbai',       country: 'India',        coord: [72.87,  19.07] },
-    { name: 'Bengaluru',    country: 'India',        coord: [77.59,  12.97] },
-    { name: 'Dubai',        country: 'UAE',          coord: [55.27,  25.20], primary: true },
-    { name: 'Abu Dhabi',    country: 'UAE',          coord: [54.38,  24.45] },
-    { name: 'Kathmandu',    country: 'Nepal',        coord: [85.32,  27.71], primary: true },
-    { name: 'Thimphu',      country: 'Bhutan',       coord: [89.64,  27.47], primary: true },
-    { name: 'Johannesburg', country: 'South Africa', coord: [28.04, -26.20], primary: true },
-    { name: 'Cape Town',    country: 'South Africa', coord: [18.42, -33.92] }
+    { name: 'Delhi',          country: 'India',     coord: [77.21,  28.61], hub: true },
+    { name: 'Kathmandu',      country: 'Nepal',     coord: [85.32,  27.71], primary: true },
+    { name: 'Thimphu',        country: 'Bhutan',    coord: [89.64,  27.47], primary: true },
+    { name: 'Colombo',        country: 'Sri Lanka', coord: [79.86,   6.93], primary: true },
+    { name: 'Dubai',          country: 'UAE',       coord: [55.27,  25.20], primary: true },
+    { name: 'Muscat',         country: 'Oman',      coord: [58.59,  23.59], primary: true },
+    { name: 'Manama',         country: 'Bahrain',   coord: [50.59,  26.24], primary: true },
+    { name: 'Dar es Salaam',  country: 'Tanzania',  coord: [39.27,  -6.81], primary: true },
+    { name: 'Kampala',        country: 'Uganda',    coord: [32.58,   0.32], primary: true },
+    { name: 'Zanzibar',       country: 'Tanzania',  coord: [39.36,  -5.93] },
+    { name: 'Kigali',         country: 'Rwanda',    coord: [30.06,  -1.94], primary: true }
   ];
   const hub  = cities[0];
   const arcs = cities.filter(c => !c.hub)
     .map(c => ({ interp: d3.geoInterpolate(hub.coord, c.coord) }));
 
-  // ISO 3166-1 numeric ids of the five nations, used to light their land.
-  const FOCUS_IDS = new Set([356 /*India*/, 784 /*UAE*/, 524 /*Nepal*/, 64 /*Bhutan*/, 710 /*South Africa*/]);
+  // ISO 3166-1 numeric ids of the ten markets, used to light their land on the globe.
+  const FOCUS_IDS = new Set([
+    524 /*Nepal*/, 64 /*Bhutan*/, 144 /*Sri Lanka*/,
+    784 /*UAE*/, 512 /*Oman*/, 48 /*Bahrain*/,
+    834 /*Tanzania*/, 800 /*Uganda*/, 646 /*Rwanda*/
+  ]);
 
   // Default framing: centre between the Gulf and the Himalayas so all five
   // nations sit on the near face. Used as the reset target too.
