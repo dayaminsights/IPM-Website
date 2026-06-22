@@ -584,8 +584,12 @@ footer {
 /* ── hero ── */
 .sh-hero {
   position: relative; height: 62vh; min-height: 440px; max-height: 700px;
-  overflow: hidden; display: flex; align-items: flex-end;
+  overflow: visible; display: flex; align-items: flex-end;
   margin-top: -80px;
+}
+/* Image + scrim clipped in their own layer so dropdown overflows freely */
+.sh-hero-bg {
+  position: absolute; inset: 0; overflow: hidden; pointer-events: none;
 }
 .sh-hero-img {
   position: absolute; inset: 0; width: 100%; height: 100%;
@@ -654,7 +658,13 @@ footer {
   padding: 6px; max-height: 64vh; overflow-y: auto;
   opacity: 0; transform: translateY(-8px) scale(.99); pointer-events: none;
   transition: opacity .2s cubic-bezier(.2,.6,.2,1), transform .2s cubic-bezier(.2,.6,.2,1);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(196,155,90,0.45) transparent;
 }
+.search-suggest::-webkit-scrollbar { width: 4px; }
+.search-suggest::-webkit-scrollbar-track { background: transparent; }
+.search-suggest::-webkit-scrollbar-thumb { background: rgba(196,155,90,0.45); border-radius: 4px; }
+.search-suggest::-webkit-scrollbar-thumb:hover { background: rgba(196,155,90,0.75); }
 .search-suggest.is-open { opacity: 1; transform: none; pointer-events: auto; }
 .suggest-group-label {
   font-family: 'DM Sans', sans-serif; font-size: 9px; letter-spacing: .22em;
@@ -989,8 +999,10 @@ mark { background: var(--gold-pale); color: inherit; border-radius: 2px; padding
 
 <!-- ===== SEARCH HERO ===== -->
 <div class="sh-hero">
-  <img class="sh-hero-img" src="images/collections/hero.jpg" alt="IPM Bath Fittings catalogue" loading="eager">
-  <div class="sh-hero-scrim"></div>
+  <div class="sh-hero-bg">
+    <img class="sh-hero-img" src="images/collections/hero.jpg" alt="IPM Bath Fittings catalogue" loading="eager">
+    <div class="sh-hero-scrim"></div>
+  </div>
   <div class="sh-hero-content wrap">
     <div class="eyebrow reveal">Catalogue · 924 SKUs · 16 Finishes</div>
     <h1 class="serif sh-title reveal">Find your <em>fitting</em></h1>
