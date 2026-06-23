@@ -332,7 +332,7 @@ ${renderFooter(depth)}`;
 /* image stage — finish cycling happens here */
 .card-stage {
   position: relative; aspect-ratio: 4/3; overflow: hidden;
-  background: var(--cream); flex-shrink: 0;
+  background: var(--cream); flex-shrink: 0; isolation: isolate;
 }
 .card-stage img {
   position: absolute; inset: 0; width: 100%; height: 100%;
