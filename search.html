@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Search — IPM Bath Fittings</title>
 <meta name="description" content="Search the full IPM Bath Fittings catalogue by product name, SKU, collection or category.">
-<link rel="canonical" href="https://ipmbathfittings.github.io/search.html">
+<link rel="canonical" href="https://ipmbathfittings.com/search.html">
 <meta property="og:title" content="Search — IPM Bath Fittings">
 <meta property="og:description" content="Search the full IPM Bath Fittings catalogue by product name, SKU, collection or category.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://ipmbathfittings.github.io/search.html">
+<meta property="og:url" content="https://ipmbathfittings.com/search.html">
 <meta property="og:site_name" content="IPM Bath Fittings">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Search — IPM Bath Fittings">
@@ -584,12 +584,8 @@ footer {
 /* ── hero ── */
 .sh-hero {
   position: relative; height: 62vh; min-height: 440px; max-height: 700px;
-  overflow: visible; display: flex; align-items: flex-end;
+  overflow: hidden; display: flex; align-items: flex-end;
   margin-top: -80px;
-}
-/* Image + scrim clipped in their own layer so dropdown overflows freely */
-.sh-hero-bg {
-  position: absolute; inset: 0; overflow: hidden; pointer-events: none;
 }
 .sh-hero-img {
   position: absolute; inset: 0; width: 100%; height: 100%;
@@ -658,13 +654,7 @@ footer {
   padding: 6px; max-height: 64vh; overflow-y: auto;
   opacity: 0; transform: translateY(-8px) scale(.99); pointer-events: none;
   transition: opacity .2s cubic-bezier(.2,.6,.2,1), transform .2s cubic-bezier(.2,.6,.2,1);
-  scrollbar-width: thin;
-  scrollbar-color: rgba(196,155,90,0.45) transparent;
 }
-.search-suggest::-webkit-scrollbar { width: 4px; }
-.search-suggest::-webkit-scrollbar-track { background: transparent; }
-.search-suggest::-webkit-scrollbar-thumb { background: rgba(196,155,90,0.45); border-radius: 4px; }
-.search-suggest::-webkit-scrollbar-thumb:hover { background: rgba(196,155,90,0.75); }
 .search-suggest.is-open { opacity: 1; transform: none; pointer-events: auto; }
 .suggest-group-label {
   font-family: 'DM Sans', sans-serif; font-size: 9px; letter-spacing: .22em;
@@ -999,16 +989,14 @@ mark { background: var(--gold-pale); color: inherit; border-radius: 2px; padding
 
 <!-- ===== SEARCH HERO ===== -->
 <div class="sh-hero">
-  <div class="sh-hero-bg">
-    <img class="sh-hero-img" src="images/collections/hero.jpg" alt="IPM Bath Fittings catalogue" loading="eager">
-    <div class="sh-hero-scrim"></div>
-  </div>
+  <img class="sh-hero-img" src="images/collections/hero.jpg" alt="IPM Bath Fittings catalogue" loading="eager">
+  <div class="sh-hero-scrim"></div>
   <div class="sh-hero-content wrap">
     <div class="eyebrow reveal">Catalogue · 924 SKUs · 16 Finishes</div>
     <h1 class="serif sh-title reveal">Find your <em>fitting</em></h1>
     <div class="search-box reveal">
       <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-      <input id="searchQ" type="search" placeholder="Name, SKU, collection or finish…" autocomplete="off" spellcheck="false" aria-label="Search products" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="heroSuggest">
+      <input id="searchQ" type="search" placeholder="Name, product code, collection or finish…" autocomplete="off" spellcheck="false" aria-label="Search products" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="heroSuggest">
       <button class="search-clear" id="searchClear" hidden aria-label="Clear search">&#x2715;</button>
       <span class="search-hint" aria-hidden="true">Press <kbd>/</kbd> to focus</span>
       <div class="search-suggest" id="heroSuggest" role="listbox" aria-label="Search suggestions"></div>
@@ -1334,7 +1322,7 @@ window.addEventListener('scroll', () => {
   <button class="card-arrow card-arrow-next" aria-label="Next finish" tabindex="-1">&#8250;</button>` : '';
     // Per-variant prices — embed as JSON so cycling JS can swap the displayed price
     const pricesAttr = isMulti
-      ? ` data-prices='${JSON.stringify(it.variantImages.map(v => v.price || '')).replace(/'/g, '&#39;')}'`
+      ? ` data-prices='${JSON.stringify(it.variantImages.map(v => v.price || it.price || '')).replace(/'/g, '&#39;')}'`
       : '';
     return `<a class="search-card" href="${esc(it.url)}" data-multi="${isMulti ? '1' : '0'}"${pricesAttr}>
   <div class="card-stage">
@@ -1405,11 +1393,10 @@ window.addEventListener('scroll', () => {
         idx = (newIdx + imgs.length) % imgs.length;
         imgs[idx].classList.remove('is-hidden'); imgs[idx].classList.add('is-visible');
         if (dots[idx]) dots[idx].classList.add('is-active');
-        // Swap price when it differs per finish; hide when empty
+        // Swap price when it differs per finish
         if (priceEl && prices) {
           const p = prices[idx];
-          if (p) { priceEl.textContent = p; priceEl.style.display = ''; }
-          else { priceEl.style.display = 'none'; }
+          if (p) priceEl.textContent = p;
         }
       }
       function advance() { goTo(idx + 1); }
@@ -1510,13 +1497,13 @@ window.addEventListener('scroll', () => {
     const rank = s => { const i = s.toLowerCase().indexOf(q); return i < 0 ? 999 : i; };
     const prods = suggestIdx.products
       .filter(p => p.name.toLowerCase().includes(q) || String(p.skus).toLowerCase().includes(q))
-      .sort((a, b) => rank(a.name) - rank(b.name))
+      .sort((a, b) => rank(a.name) - rank(b.name)).slice(0, 6)
       .map(p => ({ kind: 'product', label: p.name, sub: p.collection + ' · ' + p.category, url: p.url, image: p.image }));
-    const colls = suggestIdx.collections.filter(c => c.name.toLowerCase().includes(q))
+    const colls = suggestIdx.collections.filter(c => c.name.toLowerCase().includes(q)).slice(0, 3)
       .map(c => ({ kind: 'collection', label: c.name, value: c.slug }));
-    const cats = suggestIdx.categories.filter(c => c.toLowerCase().includes(q))
+    const cats = suggestIdx.categories.filter(c => c.toLowerCase().includes(q)).slice(0, 2)
       .map(c => ({ kind: 'category', label: c, value: c }));
-    const fins = suggestIdx.finishes.filter(f => f.toLowerCase().includes(q))
+    const fins = suggestIdx.finishes.filter(f => f.toLowerCase().includes(q)).slice(0, 3)
       .map(f => ({ kind: 'finish', label: f, value: f }));
     return [...prods, ...colls, ...cats, ...fins];
   }
@@ -1576,7 +1563,7 @@ window.addEventListener('scroll', () => {
       if (!box.classList.contains('is-open')) return;
       if (e.key === 'ArrowDown') { e.preventDefault(); move(1); }
       else if (e.key === 'ArrowUp') { e.preventDefault(); move(-1); }
-      else if (e.key === 'Enter') { if (active >= 0) { e.preventDefault(); chooseSuggestion(items, active); } else { close(); } }
+      else if (e.key === 'Enter' && active >= 0) { e.preventDefault(); chooseSuggestion(items, active); }
       else if (e.key === 'Escape') { e.stopPropagation(); close(); }
     });
     inp.addEventListener('blur', () => setTimeout(close, 130));

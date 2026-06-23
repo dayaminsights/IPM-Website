@@ -44,7 +44,7 @@ function renderSearchPage(collections, { siteBaseUrl }) {
     <h1 class="serif sh-title reveal">Find your <em>fitting</em></h1>
     <div class="search-box reveal">
       <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-      <input id="searchQ" type="search" placeholder="Name, SKU, collection or finish…" autocomplete="off" spellcheck="false" aria-label="Search products" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="heroSuggest">
+      <input id="searchQ" type="search" placeholder="Name, product code, collection or finish…" autocomplete="off" spellcheck="false" aria-label="Search products" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="heroSuggest">
       <button class="search-clear" id="searchClear" hidden aria-label="Clear search">&#x2715;</button>
       <span class="search-hint" aria-hidden="true">Press <kbd>/</kbd> to focus</span>
       <div class="search-suggest" id="heroSuggest" role="listbox" aria-label="Search suggestions"></div>
