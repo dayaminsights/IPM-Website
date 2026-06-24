@@ -824,14 +824,16 @@ footer {
 .coll-grid-section { padding: 80px 0 96px; }
 .coll-grid-header {
   display: flex; align-items: flex-end; justify-content: space-between;
-  padding: 0 44px; margin-bottom: 48px;
+  max-width: 960px; margin: 0 auto 48px; padding: 0 20px;
 }
 .coll-grid-header h2 { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: clamp(32px,4vw,52px); line-height: 1.05; color: var(--ink); }
 .coll-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  padding: 0 44px;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 .cg-card {
   position: relative;
