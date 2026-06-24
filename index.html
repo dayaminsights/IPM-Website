@@ -458,6 +458,9 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
 .stagger-children.visible > *:nth-child(3) { opacity: 1; transform: none; transition-delay: .16s; }
 .stagger-children.visible > *:nth-child(4) { opacity: 1; transform: none; transition-delay: .24s; }
 .stagger-children.visible > *:nth-child(5) { opacity: 1; transform: none; transition-delay: .32s; }
+.stagger-children.visible > *:nth-child(6) { opacity: 1; transform: none; transition-delay: .40s; }
+.stagger-children.visible > *:nth-child(7) { opacity: 1; transform: none; transition-delay: .48s; }
+.stagger-children.visible > *:nth-child(8) { opacity: 1; transform: none; transition-delay: .56s; }
 
 /* ================================================================
    HERO
@@ -666,7 +669,7 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
 .cats-header .e { margin-bottom: 14px; }
 .cats {
   display: grid;
-  grid-template-columns: 1.3fr 1.15fr 1fr 1fr 0.8fr 0.8fr;
+  grid-template-columns: repeat(7, 1fr);
   gap: 14px;
   padding: 0 44px;
 }
@@ -1657,7 +1660,7 @@ footer {
    RESPONSIVE
 ================================================================ */
 @media (max-width: 1100px) {
-  .cats { grid-template-columns: repeat(3, 1fr); }
+  .cats { grid-template-columns: repeat(4, 1fr); }
   .vals { grid-template-columns: repeat(2, 1fr); }
   .val:nth-child(2) { border-right: 0; }
   .her-grid { grid-template-columns: 1fr; }
@@ -2360,6 +2363,7 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
     <a href="search.html?coloured=1">Colour Taps</a>
     <a href="search.html">Accessories</a>
     <a href="#">Sanitary Ware</a>
+    <a href="#">Kitchen Sink</a>
   </div>
 </div>
 
@@ -2427,9 +2431,16 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
       </div>
     </a>
     <a href="#" class="cat">
-      <img src="https://images.unsplash.com/photo-1629079447777-1e605162dc8d?auto=format&fit=crop&w=600&q=80" alt="Sanitary Ware" loading="lazy">
+      <img src="images/home/cat-sanitary.jpg" alt="Sanitary Ware" loading="lazy">
       <div class="ov">
         <span class="cat-name serif">Sanitary Ware</span>
+        <span class="cat-link">Shop Now →</span>
+      </div>
+    </a>
+    <a href="#" class="cat">
+      <img src="images/home/cat-sink.jpg" alt="Kitchen Sink" loading="lazy">
+      <div class="ov">
+        <span class="cat-name serif">Kitchen Sink</span>
         <span class="cat-link">Shop Now →</span>
       </div>
     </a>
@@ -2601,6 +2612,7 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
         <a href="search.html?coloured=1">Colour Taps</a>
         <a href="collections/allied/">Accessories</a>
         <a href="#">Sanitary Ware</a>
+        <a href="#">Kitchen Sink</a>
       </div>
       <div class="foot-col">
         <h5>Customer Care</h5>
