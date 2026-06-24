@@ -666,7 +666,7 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
 .cats-header .e { margin-bottom: 14px; }
 .cats {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: 1.3fr 1.15fr 1fr 1fr 0.8fr 0.8fr;
   gap: 14px;
   padding: 0 44px;
 }
@@ -704,13 +704,14 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
 }
 .cat .ov .cat-name {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 28px;
+  font-size: clamp(20px, 2vw, 28px);
   font-weight: 400;
   color: #fff;
   letter-spacing: .03em;
   transform: translateY(4px);
   transition: transform .4s cubic-bezier(.2,.6,.2,1);
-  line-height: 1;
+  line-height: 1.15;
+  text-align: center;
 }
 .cat .ov .cat-link {
   font-family: 'DM Sans', sans-serif;
@@ -2355,9 +2356,10 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
   <div class="cat-subnav-in">
     <a href="search.html?category=Faucets">Faucets</a>
     <a href="search.html?category=Shower">Showers</a>
-    <a href="search.html?category=Kitchen+Mixers">Mixers</a>
-    <a href="search.html?coloured=1">Coloured</a>
+    <a href="search.html?category=Kitchen+Mixers">Kitchen Mixers</a>
+    <a href="search.html?coloured=1">Colour Taps</a>
     <a href="search.html">Accessories</a>
+    <a href="#">Sanitary Ware</a>
   </div>
 </div>
 
@@ -2404,16 +2406,16 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
       </div>
     </a>
     <a href="search.html?category=Kitchen+Mixers" class="cat">
-      <img src="images/home/cat-mixers.jpg" alt="Mixers" loading="lazy">
+      <img src="images/home/cat-mixers.jpg" alt="Kitchen Mixers" loading="lazy">
       <div class="ov">
-        <span class="cat-name serif">Mixers</span>
+        <span class="cat-name serif">Kitchen Mixers</span>
         <span class="cat-link">Shop Now →</span>
       </div>
     </a>
-    <a href="collections/opell-prima/" class="cat">
-      <img src="images/home/cat-coloured.jpg" alt="Coloured Range" loading="lazy">
+    <a href="search.html?coloured=1" class="cat">
+      <img src="images/home/cat-coloured.jpg" alt="Colour Taps" loading="lazy">
       <div class="ov">
-        <span class="cat-name serif">Coloured</span>
+        <span class="cat-name serif">Colour Taps</span>
         <span class="cat-link">Shop Now →</span>
       </div>
     </a>
@@ -2421,6 +2423,13 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
       <img src="images/home/cat-accessories.jpg" alt="Accessories" loading="lazy">
       <div class="ov">
         <span class="cat-name serif">Accessories</span>
+        <span class="cat-link">Shop Now →</span>
+      </div>
+    </a>
+    <a href="#" class="cat">
+      <img src="https://images.unsplash.com/photo-1629079447777-1e605162dc8d?auto=format&fit=crop&w=600&q=80" alt="Sanitary Ware" loading="lazy">
+      <div class="ov">
+        <span class="cat-name serif">Sanitary Ware</span>
         <span class="cat-link">Shop Now →</span>
       </div>
     </a>
@@ -2588,9 +2597,10 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
         <a href="search.html">All Products</a>
         <a href="search.html?category=Faucets">Faucets</a>
         <a href="search.html?category=Shower">Showers</a>
-        <a href="search.html?category=Kitchen+Mixers">Mixers</a>
-        <a href="collections/opell-prima/">Coloured Range</a>
+        <a href="search.html?category=Kitchen+Mixers">Kitchen Mixers</a>
+        <a href="search.html?coloured=1">Colour Taps</a>
         <a href="collections/allied/">Accessories</a>
+        <a href="#">Sanitary Ware</a>
       </div>
       <div class="foot-col">
         <h5>Customer Care</h5>
