@@ -988,13 +988,14 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
 
 .pcard .meta {
   flex-shrink: 0;
+  height: 140px;
   padding: 14px 16px 18px;
   background: var(--cream);
   border: 1px solid var(--line);
   border-top: none;
   border-radius: 0 0 16px 16px;
   transition: border-color .4s;
-  min-height: 120px;
+  overflow: hidden;
 }
 .pcard .stock { display: none; }
 .pcard .dim {
@@ -1013,6 +1014,10 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
   line-height: 1.15;
   transition: color .25s;
   margin-bottom: 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .pcard:hover h4 { color: var(--gold); }
 .pcard .sku {
