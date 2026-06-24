@@ -979,32 +979,15 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
 }
 .pcard:hover .fav { opacity: 1; transform: scale(1); }
 
-.pcard .meta { padding-top: 16px; }
-.pcard .stock {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 9px;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.pcard .stock::before {
-  content: '';
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--gold);
-  display: inline-block;
-  flex-shrink: 0;
-}
+.pcard .meta { padding-top: 14px; }
+.pcard .stock { display: none; }
 .pcard .dim {
   font-family: 'DM Sans', sans-serif;
-  font-size: 10.5px;
-  letter-spacing: .06em;
-  color: var(--faint);
+  font-size: 11px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--gold-2);
+  font-weight: 500;
   margin-bottom: 7px;
 }
 .pcard h4 {
@@ -1013,15 +996,16 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
   font-size: 26px;
   line-height: 1.15;
   transition: color .25s;
+  margin-bottom: 7px;
 }
 .pcard:hover h4 { color: var(--gold); }
 .pcard .sku {
   font-family: 'DM Sans', sans-serif;
-  font-size: 9px;
-  letter-spacing: .14em;
-  color: var(--faint);
-  margin-top: 5px;
+  font-size: 12px;
+  letter-spacing: .18em;
+  color: var(--soft);
   text-transform: uppercase;
+  font-weight: 400;
 }
 
 .caro-foot { display: flex; justify-content: center; margin-top: 52px; }
@@ -2758,7 +2742,6 @@ const cardHTML = PRODUCTS.map((p, i) => `
       <button class="pcard-enquire" type="button" data-index="${i}">Enquire</button>
     </div>
     <div class="meta">
-      <div class="stock">Available · Request a Quote</div>
       <div class="dim">${p.collection} · ${p.fin}</div>
       <h4>${p.n}</h4>
       <div class="sku">${p.sku}</div>
