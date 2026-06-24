@@ -924,12 +924,16 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
   aspect-ratio: 3/5;
   background: var(--paper);
   overflow: hidden;
-  border-radius: 16px;
+  border-radius: 16px 16px 0 0;
   border: 1px solid var(--line);
+  border-bottom: none;
   transition: box-shadow .4s, border-color .4s;
 }
 .pcard:hover .img {
   box-shadow: var(--shadow-md);
+  border-color: var(--line-2);
+}
+.pcard:hover .meta {
   border-color: var(--line-2);
 }
 .pcard .img .pshot {
@@ -979,7 +983,14 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
 }
 .pcard:hover .fav { opacity: 1; transform: scale(1); }
 
-.pcard .meta { padding-top: 14px; }
+.pcard .meta {
+  padding: 14px 16px 18px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-top: none;
+  border-radius: 0 0 16px 16px;
+  transition: border-color .4s;
+}
 .pcard .stock { display: none; }
 .pcard .dim {
   font-family: 'DM Sans', sans-serif;
@@ -996,16 +1007,21 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
   font-size: 26px;
   line-height: 1.15;
   transition: color .25s;
-  margin-bottom: 7px;
+  margin-bottom: 10px;
 }
 .pcard:hover h4 { color: var(--gold); }
 .pcard .sku {
+  display: inline-block;
   font-family: 'DM Sans', sans-serif;
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: .18em;
   color: var(--soft);
   text-transform: uppercase;
   font-weight: 400;
+  background: var(--cream);
+  border: 1px solid var(--line-2);
+  border-radius: 6px;
+  padding: 3px 10px;
 }
 
 .caro-foot { display: flex; justify-content: center; margin-top: 52px; }
