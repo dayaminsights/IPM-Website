@@ -819,6 +819,72 @@ footer {
 }
 
 /* ================================================================
+   COLLECTIONS GRID — all collections, arch cards
+================================================================ */
+.coll-grid-section { padding: 80px 0 96px; }
+.coll-grid-header {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  padding: 0 44px; margin-bottom: 48px;
+}
+.coll-grid-header h2 { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: clamp(32px,4vw,52px); line-height: 1.05; color: var(--ink); }
+.coll-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 0 44px;
+}
+.cg-card {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  display: block;
+  text-decoration: none;
+  border-radius: 50% 50% 20px 20px / 26% 26% 20px 20px;
+  transition: transform .35s cubic-bezier(.2,.6,.2,1), box-shadow .35s;
+}
+.cg-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+.cg-card img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .7s cubic-bezier(.2,.6,.2,1);
+}
+.cg-card:hover img { transform: scale(1.06); }
+.cg-card .cg-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 38%, rgba(18,14,8,.88) 100%);
+}
+.cg-card .cg-info {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 20px 20px 26px;
+  color: #fff;
+}
+.cg-card .cg-sub {
+  font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--gold-2); margin-bottom: 5px;
+}
+.cg-card .cg-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px; font-weight: 400; line-height: 1.1; color: #fff;
+}
+/* Signature ring + badge */
+.cg-card.is-sig::after {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: 50% 50% 20px 20px / 26% 26% 20px 20px;
+  border: 1.5px solid rgba(196,155,90,.55);
+  pointer-events: none; z-index: 3;
+}
+.cg-sig-badge {
+  position: absolute; top: 33%; left: 50%; transform: translateX(-50%);
+  background: rgba(154,115,64,.82); backdrop-filter: blur(6px);
+  color: #fdf8ee; font-size: 8px; letter-spacing: .22em; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 100px; white-space: nowrap; font-weight: 500; z-index: 3;
+}
+@media (max-width: 1100px) { .coll-grid { grid-template-columns: repeat(3,1fr); } }
+@media (max-width: 700px)  { .coll-grid { grid-template-columns: repeat(2,1fr); gap:12px; padding:0 20px; } .coll-grid-header { padding:0 20px; } }
+
+/* ================================================================
    COLLECTIONS PAGE — FINISHES STRIP
 ================================================================ */
 .finishes-head { text-align: center; max-width: 620px; margin: 0 auto 52px; }
@@ -1087,177 +1153,130 @@ footer {
 
 <div class="sec-divider"><span></span></div>
 
-<!-- ===== THE FULL RANGE ===== -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <defs>
-    <clipPath id="rangeArchClip0" clipPathUnits="objectBoundingBox">
-      <path id="rangeArchPath0" d="M0,0.3 L0.16,0.06 L0.84,0.06 L1,0.3 L1,1 L0,1 Z"/>
-    </clipPath>
-    <clipPath id="rangeArchClip1" clipPathUnits="objectBoundingBox">
-      <path id="rangeArchPath1" d="M0,0.3 L0.16,0.06 L0.84,0.06 L1,0.3 L1,1 L0,1 Z"/>
-    </clipPath>
-    <clipPath id="rangeArchClip2" clipPathUnits="objectBoundingBox">
-      <path id="rangeArchPath2" d="M0,0.3 L0.16,0.06 L0.84,0.06 L1,0.3 L1,1 L0,1 Z"/>
-    </clipPath>
-  </defs>
-</svg>
-
-<section class="sec range-section">
-  <div class="wrap">
-    <div class="sec-title reveal">
-      <div class="eyebrow">The Full Range</div>
-      <h2 class="serif">Twelve collections, <em>one standard of craft.</em></h2>
+<!-- ===== ALL COLLECTIONS GRID ===== -->
+<section class="coll-grid-section">
+  <div class="coll-grid-header reveal">
+    <div>
+      <div class="eyebrow">Browse All Collections</div>
+      <h2 class="serif">Every collection, <em>at a glance.</em></h2>
     </div>
+    <a href="search.html" class="link-arrow">Search All</a>
+  </div>
 
-    <!-- Part A: Featured Showcase -->
-    <div class="range-feature">
-      <div class="range-feature-copy">
-        <div class="eyebrow"><span class="mark" aria-hidden="true"></span>Cube Prima</div>
-        <h3 class="serif">The Cube standard, elevated.</h3>
-        <p>Every Cube proportion, refined further — Prima adds depth of finish and detail for spaces that ask a little more of their fittings.</p>
-        <a href="collections/cube-prima/" class="link-arrow">Explore Cube Prima</a>
+  <div class="coll-grid stagger-children">
+
+    <!-- Signature Lines first -->
+    <a href="collections/zenith/" class="cg-card is-sig">
+      <img src="images/home/line-aliva.jpg" alt="Zenith collection" loading="lazy" style="object-position: 60% calc(12% - 60px);">
+      <div class="cg-overlay"></div>
+      <div class="cg-sig-badge">Signature Line</div>
+      <div class="cg-info">
+        <div class="cg-sub">Coloured Brass · 16 Finishes</div>
+        <div class="cg-name">Zenith</div>
       </div>
-      <div class="range-feature-vis">
-        <div class="arch"><img src="images/collections/cat-mixers.jpg" alt="Cube Prima collection — refined geometric brass fittings"></div>
+    </a>
+
+    <a href="collections/opell-prima/" class="cg-card is-sig">
+      <img src="images/home/line-opell-prima.jpg" alt="Opell Prima collection" loading="lazy" style="object-position: center calc(50% - 50px);">
+      <div class="cg-overlay"></div>
+      <div class="cg-sig-badge">Signature Line</div>
+      <div class="cg-info">
+        <div class="cg-sub">Premium Brass · 16 Finishes</div>
+        <div class="cg-name">Opell Prima</div>
       </div>
-    </div>
+    </a>
 
-    <div class="range-feature">
-      <div class="range-feature-vis">
-        <div class="arch"><img src="images/collections/cat-showers.jpg" alt="Fuzone collection — brass shower fittings"></div>
+    <a href="collections/para/" class="cg-card is-sig">
+      <img src="images/collections/line-para.jpg" alt="Para collection" loading="lazy">
+      <div class="cg-overlay"></div>
+      <div class="cg-sig-badge">Signature Line</div>
+      <div class="cg-info">
+        <div class="cg-sub">Solid Brass · 16 Finishes</div>
+        <div class="cg-name">Para</div>
       </div>
-      <div class="range-feature-copy">
-        <div class="eyebrow"><span class="mark" aria-hidden="true"></span>Fuzone</div>
-        <h3 class="serif">Where form meets flow.</h3>
-        <p>Engineered for the shower space — Fuzone pairs clean silhouettes with the kind of finish-grade detail that holds up to daily ritual.</p>
-        <a href="collections/fuzone/" class="link-arrow">Explore Fuzone</a>
+    </a>
+
+    <a href="collections/aliva/" class="cg-card">
+      <img src="images/collections/cat-faucets.jpg" alt="Aliva collection" loading="lazy">
+      <div class="cg-overlay"></div>
+      <div class="cg-info">
+        <div class="cg-sub">Solid Brass · 16 Finishes</div>
+        <div class="cg-name">Aliva</div>
       </div>
-    </div>
+    </a>
 
-    <!-- Part B: Banner + Grid Index -->
-    <div class="sec-title reveal" style="margin-top:80px">
-      <div class="eyebrow">Also in the Range</div>
-      <h2 class="serif">Eight more collections, <em>same solid brass standard.</em></h2>
-    </div>
-
-    <div class="range-index">
-
-      <!-- LEFT: editorial names list -->
-      <div class="ri-list">
-        <div class="ri-list-eyebrow">Also in the Range</div>
-
-        <a class="ri-item is-active" data-idx="0" href="collections/flora/">
-          <span class="ri-item-num">01</span>
-          <span class="ri-item-name serif">Flora</span>
-          <span class="ri-item-desc">Coloured brass fittings</span>
-        </a>
-        <a class="ri-item" data-idx="1" href="collections/jp/">
-          <span class="ri-item-num">02</span>
-          <span class="ri-item-name serif">JP</span>
-          <span class="ri-item-desc">Classic proportions</span>
-        </a>
-        <a class="ri-item" data-idx="2" href="collections/premium/">
-          <span class="ri-item-num">03</span>
-          <span class="ri-item-name serif">Premium</span>
-          <span class="ri-item-desc">Elevated everyday</span>
-        </a>
-        <a class="ri-item" data-idx="3" href="collections/para/">
-          <span class="ri-item-num">04</span>
-          <span class="ri-item-name serif">Para</span>
-          <span class="ri-item-desc">Shower-focused range</span>
-        </a>
-        <a class="ri-item" data-idx="4" href="collections/allied/">
-          <span class="ri-item-num">05</span>
-          <span class="ri-item-name serif">Allied</span>
-          <span class="ri-item-desc">Complementary pieces</span>
-        </a>
-        <a class="ri-item" data-idx="5" href="collections/zenith/">
-          <span class="ri-item-num">06</span>
-          <span class="ri-item-name serif">Zenith</span>
-          <span class="ri-item-desc">Coloured-finish range</span>
-        </a>
-        <a class="ri-item" data-idx="6" href="collections/neo/">
-          <span class="ri-item-num">07</span>
-          <span class="ri-item-name serif">Neo</span>
-          <span class="ri-item-desc">Modern single-lever</span>
-        </a>
-        <a class="ri-item" data-idx="7" href="collections/pebble/">
-          <span class="ri-item-num">08</span>
-          <span class="ri-item-name serif">Pebble</span>
-          <span class="ri-item-desc">Soft-form silhouettes</span>
-        </a>
+    <a href="collections/flora/" class="cg-card">
+      <img src="images/collections/cat-coloured.jpg" alt="Flora collection" loading="lazy">
+      <div class="cg-overlay"></div>
+      <div class="cg-info">
+        <div class="cg-sub">Coloured Brass · 16 Finishes</div>
+        <div class="cg-name">Flora</div>
       </div>
+    </a>
 
-      <!-- RIGHT: full-height image stage -->
-      <div class="ri-stage">
-        <img class="stage-img is-active" src="images/collections/cat-coloured.jpg"    alt="Flora collection">
-        <img class="stage-img"           src="images/collections/cat-faucets.jpg"     alt="JP collection">
-        <img class="stage-img"           src="images/collections/cat-mixers.jpg"      alt="Premium collection">
-        <img class="stage-img"           src="images/collections/cat-shower.jpg"      alt="Para collection">
-        <img class="stage-img"           src="images/collections/cat-faucets.jpg"     alt="Allied collection">
-        <img class="stage-img"           src="images/collections/cat-coloured.jpg"    alt="Zenith collection">
-        <img class="stage-img"           src="images/collections/cat-kitchen-mixers.jpg" alt="Neo collection">
-        <img class="stage-img"           src="images/collections/cat-faucets.jpg"     alt="Pebble collection">
-
-        <!-- Ghost watermark -->
-        <div class="ri-watermark" id="riWatermark">Flora</div>
-
-        <!-- Active name label -->
-        <div class="ri-image-label">
-          <span class="ri-image-name" id="riImageName">Flora</span>
-          <span class="ri-image-sub">Solid brass · 16 finishes</span>
-        </div>
-
-        <!-- Progress dots -->
-        <div class="ri-dots" aria-hidden="true">
-          <span class="ri-dot is-active"></span>
-          <span class="ri-dot"></span>
-          <span class="ri-dot"></span>
-          <span class="ri-dot"></span>
-          <span class="ri-dot"></span>
-          <span class="ri-dot"></span>
-          <span class="ri-dot"></span>
-          <span class="ri-dot"></span>
-        </div>
+    <a href="collections/fuzone/" class="cg-card">
+      <img src="images/collections/cat-showers.jpg" alt="Fuzone collection" loading="lazy">
+      <div class="cg-overlay"></div>
+      <div class="cg-info">
+        <div class="cg-sub">Solid Brass · 16 Finishes</div>
+        <div class="cg-name">Fuzone</div>
       </div>
+    </a>
 
-    </div>
+    <a href="collections/neo/" class="cg-card">
+      <img src="images/collections/cat-kitchen-mixers.jpg" alt="Neo collection" loading="lazy">
+      <div class="cg-overlay"></div>
+      <div class="cg-info">
+        <div class="cg-sub">Solid Brass · 16 Finishes</div>
+        <div class="cg-name">Neo</div>
+      </div>
+    </a>
 
-    <!-- Mobile-only fallback cards (hidden on desktop via .range-index-mobile { display:none }; shown ≤860px) -->
-    <div class="range-index-mobile">
-      <a class="range-index-card" href="collections/flora/">
-        <span class="name serif">Flora</span>
-        <div class="arch"><img src="images/collections/cat-coloured.jpg" alt="Flora collection"></div>
-      </a>
-      <a class="range-index-card" href="collections/jp/">
-        <span class="name serif">JP</span>
-        <div class="arch"><img src="images/collections/cat-faucets.jpg" alt="JP collection"></div>
-      </a>
-      <a class="range-index-card" href="collections/premium/">
-        <span class="name serif">Premium</span>
-        <div class="arch"><img src="images/collections/cat-mixers.jpg" alt="Premium collection"></div>
-      </a>
-      <a class="range-index-card" href="collections/para/">
-        <span class="name serif">Para</span>
-        <div class="arch"><img src="images/collections/cat-shower.jpg" alt="Para collection"></div>
-      </a>
-      <a class="range-index-card" href="collections/allied/">
-        <span class="name serif">Allied</span>
-        <div class="arch"><img src="images/collections/cat-faucets.jpg" alt="Allied collection"></div>
-      </a>
-      <a class="range-index-card" href="collections/zenith/">
-        <span class="name serif">Zenith</span>
-        <div class="arch"><img src="images/collections/cat-coloured.jpg" alt="Zenith collection"></div>
-      </a>
-      <a class="range-index-card" href="collections/neo/">
-        <span class="name serif">Neo</span>
-        <div class="arch"><img src="images/collections/cat-kitchen-mixers.jpg" alt="Neo collection"></div>
-      </a>
-      <a class="range-index-card" href="collections/pebble/">
-        <span class="name serif">Pebble</span>
-        <div class="arch"><img src="images/collections/cat-faucets.jpg" alt="Pebble collection"></div>
-      </a>
-    </div>
+    <a href="collections/cube-prima/" class="cg-card">
+      <img src="images/collections/cat-mixers.jpg" alt="Cube Prima collection" loading="lazy">
+      <div class="cg-overlay"></div>
+      <div class="cg-info">
+        <div class="cg-sub">Solid Brass · 16 Finishes</div>
+        <div class="cg-name">Cube Prima</div>
+      </div>
+    </a>
+
+    <a href="collections/jp/" class="cg-card">
+      <img src="images/collections/cat-faucets.jpg" alt="JP collection" loading="lazy">
+      <div class="cg-overlay"></div>
+      <div class="cg-info">
+        <div class="cg-sub">Solid Brass · 16 Finishes</div>
+        <div class="cg-name">JP</div>
+      </div>
+    </a>
+
+    <a href="collections/pebble/" class="cg-card">
+      <img src="images/collections/cat-shower.jpg" alt="Pebble collection" loading="lazy">
+      <div class="cg-overlay"></div>
+      <div class="cg-info">
+        <div class="cg-sub">Solid Brass · 16 Finishes</div>
+        <div class="cg-name">Pebble</div>
+      </div>
+    </a>
+
+    <a href="collections/allied/" class="cg-card">
+      <img src="images/collections/cat-accessories.jpg" alt="Allied collection" loading="lazy">
+      <div class="cg-overlay"></div>
+      <div class="cg-info">
+        <div class="cg-sub">Solid Brass · 16 Finishes</div>
+        <div class="cg-name">Allied</div>
+      </div>
+    </a>
+
+    <a href="collections/premium/" class="cg-card">
+      <img src="images/collections/cat-mixers.jpg" alt="Premium collection" loading="lazy">
+      <div class="cg-overlay"></div>
+      <div class="cg-info">
+        <div class="cg-sub">Solid Brass · 16 Finishes</div>
+        <div class="cg-name">Premium</div>
+      </div>
+    </a>
+
   </div>
 </section>
 
