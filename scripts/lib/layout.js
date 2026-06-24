@@ -1,4 +1,4 @@
-// Shared page shell (head/header/footer/scripts) for generated catalog pages.
+﻿// Shared page shell (head/header/footer/scripts) for generated catalog pages.
 // `depth` = number of path segments below site root (1 for /collections/<slug>/,
 // 2 for /collections/<slug>/<group>/), used to build relative `../` paths.
 
@@ -211,6 +211,7 @@ header.site.scrolled { box-shadow: 0 1px 32px rgba(18,14,8,.08); }
 .nav-left { display: flex; gap: 36px; align-items: center; }
 .nav-left a {
   font-family: 'DM Sans', sans-serif; font-size: 13px;
+  font-weight: 500;
   letter-spacing: .14em; text-transform: uppercase; color: var(--soft);
   transition: color .3s; position: relative; padding-bottom: 3px;
 }
