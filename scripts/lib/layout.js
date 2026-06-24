@@ -820,9 +820,33 @@ floatForm.addEventListener('submit', e => {
   const name  = floatForm.elements['name'].value.trim();
   const phone = floatForm.elements['phone'].value.trim();
   const msg   = floatForm.elements['message'].value.trim();
-  window.open(\`mailto:ipmbathfittings@gmail.com?subject=\${encodeURIComponent('Showroom Visit Enquiry')}&body=\${encodeURIComponent(\`Name: \${name}\\nContact: \${phone}\\n\\n\${msg}\`)}\`);
-  floatForm.hidden = true;
-  floatConf.hidden = false;
+  const floatSubmitBtn = floatForm.querySelector('button[type=submit]');
+  if (floatSubmitBtn) { floatSubmitBtn.disabled = true; floatSubmitBtn.style.opacity = '.6'; }
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({
+      access_key: 'a986c75b-8ca1-4b7d-a180-ac8973a36e98',
+      subject: 'Showroom Visit Enquiry',
+      name,
+      phone,
+      message: msg
+    })
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.success) {
+      floatForm.hidden = true;
+      floatConf.hidden = false;
+    } else {
+      if (floatSubmitBtn) { floatSubmitBtn.disabled = false; floatSubmitBtn.style.opacity = ''; }
+      alert('Something went wrong. Please email ipmbathfittings@gmail.com directly.');
+    }
+  })
+  .catch(() => {
+    if (floatSubmitBtn) { floatSubmitBtn.disabled = false; floatSubmitBtn.style.opacity = ''; }
+    alert('Something went wrong. Please email ipmbathfittings@gmail.com directly.');
+  });
 });
 
 /* ================================================================

@@ -651,11 +651,35 @@ setTimeout(scheduleNext, 1200);
     const prod  = qTitle.textContent;
     const fin   = qFin.textContent;
     const sku   = qSku.textContent;
-    const subj  = encodeURIComponent('Enquiry: ' + prod + (fin ? ' — ' + fin : ''));
-    const body  = encodeURIComponent('Name: ' + name + '\\nPhone: ' + phone + '\\nProduct: ' + prod + (sku ? ' (' + sku + ')' : '') + (fin ? '\\nFinish: ' + fin : '') + (msg ? '\\n\\n' + msg : ''));
-    window.open('mailto:ipmbathfittings@gmail.com?subject=' + subj + '&body=' + body);
-    qForm.hidden    = true;
-    qConfirm.hidden = false;
+    const submitBtn = qForm.querySelector('button[type=submit]');
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.style.opacity = '.6'; }
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        access_key: 'a986c75b-8ca1-4b7d-a180-ac8973a36e98',
+        subject: 'Enquiry: ' + prod + (fin ? ' — ' + fin : ''),
+        name,
+        phone,
+        product: prod + (sku ? ' (' + sku + ')' : ''),
+        finish: fin || '',
+        message: msg
+      })
+    })
+    .then(r => r.json())
+    .then(data => {
+      if (data.success) {
+        qForm.hidden    = true;
+        qConfirm.hidden = false;
+      } else {
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.style.opacity = ''; }
+        alert('Something went wrong. Please email ipmbathfittings@gmail.com directly.');
+      }
+    })
+    .catch(() => {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.style.opacity = ''; }
+      alert('Something went wrong. Please email ipmbathfittings@gmail.com directly.');
+    });
   });
 })();
 `;
