@@ -220,13 +220,14 @@ header.site.scrolled { box-shadow: 0 1px 32px rgba(18,14,8,.08); }
 .brand b {
   font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 600;
   letter-spacing: .32em; padding-left: .32em; transition: color .4s;
-  display: flex; align-items: center; justify-content: center; gap: 11px;
+  display: inline-block; position: relative;
 }
 .brand b::after {
-  content: ''; display: block; width: 20px; height: 17px;
+  content: ''; position: absolute; left: calc(100% + 12px); top: 50%; transform: translateY(-50%);
+  width: 28px; height: 17px;
   background-image: linear-gradient(currentColor,currentColor), linear-gradient(currentColor,currentColor), linear-gradient(currentColor,currentColor);
   background-size: 20px 2.5px; background-repeat: no-repeat;
-  background-position: 0 0, 0 7px, 0 14px; flex-shrink: 0; margin-top: -1px; opacity: 0.88;
+  background-position: 8px 0, 4px 7px, 0px 14px; opacity: 0.88;
 }
 .brand small {
   display: block; font-family: 'DM Sans', sans-serif;
