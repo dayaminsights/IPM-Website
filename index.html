@@ -301,8 +301,8 @@ header.site.scrolled {
 .nav-left { display: flex; gap: 36px; align-items: center; }
 .nav-left a {
   font-family: 'DM Sans', sans-serif;
-  font-size: 11px;
-  letter-spacing: .16em;
+  font-size: 13px;
+  letter-spacing: .14em;
   text-transform: uppercase;
   color: var(--soft);
   transition: color .3s;
@@ -772,7 +772,8 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
   overflow: hidden;
   display: block;
   border-radius: 18px;
-  background: var(--cream);
+  background: var(--ink);
+  outline: 1px solid transparent;
 }
 .promo img {
   position: absolute;
@@ -2458,7 +2459,7 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
   </div>
   <div class="promos stagger-children">
     <a href="collections/zenith/" class="promo">
-      <img src="images/home/line-aliva.jpg" alt="Zenith collection" loading="lazy">
+      <img src="images/home/line-aliva.jpg" alt="Zenith collection" loading="lazy" style="object-position: 60% calc(12% - 10px);">
       <div class="ov">
         <div class="e">Signature Line</div>
         <h3 class="serif">Zenith</h3>
