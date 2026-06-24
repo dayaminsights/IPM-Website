@@ -988,13 +988,15 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
 
 .pcard .meta {
   flex-shrink: 0;
-  height: 140px;
+  height: 158px;
   padding: 14px 16px 18px;
   background: var(--cream);
   border: 1px solid var(--line);
   border-top: none;
   border-radius: 0 0 16px 16px;
   transition: border-color .4s;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
 }
 .pcard .stock { display: none; }
@@ -1022,13 +1024,14 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
 .pcard:hover h4 { color: var(--gold); }
 .pcard .sku {
   display: inline-block;
+  margin-top: auto;
   font-family: 'DM Sans', sans-serif;
   font-size: 11px;
   letter-spacing: .18em;
   color: var(--soft);
   text-transform: uppercase;
   font-weight: 400;
-  background: var(--cream);
+  background: var(--cream-deep);
   border: 1px solid var(--line-2);
   border-radius: 6px;
   padding: 3px 10px;
