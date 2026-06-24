@@ -146,8 +146,8 @@ body:has(button:hover) #cursor-ring { width: 52px; height: 52px; opacity: 0.85; 
 .serif { font-family: 'Cormorant Garamond', Georgia, serif; }
 .eyebrow {
   font-family: 'DM Sans', sans-serif;
-  font-size: 10px; letter-spacing: .38em; text-transform: uppercase;
-  color: var(--gold); font-weight: 400;
+  font-size: 13px; letter-spacing: .28em; text-transform: uppercase;
+  color: var(--gold); font-weight: 600;
 }
 .eyebrow::before {
   content: ''; display: inline-block;
@@ -204,8 +204,9 @@ header.site.scrolled { box-shadow: 0 1px 32px rgba(18,14,8,.08); }
 }
 .nav-left { display: flex; gap: 36px; align-items: center; }
 .nav-left a {
-  font-family: 'DM Sans', sans-serif; font-size: 11px;
-  letter-spacing: .16em; text-transform: uppercase; color: var(--soft);
+  font-family: 'DM Sans', sans-serif; font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--soft);
   transition: color .3s; position: relative; padding-bottom: 3px;
 }
 .nav-left a::after {
@@ -220,7 +221,15 @@ header.site.scrolled { box-shadow: 0 1px 32px rgba(18,14,8,.08); }
 .brand { justify-self: center; text-align: center; line-height: 1; }
 .brand b {
   font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 600;
-  letter-spacing: .32em; padding-left: .32em; transition: color .4s; display: block;
+  letter-spacing: .32em; padding-left: .32em; transition: color .4s;
+  display: inline-block; position: relative;
+}
+.brand b::after {
+  content: ''; position: absolute; left: calc(100% + 6px); top: 50%; transform: translateY(-50%);
+  width: 28px; height: 17px;
+  background-image: linear-gradient(currentColor,currentColor), linear-gradient(currentColor,currentColor), linear-gradient(currentColor,currentColor);
+  background-size: 20px 2.5px; background-repeat: no-repeat;
+  background-position: 0px 0, 4px 7px, 8px 14px; opacity: 0.88;
 }
 .brand small {
   display: block; font-family: 'DM Sans', sans-serif;
