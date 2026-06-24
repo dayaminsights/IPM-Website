@@ -333,7 +333,26 @@ header.site.scrolled {
   letter-spacing: .32em;
   padding-left: .32em;
   transition: color .4s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+}
+.brand b::after {
+  content: '';
   display: block;
+  width: 20px;
+  height: 17px;
+  background-image:
+    linear-gradient(currentColor, currentColor),
+    linear-gradient(currentColor, currentColor),
+    linear-gradient(currentColor, currentColor);
+  background-size: 20px 2.5px;
+  background-repeat: no-repeat;
+  background-position: 0 0, 0 7px, 0 14px;
+  flex-shrink: 0;
+  margin-top: -1px;
+  opacity: 0.88;
 }
 .brand small {
   display: block;
@@ -1210,11 +1229,24 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
 }
 .tri .ov .e {
   font-family: 'DM Sans', sans-serif;
-  font-size: 9px;
-  letter-spacing: .3em;
+  font-size: 12px;
+  letter-spacing: .26em;
   text-transform: uppercase;
   color: var(--gold-2);
-  opacity: 0.85;
+  opacity: 1;
+  font-weight: 600;
+  text-shadow: 0 1px 6px rgba(0,0,0,.5);
+}
+.tri-details {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  color: rgba(255,255,255,.82);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  letter-spacing: .04em;
+  text-align: center;
+  line-height: 1.5;
 }
 .tri .ov h3 {
   font-family: 'Cormorant Garamond', serif;
@@ -2539,6 +2571,11 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
       <div class="ov">
         <div class="e">We're Here to Help</div>
         <h3 class="serif">Dedicated Support</h3>
+        <div class="tri-details">
+          <span>Mon – Sat &nbsp;·&nbsp; 10 AM – 7 PM</span>
+          <span>📞 011-43048462</span>
+          <span>💬 +91 98189 39899</span>
+        </div>
         <span class="tri-link">Contact Us →</span>
       </div>
     </a>
