@@ -1,11 +1,11 @@
-const { rel, renderHead, renderHeader, renderFooter, renderPage } = require('./layout');
+const { rel, imgOrNoPhoto, renderHead, renderHeader, renderFooter, renderPage } = require('./layout');
 const { escapeHtml } = require('./render-collection');
 
 function renderRelatedProductCard(related, depth) {
   const primary = related.variants[0];
   const href = rel(depth, `collections/${related.collectionSlug}/${related.groupSlug}/`);
   return `        <a class="coll-card" href="${href}">
-          <div class="arch product-shot"><img src="${rel(depth, primary.image.replace(/^\//, ''))}" alt="${escapeHtml(primary.alt)}" loading="lazy"></div>
+          <div class="arch product-shot">${imgOrNoPhoto(primary.image ? rel(depth, primary.image.replace(/^\//, '')) : '', escapeHtml(primary.alt), 'loading="lazy"')}</div>
           <div class="cc-name serif">${escapeHtml(related.skuName)}</div>
           <span class="cat-tag">${escapeHtml(related.category)}</span>
         </a>`;
@@ -46,13 +46,14 @@ function renderProductPage(group, collection, { siteBaseUrl, sizeData = null }) 
   // Gallery
   const galleryThumbsHtml = group.gallery.length > 1
     ? `        <div class="gallery-thumbs">
-${group.gallery.map((img, i) => `          <button data-image="${rel(depth, img.replace(/^\//, ''))}" class="${i === 0 ? 'is-active' : ''}"><img src="${rel(depth, img.replace(/^\//, ''))}" alt="${escapeHtml(group.skuName)} view ${i + 1}" loading="lazy"></button>`).join('\n')}
+${group.gallery.filter(Boolean).map((img, i) => `          <button data-image="${rel(depth, img.replace(/^\//, ''))}" class="${i === 0 ? 'is-active' : ''}"><img src="${rel(depth, img.replace(/^\//, ''))}" alt="${escapeHtml(group.skuName)} view ${i + 1}" loading="lazy"></button>`).join('\n')}
         </div>`
     : '';
 
   const galleryHtml = `      <div class="gallery">
-        <div class="arch product-shot" id="imageArch">
-          <img id="mainImage" src="${rel(depth, primary.image.replace(/^\//, ''))}" alt="${escapeHtml(primary.alt)}">
+        <div class="arch product-shot${primary.image ? '' : ' is-no-photo'}" id="imageArch">
+          <img id="mainImage" src="${primary.image ? rel(depth, primary.image.replace(/^\//, '')) : ''}" alt="${escapeHtml(primary.alt)}"${primary.image ? '' : ' hidden'}>
+          <div class="no-photo" id="noPhotoCard"${primary.image ? ' hidden' : ''}><span>No Photo<br>Available</span></div>
           ${hasMultipleVariants ? '<div class="cycle-bar"><div class="cycle-progress" id="cycleProgress"></div></div>' : ''}
           <button class="zoom-btn" id="zoomBtn" aria-label="View full size">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg>
@@ -133,7 +134,7 @@ ${swatchesHtml}
     sku: v.sku,
     price: v.price || '',
     swatchClass: v.swatchClass,
-    image: rel(depth, (v.image || '').replace(/^\//, '')),
+    image: v.image ? rel(depth, v.image.replace(/^\//, '')) : '',
     alt: v.alt || `${group.skuName} in ${v.finish}`,
   }));
 
@@ -449,6 +450,21 @@ const cycleProgress = document.getElementById('cycleProgress');
 // Always live-query finish buttons so DOM replacements by sizeJs don't break references.
 function liveFinishBtns() { return Array.from(document.querySelectorAll('.finish-picker .finish')); }
 
+// Swap the main image OR reveal the "No Photo Available" card when src is empty.
+function applyMainImage(src, alt) {
+  var card = document.getElementById('noPhotoCard');
+  var arch = document.getElementById('imageArch');
+  if (!src) {
+    if (mainImage) { mainImage.hidden = true; mainImage.removeAttribute('src'); }
+    if (card) card.hidden = false;
+    if (arch) arch.classList.add('is-no-photo');
+    return;
+  }
+  if (card) card.hidden = true;
+  if (arch) arch.classList.remove('is-no-photo');
+  if (mainImage) { mainImage.hidden = false; mainImage.src = src; mainImage.alt = alt; }
+}
+
 const CYCLE_MS = 3000;
 let activeIdx = 0;
 let cycleTimer = null;
@@ -468,9 +484,9 @@ function applyVariant(idx, crossfade) {
   enquireBtn.href = url.pathname + url.search;
   if (crossfade) {
     mainImage.classList.add('is-fading');
-    setTimeout(() => { mainImage.src = v.image; mainImage.alt = v.alt; mainImage.onload = () => mainImage.classList.remove('is-fading'); }, 200);
+    setTimeout(() => { applyMainImage(v.image, v.alt); mainImage.onload = () => mainImage.classList.remove('is-fading'); if (!v.image) mainImage.classList.remove('is-fading'); }, 200);
   } else {
-    mainImage.src = v.image; mainImage.alt = v.alt;
+    applyMainImage(v.image, v.alt);
   }
 }
 
@@ -541,6 +557,21 @@ setTimeout(scheduleNext, 1200);
   function pause(ms) { if (window._ipmPauseCycle) { if (window._ipmSetPaused) window._ipmSetPaused(true); window._ipmPauseCycle(ms); } }
   function resume() { if (window._ipmScheduleNext && window._ipmUserPaused && !window._ipmUserPaused()) window._ipmScheduleNext(); }
 
+  // Swap the main image OR reveal the "No Photo Available" card when src is empty.
+  function applyMainImage(src, alt) {
+    const card = document.getElementById('noPhotoCard');
+    const arch = document.getElementById('imageArch');
+    if (!src) {
+      if (mainImage) { mainImage.hidden = true; mainImage.removeAttribute('src'); }
+      if (card) card.hidden = false;
+      if (arch) arch.classList.add('is-no-photo');
+      return;
+    }
+    if (card) card.hidden = true;
+    if (arch) arch.classList.remove('is-no-photo');
+    if (mainImage) { mainImage.hidden = false; mainImage.src = src; mainImage.alt = alt; }
+  }
+
   function setActiveFinish(fi) {
     activeFinishIdx = fi;
     // Live query — always correct even without cloning
@@ -559,11 +590,11 @@ setTimeout(scheduleNext, 1200);
       fpSelected.classList.add('is-fading');
       setTimeout(() => { fpSelected.textContent = v.finish + (label ? ' · ' + label : ''); fpSelected.classList.remove('is-fading'); }, 180);
     }
-    if (img && mainImage) {
-      if (crossfade) {
-        mainImage.classList.add('is-fading');
-        setTimeout(() => { mainImage.src = img; mainImage.alt = v.alt; mainImage.onload = () => mainImage.classList.remove('is-fading'); }, 200);
-      } else { mainImage.src = img; mainImage.alt = v.alt; }
+    if (crossfade && img && mainImage) {
+      mainImage.classList.add('is-fading');
+      setTimeout(() => { applyMainImage(img, v.alt); mainImage.onload = () => mainImage.classList.remove('is-fading'); }, 200);
+    } else {
+      applyMainImage(img, v.alt);
     }
     if (enquireBtn) {
       try { const u = new URL(enquireBtn.href, window.location.href); u.searchParams.set('finish', v.finish); u.searchParams.set('size', label); enquireBtn.href = u.pathname + u.search; } catch(e) {}

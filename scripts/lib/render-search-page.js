@@ -481,9 +481,11 @@ mark { background: var(--gold-pale); color: inherit; border-radius: 2px; padding
   function cardHtml(it, q) {
     const isMulti = it.variantImages && it.variantImages.length > 1;
     const imgAttrs = isMulti ? 'class="is-visible"' : '';
-    const mainImg  = \`<img \${imgAttrs} src="\${esc(it.image)}" alt="\${esc(it.name)}" loading="lazy">\`;
+    const mainImg  = it.image
+      ? \`<img \${imgAttrs} src="\${esc(it.image)}" alt="\${esc(it.name)}" loading="lazy">\`
+      : '<div class="no-photo"><span>No Photo<br>Available</span></div>';
     const extraImgs = isMulti
-      ? it.variantImages.slice(1).map(v =>
+      ? it.variantImages.slice(1).filter(v => v.image).map(v =>
           \`<img class="is-hidden" src="\${esc(v.image)}" alt="\${esc(it.name)} in \${esc(v.finish)}" loading="lazy">\`
         ).join('')
       : '';

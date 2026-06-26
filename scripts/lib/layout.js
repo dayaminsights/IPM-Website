@@ -6,6 +6,13 @@ function rel(depth, p) {
   return '../'.repeat(depth) + p;
 }
 
+// Renders an image OR a "No Photo Available" card when src is falsy.
+// `src` must already be the resolved, depth-relative path (or '' / null).
+function imgOrNoPhoto(src, alt, attrs = '') {
+  if (src) return `<img src="${src}" alt="${alt}" ${attrs}>`;
+  return `<div class="no-photo" role="img" aria-label="No photo available"><span>No Photo<br>Available</span></div>`;
+}
+
 function renderHead({ title, description, canonicalPath, ogImage, depth }) {
   const siteOrigin = canonicalPath.match(/^https?:\/\/[^/]+/)[0];
   return `<meta charset="UTF-8">
@@ -358,6 +365,12 @@ header.site[data-header="over-dark"] .wa-link:hover { color: #25D366; }
 .arch.product-shot { background: var(--cream); }
 .arch.product-shot img { object-fit: contain; padding: 6%; box-sizing: border-box; }
 [data-theme="light"] .arch.product-shot img { mix-blend-mode: multiply; }
+.no-photo { width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+  background: var(--cream, #f4efe7); color: var(--ink-soft, #9a8f7d);
+  font-family: var(--serif, Georgia, serif); font-size: clamp(12px, 1.4vw, 16px);
+  letter-spacing:.08em; text-transform:uppercase; text-align:center; line-height:1.5; }
+.no-photo span { opacity:.7; }
+.card-stage .no-photo, .arch .no-photo { position:absolute; inset:0; }
 
 /* ================================================================
    FINISHES STRIP (swatches)
@@ -914,6 +927,7 @@ ${pageJs}
 
 module.exports = {
   rel,
+  imgOrNoPhoto,
   renderHead,
   renderHeader,
   renderFooter,

@@ -1,4 +1,4 @@
-const { rel, renderHead, renderHeader, renderFooter, renderPage } = require('./layout');
+const { rel, imgOrNoPhoto, renderHead, renderHeader, renderFooter, renderPage } = require('./layout');
 
 function escapeHtml(str) {
   return String(str || '')
@@ -15,7 +15,7 @@ function renderCollectionCard(group, depth) {
   // direct child of the current directory.
   const href = `${group.groupSlug}/`;
   return `        <a class="coll-card" href="${href}" data-category="${escapeHtml(group.category)}">
-          <div class="arch product-shot"><img src="${rel(depth, primary.image.replace(/^\//, ''))}" alt="${escapeHtml(primary.alt)}" loading="lazy"></div>
+          <div class="arch product-shot">${imgOrNoPhoto(primary.image ? rel(depth, primary.image.replace(/^\//, '')) : '', escapeHtml(primary.alt), 'loading="lazy"')}</div>
           <div class="cc-name serif">${escapeHtml(group.skuName)}</div>
           <span class="cat-tag">${escapeHtml(group.category)}</span>
         </a>`;
@@ -35,7 +35,7 @@ function renderShowcaseTile(group, depth, sizeClass) {
   const primary = group.variants[0];
   const href = `${group.groupSlug}/`;
   return `        <a class="showcase-tile ${sizeClass}" href="${href}">
-          <div class="arch product-shot"><img src="${rel(depth, primary.image.replace(/^\//, ''))}" alt="${escapeHtml(primary.alt)}" loading="lazy"></div>
+          <div class="arch product-shot">${imgOrNoPhoto(primary.image ? rel(depth, primary.image.replace(/^\//, '')) : '', escapeHtml(primary.alt), 'loading="lazy"')}</div>
           <div class="cc-name serif">${escapeHtml(group.skuName)}</div>
         </a>`;
 }
@@ -347,8 +347,10 @@ ${accentCss || ''}
 
   function cardHtml(it) {
     const isMulti = it.variantImages && it.variantImages.length > 1;
-    const mainImg = '<img ' + (isMulti ? 'class="is-visible"' : '') + ' src="' + esc(rootPath(it.image)) + '" alt="' + esc(it.name) + '" loading="lazy">';
-    const extras = isMulti ? it.variantImages.slice(1).map(v => '<img class="is-hidden" src="' + esc(rootPath(v.image)) + '" alt="' + esc(it.name) + ' in ' + esc(v.finish) + '" loading="lazy">').join('') : '';
+    const mainImg = it.image
+      ? '<img ' + (isMulti ? 'class="is-visible"' : '') + ' src="' + esc(rootPath(it.image)) + '" alt="' + esc(it.name) + '" loading="lazy">'
+      : '<div class="no-photo"><span>No Photo<br>Available</span></div>';
+    const extras = isMulti ? it.variantImages.slice(1).filter(v => v.image).map(v => '<img class="is-hidden" src="' + esc(rootPath(v.image)) + '" alt="' + esc(it.name) + ' in ' + esc(v.finish) + '" loading="lazy">').join('') : '';
     const dots = it.swatches && it.swatches.length
       ? '<div class="card-swatches" aria-hidden="true">' + it.swatches.slice(0,5).map(s => '<span class="card-swatch-dot ' + esc(s.swatch) + '" title="' + esc(s.finish) + '"></span>').join('') + (it.finishCount > 2 ? '<span class="card-finish-count">+' + (it.finishCount-1) + '</span>' : '') + '</div>' : '';
     const arrows = isMulti ? '<button class="card-arrow card-arrow-prev" aria-label="Prev finish" tabindex="-1">&#8249;</button><button class="card-arrow card-arrow-next" aria-label="Next finish" tabindex="-1">&#8250;</button>' : '';
