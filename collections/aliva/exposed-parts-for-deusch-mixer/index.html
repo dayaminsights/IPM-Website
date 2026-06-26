@@ -10,12 +10,10 @@
 <meta property="og:description" content="Exposed Parts For Deusch Mixer from the Aliva collection by IPM Bath Fittings. Premium solid brass, available in multiple finishes.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ipmbathfittings.com/collections/aliva/exposed-parts-for-deusch-mixer/">
-<meta property="og:image" content="https://ipmbathfittings.com/images/products/aliva/exposed-parts-for-deusch-mixer-chrome.png">
 <meta property="og:site_name" content="IPM Bath Fittings">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Exposed Parts For Deusch Mixer — Aliva | IPM Bath Fittings">
 <meta name="twitter:description" content="Exposed Parts For Deusch Mixer from the Aliva collection by IPM Bath Fittings. Premium solid brass, available in multiple finishes.">
-<meta name="twitter:image" content="https://ipmbathfittings.com/images/products/aliva/exposed-parts-for-deusch-mixer-chrome.png">
 <link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
 <link rel="icon" href="../../../favicon.svg" sizes="any">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -352,6 +350,12 @@ header.site[data-header="over-dark"] .wa-link:hover { color: #25D366; }
 .arch.product-shot { background: var(--cream); }
 .arch.product-shot img { object-fit: contain; padding: 6%; box-sizing: border-box; }
 [data-theme="light"] .arch.product-shot img { mix-blend-mode: multiply; }
+.no-photo { width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+  background: var(--cream, #f4efe7); color: var(--ink-soft, #9a8f7d);
+  font-family: var(--serif, Georgia, serif); font-size: clamp(12px, 1.4vw, 16px);
+  letter-spacing:.08em; text-transform:uppercase; text-align:center; line-height:1.5; }
+.no-photo span { opacity:.7; }
+.card-stage .no-photo, .arch .no-photo { position:absolute; inset:0; }
 
 /* ================================================================
    FINISHES STRIP (swatches)
@@ -849,8 +853,9 @@ footer {
   <div class="wrap">
     <div class="product-main">
       <div class="gallery">
-        <div class="arch product-shot" id="imageArch">
-          <img id="mainImage" src="../../../images/products/aliva/exposed-parts-for-deusch-mixer-chrome.png" alt="Exposed Parts For Deusch Mixer in Chrome finish">
+        <div class="arch product-shot is-no-photo" id="imageArch">
+          <img id="mainImage" src="" alt="Exposed Parts For Deusch Mixer in Chrome finish" hidden>
+          <div class="no-photo" id="noPhotoCard"><span>No Photo<br>Available</span></div>
           
           <button class="zoom-btn" id="zoomBtn" aria-label="View full size">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg>
@@ -896,22 +901,22 @@ footer {
     </div>
     <div class="related-products stagger-children">
         <a class="coll-card" href="../../../collections/aliva/2-way-angle-valve-with-flange/">
-          <div class="arch product-shot"><img src="../../../images/products/aliva/2-way-angle-valve-with-flange-chrome.png" alt="2 Way Angle Valve With Flange in Chrome finish" loading="lazy"></div>
+          <div class="arch product-shot"><img src="../../../images/products/aliva/2-way-angle-valve-with-flange-chrome.jpg" alt="2 Way Angle Valve With Flange in Chrome finish" loading="lazy"></div>
           <div class="cc-name serif">2 Way Angle Valve With Flange</div>
           <span class="cat-tag">Faucets</span>
         </a>
         <a class="coll-card" href="../../../collections/aliva/2-way-bib-cock-with-flange/">
-          <div class="arch product-shot"><img src="../../../images/products/aliva/2-way-bib-cock-with-flange-chrome.png" alt="2 Way Bib Cock With Flange in Chrome finish" loading="lazy"></div>
+          <div class="arch product-shot"><img src="../../../images/products/aliva/2-way-bib-cock-with-flange-chrome.jpg" alt="2 Way Bib Cock With Flange in Chrome finish" loading="lazy"></div>
           <div class="cc-name serif">2 Way Bib Cock With Flange</div>
           <span class="cat-tag">Faucets</span>
         </a>
         <a class="coll-card" href="../../../collections/aliva/angle-valve-with-flange/">
-          <div class="arch product-shot"><img src="../../../images/products/aliva/angle-valve-with-flange-chrome.png" alt="Angle Valve With Flange in Chrome finish" loading="lazy"></div>
+          <div class="arch product-shot"><div class="no-photo" role="img" aria-label="No photo available"><span>No Photo<br>Available</span></div></div>
           <div class="cc-name serif">Angle Valve With Flange</div>
           <span class="cat-tag">Faucets</span>
         </a>
         <a class="coll-card" href="../../../collections/aliva/bath-spout/">
-          <div class="arch product-shot"><img src="../../../images/products/aliva/bath-spout-chrome.png" alt="Bath Spout in Chrome finish" loading="lazy"></div>
+          <div class="arch product-shot"><div class="no-photo" role="img" aria-label="No photo available"><span>No Photo<br>Available</span></div></div>
           <div class="cc-name serif">Bath Spout</div>
           <span class="cat-tag">Faucets</span>
         </a>

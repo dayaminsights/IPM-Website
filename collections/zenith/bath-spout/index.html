@@ -352,6 +352,12 @@ header.site[data-header="over-dark"] .wa-link:hover { color: #25D366; }
 .arch.product-shot { background: var(--cream); }
 .arch.product-shot img { object-fit: contain; padding: 6%; box-sizing: border-box; }
 [data-theme="light"] .arch.product-shot img { mix-blend-mode: multiply; }
+.no-photo { width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+  background: var(--cream, #f4efe7); color: var(--ink-soft, #9a8f7d);
+  font-family: var(--serif, Georgia, serif); font-size: clamp(12px, 1.4vw, 16px);
+  letter-spacing:.08em; text-transform:uppercase; text-align:center; line-height:1.5; }
+.no-photo span { opacity:.7; }
+.card-stage .no-photo, .arch .no-photo { position:absolute; inset:0; }
 
 /* ================================================================
    FINISHES STRIP (swatches)
@@ -851,6 +857,7 @@ footer {
       <div class="gallery">
         <div class="arch product-shot" id="imageArch">
           <img id="mainImage" src="../../../images/products/zenith/bath-spout-chrome.png" alt="Bath Spout in Chrome finish">
+          <div class="no-photo" id="noPhotoCard" hidden><span>No Photo<br>Available</span></div>
           <div class="cycle-bar"><div class="cycle-progress" id="cycleProgress"></div></div>
           <button class="zoom-btn" id="zoomBtn" aria-label="View full size">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg>
@@ -873,17 +880,15 @@ footer {
         <span class="sku-tag">Product code: <span id="current-sku">9021</span></span>
       </div>
       <span class="trust-badge">Solid Brass · Made in India</span>
-
+      <div class="price-tag"><span id="current-price">₹2,928</span><span class="price-note">MRP</span></div>
 
 
       <div class="finish-picker">
-        <span class="fp-label">Available in 5 Finishes</span>
+        <span class="fp-label">Available in 3 Finishes</span>
         <div class="finishes-row">
           <button class="finish is-active" data-index="0" aria-label="Chrome"><span class="swatch f-chrome"></span></button>
-          <button class="finish" data-index="1" aria-label="Rich Gold"><span class="swatch f-rich-gold"></span></button>
-          <button class="finish" data-index="2" aria-label="Rose Gold"><span class="swatch f-rose-gold"></span></button>
-          <button class="finish" data-index="3" aria-label="Gunmetal Black"><span class="swatch f-gunmetal"></span></button>
-          <button class="finish" data-index="4" aria-label="Matt Black"><span class="swatch f-matt-black"></span></button>
+          <button class="finish" data-index="1" aria-label="Gunmetal Black"><span class="swatch f-gunmetal"></span></button>
+          <button class="finish" data-index="2" aria-label="Matt Black"><span class="swatch f-matt-black"></span></button>
         </div>
         <div class="finish-display">
           <span class="fd-label">Currently viewing</span>
@@ -909,7 +914,7 @@ footer {
     </div>
     <div class="related-products stagger-children">
         <a class="coll-card" href="../../../collections/zenith/angle-valve-with-flange/">
-          <div class="arch product-shot"><img src="../../../images/collections/cat-faucets.jpg" alt="Angle Valve With Flange in Chrome finish" loading="lazy"></div>
+          <div class="arch product-shot"><img src="../../../images/products/zenith/angle-valve-with-flange-chrome.png" alt="Angle Valve With Flange in Chrome finish" loading="lazy"></div>
           <div class="cc-name serif">Angle Valve With Flange</div>
           <span class="cat-tag">Faucets</span>
         </a>
@@ -918,14 +923,14 @@ footer {
           <div class="cc-name serif">Button Spout</div>
           <span class="cat-tag">Faucets</span>
         </a>
-        <a class="coll-card" href="../../../collections/zenith/concealed-body-for-diverter-35mm/">
-          <div class="arch product-shot"><img src="../../../images/products/zenith/concealed-body-for-diverter-35mm-chrome.png" alt="Concealed Body For Diverter 35mm in Chrome finish" loading="lazy"></div>
-          <div class="cc-name serif">Concealed Body For Diverter 35mm</div>
-          <span class="cat-tag">Faucets</span>
-        </a>
         <a class="coll-card" href="../../../collections/zenith/exposed-parts-for-concealed-basin-mixer/">
           <div class="arch product-shot"><img src="../../../images/products/zenith/exposed-parts-for-concealed-basin-mixer-chrome.png" alt="Exposed Parts for Concealed Basin Mixer in Chrome finish" loading="lazy"></div>
           <div class="cc-name serif">Exposed Parts for Concealed Basin Mixer</div>
+          <span class="cat-tag">Faucets</span>
+        </a>
+        <a class="coll-card" href="../../../collections/zenith/pillar-cock/">
+          <div class="arch product-shot"><img src="../../../images/products/zenith/pillar-cock-chrome.png" alt="Pillar Cock in Chrome finish" loading="lazy"></div>
+          <div class="cc-name serif">Pillar Cock</div>
           <span class="cat-tag">Faucets</span>
         </a>
     </div>
@@ -1180,31 +1185,15 @@ const variantData = [
   {
     "finish": "Chrome",
     "sku": "9021",
-    "price": "",
+    "price": "₹2,928",
     "swatchClass": "f-chrome",
     "image": "../../../images/products/zenith/bath-spout-chrome.png",
     "alt": "Bath Spout in Chrome finish"
   },
   {
-    "finish": "Rich Gold",
-    "sku": "9021-GLD",
-    "price": "",
-    "swatchClass": "f-rich-gold",
-    "image": "../../../images/products/zenith/bath-spout-chrome.png",
-    "alt": "Bath Spout in Rich Gold finish"
-  },
-  {
-    "finish": "Rose Gold",
-    "sku": "9021-RGLD",
-    "price": "",
-    "swatchClass": "f-rose-gold",
-    "image": "../../../images/products/zenith/bath-spout-chrome.png",
-    "alt": "Bath Spout in Rose Gold finish"
-  },
-  {
     "finish": "Gunmetal Black",
     "sku": "9021-GMB",
-    "price": "",
+    "price": "₹3,806",
     "swatchClass": "f-gunmetal",
     "image": "../../../images/products/zenith/bath-spout-gunmetal-black.png",
     "alt": "Bath Spout in Gunmetal Black finish"
@@ -1212,7 +1201,7 @@ const variantData = [
   {
     "finish": "Matt Black",
     "sku": "9021-MB",
-    "price": "",
+    "price": "₹3,806",
     "swatchClass": "f-matt-black",
     "image": "../../../images/products/zenith/bath-spout-matt-black.png",
     "alt": "Bath Spout in Matt Black finish"
@@ -1226,6 +1215,21 @@ const enquireBtn   = document.getElementById('enquireBtn');
 const cycleProgress = document.getElementById('cycleProgress');
 // Always live-query finish buttons so DOM replacements by sizeJs don't break references.
 function liveFinishBtns() { return Array.from(document.querySelectorAll('.finish-picker .finish')); }
+
+// Swap the main image OR reveal the "No Photo Available" card when src is empty.
+function applyMainImage(src, alt) {
+  var card = document.getElementById('noPhotoCard');
+  var arch = document.getElementById('imageArch');
+  if (!src) {
+    if (mainImage) { mainImage.hidden = true; mainImage.removeAttribute('src'); }
+    if (card) card.hidden = false;
+    if (arch) arch.classList.add('is-no-photo');
+    return;
+  }
+  if (card) card.hidden = true;
+  if (arch) arch.classList.remove('is-no-photo');
+  if (mainImage) { mainImage.hidden = false; mainImage.src = src; mainImage.alt = alt; }
+}
 
 const CYCLE_MS = 3000;
 let activeIdx = 0;
@@ -1246,9 +1250,9 @@ function applyVariant(idx, crossfade) {
   enquireBtn.href = url.pathname + url.search;
   if (crossfade) {
     mainImage.classList.add('is-fading');
-    setTimeout(() => { mainImage.src = v.image; mainImage.alt = v.alt; mainImage.onload = () => mainImage.classList.remove('is-fading'); }, 200);
+    setTimeout(() => { applyMainImage(v.image, v.alt); mainImage.onload = () => mainImage.classList.remove('is-fading'); if (!v.image) mainImage.classList.remove('is-fading'); }, 200);
   } else {
-    mainImage.src = v.image; mainImage.alt = v.alt;
+    applyMainImage(v.image, v.alt);
   }
 }
 

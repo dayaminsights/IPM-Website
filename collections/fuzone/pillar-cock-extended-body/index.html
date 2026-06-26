@@ -352,6 +352,12 @@ header.site[data-header="over-dark"] .wa-link:hover { color: #25D366; }
 .arch.product-shot { background: var(--cream); }
 .arch.product-shot img { object-fit: contain; padding: 6%; box-sizing: border-box; }
 [data-theme="light"] .arch.product-shot img { mix-blend-mode: multiply; }
+.no-photo { width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+  background: var(--cream, #f4efe7); color: var(--ink-soft, #9a8f7d);
+  font-family: var(--serif, Georgia, serif); font-size: clamp(12px, 1.4vw, 16px);
+  letter-spacing:.08em; text-transform:uppercase; text-align:center; line-height:1.5; }
+.no-photo span { opacity:.7; }
+.card-stage .no-photo, .arch .no-photo { position:absolute; inset:0; }
 
 /* ================================================================
    FINISHES STRIP (swatches)
@@ -851,6 +857,7 @@ footer {
       <div class="gallery">
         <div class="arch product-shot" id="imageArch">
           <img id="mainImage" src="../../../images/products/fuzone/pillar-cock-extended-body-chrome.png" alt="Pillar Cock Extended Body in Chrome finish">
+          <div class="no-photo" id="noPhotoCard" hidden><span>No Photo<br>Available</span></div>
           
           <button class="zoom-btn" id="zoomBtn" aria-label="View full size">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg>

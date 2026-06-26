@@ -10,12 +10,12 @@
 <meta property="og:description" content="Center Hole Basin Mixer from the Opell Prima collection by IPM Bath Fittings. Premium solid brass, available in multiple finishes.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ipmbathfittings.com/collections/opell-prima/center-hole-basin-mixer/">
-<meta property="og:image" content="https://ipmbathfittings.com/images/products/opell-prima/center-hole-basin-mixer-chrome.png">
+<meta property="og:image" content="https://ipmbathfittings.com/images/products/opell-prima/center-hole-basin-mixer-chrome.jpg">
 <meta property="og:site_name" content="IPM Bath Fittings">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Center Hole Basin Mixer — Opell Prima | IPM Bath Fittings">
 <meta name="twitter:description" content="Center Hole Basin Mixer from the Opell Prima collection by IPM Bath Fittings. Premium solid brass, available in multiple finishes.">
-<meta name="twitter:image" content="https://ipmbathfittings.com/images/products/opell-prima/center-hole-basin-mixer-chrome.png">
+<meta name="twitter:image" content="https://ipmbathfittings.com/images/products/opell-prima/center-hole-basin-mixer-chrome.jpg">
 <link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
 <link rel="icon" href="../../../favicon.svg" sizes="any">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -352,6 +352,12 @@ header.site[data-header="over-dark"] .wa-link:hover { color: #25D366; }
 .arch.product-shot { background: var(--cream); }
 .arch.product-shot img { object-fit: contain; padding: 6%; box-sizing: border-box; }
 [data-theme="light"] .arch.product-shot img { mix-blend-mode: multiply; }
+.no-photo { width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+  background: var(--cream, #f4efe7); color: var(--ink-soft, #9a8f7d);
+  font-family: var(--serif, Georgia, serif); font-size: clamp(12px, 1.4vw, 16px);
+  letter-spacing:.08em; text-transform:uppercase; text-align:center; line-height:1.5; }
+.no-photo span { opacity:.7; }
+.card-stage .no-photo, .arch .no-photo { position:absolute; inset:0; }
 
 /* ================================================================
    FINISHES STRIP (swatches)
@@ -850,8 +856,9 @@ footer {
     <div class="product-main">
       <div class="gallery">
         <div class="arch product-shot" id="imageArch">
-          <img id="mainImage" src="../../../images/products/opell-prima/center-hole-basin-mixer-chrome.png" alt="Center Hole Basin Mixer in Chrome finish">
-          <div class="cycle-bar"><div class="cycle-progress" id="cycleProgress"></div></div>
+          <img id="mainImage" src="../../../images/products/opell-prima/center-hole-basin-mixer-chrome.jpg" alt="Center Hole Basin Mixer in Chrome finish">
+          <div class="no-photo" id="noPhotoCard" hidden><span>No Photo<br>Available</span></div>
+          
           <button class="zoom-btn" id="zoomBtn" aria-label="View full size">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg>
           </button>
@@ -876,23 +883,7 @@ footer {
       <div class="price-tag"><span id="current-price">₹4,528</span><span class="price-note">MRP</span></div>
 
 
-      <div class="finish-picker">
-        <span class="fp-label">Available in 8 Finishes</span>
-        <div class="finishes-row">
-          <button class="finish is-active" data-index="0" aria-label="Chrome"><span class="swatch f-chrome"></span></button>
-          <button class="finish" data-index="1" aria-label="Rich Gold"><span class="swatch f-rich-gold"></span></button>
-          <button class="finish" data-index="2" aria-label="Rose Gold"><span class="swatch f-rose-gold"></span></button>
-          <button class="finish" data-index="3" aria-label="Gunmetal Black"><span class="swatch f-gunmetal"></span></button>
-          <button class="finish" data-index="4" aria-label="Matt Black"><span class="swatch f-matt-black"></span></button>
-          <button class="finish" data-index="5" aria-label="Matt White"><span class="swatch f-matt-white"></span></button>
-          <button class="finish" data-index="6" aria-label="Matt Beige"><span class="swatch f-matt-beige"></span></button>
-          <button class="finish" data-index="7" aria-label="Matt Grey"><span class="swatch f-matt-grey"></span></button>
-        </div>
-        <div class="finish-display">
-          <span class="fd-label">Currently viewing</span>
-          <span class="fd-name serif" id="fp-selected">Chrome</span>
-        </div>
-      </div>
+      <p class="finish-static">Finish: Chrome</p>
       <div class="spec-table">
         <div class="row"><span class="k">Category</span><span class="v">Faucets</span></div>
       </div>
@@ -912,7 +903,7 @@ footer {
     </div>
     <div class="related-products stagger-children">
         <a class="coll-card" href="../../../collections/opell-prima/2-way-angle-valve/">
-          <div class="arch product-shot"><img src="../../../images/products/opell-prima/2-way-angle-valve-chrome.png" alt="2 Way Angle Valve in Chrome finish" loading="lazy"></div>
+          <div class="arch product-shot"><img src="../../../images/products/opell-prima/2-way-angle-valve-chrome.jpg" alt="2 Way Angle Valve in Chrome finish" loading="lazy"></div>
           <div class="cc-name serif">2 Way Angle Valve</div>
           <span class="cat-tag">Faucets</span>
         </a>
@@ -922,12 +913,12 @@ footer {
           <span class="cat-tag">Faucets</span>
         </a>
         <a class="coll-card" href="../../../collections/opell-prima/angle-valve/">
-          <div class="arch product-shot"><img src="../../../images/products/opell-prima/angle-valve-chrome.png" alt="Angle Valve in Chrome finish" loading="lazy"></div>
+          <div class="arch product-shot"><img src="../../../images/products/opell-prima/angle-valve-chrome.jpg" alt="Angle Valve in Chrome finish" loading="lazy"></div>
           <div class="cc-name serif">Angle Valve</div>
           <span class="cat-tag">Faucets</span>
         </a>
         <a class="coll-card" href="../../../collections/opell-prima/bath-spout/">
-          <div class="arch product-shot"><img src="../../../images/products/opell-prima/bath-spout-chrome.png" alt="Bath Spout in Chrome finish" loading="lazy"></div>
+          <div class="arch product-shot"><img src="../../../images/products/opell-prima/bath-spout-chrome.jpg" alt="Bath Spout in Chrome finish" loading="lazy"></div>
           <div class="cc-name serif">Bath Spout</div>
           <span class="cat-tag">Faucets</span>
         </a>
@@ -1178,151 +1169,6 @@ window.addEventListener('scroll', () => {
 /* ================================================================
    PAGE-SPECIFIC JS
 ================================================================ */
-
-const variantData = [
-  {
-    "finish": "Chrome",
-    "sku": "1712",
-    "price": "₹4,528",
-    "swatchClass": "f-chrome",
-    "image": "../../../images/products/opell-prima/center-hole-basin-mixer-chrome.png",
-    "alt": "Center Hole Basin Mixer in Chrome finish"
-  },
-  {
-    "finish": "Rich Gold",
-    "sku": "1712-GLD",
-    "price": "",
-    "swatchClass": "f-rich-gold",
-    "image": "../../../images/products/opell-prima/center-hole-basin-mixer-chrome.png",
-    "alt": "Center Hole Basin Mixer in Rich Gold finish"
-  },
-  {
-    "finish": "Rose Gold",
-    "sku": "1712-RGLD",
-    "price": "",
-    "swatchClass": "f-rose-gold",
-    "image": "../../../images/products/opell-prima/center-hole-basin-mixer-chrome.png",
-    "alt": "Center Hole Basin Mixer in Rose Gold finish"
-  },
-  {
-    "finish": "Gunmetal Black",
-    "sku": "1712-GMB",
-    "price": "₹5,887",
-    "swatchClass": "f-gunmetal",
-    "image": "../../../images/products/opell-prima/center-hole-basin-mixer-chrome.png",
-    "alt": "Center Hole Basin Mixer in Gunmetal Black finish"
-  },
-  {
-    "finish": "Matt Black",
-    "sku": "1712-MB",
-    "price": "₹5,887",
-    "swatchClass": "f-matt-black",
-    "image": "../../../images/products/opell-prima/center-hole-basin-mixer-chrome.png",
-    "alt": "Center Hole Basin Mixer in Matt Black finish"
-  },
-  {
-    "finish": "Matt White",
-    "sku": "1712-MW",
-    "price": "₹5,887",
-    "swatchClass": "f-matt-white",
-    "image": "../../../images/products/opell-prima/center-hole-basin-mixer-chrome.png",
-    "alt": "Center Hole Basin Mixer in Matt White finish"
-  },
-  {
-    "finish": "Matt Beige",
-    "sku": "1712-MBE",
-    "price": "₹5,887",
-    "swatchClass": "f-matt-beige",
-    "image": "../../../images/products/opell-prima/center-hole-basin-mixer-chrome.png",
-    "alt": "Center Hole Basin Mixer in Matt Beige finish"
-  },
-  {
-    "finish": "Matt Grey",
-    "sku": "1712-MGR",
-    "price": "₹6,229",
-    "swatchClass": "f-matt-grey",
-    "image": "../../../images/products/opell-prima/center-hole-basin-mixer-chrome.png",
-    "alt": "Center Hole Basin Mixer in Matt Grey finish"
-  }
-];
-const mainImage    = document.getElementById('mainImage');
-const currentSku   = document.getElementById('current-sku');
-const fpSelected   = document.getElementById('fp-selected');
-const currentPrice = document.getElementById('current-price');
-const enquireBtn   = document.getElementById('enquireBtn');
-const cycleProgress = document.getElementById('cycleProgress');
-// Always live-query finish buttons so DOM replacements by sizeJs don't break references.
-function liveFinishBtns() { return Array.from(document.querySelectorAll('.finish-picker .finish')); }
-
-const CYCLE_MS = 3000;
-let activeIdx = 0;
-let cycleTimer = null;
-let userPaused = false;
-let resumeTimer = null;
-
-function applyVariant(idx, crossfade) {
-  const v = variantData[idx];
-  activeIdx = idx;
-  // Live query every time so highlighting works even after DOM updates by sizeJs.
-  liveFinishBtns().forEach((b, k) => b.classList.toggle('is-active', k === idx));
-  if (fpSelected) { fpSelected.classList.add('is-fading'); setTimeout(() => { fpSelected.textContent = v.finish; fpSelected.classList.remove('is-fading'); }, 180); }
-  if (currentSku) currentSku.textContent = v.sku;
-  if (currentPrice) { const pt = currentPrice.closest('.price-tag'); if (v.price) { currentPrice.textContent = v.price; if (pt) pt.style.display = ''; } else { if (pt) pt.style.display = 'none'; } }
-  const url = new URL(enquireBtn.href, window.location.href);
-  url.searchParams.set('finish', v.finish);
-  enquireBtn.href = url.pathname + url.search;
-  if (crossfade) {
-    mainImage.classList.add('is-fading');
-    setTimeout(() => { mainImage.src = v.image; mainImage.alt = v.alt; mainImage.onload = () => mainImage.classList.remove('is-fading'); }, 200);
-  } else {
-    mainImage.src = v.image; mainImage.alt = v.alt;
-  }
-}
-
-function startProgress() {
-  if (!cycleProgress) return;
-  cycleProgress.style.transition = 'none'; cycleProgress.style.width = '0%';
-  void cycleProgress.offsetWidth;
-  cycleProgress.style.transition = 'width ' + CYCLE_MS + 'ms linear'; cycleProgress.style.width = '100%';
-}
-function stopProgress() {
-  if (!cycleProgress) return;
-  cycleProgress.style.transition = 'none'; cycleProgress.style.width = '0%';
-}
-function scheduleNext() {
-  clearTimeout(cycleTimer); if (userPaused) return;
-  startProgress();
-  cycleTimer = setTimeout(() => { applyVariant((activeIdx + 1) % variantData.length, true); scheduleNext(); }, CYCLE_MS);
-}
-function pauseCycle(resumeAfter) {
-  clearTimeout(cycleTimer); clearTimeout(resumeTimer); stopProgress();
-  if (resumeAfter) resumeTimer = setTimeout(() => { userPaused = false; scheduleNext(); }, resumeAfter);
-}
-// Expose pauseCycle so sizeJs (separate closure) can reach it
-window._ipmPauseCycle = pauseCycle;
-window._ipmScheduleNext = scheduleNext;
-window._ipmUserPaused = () => userPaused;
-window._ipmSetPaused = (v) => { userPaused = v; };
-
-
-// Click to select — pause auto, resume after 8s
-liveFinishBtns().forEach((btn, i) => {
-  btn.addEventListener('click', () => { userPaused = true; pauseCycle(8000); applyVariant(i, true); });
-});
-
-// Hover over picker OR image — pause while hovering
-const picker = document.querySelector('.finish-picker');
-if (picker) {
-  picker.addEventListener('mouseenter', () => pauseCycle(0));
-  picker.addEventListener('mouseleave', () => { if (!userPaused) scheduleNext(); });
-}
-const imageArch = document.getElementById('imageArch');
-if (imageArch) {
-  imageArch.addEventListener('mouseenter', () => pauseCycle(0));
-  imageArch.addEventListener('mouseleave', () => { if (!userPaused) scheduleNext(); });
-}
-
-setTimeout(scheduleNext, 1200);
 
 (function() {
   const lb     = document.getElementById('lightbox');
