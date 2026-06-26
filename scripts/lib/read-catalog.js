@@ -33,11 +33,6 @@ function readFinishes(workbook, warnings) {
   return finishMap;
 }
 
-function categoryFallbackImage(category) {
-  const known = KNOWN_CATEGORIES.includes(category) ? category : 'Accessories';
-  return `/images/collections/cat-${slugify(known)}.jpg`;
-}
-
 function checkAndWarn(group, row, field, label, warnings) {
   const incoming = String(row[label] || '').trim();
   const current = String(group[field] || '').trim();
@@ -160,8 +155,6 @@ function readProducts(workbook, finishMap, warnings, errors) {
       // Informational only — valid single-variant group
     }
 
-    const categoryFallback = categoryFallbackImage(group.category);
-
     for (const v of group.variants) {
       const file = v.imageFile || group.primaryImage;
       v.image = (!v.noPhoto && file)
@@ -276,8 +269,6 @@ function resolveImageExistence(productGroups, collections, baseDir) {
   const missing = [];
 
   for (const group of productGroups) {
-    const categoryFallback = categoryFallbackImage(group.category);
-
     for (const v of group.variants) {
       if (!v.image) continue;
       if (v.image.startsWith('/images/products/')) {

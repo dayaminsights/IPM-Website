@@ -737,6 +737,7 @@ thumbButtons.forEach(btn => {
   if (!lb || !zoomBtn || !mainImg) return;
 
   function openLb() {
+    if (!mainImg.src) return;   // no-photo product — nothing to zoom
     lbImg.src = mainImg.src;
     lbImg.alt = mainImg.alt;
     lb.removeAttribute('hidden');
