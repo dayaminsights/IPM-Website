@@ -1015,8 +1015,9 @@ mark { background: var(--gold-pale); color: inherit; border-radius: 2px; padding
         <div class="chips" id="catChips">
           <button class="chip is-active" data-filter="category" data-c="">All</button>
           <button class="chip" data-filter="category" data-c="Faucets">Faucets</button>
-        <button class="chip" data-filter="category" data-c="Kitchen Mixers">Kitchen Mixers</button>
-        <button class="chip" data-filter="category" data-c="Shower">Shower</button>
+          <button class="chip" data-filter="category" data-c="Kitchen Mixers">Kitchen Area</button>
+          <button class="chip" data-filter="category" data-c="Shower">Shower</button>
+          <button class="chip" data-filter="accessories" data-c="accessories">Accessories</button>
           <button class="chip chip-coloured" data-filter="coloured" data-c="1">Coloured Finishes</button>
         </div>
       </div>
@@ -1445,10 +1446,16 @@ window.addEventListener('scroll', () => {
   }
 
   /* ── chip helpers ── */
+  const ACCESSORY_COLLECTIONS = ['bathroom-accessories', 'square-accessories', 'allied'];
+  function isAccessoriesActive() { return ACCESSORY_COLLECTIONS.every(c => state.collections.has(c)) && !state.categories.size && !state.coloured; }
+  function activateAccessories() { state.categories.clear(); state.coloured = false; ACCESSORY_COLLECTIONS.forEach(c => state.collections.add(c)); }
+  function deactivateAccessories() { ACCESSORY_COLLECTIONS.forEach(c => state.collections.delete(c)); }
+
   function refreshCatChips() {
     catChips.querySelectorAll('.chip').forEach(b => {
       if (b.dataset.filter === 'coloured') b.classList.toggle('is-active', state.coloured);
-      else if (b.dataset.c === '') b.classList.toggle('is-active', !state.coloured && state.categories.size === 0);
+      else if (b.dataset.filter === 'accessories') b.classList.toggle('is-active', isAccessoriesActive());
+      else if (b.dataset.c === '') b.classList.toggle('is-active', !state.coloured && state.categories.size === 0 && !isAccessoriesActive());
       else b.classList.toggle('is-active', state.categories.has(b.dataset.c));
     });
   }
@@ -1473,11 +1480,16 @@ window.addEventListener('scroll', () => {
         state.collections.clear();
         refreshCollChips();
       }
+    } else if (btn.dataset.filter === 'accessories') {
+      if (isAccessoriesActive()) { deactivateAccessories(); }
+      else { state.categories.clear(); state.coloured = false; state.collections.clear(); activateAccessories(); refreshCollChips(); }
     } else if (btn.dataset.c === '') {
       state.coloured = false;
       state.categories.clear();
+      deactivateAccessories();
     } else {
       state.coloured = false;
+      deactivateAccessories();
       const v = btn.dataset.c;
       if (state.categories.has(v)) state.categories.delete(v); else state.categories.add(v);
     }
@@ -1644,7 +1656,11 @@ window.addEventListener('scroll', () => {
   /* ── pre-fill from URL ── */
   const params = new URLSearchParams(location.search);
   if (params.get('q'))          { input.value = params.get('q'); if (stickyInput) stickyInput.value = params.get('q'); state.q = params.get('q'); clearBtn.hidden = false; if (stickyClear) stickyClear.hidden = false; }
-  if (params.get('category'))   { state.categories.add(params.get('category')); }
+  if (params.get('category')) {
+    const cat = params.get('category');
+    if (cat === 'Accessories') { activateAccessories(); }
+    else { state.categories.add(cat); }
+  }
   if (params.get('collection')) { state.collections.add(params.get('collection')); }
   if (params.get('coloured'))   { state.coloured   = true; }
 
