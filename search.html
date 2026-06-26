@@ -1569,7 +1569,7 @@ window.addEventListener('scroll', () => {
     const rank = s => { const i = s.toLowerCase().indexOf(q); return i < 0 ? 999 : i; };
     const prods = suggestIdx.products
       .filter(p => p.name.toLowerCase().includes(q) || String(p.skus).toLowerCase().includes(q))
-      .sort((a, b) => rank(a.name) - rank(b.name)).slice(0, 6)
+      .sort((a, b) => rank(a.name) - rank(b.name))
       .map(p => ({ kind: 'product', label: p.name, sub: p.collection + ' · ' + p.category, url: p.url, image: p.image }));
     const colls = suggestIdx.collections.filter(c => c.name.toLowerCase().includes(q)).slice(0, 3)
       .map(c => ({ kind: 'collection', label: c.name, value: c.slug }));
