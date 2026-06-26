@@ -1306,7 +1306,7 @@ window.addEventListener('scroll', () => {
 (function () {
   const state = { q: '', collection: '', category: '', coloured: false, sort: 'featured' };
   // Featured order: Opell Prima + Zenith bubble to top, then rest by product count
-  const FEATURED_ORDER = ['opell-prima', 'zenith', 'aliva', 'flora', 'fuzone', 'pebble', 'neo', 'para', 'jp', 'cube-prima', 'premium', 'allied'];
+  const FEATURED_ORDER = ['zenith', 'opell-prima', 'flora', 'aliva', 'fuzone', 'pebble', 'neo', 'para', 'jp', 'cube-prima', 'premium', 'allied'];
   function featuredScore(it) { const i = FEATURED_ORDER.indexOf(it.collectionSlug); return i === -1 ? 99 : i; }
   function priceNum(it) { return parseFloat(String(it.price).replace(/[^0-9.]/g, '')) || 0; }
   function sortItems(items) {
@@ -1541,7 +1541,14 @@ window.addEventListener('scroll', () => {
     const rank = s => { const i = s.toLowerCase().indexOf(q); return i < 0 ? 999 : i; };
     const prods = suggestIdx.products
       .filter(p => p.name.toLowerCase().includes(q) || String(p.skus).toLowerCase().includes(q))
-      .sort((a, b) => rank(a.name) - rank(b.name)).slice(0, 6)
+      .sort((a, b) => {
+        const fa = FEATURED_ORDER.indexOf(a.collectionSlug);
+        const fb = FEATURED_ORDER.indexOf(b.collectionSlug);
+        const pa = fa === -1 ? 99 : fa;
+        const pb = fb === -1 ? 99 : fb;
+        if (pa !== pb) return pa - pb;
+        return rank(a.name) - rank(b.name);
+      })
       .map(p => ({ kind: 'product', label: p.name, sub: p.collection + ' · ' + p.category, url: p.url, image: p.image }));
     const colls = suggestIdx.collections.filter(c => c.name.toLowerCase().includes(q)).slice(0, 3)
       .map(c => ({ kind: 'collection', label: c.name, value: c.slug }));
