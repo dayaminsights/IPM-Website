@@ -13,7 +13,7 @@ const xlsx = require('xlsx');
 const M = require('./lib-migrate');
 
 const ROOT = path.join(__dirname, '..', '..');
-const MASTER_FILE = path.join(ROOT, 'ITEM MASTER FOR WEBSITE.xls');
+const MASTER_FILE = path.join(ROOT, 'catalog.clean.xlsx');
 const MODEL_OUT = path.join(ROOT, 'catalog.model.json');
 const REPORT_OUT = path.join(ROOT, 'reports', 'data-audit.md');
 
@@ -45,6 +45,8 @@ function main() {
     const rawCollection = String(row['Collection Name'] || '').trim();
     const rawCategory = String(row['Category'] || '').trim();
     const mrp = row['MRP'];
+    const sourceImage = String(row['Source Image File'] || '').trim();
+    const rowFlag = String(row['RowFlag'] || 'plain').trim() || 'plain';
 
     if (!code) { audit.skippedNoCode.push(`row ${idx + 2}: "${itemName || '(no name)'}"`); return; }
     if (!itemName) { audit.skippedNoName.push(`row ${idx + 2}: code ${code}`); return; }
@@ -90,6 +92,9 @@ function main() {
       price: M.formatPrice(mrp),
       rawName: itemName,
       rawCollection,
+      sourceImage,
+      noPhoto: !sourceImage,
+      rowFlag,
       image: null,                 // populated in Stage B
     });
   });
@@ -134,7 +139,7 @@ function main() {
 
   const model = {
     generatedAt: new Date().toISOString(),
-    source: 'ITEM MASTER FOR WEBSITE.xls',
+    source: 'catalog.clean.xlsx',
     counts: {
       rows: rows.length,
       products: groupList.length,
