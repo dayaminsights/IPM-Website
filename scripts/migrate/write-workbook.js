@@ -35,6 +35,7 @@ function main() {
         'Meta Description': '',
         'Related Product Groups': '',           // auto-derived (same-collection siblings)
         image: v.image || '',                   // filename only; read-catalog prefixes the dir
+        'No Photo': v.noPhoto ? 'yes' : '',
         'Gallery Images': '',
         Finish: v.finish,
         'Image Alt Text': `${g.skuName} in ${v.finish} finish`,

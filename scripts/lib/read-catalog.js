@@ -144,6 +144,7 @@ function readProducts(workbook, finishMap, warnings, errors) {
       sku,
       price: String(row['price'] || '').trim(),
       imageFile: String(row['image'] || '').trim() || null,
+      noPhoto: String(row['No Photo'] || '').trim().toLowerCase() === 'yes',
       alt: altText,
       swatchClass,
     });
@@ -163,9 +164,9 @@ function readProducts(workbook, finishMap, warnings, errors) {
 
     for (const v of group.variants) {
       const file = v.imageFile || group.primaryImage;
-      v.image = file
+      v.image = (!v.noPhoto && file)
         ? `/images/products/${group.collectionSlug}/${file}`
-        : categoryFallback;
+        : null;            // no fallback image — render shows "No Photo Available"
       delete v.imageFile;
     }
 
@@ -282,8 +283,8 @@ function resolveImageExistence(productGroups, collections, baseDir) {
       if (v.image.startsWith('/images/products/')) {
         const rel = v.image.replace('/images/products/', '');
         if (!existing.has(rel)) {
-          missing.push(`[missing-image] ${v.sku}: ${rel} not found, using fallback`);
-          v.image = categoryFallback;
+          missing.push(`[missing-image] ${v.sku}: ${rel} not found, rendering No Photo Available`);
+          v.image = null;
         }
       }
     }
@@ -300,7 +301,8 @@ function resolveImageExistence(productGroups, collections, baseDir) {
     });
 
     if (group.gallery.length === 0) {
-      group.gallery = [group.variants[0] ? group.variants[0].image : categoryFallback];
+      const firstImg = group.variants.find(v => v.image);
+      group.gallery = firstImg ? [firstImg.image] : [];
     }
   }
 
