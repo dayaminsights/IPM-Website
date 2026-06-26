@@ -18,7 +18,7 @@ const MODEL_OUT = path.join(ROOT, 'catalog.model.json');
 const REPORT_OUT = path.join(ROOT, 'reports', 'data-audit.md');
 
 // Signature lines per brand reference.
-const SIGNATURE = new Set(['Aliva', 'Opell Prima']);
+const SIGNATURE = new Set(['Zenith', 'Opell Prima', 'Para']);
 
 function readMaster() {
   const wb = xlsx.readFile(MASTER_FILE);

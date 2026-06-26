@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-26T16:47:09.469Z",
+  "generatedAt": "2026-06-26T18:08:27.052Z",
   "source": "catalog.clean.xlsx",
   "counts": {
     "rows": 822,
@@ -57,7 +57,7 @@
     {
       "name": "Aliva",
       "slug": "aliva",
-      "isSignature": true,
+      "isSignature": false,
       "productCount": 32,
       "finishCount": 1,
       "categories": [
@@ -101,7 +101,7 @@
     {
       "name": "Para",
       "slug": "para",
-      "isSignature": false,
+      "isSignature": true,
       "productCount": 21,
       "finishCount": 1,
       "categories": [
@@ -134,7 +134,7 @@
     {
       "name": "Zenith",
       "slug": "zenith",
-      "isSignature": false,
+      "isSignature": true,
       "productCount": 13,
       "finishCount": 3,
       "categories": [
@@ -287,7 +287,7 @@
           "rawName": "Angle Valve With Flange Aliva",
           "rawCollection": "Aliva Collection",
           "sourceImage": "ANGLE VALVE ALIVA.png",
-          "noPhoto": true,
+          "noPhoto": false,
           "rowFlag": "plain",
           "image": null
         }
@@ -308,7 +308,7 @@
           "rawName": "Bath Spout Aliva",
           "rawCollection": "Aliva Collection",
           "sourceImage": "Bath Tub Spout aliva.png",
-          "noPhoto": true,
+          "noPhoto": false,
           "rowFlag": "plain",
           "image": null
         }
@@ -329,7 +329,7 @@
           "rawName": "Button Spout Aliva",
           "rawCollection": "Aliva Collection",
           "sourceImage": "Button Spout ALIVA.png",
-          "noPhoto": true,
+          "noPhoto": false,
           "rowFlag": "plain",
           "image": null
         }
@@ -392,7 +392,7 @@
           "rawName": "Exposed Parts For Deusch Mixer Aliva",
           "rawCollection": "Aliva Collection",
           "sourceImage": "Single Lever Deusch Mixer Upper Parts Aliva.png",
-          "noPhoto": true,
+          "noPhoto": false,
           "rowFlag": "plain",
           "image": null
         }
@@ -413,7 +413,7 @@
           "rawName": "Long Body With Flange Aliva",
           "rawCollection": "Aliva Collection",
           "sourceImage": "LONG BODY ALIVA.png",
-          "noPhoto": true,
+          "noPhoto": false,
           "rowFlag": "plain",
           "image": null
         }
@@ -434,7 +434,7 @@
           "rawName": "Nozzle Bib Cock With Flange Aliva",
           "rawCollection": "Aliva Collection",
           "sourceImage": "NOZZLE BIB COCK ALIVA.png",
-          "noPhoto": true,
+          "noPhoto": false,
           "rowFlag": "plain",
           "image": null
         }
@@ -455,7 +455,7 @@
           "rawName": "Pillar Cock Aliva",
           "rawCollection": "Aliva Collection",
           "sourceImage": "PILLAR COCK  ALIVA.png",
-          "noPhoto": true,
+          "noPhoto": false,
           "rowFlag": "plain",
           "image": null
         }
@@ -476,7 +476,7 @@
           "rawName": "Pillar Cock Extended Body Aliva",
           "rawCollection": "Aliva Collection",
           "sourceImage": "PILLAR COCK EXTENDED BODY ALIVA.png",
-          "noPhoto": true,
+          "noPhoto": false,
           "rowFlag": "plain",
           "image": null
         }
@@ -497,7 +497,7 @@
           "rawName": "Single Lever Basin Mixer Aliva",
           "rawCollection": "Aliva Collection",
           "sourceImage": "SINGLE LEVER BASIN MIXER ALIVA.png",
-          "noPhoto": true,
+          "noPhoto": false,
           "rowFlag": "plain",
           "image": null
         }
@@ -518,7 +518,7 @@
           "rawName": "Single Lever Basin Mixer Extended Body Aliva",
           "rawCollection": "Aliva Collection",
           "sourceImage": "SINGLE LEVER BASIN MIXER EXTENDED BODY ALIVA.png",
-          "noPhoto": true,
+          "noPhoto": false,
           "rowFlag": "plain",
           "image": null
         }
@@ -539,7 +539,7 @@
           "rawName": "Single Lever Sink Mixer Table Mounted Angular Spout Aliva",
           "rawCollection": "Aliva Collection",
           "sourceImage": "Single Lever Sink Mixer Angular Aliva.png",
-          "noPhoto": true,
+          "noPhoto": false,
           "rowFlag": "plain",
           "image": null
         }
@@ -581,7 +581,7 @@
           "rawName": "Single Lever Sink Mixer Wall Mounted Angular Spout Aliva",
           "rawCollection": "Aliva Collection",
           "sourceImage": "Single lever Sink Mixer Wall Mounted Aliva.png",
-          "noPhoto": true,
+          "noPhoto": false,
           "rowFlag": "plain",
           "image": null
         }
@@ -602,7 +602,7 @@
           "rawName": "Single Lever Sink Mixer Wall Mounted Regular Spout Aliva",
           "rawCollection": "Aliva Collection",
           "sourceImage": "Single Lever Sink Mixer Side Handle Aliva.png",
-          "noPhoto": true,
+          "noPhoto": false,
           "rowFlag": "plain",
           "image": null
         }
@@ -644,7 +644,7 @@
           "rawName": "Single lever Wall Mixer Aliva",
           "rawCollection": "Aliva Collection",
           "sourceImage": "Single Lever Wall Mixer Aliva.png",
-          "noPhoto": true,
+          "noPhoto": false,
           "rowFlag": "plain",
           "image": null
         }
@@ -665,7 +665,7 @@
           "rawName": "Sink Cock Aliva",
           "rawCollection": "Aliva Collection",
           "sourceImage": "SINK COCK ALIVA.png",
-          "noPhoto": true,
+          "noPhoto": false,
           "rowFlag": "plain",
           "image": null
         }
@@ -686,7 +686,7 @@
           "rawName": "Sink Mixer Aliva",
           "rawCollection": "Aliva Collection",
           "sourceImage": "SINK MIXER ALIVA.png",
-          "noPhoto": true,
+          "noPhoto": false,
           "rowFlag": "plain",
           "image": null
         }
@@ -728,7 +728,7 @@
           "rawName": "Wall Mixer Non Telephone Aliva",
           "rawCollection": "Aliva Collection",
           "sourceImage": "WALL MIXER NON TELEPHONIC ALIVA.png",
-          "noPhoto": true,
+          "noPhoto": false,
           "rowFlag": "plain",
           "image": null
         }
@@ -749,7 +749,7 @@
           "rawName": "Wall Mixer Three In One Aliva",
           "rawCollection": "Aliva Collection",
           "sourceImage": "WALL MIXER 3 in 1 ALIVA.png",
-          "noPhoto": true,
+          "noPhoto": false,
           "rowFlag": "plain",
           "image": null
         }
@@ -770,7 +770,7 @@
           "rawName": "Wall Mixer With Bend Aliva",
           "rawCollection": "Aliva Collection",
           "sourceImage": "WALL MIXER WITH BEND ALIVA.png",
-          "noPhoto": true,
+          "noPhoto": false,
           "rowFlag": "plain",
           "image": null
         }
@@ -791,7 +791,7 @@
           "rawName": "Wall Mixer With Crutch Aliva",
           "rawCollection": "Aliva Collection",
           "sourceImage": "WALL MIXER WITH CRUTCH ALIVA.png",
-          "noPhoto": true,
+          "noPhoto": false,
           "rowFlag": "plain",
           "image": null
         }

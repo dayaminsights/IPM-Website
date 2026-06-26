@@ -37,6 +37,6 @@ All new pages start from `_template.html`. Copy it, fill in three marked blocks:
 
 ## Quick Links
 - **Brand info:** 50-year-old Delhi manufacturer, solid brass, 16 finishes
-- **Signature lines:** Aliva, Opell Prima
+- **Signature lines:** Zenith, Opell Prima, Para
 - **Full range:** Cube, Cube Prima, Fuzone, Flora, JP, Premium, Para Collection, Allied, Zenith Collections, Square Brass Accessories, Round Brass Accessories
 - **Reference site:** ipmbathfittings.com
