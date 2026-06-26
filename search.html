@@ -93,6 +93,7 @@ body {
   overflow-x: hidden;
 }
 img { display: block; max-width: 100%; }
+[hidden] { display: none !important; }
 a { color: inherit; text-decoration: none; }
 ::selection { background: var(--gold); color: var(--on-gold); }
 
@@ -350,6 +351,12 @@ header.site[data-header="over-dark"] .wa-link:hover { color: #25D366; }
 .arch.product-shot { background: var(--cream); }
 .arch.product-shot img { object-fit: contain; padding: 6%; box-sizing: border-box; }
 [data-theme="light"] .arch.product-shot img { mix-blend-mode: multiply; }
+.no-photo { width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+  background: var(--cream, #f4efe7); color: var(--ink-soft, #9a8f7d);
+  font-family: var(--serif, Georgia, serif); font-size: clamp(12px, 1.4vw, 16px);
+  letter-spacing:.08em; text-transform:uppercase; text-align:center; line-height:1.5; }
+.no-photo span { opacity:.7; }
+.card-stage .no-photo, .arch .no-photo { position:absolute; inset:0; }
 
 /* ================================================================
    FINISHES STRIP (swatches)
@@ -823,6 +830,7 @@ footer {
   object-fit: contain; padding: 5%; box-sizing: border-box;
   transition: opacity .38s ease;
 }
+[data-theme="light"] .card-stage img { mix-blend-mode: multiply; }
 .card-stage img.is-hidden { opacity: 0; pointer-events: none; }
 .card-stage img.is-visible { opacity: 1; }
 
@@ -1037,12 +1045,14 @@ mark { background: var(--gold-pale); color: inherit; border-radius: 2px; padding
         <button class="chip" data-filter="collection" data-c="fuzone">Fuzone</button>
         <button class="chip" data-filter="collection" data-c="aliva">Aliva</button>
         <button class="chip" data-filter="collection" data-c="pebble">Pebble</button>
-        <button class="chip" data-filter="collection" data-c="para">Para</button>
+        <button class="chip" data-filter="collection" data-c="pheonix">Pheonix</button>
         <button class="chip" data-filter="collection" data-c="neo">Neo</button>
+        <button class="chip" data-filter="collection" data-c="para">Para</button>
         <button class="chip" data-filter="collection" data-c="cube-prima">Cube Prima</button>
-        <button class="chip" data-filter="collection" data-c="zenith">Zenith</button>
         <button class="chip" data-filter="collection" data-c="jp">JP</button>
-        <button class="chip" data-filter="collection" data-c="premium">Premium</button>
+        <button class="chip" data-filter="collection" data-c="zenith">Zenith</button>
+        <button class="chip" data-filter="collection" data-c="square-accessories">Square Accessories</button>
+        <button class="chip" data-filter="collection" data-c="bathroom-accessories">Bathroom Accessories</button>
         </div>
       </div>
     </div>
@@ -1337,9 +1347,11 @@ window.addEventListener('scroll', () => {
   function cardHtml(it, q) {
     const isMulti = it.variantImages && it.variantImages.length > 1;
     const imgAttrs = isMulti ? 'class="is-visible"' : '';
-    const mainImg  = `<img ${imgAttrs} src="${esc(it.image)}" alt="${esc(it.name)}" loading="lazy">`;
+    const mainImg  = it.image
+      ? `<img ${imgAttrs} src="${esc(it.image)}" alt="${esc(it.name)}" loading="lazy">`
+      : '<div class="no-photo"><span>No Photo<br>Available</span></div>';
     const extraImgs = isMulti
-      ? it.variantImages.slice(1).map(v =>
+      ? it.variantImages.slice(1).filter(v => v.image).map(v =>
           `<img class="is-hidden" src="${esc(v.image)}" alt="${esc(it.name)} in ${esc(v.finish)}" loading="lazy">`
         ).join('')
       : '';
