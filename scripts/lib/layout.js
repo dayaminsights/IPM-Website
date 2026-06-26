@@ -108,6 +108,7 @@ body {
   overflow-x: hidden;
 }
 img { display: block; max-width: 100%; }
+[hidden] { display: none !important; }
 a { color: inherit; text-decoration: none; }
 ::selection { background: var(--gold); color: var(--on-gold); }
 
