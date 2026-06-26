@@ -1011,7 +1011,7 @@ mark { background: var(--gold-pale); color: inherit; border-radius: 2px; padding
   <div class="sh-hero-content wrap">
     <div class="eyebrow reveal">Catalogue · 924 SKUs · 16 Finishes</div>
     <h1 class="serif sh-title reveal">Find your <em>fitting</em></h1>
-    <div class="search-box reveal">
+    <div class="search-box">
       <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
       <input id="searchQ" type="search" placeholder="Name, product code, collection or finish…" autocomplete="off" spellcheck="false" aria-label="Search products" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="heroSuggest">
       <button class="search-clear" id="searchClear" hidden aria-label="Clear search">&#x2715;</button>
@@ -1305,7 +1305,7 @@ window.addEventListener('scroll', () => {
 ================================================================ */
 
 (function () {
-  const state = { q: '', collection: '', category: '', coloured: false, sort: 'featured' };
+  const state = { q: '', collections: new Set(), categories: new Set(), coloured: false, sort: 'featured' };
   // Featured order: Opell Prima + Zenith bubble to top, then rest by product count
   const FEATURED_ORDER = ['opell-prima', 'zenith', 'aliva', 'flora', 'fuzone', 'pebble', 'neo', 'para', 'jp', 'cube-prima', 'premium', 'allied'];
   function featuredScore(it) { const i = FEATURED_ORDER.indexOf(it.collectionSlug); return i === -1 ? 99 : i; }
@@ -1389,9 +1389,9 @@ window.addEventListener('scroll', () => {
     if (!data) return;
     const q = state.q.trim().toLowerCase();
     let items = data.items;
-    if (state.coloured)    items = items.filter(it => it.isColoured);
-    if (state.category)    items = items.filter(it => it.category === state.category);
-    if (state.collection)  items = items.filter(it => it.collectionSlug === state.collection);
+    if (state.coloured)              items = items.filter(it => it.isColoured);
+    if (state.categories.size)      items = items.filter(it => state.categories.has(it.category));
+    if (state.collections.size)     items = items.filter(it => state.collections.has(it.collectionSlug));
     if (q) {
       items = items.filter(it =>
         it.name.toLowerCase().includes(q) ||
@@ -1403,7 +1403,7 @@ window.addEventListener('scroll', () => {
     }
     items = sortItems(items);
     const shown = items.slice(0, 300);
-    const active = state.coloured || state.category || state.collection || q;
+    const active = state.coloured || state.categories.size || state.collections.size || q;
     metaEl.textContent = items.length + (items.length === 1 ? ' product' : ' products') + (active ? ' found' : ' in catalogue');
     if (stickyCount) stickyCount.textContent = items.length + (items.length === 1 ? ' result' : ' results');
     if (sortHint) sortHint.hidden = !state.coloured;
@@ -1464,27 +1464,45 @@ window.addEventListener('scroll', () => {
     group.querySelectorAll('.chip').forEach(b => b.classList.toggle('is-active', b.dataset.c === value));
   }
 
+  function refreshCatChips() {
+    catChips.querySelectorAll('.chip').forEach(b => {
+      if (b.dataset.filter === 'coloured') b.classList.toggle('is-active', state.coloured);
+      else if (b.dataset.c === '') b.classList.toggle('is-active', !state.coloured && state.categories.size === 0);
+      else b.classList.toggle('is-active', state.categories.has(b.dataset.c));
+    });
+  }
+  function refreshCollChips() {
+    collChips.querySelectorAll('.chip').forEach(b => {
+      if (b.dataset.c === '') b.classList.toggle('is-active', state.collections.size === 0);
+      else b.classList.toggle('is-active', state.collections.has(b.dataset.c));
+    });
+  }
+
   catChips.addEventListener('click', e => {
     const btn = e.target.closest('.chip');
     if (!btn) return;
     if (btn.dataset.filter === 'coloured') {
-      const wasActive = btn.classList.contains('is-active');
-      catChips.querySelectorAll('.chip').forEach(b => b.classList.remove('is-active'));
-      if (!wasActive) { btn.classList.add('is-active'); state.coloured = true; state.category = ''; }
-      else { state.coloured = false; catChips.querySelector('[data-c=""]').classList.add('is-active'); }
+      state.coloured = !state.coloured;
+      if (state.coloured) state.categories.clear();
+    } else if (btn.dataset.c === '') {
+      state.coloured = false;
+      state.categories.clear();
     } else {
       state.coloured = false;
-      catChips.querySelectorAll('.chip').forEach(b => b.classList.remove('is-active'));
-      btn.classList.add('is-active');
-      state.category = btn.dataset.c;
+      const v = btn.dataset.c;
+      if (state.categories.has(v)) state.categories.delete(v);
+      else state.categories.add(v);
     }
+    refreshCatChips();
     render();
   });
   collChips.addEventListener('click', e => {
     const btn = e.target.closest('.chip');
     if (!btn) return;
-    state.collection = btn.dataset.c;
-    activateChip(collChips, state.collection);
+    const v = btn.dataset.c;
+    if (v === '') { state.collections.clear(); }
+    else { if (state.collections.has(v)) state.collections.delete(v); else state.collections.add(v); }
+    refreshCollChips();
     render();
   });
 
@@ -1578,8 +1596,8 @@ window.addEventListener('scroll', () => {
     if (it.kind === 'product') { window.location.href = it.url; return; }
     if (it.kind === 'finish') { setQuery(it.label); }
     else {
-      if (it.kind === 'collection') { state.collection = it.value; activateChip(collChips, it.value); }
-      if (it.kind === 'category')   { state.coloured = false; state.category = it.value; activateChip(catChips, it.value); }
+      if (it.kind === 'collection') { state.collections.clear(); state.collections.add(it.value); refreshCollChips(); }
+      if (it.kind === 'category')   { state.coloured = false; state.categories.clear(); state.categories.add(it.value); refreshCatChips(); }
       setQuery('');
     }
     render();
@@ -1631,8 +1649,8 @@ window.addEventListener('scroll', () => {
   /* ── pre-fill from URL ── */
   const params = new URLSearchParams(location.search);
   if (params.get('q'))          { input.value = params.get('q'); if (stickyInput) stickyInput.value = params.get('q'); state.q = params.get('q'); clearBtn.hidden = false; if (stickyClear) stickyClear.hidden = false; }
-  if (params.get('category'))   { state.category   = params.get('category'); }
-  if (params.get('collection')) { state.collection = params.get('collection'); }
+  if (params.get('category'))   { state.categories.add(params.get('category')); }
+  if (params.get('collection')) { state.collections.add(params.get('collection')); }
   if (params.get('coloured'))   { state.coloured   = true; }
 
   /* ── load index ── */
@@ -1646,9 +1664,8 @@ window.addEventListener('scroll', () => {
         makeSuggester(stickyInput, document.getElementById('stickySuggest'))
       );
       // Activate chips matching URL state
-      if (state.category)   activateChip(catChips,  state.category);
-      else if (state.coloured) { catChips.querySelectorAll('.chip').forEach(b => b.classList.remove('is-active')); catChips.querySelector('.chip-coloured').classList.add('is-active'); }
-      if (state.collection) activateChip(collChips, state.collection);
+      refreshCatChips();
+      refreshCollChips();
       render();
     })
     .catch(() => { metaEl.textContent = 'Search index unavailable — run the build.'; });
