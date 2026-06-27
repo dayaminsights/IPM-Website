@@ -1669,6 +1669,7 @@ window.addEventListener('scroll', () => {
       const [type, value] = pending.split(':');
       if (type === 'category' && value === 'Accessories') { activateAccessories(); }
       else if (type === 'category') { state.categories.add(value); }
+      else if (type === 'collection') { state.collections.add(value); }
       else if (type === 'coloured') { state.coloured = true; }
       sessionStorage.removeItem('ipm_pending_filter');
     }

@@ -2484,7 +2484,7 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
     <a href="collections.html" class="link-arrow">All Collections</a>
   </div>
   <div class="promos stagger-children">
-    <a href="collections/zenith/" class="promo">
+    <a href="search.html?collection=zenith" class="promo" data-ipm-filter="collection:zenith">
       <img src="images/home/line-aliva.jpg" alt="Zenith collection" loading="lazy" style="object-position: 60% calc(12% - 60px);">
       <div class="ov">
         <div class="e">Signature Line</div>
@@ -2492,7 +2492,7 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
         <span class="promo-cta">Discover Zenith →</span>
       </div>
     </a>
-    <a href="collections/opell-prima/" class="promo">
+    <a href="search.html?collection=opell-prima" class="promo" data-ipm-filter="collection:opell-prima">
       <img src="images/home/line-opell-prima.jpg" alt="Opell Prima collection" loading="lazy" style="object-position: center calc(50% - 50px);">
       <div class="ov">
         <div class="e">Signature Line</div>
@@ -3236,7 +3236,7 @@ document.addEventListener('keydown', e => {
 });
 
 /* ── Category tile filter handoff via sessionStorage ── */
-document.querySelectorAll('.cat[data-ipm-filter]').forEach(a => {
+document.querySelectorAll('[data-ipm-filter]').forEach(a => {
   a.addEventListener('click', () => {
     sessionStorage.setItem('ipm_pending_filter', a.dataset.ipmFilter);
   });

@@ -1929,6 +1929,15 @@ if (!reduceMotion && window.gsap && window.matchMedia('(hover: hover)').matches)
    PAGE-SPECIFIC JS — ADD ABOVE THIS LINE
 ================================================================ */
 
+/* Store collection slug in sessionStorage so search page can apply the filter
+   even if the collection-page redirect somehow loses URL params. */
+document.querySelectorAll('a[href^="collections/"]').forEach(a => {
+  a.addEventListener('click', () => {
+    const m = a.getAttribute('href').match(/^collections\/([^/]+)\//);
+    if (m) sessionStorage.setItem('ipm_pending_filter', 'collection:' + m[1]);
+  });
+});
+
 </script>
 </body>
 </html>
