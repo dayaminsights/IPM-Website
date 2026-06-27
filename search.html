@@ -217,9 +217,24 @@ header.site.scrolled { box-shadow: 0 1px 32px rgba(18,14,8,.08); }
 .nav-left a:hover::after, .nav-left a.active::after { width: 100%; }
 .nav-left a.active { color: var(--ink); }
 
-.brand { justify-self: center; }
-.brand-logo { display: block; height: 46px; width: auto; }
-.brand-logo--light { display: none; }
+.brand { justify-self: center; text-align: center; line-height: 1; }
+.brand b {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px; font-weight: 600; letter-spacing: .32em; padding-left: .32em;
+  transition: color .4s; display: inline-block; position: relative;
+}
+.brand b::after {
+  content: '';
+  position: absolute; left: calc(100% + 6px); top: 50%; transform: translateY(-50%);
+  width: 28px; height: 17px;
+  background-image: linear-gradient(currentColor,currentColor), linear-gradient(currentColor,currentColor), linear-gradient(currentColor,currentColor);
+  background-size: 20px 2.5px; background-repeat: no-repeat;
+  background-position: 0px 0, 4px 7px, 8px 14px; opacity: 0.88;
+}
+.brand small {
+  display: block; font-family: 'DM Sans', sans-serif;
+  font-size: 7.5px; letter-spacing: .52em; color: var(--gold); margin-top: 5px;
+}
 .nav-right { justify-self: end; display: flex; align-items: center; gap: 28px; }
 .contact-link {
   display: flex; align-items: center; gap: 9px;
@@ -253,8 +268,8 @@ header.site[data-header="over-dark"] {
 }
 header.site[data-header="over-dark"] .nav-left a { color: rgba(255,255,255,.65); }
 header.site[data-header="over-dark"] .nav-left a:hover { color: #fff; }
-header.site[data-header="over-dark"] .brand-logo--dark { display: none; }
-header.site[data-header="over-dark"] .brand-logo--light { display: block; }
+header.site[data-header="over-dark"] .brand b { color: #fff; }
+header.site[data-header="over-dark"] .brand small { color: rgba(255,255,255,.5); }
 header.site[data-header="over-dark"] .toggle { border-color: rgba(255,255,255,.28); }
 header.site[data-header="over-dark"] .toggle button { color: rgba(255,255,255,.55); }
 header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); }
@@ -950,8 +965,8 @@ mark { background: var(--gold-pale); color: inherit; border-radius: 2px; padding
       <a href="search.html" class="active">Search</a>
     </nav>
     <a href="index.html" class="brand" aria-label="IPM Bath Fittings — Home">
-      <img class="brand-logo brand-logo--dark" src="images/logo.svg" alt="" width="200" height="50">
-      <img class="brand-logo brand-logo--light" src="images/logo-light.svg" alt="" width="200" height="50">
+      <b>IPM</b>
+      <small>BATH FITTINGS</small>
     </a>
     <div class="nav-right">
       <a href="https://wa.me/917827025280?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20IPM%20Bath%20Fittings" target="_blank" rel="noopener" class="wa-link" aria-label="Chat on WhatsApp">
