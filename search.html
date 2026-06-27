@@ -81,7 +81,7 @@
    RESET + BASE
 ================================================================ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
 body {
   background: var(--bg);
   color: var(--ink);
@@ -90,7 +90,6 @@ body {
   line-height: 1.72;
   -webkit-font-smoothing: antialiased;
   transition: background .6s, color .6s;
-  overflow-x: hidden;
 }
 img { display: block; max-width: 100%; }
 [hidden] { display: none !important; }
@@ -599,8 +598,8 @@ footer {
 /* ── hero ── */
 .sh-hero {
   position: relative; height: 62vh; min-height: 440px; max-height: 700px;
-  overflow: hidden; display: flex; align-items: flex-end;
-  margin-top: -80px;
+  display: flex; align-items: flex-end;
+  margin-top: -80px; z-index: 10;
 }
 .sh-hero-img {
   position: absolute; inset: 0; width: 100%; height: 100%;
@@ -822,12 +821,12 @@ footer {
 /* image stage — finish cycling happens here */
 .card-stage {
   position: relative; aspect-ratio: 4/3; overflow: hidden;
-  background: var(--cream); flex-shrink: 0; isolation: isolate;
+  background: #f2ede3; flex-shrink: 0; isolation: isolate;
 }
 .card-stage img {
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: contain; padding: 5%; box-sizing: border-box;
-  transition: opacity .38s ease;
+  transition: opacity .38s ease; mix-blend-mode: multiply;
 }
 .card-stage img.is-hidden { opacity: 0; pointer-events: none; }
 .card-stage img.is-visible { opacity: 1; }
