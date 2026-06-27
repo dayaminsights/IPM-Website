@@ -423,23 +423,23 @@ header.site.scrolled {
 }
 [data-theme="dark"] .toggle .pill { transform: translateX(100%); }
 
-/* Header over dark image */
-header.site[data-header="over-dark"] {
+/* Header over dark image — only when NOT scrolled (transparent over hero) */
+header.site:not(.scrolled)[data-header="over-dark"] {
   background: transparent;
   border-bottom-color: rgba(255,255,255,.08);
   box-shadow: none;
 }
-header.site[data-header="over-dark"] .nav-left a { color: rgba(255,255,255,.65); }
-header.site[data-header="over-dark"] .nav-left a:hover { color: #fff; }
-header.site[data-header="over-dark"] .brand b { color: #fff; }
-header.site[data-header="over-dark"] .brand small { color: rgba(255,255,255,.5); }
-header.site[data-header="over-dark"] .toggle { border-color: rgba(255,255,255,.28); }
-header.site[data-header="over-dark"] .toggle button { color: rgba(255,255,255,.55); }
-header.site[data-header="over-dark"] .contact-link { color: rgba(255,255,255,.65); }
-header.site[data-header="over-dark"] .contact-link:hover { color: #fff; }
-header.site[data-header="over-dark"] .wa-link { color: rgba(255,255,255,.65); }
-header.site[data-header="over-dark"] .wa-link:hover { color: #25D366; }
-header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); }
+header.site:not(.scrolled)[data-header="over-dark"] .nav-left a { color: rgba(255,255,255,.65); }
+header.site:not(.scrolled)[data-header="over-dark"] .nav-left a:hover { color: #fff; }
+header.site:not(.scrolled)[data-header="over-dark"] .brand b { color: #fff; }
+header.site:not(.scrolled)[data-header="over-dark"] .brand small { color: rgba(255,255,255,.5); }
+header.site:not(.scrolled)[data-header="over-dark"] .toggle { border-color: rgba(255,255,255,.28); }
+header.site:not(.scrolled)[data-header="over-dark"] .toggle button { color: rgba(255,255,255,.55); }
+header.site:not(.scrolled)[data-header="over-dark"] .contact-link { color: rgba(255,255,255,.65); }
+header.site:not(.scrolled)[data-header="over-dark"] .contact-link:hover { color: #fff; }
+header.site:not(.scrolled)[data-header="over-dark"] .wa-link { color: rgba(255,255,255,.65); }
+header.site:not(.scrolled)[data-header="over-dark"] .wa-link:hover { color: #25D366; }
+header.site:not(.scrolled)[data-header="over-dark"] .toggle button.on { color: var(--on-gold); }
 
 /* ================================================================
    SCROLL REVEAL
