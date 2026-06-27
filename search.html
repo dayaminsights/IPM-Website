@@ -599,8 +599,8 @@ footer {
 /* ── hero ── */
 .sh-hero {
   position: relative; height: 62vh; min-height: 440px; max-height: 700px;
-  overflow: hidden; display: flex; align-items: flex-end;
-  margin-top: -80px;
+  display: flex; align-items: flex-end;
+  margin-top: -80px; z-index: 10;
 }
 .sh-hero-img {
   position: absolute; inset: 0; width: 100%; height: 100%;
@@ -1652,6 +1652,18 @@ window.addEventListener('scroll', () => {
   }
   if (params.get('collection')) { state.collections.add(params.get('collection')); }
   if (params.get('coloured'))   { state.coloured   = true; }
+  if (!params.get('category') && !params.get('collection') && !params.get('coloured') && !params.get('q')) {
+    const _pf = sessionStorage.getItem('ipm_pending_filter');
+    if (_pf) {
+      const [_t, _v] = _pf.split(':');
+      if (_t === 'category' && _v === 'Accessories') { activateAccessories(); }
+      else if (_t === 'category') { state.categories.add(_v); }
+      else if (_t === 'collection') { state.collections.add(_v); }
+      else if (_t === 'coloured') { state.coloured = true; }
+      sessionStorage.removeItem('ipm_pending_filter');
+    }
+  }
+  refreshCatChips(); refreshCollChips();
   if (!params.get('category') && !params.get('collection') && !params.get('coloured') && !params.get('q')) {
     const _pf = sessionStorage.getItem('ipm_pending_filter');
     if (_pf) {
