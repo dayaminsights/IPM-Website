@@ -81,7 +81,7 @@
    RESET + BASE
 ================================================================ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; overflow-x: hidden; }
+html { scroll-behavior: smooth; }
 body {
   background: var(--bg);
   color: var(--ink);
@@ -90,6 +90,7 @@ body {
   line-height: 1.72;
   -webkit-font-smoothing: antialiased;
   transition: background .6s, color .6s;
+  overflow-x: hidden;
 }
 img { display: block; max-width: 100%; }
 [hidden] { display: none !important; }
@@ -237,7 +238,7 @@ header.site.scrolled { box-shadow: 0 1px 32px rgba(18,14,8,.08); }
 .nav-right { justify-self: end; display: flex; align-items: center; gap: 28px; }
 .contact-link {
   display: flex; align-items: center; gap: 9px;
-  font-family: 'DM Sans', sans-serif; font-size: 11px; letter-spacing: .16em;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; letter-spacing: .14em;
   text-transform: uppercase; color: var(--soft); transition: color .3s;
 }
 .contact-link:hover { color: var(--ink); }
@@ -501,7 +502,7 @@ footer {
 .wa-link {
   display: flex; align-items: center; gap: 7px;
   color: var(--soft); font-family: 'DM Sans', sans-serif;
-  font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+  font-size: 13px; letter-spacing: .08em; text-transform: uppercase;
   transition: color .2s;
 }
 .wa-link:hover { color: #25D366; }
@@ -598,8 +599,8 @@ footer {
 /* ── hero ── */
 .sh-hero {
   position: relative; height: 62vh; min-height: 440px; max-height: 700px;
-  display: flex; align-items: flex-end;
-  margin-top: -80px; z-index: 10;
+  overflow: hidden; display: flex; align-items: flex-end;
+  margin-top: -80px;
 }
 .sh-hero-img {
   position: absolute; inset: 0; width: 100%; height: 100%;
@@ -609,7 +610,7 @@ footer {
   position: absolute; inset: 0;
   background: linear-gradient(160deg, rgba(12,10,6,.12) 0%, rgba(12,10,6,.78) 100%);
 }
-.sh-hero-content { position: relative; padding-bottom: 56px; width: 100%; }
+.sh-hero-content { position: relative; z-index: 1; padding-bottom: 56px; width: 100%; }
 .sh-hero-content .eyebrow { color: rgba(255,255,255,.62); margin-bottom: 12px; }
 .sh-hero-content .eyebrow::before { background: rgba(255,255,255,.45); }
 .sh-title {
@@ -662,7 +663,7 @@ footer {
 
 /* ── search suggestions (typeahead dropdown) ── */
 .search-suggest {
-  position: absolute; top: calc(100% + 10px); left: 0; right: 0; z-index: 9999;
+  position: absolute; top: calc(100% + 10px); left: 0; right: 0; z-index: 40;
   background: var(--paper); border: 1px solid var(--line);
   border-radius: 18px; box-shadow: var(--shadow-lg);
   padding: 6px; max-height: 64vh; overflow-y: auto;
@@ -821,12 +822,12 @@ footer {
 /* image stage — finish cycling happens here */
 .card-stage {
   position: relative; aspect-ratio: 4/3; overflow: hidden;
-  background: #f2ede3; flex-shrink: 0; isolation: isolate;
+  background: var(--cream); flex-shrink: 0; isolation: isolate;
 }
 .card-stage img {
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: contain; padding: 5%; box-sizing: border-box;
-  transition: opacity .38s ease; mix-blend-mode: multiply;
+  transition: opacity .38s ease;
 }
 .card-stage img.is-hidden { opacity: 0; pointer-events: none; }
 .card-stage img.is-visible { opacity: 1; }
@@ -1027,7 +1028,7 @@ mark { background: var(--gold-pale); color: inherit; border-radius: 2px; padding
         <div class="chips" id="catChips">
           <button class="chip is-active" data-filter="category" data-c="">All</button>
           <button class="chip" data-filter="category" data-c="Faucets">Faucets</button>
-        <button class="chip" data-filter="category" data-c="Kitchen Mixers">Kitchen Area</button>
+        <button class="chip" data-filter="category" data-c="Kitchen Mixers">Kitchen Mixers</button>
         <button class="chip" data-filter="category" data-c="Shower">Shower</button>
           <button class="chip chip-coloured" data-filter="coloured" data-c="1">Coloured Finishes</button>
         </div>
