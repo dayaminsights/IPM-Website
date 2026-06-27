@@ -2429,28 +2429,28 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
     <a href="collections.html" class="link-arrow">See All</a>
   </div>
   <div class="cats stagger-children">
-    <a href="search.html?category=Faucets" class="cat">
+    <a href="search.html?category=Faucets" class="cat" data-ipm-filter="category:Faucets">
       <img src="images/home/cat-faucets.jpg" alt="Faucets" loading="lazy">
       <div class="ov">
         <span class="cat-name serif">Faucets</span>
         <span class="cat-link">Shop Now →</span>
       </div>
     </a>
-    <a href="search.html?coloured=1" class="cat">
+    <a href="search.html?coloured=1" class="cat" data-ipm-filter="coloured:1">
       <img src="images/home/cat-coloured.jpg" alt="Coloured Faucets" loading="lazy">
       <div class="ov">
         <span class="cat-name serif">Coloured Faucets</span>
         <span class="cat-link">Shop Now →</span>
       </div>
     </a>
-    <a href="search.html?category=Shower" class="cat">
+    <a href="search.html?category=Shower" class="cat" data-ipm-filter="category:Shower">
       <img src="images/home/cat-showers.jpg" alt="Showers" loading="lazy">
       <div class="ov">
         <span class="cat-name serif">Showers</span>
         <span class="cat-link">Shop Now →</span>
       </div>
     </a>
-    <a href="search.html?category=Accessories" class="cat">
+    <a href="search.html?category=Accessories" class="cat" data-ipm-filter="category:Accessories">
       <img src="images/home/cat-accessories.jpg" alt="Accessories" loading="lazy">
       <div class="ov">
         <span class="cat-name serif">Accessories</span>
@@ -2464,7 +2464,7 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
         <span class="cat-link">Shop Now →</span>
       </div>
     </a>
-    <a href="search.html?category=Kitchen+Mixers" class="cat">
+    <a href="search.html?category=Kitchen+Mixers" class="cat" data-ipm-filter="category:Kitchen Mixers">
       <img src="images/home/cat-sink.jpg" alt="Kitchen Area" loading="lazy">
       <div class="ov">
         <span class="cat-name serif">Kitchen Area</span>
@@ -3233,6 +3233,13 @@ mobMenuBtn.addEventListener('click', () => toggleMobNav());
 mobNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMobNav(false)));
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && mobNav.classList.contains('open')) toggleMobNav(false);
+});
+
+/* ── Category tile filter handoff via sessionStorage ── */
+document.querySelectorAll('.cat[data-ipm-filter]').forEach(a => {
+  a.addEventListener('click', () => {
+    sessionStorage.setItem('ipm_pending_filter', a.dataset.ipmFilter);
+  });
 });
 
 </script>

@@ -1662,8 +1662,18 @@ window.addEventListener('scroll', () => {
     else { state.categories.add(cat); }
   }
   if (params.get('collection')) { state.collections.add(params.get('collection')); }
-  if (params.get('coloured'))   { state.coloured   = true; }
-  // Update chip visuals immediately — don't wait for data fetch
+  if (params.get('coloured'))   { state.coloured   = true; }  // Fallback: read filter stored by home page category tiles
+  if (!params.get('category') && !params.get('collection') && !params.get('coloured') && !params.get('q')) {
+    const pending = sessionStorage.getItem('ipm_pending_filter');
+    if (pending) {
+      const [type, value] = pending.split(':');
+      if (type === 'category' && value === 'Accessories') { activateAccessories(); }
+      else if (type === 'category') { state.categories.add(value); }
+      else if (type === 'coloured') { state.coloured = true; }
+      sessionStorage.removeItem('ipm_pending_filter');
+    }
+  }
+    // Update chip visuals immediately — don't wait for data fetch
   refreshCatChips();
   refreshCollChips();
 
