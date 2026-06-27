@@ -261,9 +261,8 @@ ${enquiryModalHtml}`;
   const pageCss = `
 /* ── product main ── */
 .product-main-sec { padding-top: 56px; }
-.gallery .arch { aspect-ratio: 1/1; background: var(--cream); }
-.gallery .arch img { transition: opacity .4s ease; }
-[data-theme="light"] .gallery .arch img { mix-blend-mode: multiply; }
+.gallery .arch { aspect-ratio: 1/1; background: #f2ede3; }
+.gallery .arch img { transition: opacity .4s ease; mix-blend-mode: multiply; }
 .gallery .arch img.is-fading { opacity: 0; }
 
 /* progress bar (auto-cycle) */
