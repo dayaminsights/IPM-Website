@@ -81,7 +81,7 @@
    RESET + BASE
 ================================================================ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
 body {
   background: var(--bg);
   color: var(--ink);
@@ -90,7 +90,6 @@ body {
   line-height: 1.72;
   -webkit-font-smoothing: antialiased;
   transition: background .6s, color .6s;
-  overflow-x: hidden;
 }
 img { display: block; max-width: 100%; }
 [hidden] { display: none !important; }
@@ -610,7 +609,7 @@ footer {
   position: absolute; inset: 0;
   background: linear-gradient(160deg, rgba(12,10,6,.12) 0%, rgba(12,10,6,.78) 100%);
 }
-.sh-hero-content { position: relative; z-index: 1; padding-bottom: 56px; width: 100%; }
+.sh-hero-content { position: relative; padding-bottom: 56px; width: 100%; }
 .sh-hero-content .eyebrow { color: rgba(255,255,255,.62); margin-bottom: 12px; }
 .sh-hero-content .eyebrow::before { background: rgba(255,255,255,.45); }
 .sh-title {
@@ -663,7 +662,7 @@ footer {
 
 /* ── search suggestions (typeahead dropdown) ── */
 .search-suggest {
-  position: absolute; top: calc(100% + 10px); left: 0; right: 0; z-index: 40;
+  position: absolute; top: calc(100% + 10px); left: 0; right: 0; z-index: 9999;
   background: var(--paper); border: 1px solid var(--line);
   border-radius: 18px; box-shadow: var(--shadow-lg);
   padding: 6px; max-height: 64vh; overflow-y: auto;
