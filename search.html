@@ -1663,6 +1663,9 @@ window.addEventListener('scroll', () => {
   }
   if (params.get('collection')) { state.collections.add(params.get('collection')); }
   if (params.get('coloured'))   { state.coloured   = true; }
+  // Update chip visuals immediately — don't wait for data fetch
+  refreshCatChips();
+  refreshCollChips();
 
   /* ── load index ── */
   fetch('search-index.json')
