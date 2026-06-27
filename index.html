@@ -925,7 +925,7 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
   position: relative;
   flex: 1;
   min-height: 0;
-  background: var(--paper);
+  background: #f2ede3;
   overflow: hidden;
   border-radius: 16px 16px 0 0;
   border: 1px solid var(--line);
@@ -948,6 +948,7 @@ header.site[data-header="over-dark"] .toggle button.on { color: var(--on-gold); 
   padding: 12%;
   box-sizing: border-box;
   transition: transform .7s cubic-bezier(.2,.6,.2,1);
+  mix-blend-mode: multiply;
 }
 .pcard:hover .img .pshot { transform: scale(1.06); }
 .pcard .badge {
@@ -2752,8 +2753,8 @@ const PRODUCTS = [
   {n:"Single Lever Basin Mixer",sku:"1718-RGLD",collection:"Opell Prima",fin:"Rose Gold",img:"images/products/opell-prima/single-lever-basin-mixer-rose-gold.png",link:"collections/opell-prima/single-lever-basin-mixer/",badge:""},
   {n:"Bath Spout",sku:"9021-MB",collection:"Zenith",fin:"Matt Black",img:"images/products/zenith/bath-spout-matt-black.png",link:"collections/zenith/bath-spout/",badge:""},
   {n:"Center Hole Basin Mixer",sku:"571",collection:"Aliva",fin:"Chrome",img:"images/products/aliva/center-hole-basin-mixer-chrome.jpg",link:"collections/aliva/center-hole-basin-mixer/",badge:""},
-  {n:"Single Lever Basin Mixer",sku:"561",collection:"Aliva",fin:"Chrome",img:"images/products/aliva/single-lever-basin-mixer-chrome.png",link:"collections/aliva/single-lever-basin-mixer/",badge:""},
-  {n:"Single Lever Basin Mixer Extended Body",sku:"1419-GLD",collection:"Neo",fin:"Rich Gold",img:"images/products/neo/single-lever-basin-mixer-extended-body-rich-gold.png",link:"collections/neo/single-lever-basin-mixer-extended-body/",badge:"NEW"},
+  {n:"2 Way Angle Valve",sku:"562",collection:"Aliva",fin:"Chrome",img:"images/products/aliva/2-way-angle-valve-with-flange-chrome.jpg",link:"collections/aliva/2-way-angle-valve-with-flange/",badge:""},
+  {n:"Single Lever Basin Mixer Extended Body",sku:"1419-GLD",collection:"Neo",fin:"Rich Gold",img:"images/products/neo/single-lever-basin-mixer-extended-body-chrome.png",link:"collections/neo/single-lever-basin-mixer-extended-body/",badge:"NEW"},
   {n:"Bath Spout",sku:"421",collection:"Pebble",fin:"Chrome",img:"images/products/pebble/bath-spout-chrome.png",link:"collections/pebble/bath-spout/",badge:""},
   {n:"Bath Spout",sku:"8023",collection:"Flora",fin:"Chrome",img:"images/products/flora/bath-spout-chrome.png",link:"collections/flora/bath-spout/",badge:""},
   {n:"Bath Spout",sku:"226",collection:"Fuzone",fin:"Chrome",img:"images/products/fuzone/bath-spout-chrome.png",link:"collections/fuzone/bath-spout/",badge:""}
