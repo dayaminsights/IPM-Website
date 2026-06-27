@@ -1110,14 +1110,14 @@ footer {
     </div>
 
     <div class="sig-block">
-      <div class="sig-vis">
+      <a href="collections/zenith/" class="sig-vis" data-ipm-filter="collection:zenith">
         <div class="arch"><img src="images/collections/line-aliva.jpg" alt="Zenith collection — brass fittings" style="object-position: 60% calc(12% - 10px);"></div>
-      </div>
+      </a>
       <div class="sig-copy">
         <div class="eyebrow">Signature Line</div>
         <h3 class="serif">Zenith</h3>
         <p>Bold geometry and a distinctive coloured finish — Zenith brings a statement presence to faucets, showers and accessories for spaces that demand character.</p>
-        <a href="collections/zenith/" class="link-arrow">Discover Zenith</a>
+        <a href="collections/zenith/" class="link-arrow" data-ipm-filter="collection:zenith">Discover Zenith</a>
       </div>
     </div>
 
@@ -1126,22 +1126,22 @@ footer {
         <div class="eyebrow">Signature Line</div>
         <h3 class="serif">Opell Prima</h3>
         <p>Sharp geometry and a confident, architectural silhouette — Opell Prima is built for spaces that favour clean lines and considered detail.</p>
-        <a href="collections/opell-prima/" class="link-arrow">Discover Opell Prima</a>
+        <a href="collections/opell-prima/" class="link-arrow" data-ipm-filter="collection:opell-prima">Discover Opell Prima</a>
       </div>
-      <div class="sig-vis">
+      <a href="collections/opell-prima/" class="sig-vis" data-ipm-filter="collection:opell-prima">
         <div class="arch"><img src="images/home/line-opell-prima.jpg" alt="Opell Prima collection — geometric brass fittings" style="object-position: center calc(50% - 50px);"></div>
-      </div>
+      </a>
     </div>
 
     <div class="sig-block">
-      <div class="sig-vis">
+      <a href="collections/para/" class="sig-vis" data-ipm-filter="collection:para">
         <div class="arch"><img src="images/collections/line-para.jpg" alt="Para collection — refined brass fittings"></div>
-      </div>
+      </a>
       <div class="sig-copy">
         <div class="eyebrow">Signature Line</div>
         <h3 class="serif">Para</h3>
         <p>Refined proportions and a timeless silhouette — Para is crafted for spaces where enduring quality speaks quietly. Solid brass, considered from every angle.</p>
-        <a href="collections/para/" class="link-arrow">Discover Para</a>
+        <a href="collections/para/" class="link-arrow" data-ipm-filter="collection:para">Discover Para</a>
       </div>
     </div>
   </div>
@@ -1931,8 +1931,9 @@ if (!reduceMotion && window.gsap && window.matchMedia('(hover: hover)').matches)
 
 /* Store collection slug in sessionStorage so search page can apply the filter
    even if the collection-page redirect somehow loses URL params. */
-document.querySelectorAll('a[href^="collections/"]').forEach(a => {
+document.querySelectorAll('a[href^="collections/"], [data-ipm-filter]').forEach(a => {
   a.addEventListener('click', () => {
+    if (a.dataset.ipmFilter) { sessionStorage.setItem('ipm_pending_filter', a.dataset.ipmFilter); return; }
     const m = a.getAttribute('href').match(/^collections\/([^/]+)\//);
     if (m) sessionStorage.setItem('ipm_pending_filter', 'collection:' + m[1]);
   });
