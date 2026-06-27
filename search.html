@@ -599,8 +599,8 @@ footer {
 /* ── hero ── */
 .sh-hero {
   position: relative; height: 62vh; min-height: 440px; max-height: 700px;
-  overflow: hidden; display: flex; align-items: flex-end;
-  margin-top: -80px;
+  display: flex; align-items: flex-end;
+  margin-top: -80px; z-index: 10;
 }
 .sh-hero-img {
   position: absolute; inset: 0; width: 100%; height: 100%;
@@ -1028,7 +1028,7 @@ mark { background: var(--gold-pale); color: inherit; border-radius: 2px; padding
         <div class="chips" id="catChips">
           <button class="chip is-active" data-filter="category" data-c="">All</button>
           <button class="chip" data-filter="category" data-c="Faucets">Faucets</button>
-        <button class="chip" data-filter="category" data-c="Kitchen Mixers">Kitchen Mixers</button>
+        <button class="chip" data-filter="category" data-c="Kitchen Mixers">Kitchen Area</button>
         <button class="chip" data-filter="category" data-c="Shower">Shower</button>
           <button class="chip chip-coloured" data-filter="coloured" data-c="1">Coloured Finishes</button>
         </div>
