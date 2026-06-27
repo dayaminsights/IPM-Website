@@ -9,13 +9,10 @@ function renderSearchIndex(collections, productGroups) {
     const variantImages = g.variants
       .filter(v => v.image)
       .slice(0, 6)
-      .map(v => ({ finish: v.finish, image: (v.image || '').replace(/^\//, ''), price: v.price || '' }));
+      .map(v => ({ finish: v.finish, image: (v.image || '').replace(/^\//, ''), price: v.price || '', swatch: v.swatchClass || '' }));
     const isColoured = g.variants.some(v => v.finish !== 'Chrome');
-    // Swatch classes for the first 5 colour variants (skip Chrome for the dots)
-    const swatches = g.variants
-      .filter(v => v.finish !== 'Chrome' && v.swatchClass && v.swatchClass !== 'f-chrome')
-      .slice(0, 5)
-      .map(v => ({ finish: v.finish, swatch: v.swatchClass }));
+    // swatches kept for backwards compat but dots now built from variantImages in search.html
+    const swatches = variantImages.map(v => ({ finish: v.finish, swatch: v.swatch }));
 
     return {
       name: g.skuName,

@@ -81,7 +81,7 @@
    RESET + BASE
 ================================================================ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; overflow-x: hidden; }
+html { scroll-behavior: smooth; }
 body {
   background: var(--bg);
   color: var(--ink);
@@ -90,6 +90,7 @@ body {
   line-height: 1.72;
   -webkit-font-smoothing: antialiased;
   transition: background .6s, color .6s;
+  overflow-x: hidden;
 }
 img { display: block; max-width: 100%; }
 [hidden] { display: none !important; }
@@ -598,8 +599,8 @@ footer {
 /* ── hero ── */
 .sh-hero {
   position: relative; height: 62vh; min-height: 440px; max-height: 700px;
-  display: flex; align-items: flex-end;
-  margin-top: -80px; z-index: 10;
+  overflow: hidden; display: flex; align-items: flex-end;
+  margin-top: -80px;
 }
 .sh-hero-img {
   position: absolute; inset: 0; width: 100%; height: 100%;
@@ -662,7 +663,7 @@ footer {
 
 /* ── search suggestions (typeahead dropdown) ── */
 .search-suggest {
-  position: absolute; top: calc(100% + 10px); left: 0; right: 0; z-index: 40;
+  position: absolute; top: calc(100% + 10px); left: 0; right: 0; z-index: 9999;
   background: var(--paper); border: 1px solid var(--line);
   border-radius: 18px; box-shadow: var(--shadow-lg);
   padding: 6px; max-height: 64vh; overflow-y: auto;
