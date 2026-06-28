@@ -846,8 +846,16 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
 }
 
 @media (max-width: 860px) {
-  .nav-left { display: none; }
+  .nav-left a { display: none; }
   .mob-menu-btn { display: flex; }
+  .brand b::after { display: none; }
+  .head-in { padding: 0 20px; }
+  .contact-link { display: none; }
+  .toggle { display: none; }
+  .mob-nav { top: 80px; }
+  .util-in > span:first-child { display: none; }
+  .util .right { display: none; }
+  .util .mid { flex: 1; }
   .contact-wrap { padding: 0 20px; }
   .contact-section { padding: 80px 0 72px; }
   .contact-info { padding: 48px 28px; }
@@ -896,6 +904,9 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
       <a href="collections.html">Collections</a>
       <a href="about.html">About Us</a>
       <a href="search.html">Search</a>
+      <button class="mob-menu-btn" id="mobMenuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobNav">
+        <span></span><span></span><span></span>
+      </button>
     </nav>
     <a href="index.html" class="brand">
       <b>IPM</b>
@@ -919,9 +930,6 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
         <button data-theme="light" class="on">Light</button>
         <button data-theme="dark">Dark</button>
       </div>
-      <button class="mob-menu-btn" id="mobMenuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobNav">
-        <span></span><span></span><span></span>
-      </button>
     </div>
   </div>
 </header>
