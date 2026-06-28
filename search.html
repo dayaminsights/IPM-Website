@@ -658,8 +658,8 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
 /* ── hero ── */
 .sh-hero {
   position: relative; height: 62vh; min-height: 440px; max-height: 700px;
-  overflow: hidden; display: flex; align-items: flex-end;
-  margin-top: -80px;
+  display: flex; align-items: flex-end;
+  margin-top: -80px; z-index: 10;
 }
 .sh-hero-img {
   position: absolute; inset: 0; width: 100%; height: 100%;
@@ -722,7 +722,7 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
 
 /* ── search suggestions (typeahead dropdown) ── */
 .search-suggest {
-  position: absolute; top: calc(100% + 10px); left: 0; right: 0; z-index: 40;
+  position: absolute; top: calc(100% + 10px); left: 0; right: 0; z-index: 9999;
   background: var(--paper); border: 1px solid var(--line);
   border-radius: 18px; box-shadow: var(--shadow-lg);
   padding: 6px; max-height: 64vh; overflow-y: auto;
@@ -881,12 +881,12 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
 /* image stage — finish cycling happens here */
 .card-stage {
   position: relative; aspect-ratio: 4/3; overflow: hidden;
-  background: var(--cream); flex-shrink: 0; isolation: isolate;
+  background: #f2ede3; flex-shrink: 0; isolation: isolate;
 }
 .card-stage img {
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: contain; padding: 5%; box-sizing: border-box;
-  transition: opacity .38s ease;
+  transition: opacity .38s ease; mix-blend-mode: multiply;
 }
 .card-stage img.is-hidden { opacity: 0; pointer-events: none; }
 .card-stage img.is-visible { opacity: 1; }
