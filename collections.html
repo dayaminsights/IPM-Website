@@ -1684,12 +1684,9 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
     gsap.set(vis,    { opacity: 0, x: fromX });
     gsap.set(copy,   { opacity: 0, y: 32 });
 
-    /* Aperture morph driven directly by scroll position — opens as the block scrolls
-       into view and closes again on the way back up, so the shape change reads as
-       something the user is causing by scrolling, not a flash that auto-plays. */
-    gsap.to(clipEl, {
-      morphSVG: SIG_ARCH_FULL, ease: 'none',
-      scrollTrigger: { trigger: block, start: 'top 90%', end: 'top 62%', scrub: .6 }
+    ScrollTrigger.create({
+      trigger: block, start: 'top 78%', once: true,
+      onEnter: () => gsap.to(clipEl, { morphSVG: SIG_ARCH_FULL, duration: 0.7, ease: 'power2.inOut' })
     });
 
     ScrollTrigger.create({
@@ -1751,11 +1748,9 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
     gsap.set(vis,    { opacity: 0, x: fromX });
     gsap.set(copy,   { opacity: 0, y: 28 });
 
-    /* Aperture scrubs open exactly like sig-blocks: scroll-bound, reversible.
-       clipPath stays on img so the reverse-scrub can close it on scroll-up. */
-    gsap.to(clipEl, {
-      morphSVG: RANGE_FULL, ease: 'none',
-      scrollTrigger: { trigger: block, start: 'top 90%', end: 'top 62%', scrub: .6 }
+    ScrollTrigger.create({
+      trigger: block, start: 'top 78%', once: true,
+      onEnter: () => gsap.to(clipEl, { morphSVG: RANGE_FULL, duration: 0.7, ease: 'power2.inOut' })
     });
 
     let enterTl = null;
