@@ -640,6 +640,7 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
   .nav-left a { display: none; }
   .mob-menu-btn { display: flex; }
   .head-in { padding: 0 20px; }
+  .brand { padding-right: 30px; }
   .contact-link { display: none; }
   .toggle { display: none; }
   .mob-nav { top: 80px; }
