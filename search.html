@@ -1757,8 +1757,8 @@ if (mobMenuBtn && mobNav) {
       // Activate chips matching URL state
       if (state.category)   activateChip(catChips,  state.category);
       else if (state.coloured) { catChips.querySelectorAll('.chip').forEach(b => b.classList.remove('is-active')); catChips.querySelector('.chip-coloured').classList.add('is-active'); }
+      if (state.coloured) { data.items.filter(it => it.isColoured).forEach(it => { if (it.collectionSlug) state.collections.add(it.collectionSlug); }); }
       if (state.collections.size) {
-        if (state.coloured) { data.items.filter(it => it.isColoured).forEach(it => { if (it.collectionSlug) state.collections.add(it.collectionSlug); }); }
         refreshCollChips();
       }
       render();
