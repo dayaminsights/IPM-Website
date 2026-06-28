@@ -583,8 +583,56 @@ footer {
 /* ================================================================
    RESPONSIVE BASELINE
 ================================================================ */
+.mob-menu-btn {
+  display: none; flex-direction: column; gap: 5px;
+  background: transparent; border: 0; cursor: pointer; padding: 4px;
+}
+.mob-menu-btn span {
+  display: block; width: 22px; height: 1.5px; background: var(--ink);
+  transition: transform .35s cubic-bezier(.4,0,.2,1), opacity .25s;
+  transform-origin: center;
+}
+.mob-menu-btn[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.mob-menu-btn[aria-expanded="true"] span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.mob-menu-btn[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
+.mob-nav {
+  position: fixed; inset: 0; top: 80px;
+  background: color-mix(in srgb, var(--bg) 97%, transparent);
+  backdrop-filter: blur(12px); z-index: 59;
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: flex-start; padding: 48px 28px 32px; gap: 6px;
+  transform: translateY(-100%); opacity: 0;
+  transition: transform .4s cubic-bezier(.4,0,.2,1), opacity .35s;
+  pointer-events: none;
+}
+.mob-nav.open { transform: none; opacity: 1; pointer-events: auto; }
+.mob-nav a {
+  font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 400;
+  color: var(--ink); letter-spacing: .02em;
+  padding: 10px 0; border-bottom: 1px solid var(--line);
+  width: 100%; text-align: center; transition: color .25s;
+}
+.mob-nav a:hover { color: var(--gold); }
+.mob-nav .mob-wa {
+  margin-top: 28px; display: flex; align-items: center; gap: 10px;
+  font-family: 'DM Sans', sans-serif; font-size: 12px; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--soft);
+  padding: 14px 24px; border: 1px solid var(--line-2); border-radius: 100px;
+  transition: color .25s, border-color .25s;
+}
+.mob-nav .mob-wa:hover { color: #25D366; border-color: #25D366; }
+
 @media (max-width: 860px) {
-  .nav-left { display: none; }
+  .nav-left a { display: none; }
+  .mob-menu-btn { display: flex; }
+  .head-in { padding: 0 20px; }
+  .contact-link { display: none; }
+  .toggle { display: none; }
+  .mob-nav { top: 80px; }
+  .util-in > span:first-child { display: none; }
+  .util .right { display: none; }
+  .util .mid { flex: 1; }
   .wrap, .pad-x { padding-left: 28px; padding-right: 28px; }
   .foot-cols { grid-template-columns: repeat(2, 1fr); padding-left: 28px; padding-right: 28px; }
   .foot-bottom { padding-left: 28px; padding-right: 28px; }
@@ -593,6 +641,14 @@ footer {
   .page-hero h1 { font-size: clamp(44px, 10vw, 80px); }
   .sec { padding-top: 80px; padding-bottom: 80px; }
   .float-cta { bottom: 20px; right: 16px; }
+}
+@media (max-width: 480px) {
+  .head-in { padding: 0 16px; height: 64px; }
+  .mob-nav { top: 64px; }
+  .brand b { font-size: 22px; }
+  .brand small { letter-spacing: .16em; }
+  .foot-cols { grid-template-columns: 1fr; gap: 32px; }
+  .foot-bottom { flex-direction: column; gap: 10px; text-align: center; }
 }
 
 /* ================================================================
@@ -812,6 +868,9 @@ footer {
       <a href="../../../collections.html" class="active">Collections</a>
       <a href="../../../about.html">About Us</a>
       <a href="../../../search.html">Search</a>
+      <button class="mob-menu-btn" id="mobMenuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobNav">
+        <span></span><span></span><span></span>
+      </button>
     </nav>
     <a href="../../../index.html" class="brand">
       <b>IPM</b>
@@ -841,6 +900,19 @@ footer {
     </div>
   </div>
 </header>
+
+<!-- Mobile nav -->
+<nav class="mob-nav" id="mobNav" aria-label="Mobile navigation">
+  <a href="../../../index.html">Home</a>
+  <a href="../../../collections.html">Collections</a>
+  <a href="../../../about.html">About Us</a>
+  <a href="../../../search.html">Search</a>
+  <a href="../../../contact.html">Contact</a>
+  <a href="https://wa.me/917827025280?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20IPM%20Bath%20Fittings" target="_blank" rel="noopener" class="mob-wa">
+    <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.122.554 4.118 1.523 5.851L.057 23.082a.75.75 0 0 0 .917.928l5.347-1.477A11.955 11.955 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.651-.52-5.157-1.424l-.37-.22-3.167.875.882-3.082-.242-.382A9.961 9.961 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    WhatsApp
+  </a>
+</nav>
 
 <div class="wrap">
   <div class="breadcrumb">
@@ -1182,6 +1254,25 @@ function onScroll() {
 window.addEventListener('scroll', () => {
   if (!scrollRaf) { scrollRaf = true; requestAnimationFrame(onScroll); }
 }, { passive: true });
+
+/* ================================================================
+   MOBILE NAV TOGGLE
+================================================================ */
+const mobMenuBtn = document.getElementById('mobMenuBtn');
+const mobNav     = document.getElementById('mobNav');
+if (mobMenuBtn && mobNav) {
+  function toggleMobNav(force) {
+    const open = force !== undefined ? force : mobNav.classList.contains('open');
+    mobNav.classList.toggle('open', !open);
+    mobMenuBtn.setAttribute('aria-expanded', String(!open));
+    mobMenuBtn.setAttribute('aria-label', open ? 'Open menu' : 'Close menu');
+  }
+  mobMenuBtn.addEventListener('click', () => toggleMobNav());
+  mobNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMobNav(false)));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && mobNav.classList.contains('open')) toggleMobNav(false);
+  });
+}
 
 /* ================================================================
    PAGE-SPECIFIC JS
