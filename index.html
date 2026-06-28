@@ -1785,9 +1785,10 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
   /* nav-left stays visible but only shows the hamburger */
   .nav-left a { display: none; }
   .mob-menu-btn { display: flex; }
-  /* Header: collapse padding, hide nav-right items that don't fit */
-  .head-in { grid-template-columns: 1fr auto 1fr; padding: 0 20px; }
-  .brand { padding-right: 30px; }
+  /* Header: flex on mobile — brand absolutely centered */
+  .head-in { display: flex; align-items: center; padding: 0 20px; position: relative; }
+  .brand { position: absolute; left: 50%; transform: translateX(-50%); }
+  .nav-right { margin-left: auto; }
   .contact-link { display: none; }
   .toggle { display: none; }
   /* Utility bar: hide left/right text, show only marquee */

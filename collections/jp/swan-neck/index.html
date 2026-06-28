@@ -626,8 +626,9 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
 @media (max-width: 860px) {
   .nav-left a { display: none; }
   .mob-menu-btn { display: flex; }
-  .head-in { padding: 0 20px; }
-  .brand { padding-right: 30px; }
+  .head-in { display: flex; align-items: center; padding: 0 20px; position: relative; }
+  .brand { position: absolute; left: 50%; transform: translateX(-50%); }
+  .nav-right { margin-left: auto; }
   .contact-link { display: none; }
   .toggle { display: none; }
   .mob-nav { top: 80px; }
