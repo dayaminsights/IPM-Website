@@ -982,6 +982,16 @@ if (mobMenuBtn && mobNav) {
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && mobNav.classList.contains('open')) toggleMobNav(false);
   });
+}
+
+/* ================================================================
+   SMOOTH SCROLL (Lenis)
+================================================================ */
+if (window.Lenis) {
+  const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+  function lenisRaf(t) { lenis.raf(t); requestAnimationFrame(lenisRaf); }
+  requestAnimationFrame(lenisRaf);
+  document.addEventListener('visibilitychange', () => { if (document.hidden) lenis.stop(); else lenis.start(); }, { passive: true });
 }`;
 
 function renderPage({ head, bodyContent, pageCss = '', pageJs = '' }) {
@@ -1006,6 +1016,7 @@ ${pageCss}
 
 ${bodyContent}
 
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.23/dist/lenis.min.js"></script>
 <script>
 ${BASE_SCRIPT}
 

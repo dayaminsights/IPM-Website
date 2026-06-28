@@ -1614,7 +1614,7 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
   /* ---- LENIS: inertial smooth scroll, proxied into ScrollTrigger ---- */
   let lenis;
   if (window.Lenis) {
-    lenis = new Lenis({ lerp: .085, smoothWheel: true });
+    lenis = new Lenis({ lerp: .1, smoothWheel: true });
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add(time => lenis.raf(time * 1000));
     gsap.ticker.lagSmoothing(0);
