@@ -471,16 +471,30 @@ footer {
 /* ================================================================
    BACK TO TOP
 ================================================================ */
+.fab-cluster {
+  position: fixed; bottom: 32px; right: 28px; z-index: 150;
+  display: flex; align-items: center; gap: 10px;
+}
 .back-top {
-  position: fixed; bottom: 32px; right: 28px; z-index: 140;
-  width: 44px; height: 44px; background: var(--ink); color: var(--bg);
+  width: 44px; height: 44px; flex-shrink: 0;
+  background: var(--ink); color: var(--bg);
   border: 0; border-radius: 50%; cursor: pointer; font-size: 18px;
   display: flex; align-items: center; justify-content: center;
-  box-shadow: var(--shadow-md);
-  transition: background .25s, transform .25s, opacity .3s; opacity: 0.8;
+  box-shadow: 0 4px 16px rgba(18,14,8,.22);
+  transition: background .25s, transform .25s;
 }
-.back-top:hover { background: var(--gold); transform: translateY(-3px); opacity: 1; }
 .back-top[hidden] { display: none; }
+.back-top:hover { background: var(--gold); transform: translateY(-3px); }
+.fab-book {
+  display: flex; align-items: center; gap: 7px;
+  padding: 0 20px; height: 44px; border-radius: 22px;
+  background: var(--gold-2); color: var(--on-gold); text-decoration: none;
+  font-family: 'DM Sans', sans-serif; font-size: 11px;
+  font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+  white-space: nowrap; box-shadow: 0 4px 16px rgba(154,115,64,.28);
+  transition: background .25s, transform .25s;
+}
+.fab-book:hover { background: var(--gold); transform: translateY(-3px); }
 
 /* ================================================================
    FLOATING CONTACT CTA
@@ -1446,32 +1460,13 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
   </div>
 </footer>
 
-<!-- ===== FLOATING CONTACT CTA ===== -->
-<div id="floatCta" class="float-cta" hidden>
-  <div class="float-cta-panel" id="floatCtaPanel" hidden>
-    <div class="float-cta-head">
-      <span class="eyebrow">Get in Touch</span>
-      <button class="float-cta-x" id="floatCtaClose" aria-label="Close">&#x2715;</button>
-    </div>
-    <form id="floatForm">
-      <input type="text" name="name" placeholder="Your name" required autocomplete="name">
-      <input type="tel" name="phone" placeholder="Phone / Email" required>
-      <textarea name="message" rows="3" placeholder="How can we help?"></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-    <div id="floatConfirm" class="float-confirm" hidden>
-      <span class="float-confirm-icon">&#10003;</span>
-      <p class="serif">Thank you. We'll call you back soon.</p>
-    </div>
-  </div>
-  <button class="float-cta-btn" id="floatCtaBtn" aria-label="Book a Showroom Visit" aria-expanded="false">
-    <span class="float-cta-icon">&#9742;</span>
-    <span class="float-cta-label">Book a Visit</span>
-  </button>
+<div class="fab-cluster">
+  <button id="backTop" class="back-top" aria-label="Back to top" hidden>&#8593;</button>
+  <a href="contact.html" class="fab-book">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.82 19.79 19.79 0 01.01 1.18 2 2 0 012 .01h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+    Book a Visit
+  </a>
 </div>
-
-<!-- ===== BACK TO TOP ===== -->
-<button id="backTop" class="back-top" aria-label="Back to top" hidden>&#8593;</button>
 
 <!-- GSAP + plugins + Lenis — scroll-driven motion for this page only -->
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
@@ -1556,35 +1551,6 @@ if (heroImg) {
 }
 
 /* ================================================================
-   FLOATING CONTACT CTA
-================================================================ */
-const floatCta   = document.getElementById('floatCta');
-const floatBtn   = document.getElementById('floatCtaBtn');
-const floatPanel = document.getElementById('floatCtaPanel');
-const floatClose = document.getElementById('floatCtaClose');
-const floatForm  = document.getElementById('floatForm');
-const floatConf  = document.getElementById('floatConfirm');
-
-floatBtn.addEventListener('click', () => {
-  const open = !floatPanel.hidden;
-  floatPanel.hidden = open;
-  floatBtn.setAttribute('aria-expanded', String(!open));
-});
-floatClose.addEventListener('click', () => {
-  floatPanel.hidden = true;
-  floatBtn.setAttribute('aria-expanded', 'false');
-});
-floatForm.addEventListener('submit', e => {
-  e.preventDefault();
-  const name  = floatForm.elements['name'].value.trim();
-  const phone = floatForm.elements['phone'].value.trim();
-  const msg   = floatForm.elements['message'].value.trim();
-  window.open(`mailto:ipmbathfittings@gmail.com?subject=${encodeURIComponent('Showroom Visit Enquiry')}&body=${encodeURIComponent(`Name: ${name}\nContact: ${phone}\n\n${msg}`)}`);
-  floatForm.hidden = true;
-  floatConf.hidden = false;
-});
-
-/* ================================================================
    BACK TO TOP + CONSOLIDATED SCROLL HANDLER
 ================================================================ */
 const backTop = document.getElementById('backTop');
@@ -1595,8 +1561,6 @@ function onScroll() {
   const y = window.scrollY;
   syncHeader();
   backTop.hidden = y < 600;
-  if (y > 400) floatCta.hidden = false;
-  else if (floatPanel.hidden) floatCta.hidden = true;
   scrollRaf = false;
 }
 window.addEventListener('scroll', () => {

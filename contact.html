@@ -417,18 +417,30 @@ footer {
 /* ================================================================
    BACK TO TOP
 ================================================================ */
+.fab-cluster {
+  position: fixed; bottom: 32px; right: 28px; z-index: 150;
+  display: flex; align-items: center; gap: 10px;
+}
 .back-top {
-  position: fixed; bottom: 32px; left: 28px; z-index: 150;
-  width: 44px; height: 44px; border-radius: 50%;
-  border: 1px solid var(--line-2); background: var(--paper);
-  backdrop-filter: blur(6px); color: var(--ink); font-size: 16px;
-  cursor: pointer; display: flex; align-items: center; justify-content: center;
-  transition: background .25s, border-color .25s, color .25s, transform .25s;
+  width: 44px; height: 44px; flex-shrink: 0;
+  background: var(--ink); color: var(--bg);
+  border: 0; border-radius: 50%; cursor: pointer; font-size: 18px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(18,14,8,.22);
+  transition: background .25s, transform .25s;
 }
 .back-top[hidden] { display: none; }
-.back-top:hover {
-  background: var(--gold); color: var(--on-gold); border-color: var(--gold); transform: translateY(-3px);
+.back-top:hover { background: var(--gold); transform: translateY(-3px); }
+.fab-book {
+  display: flex; align-items: center; gap: 7px;
+  padding: 0 20px; height: 44px; border-radius: 22px;
+  background: var(--gold-2); color: var(--on-gold); text-decoration: none;
+  font-family: 'DM Sans', sans-serif; font-size: 11px;
+  font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+  white-space: nowrap; box-shadow: 0 4px 16px rgba(154,115,64,.28);
+  transition: background .25s, transform .25s;
 }
+.fab-book:hover { background: var(--gold); transform: translateY(-3px); }
 
 /* ================================================================
    SHARED KEYFRAMES
@@ -1155,7 +1167,13 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
 </footer>
 
 <!-- Back to top -->
-<button id="backTop" class="back-top" aria-label="Back to top" hidden>&#8593;</button>
+<div class="fab-cluster">
+  <button id="backTop" class="back-top" aria-label="Back to top" hidden>&#8593;</button>
+  <a href="#contact-hero" class="fab-book">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.82 19.79 19.79 0 01.01 1.18 2 2 0 012 .01h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+    Book a Visit
+  </a>
+</div>
 
 <script>
 /* ---- Custom cursor ---- */
