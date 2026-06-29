@@ -1859,123 +1859,6 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
   to   { opacity: 1; }
 }
 
-/* ================================================================
-   FLOATING CONTACT CTA
-================================================================ */
-.float-cta {
-  position: fixed;
-  bottom: 32px;
-  right: 28px;
-  z-index: 150;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 10px;
-  animation: floatIn .4s cubic-bezier(.2,.6,.2,1) forwards;
-}
-.float-cta[hidden] { display: none; }
-.float-cta-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--gold);
-  color: var(--on-gold);
-  border: 0;
-  border-radius: 100px;
-  padding: 14px 22px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 10px;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  cursor: pointer;
-  box-shadow: 0 4px 24px rgba(154,115,64,.35);
-  transition: background .25s, transform .25s, box-shadow .25s;
-}
-.float-cta-btn:hover {
-  background: var(--gold-2);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(154,115,64,.45);
-}
-.float-cta-icon { font-size: 14px; }
-.float-cta-panel {
-  background: var(--paper);
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  padding: 28px 28px 24px;
-  width: 320px;
-  box-shadow: var(--shadow-lg);
-  animation: fpanelIn .35s cubic-bezier(.2,.6,.2,1) forwards;
-}
-.float-cta-panel[hidden] { display: none; }
-@keyframes fpanelIn {
-  from { opacity: 0; transform: scale(.96) translateY(10px); }
-  to   { opacity: 1; transform: none; }
-}
-.float-cta-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 18px;
-}
-.float-cta-x {
-  width: 28px;
-  height: 28px;
-  border: 1px solid var(--line-2);
-  background: transparent;
-  border-radius: 50%;
-  cursor: pointer;
-  color: var(--soft);
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background .2s, color .2s;
-}
-.float-cta-x:hover { background: var(--ink); color: var(--bg); }
-#floatForm { display: flex; flex-direction: column; gap: 10px; }
-#floatForm input,
-#floatForm textarea {
-  background: var(--cream);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 11px 14px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13px;
-  font-weight: 300;
-  color: var(--ink);
-  outline: none;
-  resize: none;
-  width: 100%;
-  transition: border-color .25s;
-}
-#floatForm input:focus,
-#floatForm textarea:focus { border-color: var(--gold); }
-#floatForm button[type="submit"] {
-  background: var(--ink);
-  color: var(--bg);
-  border: 0;
-  border-radius: 100px;
-  padding: 12px 24px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 9px;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  cursor: pointer;
-  align-self: flex-start;
-  transition: background .25s;
-}
-#floatForm button[type="submit"]:hover { background: var(--gold); color: var(--on-gold); }
-.float-confirm {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  padding: 16px 0;
-  text-align: center;
-}
-.float-confirm[hidden] { display: none; }
-.float-confirm-icon { font-size: 22px; color: var(--gold); }
-.float-confirm p { font-size: 18px; color: var(--ink); }
 
 /* ================================================================
    HERITAGE VIDEO MODAL
@@ -2730,30 +2613,6 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
   </div>
 </div>
 
-<!-- ===== FLOATING CONTACT CTA ===== -->
-<div id="floatCta" class="float-cta" hidden>
-  <div class="float-cta-panel" id="floatCtaPanel" hidden>
-    <div class="float-cta-head">
-      <span class="eyebrow">Get in Touch</span>
-      <button class="float-cta-x" id="floatCtaClose" aria-label="Close">&#x2715;</button>
-    </div>
-    <form id="floatForm">
-      <input type="text" name="name" placeholder="Your name" required autocomplete="name">
-      <input type="tel" name="phone" placeholder="Phone / Email" required>
-      <textarea name="message" rows="3" placeholder="How can we help?"></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-    <div id="floatConfirm" class="float-confirm" hidden>
-      <span class="float-confirm-icon">&#10003;</span>
-      <p class="serif">Thank you. We&rsquo;ll call you back soon.</p>
-    </div>
-  </div>
-  <button class="float-cta-btn" id="floatCtaBtn" aria-label="Book a Showroom Visit" aria-expanded="false">
-    <span class="float-cta-icon">&#9742;</span>
-    <span class="float-cta-label">Book a Visit</span>
-  </button>
-</div>
-
 <!-- ===== HERITAGE VIDEO MODAL ===== -->
 <div id="videoModal" class="vmodal" hidden role="dialog" aria-modal="true" aria-label="Our Story Video">
   <div class="vmodal-scrim" id="vmodalScrim" onclick="document.getElementById('videoModal').setAttribute('hidden','');document.body.style.overflow='';var v=document.getElementById('heritageVideo');v.pause();v.currentTime=0;"></div>
@@ -3108,39 +2967,6 @@ qForm.addEventListener('submit', e => {
   qConfirm.hidden = false;
 });
 
-/* ================================================================
-   FLOATING CONTACT CTA
-================================================================ */
-const floatCta     = document.getElementById('floatCta');
-const floatBtn     = document.getElementById('floatCtaBtn');
-const floatPanel   = document.getElementById('floatCtaPanel');
-const floatClose   = document.getElementById('floatCtaClose');
-const floatForm    = document.getElementById('floatForm');
-const floatConfirm = document.getElementById('floatConfirm');
-
-
-floatBtn.addEventListener('click', () => {
-  const open = !floatPanel.hidden;
-  floatPanel.hidden = open;
-  floatBtn.setAttribute('aria-expanded', String(!open));
-});
-
-floatClose.addEventListener('click', () => {
-  floatPanel.hidden = true;
-  floatBtn.setAttribute('aria-expanded', 'false');
-});
-
-floatForm.addEventListener('submit', e => {
-  e.preventDefault();
-  const name  = floatForm.elements['name'].value.trim();
-  const phone = floatForm.elements['phone'].value.trim();
-  const msg   = floatForm.elements['message'].value.trim();
-  const subj  = encodeURIComponent('Showroom Visit Enquiry');
-  const body  = encodeURIComponent(`Name: ${name}\nContact: ${phone}\n\n${msg}`);
-  window.open(`mailto:ipmbathfittings@gmail.com?subject=${subj}&body=${body}`);
-  floatForm.hidden = true;
-  floatConfirm.hidden = false;
-});
 
 /* ================================================================
    HERITAGE VIDEO MODAL
@@ -3245,8 +3071,6 @@ function onScroll() {
   const y = window.scrollY;
   syncHeader();
   backTop.hidden = y < 600;
-  if (y > 400) floatCta.hidden = false;
-  else if (floatPanel.hidden) floatCta.hidden = true;
   scrollRaf = false;
 }
 window.addEventListener('scroll', () => {
