@@ -658,8 +658,8 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
 /* ── hero ── */
 .sh-hero {
   position: relative; height: 62vh; min-height: 440px; max-height: 700px;
-  overflow: hidden; display: flex; align-items: flex-end;
-  margin-top: -80px;
+  display: flex; align-items: flex-end;
+  margin-top: -80px; z-index: 10;
 }
 .sh-hero-img {
   position: absolute; inset: 0; width: 100%; height: 100%;
@@ -722,7 +722,7 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
 
 /* ── search suggestions (typeahead dropdown) ── */
 .search-suggest {
-  position: absolute; top: calc(100% + 10px); left: 0; right: 0; z-index: 40;
+  position: absolute; top: calc(100% + 10px); left: 0; right: 0; z-index: 9999;
   background: var(--paper); border: 1px solid var(--line);
   border-radius: 18px; box-shadow: var(--shadow-lg);
   padding: 6px; max-height: 64vh; overflow-y: auto;
@@ -881,12 +881,12 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
 /* image stage — finish cycling happens here */
 .card-stage {
   position: relative; aspect-ratio: 4/3; overflow: hidden;
-  background: var(--cream); flex-shrink: 0; isolation: isolate;
+  background: #f2ede3; flex-shrink: 0; isolation: isolate;
 }
 .card-stage img {
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: contain; padding: 5%; box-sizing: border-box;
-  transition: opacity .38s ease;
+  transition: opacity .38s ease; mix-blend-mode: multiply;
 }
 .card-stage img.is-hidden { opacity: 0; pointer-events: none; }
 .card-stage img.is-visible { opacity: 1; }
@@ -1233,7 +1233,6 @@ mark { background: var(--gold-pale); color: inherit; border-radius: 2px; padding
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.23/dist/lenis.min.js"></script>
 <script>
 /* ================================================================
    THEME TOGGLE
@@ -1394,23 +1393,13 @@ if (mobMenuBtn && mobNav) {
 }
 
 /* ================================================================
-   SMOOTH SCROLL (Lenis)
-================================================================ */
-if (window.Lenis) {
-  const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
-  function lenisRaf(t) { lenis.raf(t); requestAnimationFrame(lenisRaf); }
-  requestAnimationFrame(lenisRaf);
-  document.addEventListener('visibilitychange', () => { if (document.hidden) lenis.stop(); else lenis.start(); }, { passive: true });
-}
-
-/* ================================================================
    PAGE-SPECIFIC JS
 ================================================================ */
 
 (function () {
-  const state = { q: '', collection: '', category: '', coloured: false, sort: 'featured' };
-  // Featured order: Opell Prima + Zenith bubble to top, then rest by product count
-  const FEATURED_ORDER = ['opell-prima', 'zenith', 'aliva', 'flora', 'fuzone', 'pebble', 'neo', 'para', 'jp', 'cube-prima', 'premium', 'allied'];
+  const state = { q: '', collections: new Set(), category: '', coloured: false, sort: 'featured' };
+  // Featured order: Zenith, Opell Prima, Para first — then rest
+  const FEATURED_ORDER = ['zenith', 'opell-prima', 'para', 'aliva', 'flora', 'fuzone', 'pebble', 'neo', 'jp', 'cube-prima', 'premium', 'allied'];
   function featuredScore(it) { const i = FEATURED_ORDER.indexOf(it.collectionSlug); return i === -1 ? 99 : i; }
   function priceNum(it) { return parseFloat(String(it.price).replace(/[^0-9.]/g, '')) || 0; }
   function sortItems(items) {
@@ -1492,9 +1481,9 @@ if (window.Lenis) {
     if (!data) return;
     const q = state.q.trim().toLowerCase();
     let items = data.items;
-    if (state.coloured)    items = items.filter(it => it.isColoured);
-    if (state.category)    items = items.filter(it => it.category === state.category);
-    if (state.collection)  items = items.filter(it => it.collectionSlug === state.collection);
+    if (state.coloured)           items = items.filter(it => it.isColoured);
+    if (state.category)           items = items.filter(it => it.category === state.category);
+    if (state.collections.size)   items = items.filter(it => state.collections.has(it.collectionSlug));
     if (q) {
       items = items.filter(it =>
         it.name.toLowerCase().includes(q) ||
@@ -1506,7 +1495,7 @@ if (window.Lenis) {
     }
     items = sortItems(items);
     const shown = items.slice(0, 300);
-    const active = state.coloured || state.category || state.collection || q;
+    const active = state.coloured || state.category || state.collections.size || q;
     metaEl.textContent = items.length + (items.length === 1 ? ' product' : ' products') + (active ? ' found' : ' in catalogue');
     if (stickyCount) stickyCount.textContent = items.length + (items.length === 1 ? ' result' : ' results');
     if (sortHint) sortHint.hidden = !state.coloured;
@@ -1566,6 +1555,12 @@ if (window.Lenis) {
   function activateChip(group, value) {
     group.querySelectorAll('.chip').forEach(b => b.classList.toggle('is-active', b.dataset.c === value));
   }
+  function refreshCollChips() {
+    collChips.querySelectorAll('.chip').forEach(b => {
+      if (b.dataset.c === '') b.classList.toggle('is-active', state.collections.size === 0);
+      else b.classList.toggle('is-active', state.collections.has(b.dataset.c));
+    });
+  }
 
   catChips.addEventListener('click', e => {
     const btn = e.target.closest('.chip');
@@ -1573,8 +1568,16 @@ if (window.Lenis) {
     if (btn.dataset.filter === 'coloured') {
       const wasActive = btn.classList.contains('is-active');
       catChips.querySelectorAll('.chip').forEach(b => b.classList.remove('is-active'));
-      if (!wasActive) { btn.classList.add('is-active'); state.coloured = true; state.category = ''; }
-      else { state.coloured = false; catChips.querySelector('[data-c=""]').classList.add('is-active'); }
+      if (!wasActive) {
+        btn.classList.add('is-active'); state.coloured = true; state.category = '';
+        state.collections.clear();
+        if (data) { data.items.filter(it => it.isColoured).forEach(it => { if (it.collectionSlug) state.collections.add(it.collectionSlug); }); }
+        refreshCollChips();
+      } else {
+        state.coloured = false; state.collections.clear();
+        catChips.querySelector('[data-c=""]').classList.add('is-active');
+        refreshCollChips();
+      }
     } else {
       state.coloured = false;
       catChips.querySelectorAll('.chip').forEach(b => b.classList.remove('is-active'));
@@ -1586,8 +1589,11 @@ if (window.Lenis) {
   collChips.addEventListener('click', e => {
     const btn = e.target.closest('.chip');
     if (!btn) return;
-    state.collection = btn.dataset.c;
-    activateChip(collChips, state.collection);
+    const val = btn.dataset.c;
+    if (val === '') { state.collections.clear(); state.coloured = false; catChips.querySelector('[data-c=""]').classList.add('is-active'); catChips.querySelector('.chip-coloured').classList.remove('is-active'); }
+    else if (state.collections.has(val)) state.collections.delete(val);
+    else state.collections.add(val);
+    refreshCollChips();
     render();
   });
 
@@ -1645,13 +1651,13 @@ if (window.Lenis) {
     const rank = s => { const i = s.toLowerCase().indexOf(q); return i < 0 ? 999 : i; };
     const prods = suggestIdx.products
       .filter(p => p.name.toLowerCase().includes(q) || String(p.skus).toLowerCase().includes(q))
-      .sort((a, b) => rank(a.name) - rank(b.name)).slice(0, 6)
+      .sort((a, b) => (featuredScore(a) - featuredScore(b)) || (rank(a.name) - rank(b.name)))
       .map(p => ({ kind: 'product', label: p.name, sub: p.collection + ' · ' + p.category, url: p.url, image: p.image }));
-    const colls = suggestIdx.collections.filter(c => c.name.toLowerCase().includes(q)).slice(0, 3)
+    const colls = suggestIdx.collections.filter(c => c.name.toLowerCase().includes(q))
       .map(c => ({ kind: 'collection', label: c.name, value: c.slug }));
-    const cats = suggestIdx.categories.filter(c => c.toLowerCase().includes(q)).slice(0, 2)
+    const cats = suggestIdx.categories.filter(c => c.toLowerCase().includes(q))
       .map(c => ({ kind: 'category', label: c, value: c }));
-    const fins = suggestIdx.finishes.filter(f => f.toLowerCase().includes(q)).slice(0, 3)
+    const fins = suggestIdx.finishes.filter(f => f.toLowerCase().includes(q))
       .map(f => ({ kind: 'finish', label: f, value: f }));
     return [...prods, ...colls, ...cats, ...fins];
   }
@@ -1681,7 +1687,7 @@ if (window.Lenis) {
     if (it.kind === 'product') { window.location.href = it.url; return; }
     if (it.kind === 'finish') { setQuery(it.label); }
     else {
-      if (it.kind === 'collection') { state.collection = it.value; activateChip(collChips, it.value); }
+      if (it.kind === 'collection') { state.collections.clear(); state.collections.add(it.value); refreshCollChips(); }
       if (it.kind === 'category')   { state.coloured = false; state.category = it.value; activateChip(catChips, it.value); }
       setQuery('');
     }
@@ -1735,7 +1741,7 @@ if (window.Lenis) {
   const params = new URLSearchParams(location.search);
   if (params.get('q'))          { input.value = params.get('q'); if (stickyInput) stickyInput.value = params.get('q'); state.q = params.get('q'); clearBtn.hidden = false; if (stickyClear) stickyClear.hidden = false; }
   if (params.get('category'))   { state.category   = params.get('category'); }
-  if (params.get('collection')) { state.collection = params.get('collection'); }
+  if (params.get('collection')) { state.collections.add(params.get('collection')); }
   if (params.get('coloured'))   { state.coloured   = true; }
 
   /* ── load index ── */
@@ -1751,12 +1757,22 @@ if (window.Lenis) {
       // Activate chips matching URL state
       if (state.category)   activateChip(catChips,  state.category);
       else if (state.coloured) { catChips.querySelectorAll('.chip').forEach(b => b.classList.remove('is-active')); catChips.querySelector('.chip-coloured').classList.add('is-active'); }
-      if (state.collection) activateChip(collChips, state.collection);
+      if (state.coloured) { data.items.filter(it => it.isColoured).forEach(it => { if (it.collectionSlug) state.collections.add(it.collectionSlug); }); }
+      if (state.collections.size) {
+        refreshCollChips();
+      }
       render();
     })
     .catch(() => { metaEl.textContent = 'Search index unavailable — run the build.'; });
 })();
 
+</script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.23/dist/lenis.min.js"></script>
+<script>
+const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+function lenisRaf(t) { lenis.raf(t); requestAnimationFrame(lenisRaf); }
+requestAnimationFrame(lenisRaf);
+document.addEventListener('visibilitychange', () => { if (document.hidden) lenis.stop(); else lenis.start(); }, { passive: true });
 </script>
 </body>
 </html>
