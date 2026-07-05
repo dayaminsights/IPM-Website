@@ -1458,6 +1458,7 @@ if (mobMenuBtn && mobNav) {
       function advance() { goTo(idx + 1); }
 
       if (startIdx > 0) goTo(startIdx);
+      if (state.finishes.size) return; // locked to selected finish — no cycling
       const delay = 2200 + Math.floor(Math.random() * 1400);
       const t = setInterval(advance, delay);
       cycleTimers.set(card, t);
