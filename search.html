@@ -1371,7 +1371,14 @@ if (mobMenuBtn && mobNav) {
     const pricesAttr = isMulti
       ? ` data-prices='${JSON.stringify(it.variantImages.map(v => v.price || it.price || '')).replace(/'/g, '&#39;')}'`
       : '';
-    return `<a class="search-card" href="${esc(it.url)}" data-multi="${isMulti ? '1' : '0'}"${pricesAttr}>
+    // When exactly one finish is selected, start card on that finish's variant
+    let startIdx = 0;
+    if (isMulti && state.finishes.size === 1) {
+      const sel = [...state.finishes][0];
+      const vi = it.variantImages.findIndex(v => v.finish === sel);
+      if (vi > 0) startIdx = vi;
+    }
+    return `<a class="search-card" href="${esc(it.url)}" data-multi="${isMulti ? '1' : '0'}" data-start-idx="${startIdx}"${pricesAttr}>
   <div class="card-stage">
     ${mainImg}${extraImgs}${dots}${arrows}
   </div>
@@ -1434,6 +1441,7 @@ if (mobMenuBtn && mobNav) {
       const prices   = card.dataset.prices ? JSON.parse(card.dataset.prices) : null;
       if (imgs.length < 2) return;
       let idx = 0;
+      const startIdx = parseInt(card.dataset.startIdx || '0');
 
       function goTo(newIdx) {
         imgs[idx].classList.remove('is-visible'); imgs[idx].classList.add('is-hidden');
@@ -1449,6 +1457,7 @@ if (mobMenuBtn && mobNav) {
       }
       function advance() { goTo(idx + 1); }
 
+      if (startIdx > 0) goTo(startIdx);
       const delay = 2200 + Math.floor(Math.random() * 1400);
       const t = setInterval(advance, delay);
       cycleTimers.set(card, t);
