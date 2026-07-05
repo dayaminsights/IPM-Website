@@ -790,6 +790,9 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
 }
 .chip-coloured:hover { background: linear-gradient(135deg, var(--gold-pale), var(--gold-pale)); border-color: var(--gold-2); color: var(--gold-2); }
 .chip-coloured.is-active { background: var(--gold); color: var(--on-gold); border-color: var(--gold); }
+.chip-fin { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px 6px 10px; }
+.chip-fin-dot { width: 12px; height: 12px; border-radius: 50%; border: 1px solid rgba(18,14,8,.15); flex-shrink: 0; }
+.f-chrome { background: linear-gradient(135deg,#e8e8e8,#9a9a9a); }
 
 /* ── results header ── */
 .search-results-sec { padding-top: 40px; padding-bottom: 120px; }
@@ -1089,6 +1092,25 @@ mark { background: var(--gold-pale); color: inherit; border-radius: 2px; padding
         <button class="chip" data-filter="collection" data-c="bathroom-accessories">Bathroom Accessories</button>
         </div>
       </div>
+      <div class="filter-group">
+        <span class="filter-label">Finish</span>
+        <div class="chips" id="finishChips">
+          <button class="chip is-active" data-filter="finish" data-f="">All</button>
+          <button class="chip chip-fin" data-filter="finish" data-f="Chrome"><span class="chip-fin-dot f-chrome"></span>Chrome</button>
+          <button class="chip chip-fin" data-filter="finish" data-f="Rose Gold"><span class="chip-fin-dot f-rose-gold"></span>Rose Gold</button>
+          <button class="chip chip-fin" data-filter="finish" data-f="Rich Gold"><span class="chip-fin-dot f-rich-gold"></span>Rich Gold</button>
+          <button class="chip chip-fin" data-filter="finish" data-f="Gunmetal Black"><span class="chip-fin-dot f-gunmetal"></span>Gunmetal Black</button>
+          <button class="chip chip-fin" data-filter="finish" data-f="Gunmetal Black Gold"><span class="chip-fin-dot f-gunmetal-black-gold"></span>Gunmetal Black Gold</button>
+          <button class="chip chip-fin" data-filter="finish" data-f="Matt Black"><span class="chip-fin-dot f-matt-black"></span>Matt Black</button>
+          <button class="chip chip-fin" data-filter="finish" data-f="Matt Black Gold"><span class="chip-fin-dot f-matt-black-gold"></span>Matt Black Gold</button>
+          <button class="chip chip-fin" data-filter="finish" data-f="Matt Grey"><span class="chip-fin-dot f-matt-grey"></span>Matt Grey</button>
+          <button class="chip chip-fin" data-filter="finish" data-f="Matt Grey Gold"><span class="chip-fin-dot f-matt-grey-gold"></span>Matt Grey Gold</button>
+          <button class="chip chip-fin" data-filter="finish" data-f="Matt White"><span class="chip-fin-dot f-matt-white"></span>Matt White</button>
+          <button class="chip chip-fin" data-filter="finish" data-f="Matt White Gold"><span class="chip-fin-dot f-matt-white-gold"></span>Matt White Gold</button>
+          <button class="chip chip-fin" data-filter="finish" data-f="Matt Beige"><span class="chip-fin-dot f-matt-beige"></span>Matt Beige</button>
+          <button class="chip chip-fin" data-filter="finish" data-f="Matt Beige Gold"><span class="chip-fin-dot f-matt-beige-gold"></span>Matt Beige Gold</button>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1284,7 +1306,7 @@ if (mobMenuBtn && mobNav) {
 ================================================================ */
 
 (function () {
-  const state = { q: '', collections: new Set(), category: '', coloured: false, sort: 'featured' };
+  const state = { q: '', collections: new Set(), category: '', coloured: false, sort: 'featured', finishes: new Set() };
   // Featured order: Zenith, Opell Prima, Para first — then rest
   const FEATURED_ORDER = ['zenith', 'opell-prima', 'para', 'aliva', 'flora', 'fuzone', 'pebble', 'neo', 'jp', 'cube-prima', 'premium', 'allied'];
   function featuredScore(it) { const i = FEATURED_ORDER.indexOf(it.collectionSlug); return i === -1 ? 99 : i; }
@@ -1305,6 +1327,7 @@ if (mobMenuBtn && mobNav) {
   const clearBtn   = document.getElementById('searchClear');
   const catChips   = document.getElementById('catChips');
   const collChips  = document.getElementById('collChips');
+  const finChips   = document.getElementById('finishChips');
   const sortSelect = document.getElementById('sortSelect');
   const stickySearch = document.getElementById('stickySearch');
   const stickyInput  = document.getElementById('stickyQ');
@@ -1371,6 +1394,7 @@ if (mobMenuBtn && mobNav) {
     if (state.coloured)           items = items.filter(it => it.isColoured);
     if (state.category)           items = items.filter(it => it.category === state.category);
     if (state.collections.size)   items = items.filter(it => state.collections.has(it.collectionSlug));
+    if (state.finishes.size)      items = items.filter(it => it.swatches && it.swatches.some(s => state.finishes.has(s.finish)));
     if (q) {
       items = items.filter(it =>
         it.name.toLowerCase().includes(q) ||
@@ -1382,7 +1406,7 @@ if (mobMenuBtn && mobNav) {
     }
     items = sortItems(items);
     const shown = items.slice(0, 300);
-    const active = state.coloured || state.category || state.collections.size || q;
+    const active = state.coloured || state.category || state.collections.size || state.finishes.size || q;
     metaEl.textContent = items.length + (items.length === 1 ? ' product' : ' products') + (active ? ' found' : ' in catalogue');
     if (stickyCount) stickyCount.textContent = items.length + (items.length === 1 ? ' result' : ' results');
     if (sortHint) sortHint.hidden = !state.coloured;
@@ -1448,6 +1472,12 @@ if (mobMenuBtn && mobNav) {
       else b.classList.toggle('is-active', state.collections.has(b.dataset.c));
     });
   }
+  function refreshFinishChips() {
+    finChips.querySelectorAll('.chip').forEach(b => {
+      if (b.dataset.f === '') b.classList.toggle('is-active', state.finishes.size === 0);
+      else b.classList.toggle('is-active', state.finishes.has(b.dataset.f));
+    });
+  }
 
   catChips.addEventListener('click', e => {
     const btn = e.target.closest('.chip');
@@ -1481,6 +1511,16 @@ if (mobMenuBtn && mobNav) {
     else if (state.collections.has(val)) state.collections.delete(val);
     else state.collections.add(val);
     refreshCollChips();
+    render();
+  });
+  finChips.addEventListener('click', e => {
+    const btn = e.target.closest('.chip');
+    if (!btn) return;
+    const val = btn.dataset.f;
+    if (val === '') state.finishes.clear();
+    else if (state.finishes.has(val)) state.finishes.delete(val);
+    else state.finishes.add(val);
+    refreshFinishChips();
     render();
   });
 
