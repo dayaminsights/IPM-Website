@@ -1455,7 +1455,7 @@ if (mobMenuBtn && mobNav) {
           if (p) priceEl.textContent = p;
         }
       }
-      function advance() { goTo(idx + 1); }
+      function advance() { if (!state.finishes.size) goTo(idx + 1); }
 
       if (startIdx > 0) goTo(startIdx);
       if (state.finishes.size) return; // locked to selected finish — no cycling
