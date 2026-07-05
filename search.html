@@ -1627,7 +1627,10 @@ if (mobMenuBtn && mobNav) {
   /* ── pre-fill from URL ── */
   const params = new URLSearchParams(location.search);
   if (params.get('q'))          { input.value = params.get('q'); if (stickyInput) stickyInput.value = params.get('q'); state.q = params.get('q'); clearBtn.hidden = false; if (stickyClear) stickyClear.hidden = false; }
-  if (params.get('category'))   { state.category   = params.get('category'); }
+  if (params.get('category') === 'Accessories') {
+    state.collections.add('square-accessories');
+    state.collections.add('bathroom-accessories');
+  } else if (params.get('category')) { state.category = params.get('category'); }
   if (params.get('collection')) { state.collections.add(params.get('collection')); }
   if (params.get('coloured'))   { state.coloured   = true; }
 
