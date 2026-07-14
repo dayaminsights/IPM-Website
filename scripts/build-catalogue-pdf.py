@@ -261,6 +261,27 @@ def _wrap(c, text, font, size, max_w):
     if cur: lines.append(cur)
     return lines or [""]
 
+DIVIDER_GRAY = HexColor("#BFBFBF")
+
+def draw_grid_dividers(c, grid_top, grid_bottom, cell_w, cell_h):
+    """Subtle separators within the product grid: dotted vertical lines between
+    columns, dashed horizontal lines between rows. Not over header/footer."""
+    left = MARGIN_X
+    right = MARGIN_X + COLS*cell_w
+    c.saveState()
+    c.setStrokeColor(DIVIDER_GRAY); c.setLineWidth(0.6)
+    # dotted verticals between columns
+    c.setDash(1, 2)
+    for col in range(1, COLS):
+        vx = left + col*cell_w
+        c.line(vx, grid_bottom, vx, grid_top)
+    # dashed horizontals between rows
+    c.setDash(3, 2)
+    for row in range(1, ROWS):
+        hy = grid_top - row*cell_h
+        c.line(left, hy, right, hy)
+    c.restoreState()
+
 def build_pdf(groups, out_path, hero_path):
     register_fonts()
     c = rl_canvas.Canvas(str(out_path), pagesize=(PAGE_W, PAGE_H))
@@ -272,6 +293,7 @@ def build_pdf(groups, out_path, hero_path):
     cell_h = (grid_top - grid_bottom) / ROWS
     for pno, (coll, items) in enumerate(pages, start=1):
         draw_header(c, coll)
+        draw_grid_dividers(c, grid_top, grid_bottom, cell_w, cell_h)
         for idx, product in enumerate(items):
             r, col = divmod(idx, COLS)
             x = MARGIN_X + col*cell_w
