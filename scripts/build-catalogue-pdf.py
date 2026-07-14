@@ -163,6 +163,27 @@ def _desaturate(path):
     buf = io.BytesIO(); g.save(buf, format="JPEG", quality=88); buf.seek(0)
     return ImageReader(buf)
 
+# Cache downscaled product images by absolute source path so the same file is
+# only decoded/resized once even if it appears on multiple pages.
+_PRODUCT_IMG_CACHE = {}
+PRODUCT_IMG_MAX_PX = 320
+
+def _load_product_image(path):
+    """Return (ImageReader, (w, h)) for a downscaled, transparency-preserving copy
+    of the product photo. Cached by absolute path."""
+    key = os.path.abspath(path)
+    cached = _PRODUCT_IMG_CACHE.get(key)
+    if cached is not None:
+        return cached
+    im = Image.open(path)
+    im = im.convert("RGBA")  # keep transparency
+    im.thumbnail((PRODUCT_IMG_MAX_PX, PRODUCT_IMG_MAX_PX), Image.LANCZOS)
+    buf = io.BytesIO(); im.save(buf, format="PNG", optimize=True); buf.seek(0)
+    reader = ImageReader(buf)
+    result = (reader, im.size)
+    _PRODUCT_IMG_CACHE[key] = result
+    return result
+
 def draw_cover(c, hero_path, wef="01.04.2026"):
     if hero_path and os.path.exists(hero_path):
         c.drawImage(_desaturate(hero_path), 0, 0, PAGE_W, PAGE_H, preserveAspectRatio=False, mask=None)
@@ -211,7 +232,7 @@ def draw_cell(c, x, y, w, h, product):
     img_h = h*0.55
     if product.get("image_path") and os.path.exists(product["image_path"]):
         try:
-            ir = ImageReader(product["image_path"]); iw, ih = ir.getSize()
+            ir, (iw, ih) = _load_product_image(product["image_path"])
             box_w, box_h = w*0.8, img_h
             scale = min(box_w/iw, box_h/ih)
             dw, dh = iw*scale, ih*scale
