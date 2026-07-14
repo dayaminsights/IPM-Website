@@ -224,10 +224,13 @@ def _fmt_price(mrp):
     return f"₹ : {mrp}/-" if mrp is not None else "Price on request"
 
 def draw_cell(c, x, y, w, h, product):
-    # code box (teal) top-left
-    c.setFillColor(TEAL); c.rect(x, y+h-20, 42, 16, fill=1, stroke=0)
-    c.setFillColor(HexColor("#ffffff")); c.setFont("SegoeUI-Bold", 9)
-    c.drawCentredString(x+21, y+h-16, str(product["item_code"]))
+    # code box (teal) top-left — auto-fit width to the code, min 42pt like the sample
+    code = str(product["item_code"])
+    code_font, code_size, code_pad = "SegoeUI-Bold", 9, 8
+    box_w = max(42, c.stringWidth(code, code_font, code_size) + 2*code_pad)
+    c.setFillColor(TEAL); c.rect(x, y+h-20, box_w, 16, fill=1, stroke=0)
+    c.setFillColor(HexColor("#ffffff")); c.setFont(code_font, code_size)
+    c.drawCentredString(x+box_w/2, y+h-16, code)
     # image area
     img_h = h*0.55
     if product.get("image_path") and os.path.exists(product["image_path"]):
