@@ -106,3 +106,11 @@ def order_collections(products):
 
     ordered_names = sorted(seen, key=rank)
     return [(name, buckets[name]) for name in ordered_names]
+
+def paginate(groups):
+    per_page = COLS * ROWS
+    pages = []
+    for name, items in groups:
+        for i in range(0, len(items), per_page):
+            pages.append((name, items[i:i+per_page]))
+    return pages

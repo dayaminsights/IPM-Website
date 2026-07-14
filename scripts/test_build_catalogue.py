@@ -60,3 +60,14 @@ def test_order_collections():
     names = [g[0] for g in groups]
     assert names == ["Zenith Collection","Zenith Rich Gold Collection","Opell Prima Collection","Para Collection","Aliva Collection"]
     assert len(dict(groups)["Aliva Collection"]) == 2
+
+def test_paginate():
+    m = load_mod()
+    def prods(n): return [{"item_code":str(i)} for i in range(n)]
+    groups = [("A", prods(13)), ("B", prods(5))]
+    pages = m.paginate(groups)
+    # A -> 2 pages (12 + 1), B -> 1 page => 3 pages total
+    assert len(pages) == 3
+    assert pages[0][0] == "A" and len(pages[0][1]) == 12
+    assert pages[1][0] == "A" and len(pages[1][1]) == 1
+    assert pages[2][0] == "B" and len(pages[2][1]) == 5
