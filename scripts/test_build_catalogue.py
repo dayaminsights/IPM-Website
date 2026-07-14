@@ -50,3 +50,13 @@ def test_resolve_images(tmp_path):
     assert [p["item_code"] for p in broken] == ["2"]
     assert "orphan.png" in orphans
     assert "bib-cock-chrome.png" not in orphans
+
+def test_order_collections():
+    m = load_mod()
+    def prod(coll): return {"item_code":"x","name":"n","collection":coll,"category":"","mrp":1,"image_filename":"f","image_path":"f"}
+    prods = [prod("Aliva Collection"), prod("Opell Prima Collection"), prod("Zenith Collection"),
+             prod("Para Collection"), prod("Aliva Collection"), prod("Zenith Rich Gold Collection")]
+    groups = m.order_collections(prods)
+    names = [g[0] for g in groups]
+    assert names == ["Zenith Collection","Zenith Rich Gold Collection","Opell Prima Collection","Para Collection","Aliva Collection"]
+    assert len(dict(groups)["Aliva Collection"]) == 2

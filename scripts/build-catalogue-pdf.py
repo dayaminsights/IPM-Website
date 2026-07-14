@@ -85,3 +85,24 @@ def resolve_images(products, images_root):
         included.append(p)
     orphans = sorted(set(idx) - used)
     return included, no_image, broken, orphans
+
+SIGNATURE_PREFIXES = ["Zenith", "Opell Prima", "Para"]
+
+def order_collections(products):
+    # preserve first-appearance order of collections
+    seen = []
+    buckets = {}
+    for p in products:
+        c = p["collection"]
+        if c not in buckets:
+            buckets[c] = []; seen.append(c)
+        buckets[c].append(p)
+
+    def rank(name):
+        for i, pre in enumerate(SIGNATURE_PREFIXES):
+            if name.startswith(pre):
+                return (i, seen.index(name))
+        return (len(SIGNATURE_PREFIXES), seen.index(name))
+
+    ordered_names = sorted(seen, key=rank)
+    return [(name, buckets[name]) for name in ordered_names]
