@@ -236,3 +236,23 @@ def _wrap(c, text, font, size, max_w):
         else: lines.append(cur); cur=wd
     if cur: lines.append(cur)
     return lines or [""]
+
+def build_pdf(groups, out_path, hero_path):
+    register_fonts()
+    c = rl_canvas.Canvas(str(out_path), pagesize=(PAGE_W, PAGE_H))
+    draw_cover(c, hero_path)
+    pages = paginate(groups)
+    grid_top = PAGE_H - HEADER_H - 8
+    grid_bottom = FOOTER_H + 8
+    cell_w = (PAGE_W - 2*MARGIN_X) / COLS
+    cell_h = (grid_top - grid_bottom) / ROWS
+    for pno, (coll, items) in enumerate(pages, start=1):
+        draw_header(c, coll)
+        for idx, product in enumerate(items):
+            r, col = divmod(idx, COLS)
+            x = MARGIN_X + col*cell_w
+            y = grid_top - (r+1)*cell_h
+            draw_cell(c, x+6, y+4, cell_w-12, cell_h-8, product)
+        draw_footer(c, pno)
+        c.showPage()
+    c.save()

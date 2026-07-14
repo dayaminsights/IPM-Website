@@ -85,3 +85,13 @@ def test_write_report(tmp_path):
     assert "missing.png" in txt
     assert "Price on request" in txt
     assert "orphan.png" in txt
+
+def test_build_pdf_page_count(tmp_path):
+    m = load_mod(); m.register_fonts()
+    def prod(i, coll): return {"item_code":str(i),"name":"Item","collection":coll,"category":"","mrp":10,"image_filename":None,"image_path":None}
+    groups = [("Zenith Collection", [prod(i,"Zenith Collection") for i in range(13)])]  # 2 product pages
+    out = tmp_path / "out.pdf"
+    m.build_pdf(groups, out, hero_path=None)
+    from pypdf import PdfReader
+    n = len(PdfReader(str(out)).pages)
+    assert n == 3   # cover + 2 product pages
