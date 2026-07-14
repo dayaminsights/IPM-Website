@@ -256,3 +256,26 @@ def build_pdf(groups, out_path, hero_path):
         draw_footer(c, pno)
         c.showPage()
     c.save()
+
+import argparse
+
+def main(argv=None):
+    ap = argparse.ArgumentParser(description="Build IPM catalogue PDF")
+    ap.add_argument("--xlsx", default="ITEM MASTER FOR WEBSITE.xlsx")
+    ap.add_argument("--images", default="images/products")
+    ap.add_argument("--hero", default="images/home/hero.jpg")
+    ap.add_argument("--out", default="IPM Catalogue.pdf")
+    ap.add_argument("--report", default="reports/catalogue-build.md")
+    args = ap.parse_args(argv)
+
+    products = load_products(args.xlsx)
+    included, no_image, broken, orphans = resolve_images(products, args.images)
+    price_req = [p for p in included if p["mrp"] is None]
+    groups = order_collections(included)
+    build_pdf(groups, args.out, args.hero)
+    write_report(args.report, total=len(products), included=len(included),
+                 no_image=no_image, broken=broken, price_on_request=price_req, orphans=orphans)
+    print(f"PDF: {args.out}  ({len(included)} products, {len(groups)} collections)")
+
+if __name__ == "__main__":
+    main()
