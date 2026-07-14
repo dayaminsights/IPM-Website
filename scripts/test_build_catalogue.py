@@ -71,3 +71,17 @@ def test_paginate():
     assert pages[0][0] == "A" and len(pages[0][1]) == 12
     assert pages[1][0] == "A" and len(pages[1][1]) == 1
     assert pages[2][0] == "B" and len(pages[2][1]) == 5
+
+def test_write_report(tmp_path):
+    m = load_mod()
+    rp = tmp_path / "rep.md"
+    no_image = [{"item_code":"3","name":"C","collection":"JP"}]
+    broken = [{"item_code":"2","name":"B","collection":"JP","image_filename":"missing.png"}]
+    price_req = [{"item_code":"5","name":"E","collection":"JP"}]
+    orphans = ["orphan.png"]
+    m.write_report(rp, total=10, included=6, no_image=no_image, broken=broken, price_on_request=price_req, orphans=orphans)
+    txt = rp.read_text(encoding="utf-8")
+    assert "Included: 6" in txt
+    assert "missing.png" in txt
+    assert "Price on request" in txt
+    assert "orphan.png" in txt

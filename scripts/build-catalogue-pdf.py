@@ -114,3 +114,27 @@ def paginate(groups):
         for i in range(0, len(items), per_page):
             pages.append((name, items[i:i+per_page]))
     return pages
+
+def write_report(report_path, total, included, no_image, broken, price_on_request, orphans):
+    Path(report_path).parent.mkdir(parents=True, exist_ok=True)
+    L = []
+    L.append("# Catalogue Build Report\n")
+    L.append(f"- Total rows: {total}")
+    L.append(f"- Included: {included}")
+    L.append(f"- Omitted (no image): {len(no_image)}")
+    L.append(f"- Omitted (broken image ref): {len(broken)}")
+    L.append(f"- Price on request: {len(price_on_request)}")
+    L.append(f"- Orphan photos (on disk, no included row): {len(orphans)}\n")
+
+    def section(title, rows, fmt):
+        L.append(f"\n## {title} ({len(rows)})\n")
+        if not rows: L.append("_none_"); return
+        for r in rows: L.append(fmt(r))
+
+    section("Omitted — no image", no_image, lambda r: f"- {r['item_code']} — {r['name']} ({r['collection']})")
+    section("Omitted — broken image reference", broken, lambda r: f"- {r['item_code']} — {r['name']} → {r.get('image_filename')}")
+    section("Price on request", price_on_request, lambda r: f"- {r['item_code']} — {r['name']} ({r['collection']})")
+    section("Orphan photos", [{"f":o} for o in orphans], lambda r: f"- {r['f']}")
+
+    Path(report_path).write_text("\n".join(L), encoding="utf-8")
+    print(f"Report: {report_path}  |  included={included} no_image={len(no_image)} broken={len(broken)} price_req={len(price_on_request)} orphans={len(orphans)}")
