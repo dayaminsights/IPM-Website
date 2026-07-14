@@ -32,3 +32,21 @@ def test_load_products(tmp_path):
     assert prods[0]["image_filename"] == "bib-cock-chrome.png"
     assert prods[1]["mrp"] is None          # blank MRP -> None
     assert prods[1]["image_filename"] == "no-img.png"
+
+def test_resolve_images(tmp_path):
+    m = load_mod()
+    root = tmp_path / "products"; (root / "jp").mkdir(parents=True)
+    (root / "jp" / "bib-cock-chrome.png").write_bytes(b"x")
+    (root / "jp" / "orphan.png").write_bytes(b"x")
+    prods = [
+        {"item_code":"1","name":"A","collection":"JP","category":"","mrp":10,"image_filename":"bib-cock-chrome.png","image_path":None},
+        {"item_code":"2","name":"B","collection":"JP","category":"","mrp":None,"image_filename":"missing.png","image_path":None},
+        {"item_code":"3","name":"C","collection":"JP","category":"","mrp":10,"image_filename":None,"image_path":None},
+    ]
+    included, no_image, broken, orphans = m.resolve_images(prods, root)
+    assert [p["item_code"] for p in included] == ["1"]
+    assert included[0]["image_path"].endswith("bib-cock-chrome.png")
+    assert [p["item_code"] for p in no_image] == ["3"]
+    assert [p["item_code"] for p in broken] == ["2"]
+    assert "orphan.png" in orphans
+    assert "bib-cock-chrome.png" not in orphans

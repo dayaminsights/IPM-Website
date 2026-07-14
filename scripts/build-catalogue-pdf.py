@@ -60,3 +60,28 @@ def load_products(xlsx_path):
             "image_path": None,
         })
     return out
+
+def _index_images(images_root):
+    idx = {}
+    for dirpath, _, files in os.walk(images_root):
+        for f in files:
+            if f.lower().endswith((".png", ".jpg", ".jpeg", ".webp")):
+                idx.setdefault(f, os.path.join(dirpath, f))
+    return idx
+
+def resolve_images(products, images_root):
+    idx = _index_images(images_root)
+    included, no_image, broken = [], [], []
+    used = set()
+    for p in products:
+        fn = p["image_filename"]
+        if not fn:
+            no_image.append(p); continue
+        path = idx.get(fn)
+        if not path:
+            broken.append(p); continue
+        p["image_path"] = path
+        used.add(fn)
+        included.append(p)
+    orphans = sorted(set(idx) - used)
+    return included, no_image, broken, orphans
