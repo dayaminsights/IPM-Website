@@ -138,3 +138,101 @@ def write_report(report_path, total, included, no_image, broken, price_on_reques
 
     Path(report_path).write_text("\n".join(L), encoding="utf-8")
     print(f"Report: {report_path}  |  included={included} no_image={len(no_image)} broken={len(broken)} price_req={len(price_on_request)} orphans={len(orphans)}")
+
+from reportlab.pdfgen import canvas as rl_canvas
+from reportlab.lib.utils import ImageReader
+from PIL import Image
+import io
+
+def _draw_logo(c, x, y, scale=1.0):
+    """Minimal IPM wordmark: 'IPM' + 4 right bars + 'BATH FITTINGS'."""
+    c.setFillColor(HexColor("#111111"))
+    c.setFont("SegoeUI-Bold", 26*scale)
+    c.drawString(x, y, "IPM")
+    bx = x + 52*scale
+    c.setLineWidth(2.2*scale); c.setStrokeColor(HexColor("#111111"))
+    for i, w in enumerate([26, 22, 18, 14]):
+        yy = y + 18*scale - i*5.5*scale
+        c.line(bx + (26-w)*scale, yy, bx + 26*scale, yy)
+    c.setFont("SegoeUI", 6.5*scale)
+    c.drawString(x, y - 9*scale, "B A T H   F I T T I N G S")
+
+def _desaturate(path):
+    im = Image.open(path).convert("RGB")
+    g = im.convert("L").convert("RGB")
+    buf = io.BytesIO(); g.save(buf, format="JPEG", quality=88); buf.seek(0)
+    return ImageReader(buf)
+
+def draw_cover(c, hero_path, wef="01.04.2026"):
+    if hero_path and os.path.exists(hero_path):
+        c.drawImage(_desaturate(hero_path), 0, 0, PAGE_W, PAGE_H, preserveAspectRatio=False, mask=None)
+        c.setFillColor(HexColor("#000000")); c.setFillAlpha(0.28)
+        c.rect(0, 0, PAGE_W, PAGE_H, fill=1, stroke=0); c.setFillAlpha(1)
+    else:
+        c.setFillColor(HexColor("#2b2b2b")); c.rect(0,0,PAGE_W,PAGE_H,fill=1,stroke=0)
+    c.saveState(); c.translate(PAGE_W-150, PAGE_H-80)
+    c.setFillColor(HexColor("#ffffff")); c.setStrokeColor(HexColor("#ffffff"))
+    c.setFont("SegoeUI-Bold", 26); c.drawString(0,0,"IPM")
+    for i,w in enumerate([26,22,18,14]):
+        yy = 18 - i*5.5; c.setLineWidth(2.2); c.line((26-w)+52, yy+0, 52+26, yy)
+    c.setFont("SegoeUI", 6.5); c.drawString(0,-9,"B A T H   F I T T I N G S"); c.restoreState()
+    c.setFillColor(HexColor("#ffffff"))
+    c.setFont("SegoeUI-Semibold", 20); c.drawCentredString(PAGE_W/2, 118, "F U L F I L L I N G   Y O U R   B A T H I N G   D E S I R E S")
+    c.setFont("SegoeUI-Bold", 26); c.drawCentredString(PAGE_W/2, 70, "INDIA MRP LIST")
+    c.setFont("SegoeUI-Semibold", 11); c.drawCentredString(PAGE_W/2, 48, f"W.E.F : {wef}")
+    c.showPage()
+
+def draw_header(c, collection):
+    c.setFillColor(TEAL); c.rect(0, PAGE_H-HEADER_H, PAGE_W, HEADER_H, fill=1, stroke=0)
+    # white rounded plate cradling logo (left)
+    c.setFillColor(HexColor("#ffffff"))
+    c.roundRect(-20, PAGE_H-HEADER_H+8, 300, HEADER_H-16, 18, fill=1, stroke=0)
+    _draw_logo(c, 34, PAGE_H-HEADER_H+40, scale=1.0)
+    # gray tab (right) with collection name
+    tab_x = PAGE_W*0.42
+    c.setFillColor(GRAY_TAB); c.roundRect(tab_x, PAGE_H-HEADER_H+18, PAGE_W-tab_x-MARGIN_X, HEADER_H-36, 10, fill=1, stroke=0)
+    c.setFillColor(GRAY_TAB_TEXT); c.setFont("SegoeUI-Bold", 18)
+    c.drawRightString(PAGE_W-MARGIN_X-14, PAGE_H-HEADER_H+40, collection.upper())
+
+def draw_footer(c, page_no):
+    c.setFillColor(TEAL); c.rect(0, 0, PAGE_W, FOOTER_H, fill=1, stroke=0)
+    c.setFillColor(HexColor("#ffffff")); c.setFont("SegoeUI-Bold", 11)
+    c.drawRightString(PAGE_W-MARGIN_X, 10, str(page_no))
+
+def _fmt_price(mrp):
+    return f"₹ : {mrp}/-" if mrp is not None else "Price on request"
+
+def draw_cell(c, x, y, w, h, product):
+    # code box (teal) top-left
+    c.setFillColor(TEAL); c.rect(x, y+h-20, 42, 16, fill=1, stroke=0)
+    c.setFillColor(HexColor("#ffffff")); c.setFont("SegoeUI-Bold", 9)
+    c.drawCentredString(x+21, y+h-16, str(product["item_code"]))
+    # image area
+    img_h = h*0.55
+    if product.get("image_path") and os.path.exists(product["image_path"]):
+        try:
+            ir = ImageReader(product["image_path"]); iw, ih = ir.getSize()
+            box_w, box_h = w*0.8, img_h
+            scale = min(box_w/iw, box_h/ih)
+            dw, dh = iw*scale, ih*scale
+            c.drawImage(ir, x+(w-dw)/2, y+h-24-dh, dw, dh, preserveAspectRatio=True, mask="auto")
+        except Exception:
+            pass
+    # name (uppercase, may wrap 2 lines)
+    c.setFillColor(HexColor("#222222")); c.setFont("SegoeUI-Semibold", 8.5)
+    name = product["name"].upper()
+    ty = y + h - 24 - img_h - 8
+    for line in _wrap(c, name, "SegoeUI-Semibold", 8.5, w-4)[:2]:
+        c.drawString(x+2, ty, line); ty -= 11
+    # price
+    c.setFont("SegoeUI-Bold", 8.5); c.setFillColor(HexColor("#111111"))
+    c.drawString(x+2, ty-1, _fmt_price(product.get("mrp")))
+
+def _wrap(c, text, font, size, max_w):
+    words = text.split(); lines=[]; cur=""
+    for wd in words:
+        t = (cur+" "+wd).strip()
+        if c.stringWidth(t, font, size) <= max_w: cur=t
+        else: lines.append(cur); cur=wd
+    if cur: lines.append(cur)
+    return lines or [""]
