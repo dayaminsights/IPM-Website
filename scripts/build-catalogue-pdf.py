@@ -1,5 +1,5 @@
 """Repeatable IPM product catalogue PDF builder. See docs/superpowers/specs/2026-07-14-product-catalogue-pdf-design.md"""
-import os, sys
+import os, re, sys
 from pathlib import Path
 from reportlab.lib.colors import HexColor
 from reportlab.pdfbase import pdfmetrics
@@ -50,6 +50,8 @@ def load_products(xlsx_path):
             mrp = int(float(mrp_raw)) if mrp_raw not in (None, "") else None
         except (ValueError, TypeError):
             mrp = None
+        if mrp == 0:            # 0 is not a real price -> treat as missing
+            mrp = None
         out.append({
             "item_code": code,
             "name": name,
@@ -62,28 +64,51 @@ def load_products(xlsx_path):
     return out
 
 def _index_images(images_root):
+    # filename -> list of every full path carrying that name (dupes across folders)
     idx = {}
     for dirpath, _, files in os.walk(images_root):
         for f in files:
             if f.lower().endswith((".png", ".jpg", ".jpeg", ".webp")):
-                idx.setdefault(f, os.path.join(dirpath, f))
+                idx.setdefault(f, []).append(os.path.join(dirpath, f))
     return idx
+
+def _collection_slug(name):
+    """'Zenith Gunmetal Black Collection' -> 'zenith-gunmetal-black'."""
+    s = (name or "").lower().replace("collection", "")
+    s = re.sub(r"[^a-z0-9]+", "-", s)
+    return s.strip("-")
+
+def _choose_path(paths, collection):
+    """Prefer the copy whose folder name matches the product's collection slug;
+    fall back to the first path when nothing matches."""
+    if len(paths) == 1:
+        return paths[0]
+    slug = _collection_slug(collection)
+    for p in paths:
+        if os.path.basename(os.path.dirname(p)) == slug:
+            return p
+    return paths[0]
 
 def resolve_images(products, images_root):
     idx = _index_images(images_root)
     included, no_image, broken = [], [], []
-    used = set()
+    used_paths = set()
     for p in products:
         fn = p["image_filename"]
         if not fn:
             no_image.append(p); continue
-        path = idx.get(fn)
-        if not path:
+        paths = idx.get(fn)
+        if not paths:
             broken.append(p); continue
-        p["image_path"] = path
-        used.add(fn)
+        chosen = _choose_path(paths, p["collection"])
+        p["image_path"] = chosen
+        used_paths.add(chosen)
         included.append(p)
-    orphans = sorted(set(idx) - used)
+    # Orphans = physical files never chosen. One basename entry per unreferenced
+    # physical file so len(orphans) reflects the true physical count; the report
+    # dedups basenames only for display.
+    all_paths = [pp for paths in idx.values() for pp in paths]
+    orphans = sorted(os.path.basename(pp) for pp in all_paths if pp not in used_paths)
     return included, no_image, broken, orphans
 
 SIGNATURE_PREFIXES = ["Zenith", "Opell Prima", "Para"]
@@ -134,7 +159,9 @@ def write_report(report_path, total, included, no_image, broken, price_on_reques
     section("Omitted — no image", no_image, lambda r: f"- {r['item_code']} — {r['name']} ({r['collection']})")
     section("Omitted — broken image reference", broken, lambda r: f"- {r['item_code']} — {r['name']} → {r.get('image_filename')}")
     section("Price on request", price_on_request, lambda r: f"- {r['item_code']} — {r['name']} ({r['collection']})")
-    section("Orphan photos", [{"f":o} for o in orphans], lambda r: f"- {r['f']}")
+    # dedup basenames for display; the summary count above stays physical (len(orphans))
+    orphan_display = list(dict.fromkeys(orphans))
+    section("Orphan photos", [{"f":o} for o in orphan_display], lambda r: f"- {r['f']}")
 
     Path(report_path).write_text("\n".join(L), encoding="utf-8")
     print(f"Report: {report_path}  |  included={included} no_image={len(no_image)} broken={len(broken)} price_req={len(price_on_request)} orphans={len(orphans)}")
@@ -144,13 +171,14 @@ from reportlab.lib.utils import ImageReader
 from PIL import Image
 import io
 
-def _draw_logo(c, x, y, scale=1.0):
+def _draw_logo(c, x, y, scale=1.0, color="#111111"):
     """Minimal IPM wordmark: 'IPM' + 4 right bars + 'BATH FITTINGS'."""
-    c.setFillColor(HexColor("#111111"))
+    col = HexColor(color)
+    c.setFillColor(col)
     c.setFont("SegoeUI-Bold", 26*scale)
     c.drawString(x, y, "IPM")
     bx = x + 52*scale
-    c.setLineWidth(2.2*scale); c.setStrokeColor(HexColor("#111111"))
+    c.setLineWidth(2.2*scale); c.setStrokeColor(col)
     for i, w in enumerate([26, 22, 18, 14]):
         yy = y + 18*scale - i*5.5*scale
         c.line(bx + (26-w)*scale, yy, bx + 26*scale, yy)
@@ -191,12 +219,7 @@ def draw_cover(c, hero_path, wef="01.04.2026"):
         c.rect(0, 0, PAGE_W, PAGE_H, fill=1, stroke=0); c.setFillAlpha(1)
     else:
         c.setFillColor(HexColor("#2b2b2b")); c.rect(0,0,PAGE_W,PAGE_H,fill=1,stroke=0)
-    c.saveState(); c.translate(PAGE_W-150, PAGE_H-80)
-    c.setFillColor(HexColor("#ffffff")); c.setStrokeColor(HexColor("#ffffff"))
-    c.setFont("SegoeUI-Bold", 26); c.drawString(0,0,"IPM")
-    for i,w in enumerate([26,22,18,14]):
-        yy = 18 - i*5.5; c.setLineWidth(2.2); c.line((26-w)+52, yy+0, 52+26, yy)
-    c.setFont("SegoeUI", 6.5); c.drawString(0,-9,"B A T H   F I T T I N G S"); c.restoreState()
+    _draw_logo(c, PAGE_W-150, PAGE_H-80, scale=1.0, color="#ffffff")
     c.setFillColor(HexColor("#ffffff"))
     c.setFont("SegoeUI-Semibold", 20); c.drawCentredString(PAGE_W/2, 118, "F U L F I L L I N G   Y O U R   B A T H I N G   D E S I R E S")
     c.setFont("SegoeUI-Bold", 26); c.drawCentredString(PAGE_W/2, 70, "INDIA MRP LIST")
@@ -221,7 +244,8 @@ def draw_footer(c, page_no):
     c.drawRightString(PAGE_W-MARGIN_X, 10, str(page_no))
 
 def _fmt_price(mrp):
-    return f"₹ : {mrp}/-" if mrp is not None else "Price on request"
+    # 0 is not a real price -> treat like missing
+    return f"₹ : {mrp}/-" if mrp else "Price on request"
 
 def draw_cell(c, x, y, w, h, product):
     # code box (teal) top-left — auto-fit width to the code, min 42pt like the sample
@@ -236,12 +260,13 @@ def draw_cell(c, x, y, w, h, product):
     if product.get("image_path") and os.path.exists(product["image_path"]):
         try:
             ir, (iw, ih) = _load_product_image(product["image_path"])
-            box_w, box_h = w*0.8, img_h
-            scale = min(box_w/iw, box_h/ih)
+            img_box_w, img_box_h = w*0.8, img_h
+            scale = min(img_box_w/iw, img_box_h/ih)
             dw, dh = iw*scale, ih*scale
             c.drawImage(ir, x+(w-dw)/2, y+h-24-dh, dw, dh, preserveAspectRatio=True, mask="auto")
-        except Exception:
-            pass
+        except Exception as e:
+            print(f"WARNING: failed to draw image for {product.get('item_code')} "
+                  f"({product['image_path']}): {e}", file=sys.stderr)
     # name (uppercase, may wrap 2 lines)
     c.setFillColor(HexColor("#222222")); c.setFont("SegoeUI-Semibold", 8.5)
     name = product["name"].upper()

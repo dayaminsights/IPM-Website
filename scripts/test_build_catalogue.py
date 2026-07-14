@@ -51,6 +51,29 @@ def test_resolve_images(tmp_path):
     assert "orphan.png" in orphans
     assert "bib-cock-chrome.png" not in orphans
 
+def test_resolve_images_prefers_collection_folder(tmp_path):
+    m = load_mod()
+    root = tmp_path / "products"
+    (root / "zenith").mkdir(parents=True)
+    (root / "aliva").mkdir(parents=True)
+    (root / "zenith" / "dup.png").write_bytes(b"z")
+    (root / "aliva" / "dup.png").write_bytes(b"a")
+    prods = [
+        {"item_code":"1","name":"A","collection":"Zenith Collection","category":"","mrp":10,"image_filename":"dup.png","image_path":None},
+    ]
+    included, no_image, broken, orphans = m.resolve_images(prods, root)
+    assert [p["item_code"] for p in included] == ["1"]
+    chosen = included[0]["image_path"].replace("\\", "/")
+    assert "/zenith/dup.png" in chosen
+    # the aliva copy was never chosen -> counts as a physical orphan
+    assert "dup.png" in orphans
+
+def test_fmt_price():
+    m = load_mod()
+    assert m._fmt_price(None) == "Price on request"
+    assert m._fmt_price(0) == "Price on request"
+    assert m._fmt_price(1335) == "₹ : 1335/-"
+
 def test_order_collections():
     m = load_mod()
     def prod(coll): return {"item_code":"x","name":"n","collection":coll,"category":"","mrp":1,"image_filename":"f","image_path":"f"}
