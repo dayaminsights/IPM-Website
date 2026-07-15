@@ -6,7 +6,6 @@ import os, sys
 from pathlib import Path
 from reportlab.lib.colors import HexColor
 from reportlab.pdfgen import canvas as rl_canvas
-from reportlab.lib.utils import ImageReader
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from catalogue_common import (

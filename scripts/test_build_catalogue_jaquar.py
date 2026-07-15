@@ -46,6 +46,33 @@ def test_paginate_blocks_splits_on_budget():
     assert len(pages[0]) == 3   # sub + 2 rows
     assert len(pages[1]) == 1   # 1 row on the continuation page
 
+def test_collection_blocks_no_duplicate_heading_after_sort():
+    m = load_mod()
+    def prod(i, cat): return {"item_code": str(i), "category": cat}
+    # simulate build_pdf's pre-sort of an interleaved collection
+    items = [prod(1,"Faucets"), prod(2,"Shower"), prod(3,"Faucets"), prod(4,"Shower")]
+    sorted_items = sorted(items, key=lambda p: p.get("category") or "")
+    blocks = m._collection_blocks(sorted_items)
+    subs = [payload for kind, payload in blocks if kind == "sub"]
+    assert subs == ["Faucets", "Shower"]   # each category appears as a heading exactly once
+
+def test_paginate_blocks_no_stranded_heading():
+    m = load_mod()
+    # First row (150) nearly fills a 180 budget; the sub (24) alone would still
+    # fit (150+24=174<=180) but its following row would not (150+24+150=324>180).
+    # The heading must move to the next page together with its row, not sit
+    # alone at the bottom of page 1.
+    blocks = [("row", [1,2,3]), ("sub", "B"), ("row", [4,5,6])]
+    pages = m._paginate_blocks(blocks, first_page_budget=180, cont_page_budget=500)
+    for page in pages:
+        if page and page[-1][0] == "sub":
+            # a stranded heading is only acceptable if no row follows it at all
+            idx = blocks.index(page[-1])
+            assert idx == len(blocks) - 1 or blocks[idx + 1][0] != "row"
+    assert len(pages) == 2
+    assert pages[1][0] == ("sub", "B")
+    assert pages[1][1][0] == "row"
+
 def test_build_pdf_page_count(tmp_path):
     m = load_mod(); m.register_fonts()
     def prod(i, coll): return {"item_code":str(i),"name":"Item","collection":coll,"category":"Faucets","mrp":10,"image_filename":None,"image_path":None}

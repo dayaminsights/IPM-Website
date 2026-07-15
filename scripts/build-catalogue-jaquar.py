@@ -7,7 +7,6 @@ import os, sys
 from pathlib import Path
 from reportlab.lib.colors import HexColor
 from reportlab.pdfgen import canvas as rl_canvas
-from reportlab.lib.utils import ImageReader
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from catalogue_common import (
@@ -57,8 +56,16 @@ def draw_collection_banner(c, collection_name, hero_path):
     else:
         c.setFillColor(HexColor("#D9D9D9"))
         c.rect(0, PAGE_H-BANNER_H, PAGE_W, BANNER_H, fill=1, stroke=0)
-    c.setFillColor(HexColor("#ffffff")); c.setFont("SegoeUI-Bold", 20)
     lines = _wrap(c, collection_name.upper(), "SegoeUI-Bold", 20, PAGE_W*0.6)[:2]
+    # Subtle dark scrim behind the title so white text stays legible even when
+    # the banner falls back to a light product photo or flat category-fallback
+    # image (not every collection has a real lifestyle hero photo).
+    title_h = 24*len(lines) + 20
+    c.saveState()
+    c.setFillColor(HexColor("#000000")); c.setFillAlpha(0.35)
+    c.rect(0, PAGE_H-title_h, PAGE_W, title_h, fill=1, stroke=0)
+    c.restoreState()
+    c.setFillColor(HexColor("#ffffff")); c.setFont("SegoeUI-Bold", 20)
     ty = PAGE_H - 40
     for line in lines:
         c.drawString(MARGIN_X, ty, line); ty -= 24
@@ -125,20 +132,37 @@ def _collection_blocks(items):
 def _paginate_blocks(blocks, first_page_budget, cont_page_budget):
     """Pack blocks into pages using a vertical-space budget (points). The first
     page has less room (a lifestyle banner sits above the grid); continuation
-    pages only have a small text heading."""
+    pages only have a small text heading.
+
+    A category subheading ('sub' block) never gets stranded alone at the
+    bottom of a page: if adding it would leave no room for the row that
+    follows it, both move to the next page together.
+    """
     pages = []
     current = []
     budget = first_page_budget
     used = 0
-    for kind, payload in blocks:
+    n = len(blocks)
+    i = 0
+    while i < n:
+        kind, payload = blocks[i]
         h = SUB_H if kind == "sub" else ROW_H
-        if used + h > budget and current:
+        if kind == "sub" and current and i + 1 < n and blocks[i + 1][0] == "row":
+            # Lookahead: would the sub AND its following row both fit? If not,
+            # break the page now so the heading isn't left dangling alone.
+            if used + h + ROW_H > budget:
+                pages.append(current)
+                current = []
+                budget = cont_page_budget
+                used = 0
+        elif used + h > budget and current:
             pages.append(current)
             current = []
             budget = cont_page_budget
             used = 0
         current.append((kind, payload))
         used += h
+        i += 1
     if current:
         pages.append(current)
     return pages
@@ -150,6 +174,11 @@ def build_pdf(groups, out_path, hero_path, images_collections_dir):
     cell_w = (PAGE_W - 2*MARGIN_X) / COLS
     page_no = 1
     for collection, items in groups:
+        # Items keep raw Excel row order, which interleaves categories within
+        # a collection (e.g. Faucets/Shower/Faucets/...). Stable-sort by
+        # category first so _collection_blocks doesn't emit the same heading
+        # multiple times and fragment pages down to a couple of products.
+        items = sorted(items, key=lambda p: p.get("category") or "")
         blocks = _collection_blocks(items)
         top_first = PAGE_H - BANNER_H - 20
         top_cont = PAGE_H - 70
