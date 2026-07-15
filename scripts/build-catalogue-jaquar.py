@@ -1,0 +1,102 @@
+"""Portrait catalogue PDF styled after 'sample catalogue 2.pdf' (Jaquar minimal
+layout): 3-column grid with inline category sub-headings, finish-swatch rows and
+QR codes omitted (not present in our source data — see
+docs/superpowers/specs/2026-07-15-catalogue-pdf-real-samples-design.md).
+"""
+import os, sys
+from pathlib import Path
+from reportlab.lib.colors import HexColor
+from reportlab.pdfgen import canvas as rl_canvas
+from reportlab.lib.utils import ImageReader
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from catalogue_common import (
+    register_fonts, load_products, resolve_images, order_collections,
+    write_report, _draw_logo, _load_product_image, _wrap, resolve_collection_hero,
+)
+
+PAGE_W, PAGE_H = 595, 842
+COLS = 3
+MARGIN_X = 40
+FOOTER_H = 30
+ROW_H = 150
+SUB_H = 24
+BANNER_H = 210
+GRID_BOTTOM = 50
+
+GRAY_HEAD = HexColor("#8A8A8A")
+TEXT_DARK = HexColor("#1A1A1A")
+TEXT_GRAY = HexColor("#6E6E6E")
+
+def _fmt_price(mrp):
+    return f"Rs. {mrp:,}" if mrp else "Price on request"
+
+def draw_cover(c, hero_path, year="2026"):
+    c.setStrokeColor(HexColor("#1A1A1A")); c.setLineWidth(0.8)
+    c.rect(MARGIN_X, PAGE_H-90, 120, 50, fill=0, stroke=1)
+    c.setFillColor(HexColor("#1A1A1A")); c.setFont("SegoeUI-Semibold", 11)
+    c.drawString(MARGIN_X+10, PAGE_H-52, "PRODUCT")
+    c.drawString(MARGIN_X+10, PAGE_H-64, "CATALOGUE")
+    c.setFont("SegoeUI", 9)
+    c.drawString(MARGIN_X+10, PAGE_H-80, year)
+    _draw_logo(c, PAGE_W-190, PAGE_H-60, scale=0.85, color="#1A1A1A")
+    photo_top = PAGE_H - 110
+    photo_h = photo_top - 90
+    if hero_path and os.path.exists(hero_path):
+        c.drawImage(ImageReader(hero_path), MARGIN_X, photo_top-photo_h, PAGE_W-2*MARGIN_X, photo_h, preserveAspectRatio=False, mask=None)
+    else:
+        c.setFillColor(HexColor("#2b2b2b"))
+        c.rect(MARGIN_X, photo_top-photo_h, PAGE_W-2*MARGIN_X, photo_h, fill=1, stroke=0)
+    c.setFillColor(HexColor("#ffffff")); c.setFont("SegoeUI-Semibold", 13)
+    c.drawString(MARGIN_X+14, photo_top-photo_h+18, "FULFILLING YOUR BATHING DESIRES")
+    c.showPage()
+
+def draw_collection_banner(c, collection_name, hero_path):
+    if hero_path and os.path.exists(hero_path):
+        c.drawImage(ImageReader(hero_path), 0, PAGE_H-BANNER_H, PAGE_W, BANNER_H, preserveAspectRatio=False, mask=None)
+    else:
+        c.setFillColor(HexColor("#D9D9D9"))
+        c.rect(0, PAGE_H-BANNER_H, PAGE_W, BANNER_H, fill=1, stroke=0)
+    c.setFillColor(HexColor("#ffffff")); c.setFont("SegoeUI-Bold", 20)
+    lines = _wrap(c, collection_name.upper(), "SegoeUI-Bold", 20, PAGE_W*0.6)[:2]
+    ty = PAGE_H - 40
+    for line in lines:
+        c.drawString(MARGIN_X, ty, line); ty -= 24
+
+def draw_collection_heading_small(c, collection_name):
+    c.setFillColor(GRAY_HEAD); c.setFont("SegoeUI-Semibold", 15)
+    c.drawString(MARGIN_X, PAGE_H-50, collection_name.upper())
+
+def draw_category_subheading(c, category, y):
+    c.setFillColor(TEXT_DARK); c.setFont("SegoeUI-Bold", 10)
+    c.drawString(MARGIN_X, y, (category or "OTHER").upper())
+
+def draw_footer(c, page_no):
+    c.setFillColor(TEXT_GRAY); c.setFont("SegoeUI", 9)
+    c.drawString(MARGIN_X, 20, "ipmbathfittings.com")
+    c.setFillColor(HexColor("#DADADA"))
+    c.roundRect(PAGE_W-70, 14, 30, 16, 3, fill=1, stroke=0)
+    c.setFillColor(TEXT_DARK); c.setFont("SegoeUI-Bold", 9)
+    c.drawCentredString(PAGE_W-55, 19, str(page_no))
+
+def draw_cell(c, x, y, w, h, product):
+    img_h = h*0.55
+    if product.get("image_path") and os.path.exists(product["image_path"]):
+        try:
+            ir, (iw, ih) = _load_product_image(product["image_path"])
+            box_w, box_h = w*0.8, img_h
+            scale = min(box_w/iw, box_h/ih)
+            dw, dh = iw*scale, ih*scale
+            c.drawImage(ir, x+(w-dw)/2, y+h-dh-4, dw, dh, preserveAspectRatio=True, mask="auto")
+        except Exception as e:
+            print(f"WARNING: failed to draw image for {product.get('item_code')} "
+                  f"({product['image_path']}): {e}", file=sys.stderr)
+    ty = y + h - img_h - 16
+    c.setFillColor(TEXT_DARK); c.setFont("SegoeUI-Bold", 9)
+    c.drawString(x+2, ty, str(product["item_code"]))
+    ty -= 12
+    c.setFillColor(TEXT_GRAY); c.setFont("SegoeUI", 7.5)
+    for line in _wrap(c, product["name"], "SegoeUI", 7.5, w-6)[:2]:
+        c.drawString(x+2, ty, line); ty -= 10
+    c.setFillColor(TEXT_DARK); c.setFont("SegoeUI-Bold", 9)
+    c.drawString(x+2, ty-2, _fmt_price(product.get("mrp")))
