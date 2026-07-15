@@ -142,3 +142,64 @@ def _paginate_blocks(blocks, first_page_budget, cont_page_budget):
     if current:
         pages.append(current)
     return pages
+
+def build_pdf(groups, out_path, hero_path, images_collections_dir):
+    register_fonts()
+    c = rl_canvas.Canvas(str(out_path), pagesize=(PAGE_W, PAGE_H))
+    draw_cover(c, hero_path)
+    cell_w = (PAGE_W - 2*MARGIN_X) / COLS
+    page_no = 1
+    for collection, items in groups:
+        blocks = _collection_blocks(items)
+        top_first = PAGE_H - BANNER_H - 20
+        top_cont = PAGE_H - 70
+        first_budget = top_first - GRID_BOTTOM
+        cont_budget = top_cont - GRID_BOTTOM
+        pages = _paginate_blocks(blocks, first_budget, cont_budget)
+        category = items[0]["category"] if items else ""
+        hero = resolve_collection_hero(collection, images_collections_dir, category, items)
+        for i, page_blocks in enumerate(pages):
+            if i == 0:
+                draw_collection_banner(c, collection, hero)
+                cursor_y = top_first
+            else:
+                draw_collection_heading_small(c, collection)
+                cursor_y = top_cont
+            for kind, payload in page_blocks:
+                if kind == "sub":
+                    draw_category_subheading(c, payload, cursor_y)
+                    cursor_y -= SUB_H
+                else:
+                    row_top = cursor_y
+                    for ci, product in enumerate(payload):
+                        x = MARGIN_X + ci*cell_w
+                        draw_cell(c, x+4, row_top-ROW_H+6, cell_w-8, ROW_H-10, product)
+                    cursor_y -= ROW_H
+            draw_footer(c, page_no)
+            c.showPage()
+            page_no += 1
+    c.save()
+
+import argparse
+
+def main(argv=None):
+    ap = argparse.ArgumentParser(description="Build IPM catalogue PDF (Jaquar style)")
+    ap.add_argument("--xlsx", default="ITEM MASTER FOR WEBSITE.xlsx")
+    ap.add_argument("--images", default="images/products")
+    ap.add_argument("--collections-images", default="images/collections")
+    ap.add_argument("--hero", default="images/collections/hero.jpg")
+    ap.add_argument("--out", default="IPM Catalogue (Jaquar Style).pdf")
+    ap.add_argument("--report", default="reports/catalogue-build-jaquar.md")
+    args = ap.parse_args(argv)
+
+    products = load_products(args.xlsx)
+    included, no_image, broken, orphans = resolve_images(products, args.images)
+    price_req = [p for p in included if p["mrp"] is None]
+    groups = order_collections(included)
+    build_pdf(groups, args.out, args.hero, args.collections_images)
+    write_report(args.report, total=len(products), included=len(included),
+                 no_image=no_image, broken=broken, price_on_request=price_req, orphans=orphans)
+    print(f"PDF: {args.out}  ({len(included)} products, {len(groups)} collections)")
+
+if __name__ == "__main__":
+    main()
