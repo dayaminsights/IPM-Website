@@ -206,6 +206,28 @@ def _load_product_image(path):
     _PRODUCT_IMG_CACHE[key] = result
     return result
 
+# Cache downscaled hero/banner photos (cover images, collection banners) by
+# absolute path, same rationale as _load_product_image: a collection hero
+# photo (source photography can be several MB / thousands of px wide) is
+# drawn full-bleed but only needs to be as large as the box it fills, and the
+# same file may be reused as a fallback across pages/scripts.
+_HERO_IMG_CACHE = {}
+HERO_IMG_MAX_PX = 1000
+
+def _load_hero_image(path, max_px=HERO_IMG_MAX_PX):
+    """Return an ImageReader for a downscaled copy of a hero/banner photo.
+    Cached by (absolute path, max_px)."""
+    key = (os.path.abspath(path), max_px)
+    cached = _HERO_IMG_CACHE.get(key)
+    if cached is not None:
+        return cached
+    im = Image.open(path).convert("RGB")
+    im.thumbnail((max_px, max_px), Image.LANCZOS)
+    buf = io.BytesIO(); im.save(buf, format="JPEG", quality=85); buf.seek(0)
+    reader = ImageReader(buf)
+    _HERO_IMG_CACHE[key] = reader
+    return reader
+
 def _wrap(c, text, font, size, max_w):
     words = text.split(); lines=[]; cur=""
     for wd in words:

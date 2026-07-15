@@ -11,7 +11,7 @@ from reportlab.lib.utils import ImageReader
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from catalogue_common import (
     register_fonts, load_products, resolve_images, order_collections,
-    paginate, write_report, _draw_logo, _load_product_image, _wrap,
+    paginate, write_report, _draw_logo, _load_product_image, _load_hero_image, _wrap,
 )
 
 PAGE_W, PAGE_H = 842, 595
@@ -27,7 +27,7 @@ def _fmt_price(mrp):
 
 def draw_cover(c, hero_path, wef="01.04.2026"):
     if hero_path and os.path.exists(hero_path):
-        c.drawImage(ImageReader(hero_path), 0, 0, PAGE_W, PAGE_H, preserveAspectRatio=False, mask=None)
+        c.drawImage(_load_hero_image(hero_path), 0, 0, PAGE_W, PAGE_H, preserveAspectRatio=False, mask=None)
     else:
         c.setFillColor(HexColor("#2b2b2b")); c.rect(0, 0, PAGE_W, PAGE_H, fill=1, stroke=0)
     c.setFillColor(HexColor(BAND_COLOR)); c.setFillAlpha(0.92)

@@ -12,7 +12,7 @@ from reportlab.lib.utils import ImageReader
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from catalogue_common import (
     register_fonts, load_products, resolve_images, order_collections,
-    write_report, _draw_logo, _load_product_image, _wrap, resolve_collection_hero,
+    write_report, _draw_logo, _load_product_image, _load_hero_image, _wrap, resolve_collection_hero,
 )
 
 PAGE_W, PAGE_H = 595, 842
@@ -43,7 +43,7 @@ def draw_cover(c, hero_path, year="2026"):
     photo_top = PAGE_H - 110
     photo_h = photo_top - 90
     if hero_path and os.path.exists(hero_path):
-        c.drawImage(ImageReader(hero_path), MARGIN_X, photo_top-photo_h, PAGE_W-2*MARGIN_X, photo_h, preserveAspectRatio=False, mask=None)
+        c.drawImage(_load_hero_image(hero_path), MARGIN_X, photo_top-photo_h, PAGE_W-2*MARGIN_X, photo_h, preserveAspectRatio=False, mask=None)
     else:
         c.setFillColor(HexColor("#2b2b2b"))
         c.rect(MARGIN_X, photo_top-photo_h, PAGE_W-2*MARGIN_X, photo_h, fill=1, stroke=0)
@@ -53,7 +53,7 @@ def draw_cover(c, hero_path, year="2026"):
 
 def draw_collection_banner(c, collection_name, hero_path):
     if hero_path and os.path.exists(hero_path):
-        c.drawImage(ImageReader(hero_path), 0, PAGE_H-BANNER_H, PAGE_W, BANNER_H, preserveAspectRatio=False, mask=None)
+        c.drawImage(_load_hero_image(hero_path), 0, PAGE_H-BANNER_H, PAGE_W, BANNER_H, preserveAspectRatio=False, mask=None)
     else:
         c.setFillColor(HexColor("#D9D9D9"))
         c.rect(0, PAGE_H-BANNER_H, PAGE_W, BANNER_H, fill=1, stroke=0)
