@@ -100,3 +100,45 @@ def draw_cell(c, x, y, w, h, product):
         c.drawString(x+2, ty, line); ty -= 10
     c.setFillColor(TEXT_DARK); c.setFont("SegoeUI-Bold", 9)
     c.drawString(x+2, ty-2, _fmt_price(product.get("mrp")))
+
+def _collection_blocks(items):
+    """Group consecutive same-category items into 'row' blocks of up to COLS
+    items, inserting a 'sub' (category heading) block whenever the category
+    changes."""
+    blocks = []
+    last_cat = None
+    buf = []
+    for p in items:
+        cat = p.get("category") or ""
+        if cat != last_cat:
+            if buf:
+                blocks.append(("row", buf)); buf = []
+            blocks.append(("sub", cat))
+            last_cat = cat
+        buf.append(p)
+        if len(buf) == COLS:
+            blocks.append(("row", buf)); buf = []
+    if buf:
+        blocks.append(("row", buf))
+    return blocks
+
+def _paginate_blocks(blocks, first_page_budget, cont_page_budget):
+    """Pack blocks into pages using a vertical-space budget (points). The first
+    page has less room (a lifestyle banner sits above the grid); continuation
+    pages only have a small text heading."""
+    pages = []
+    current = []
+    budget = first_page_budget
+    used = 0
+    for kind, payload in blocks:
+        h = SUB_H if kind == "sub" else ROW_H
+        if used + h > budget and current:
+            pages.append(current)
+            current = []
+            budget = cont_page_budget
+            used = 0
+        current.append((kind, payload))
+        used += h
+    if current:
+        pages.append(current)
+    return pages
