@@ -1,15 +1,15 @@
 # Data Audit — Catalog Migration
 
-_Generated 2026-06-26T16:47:09.469Z from `catalog.clean.xlsx`._
+_Generated 2026-08-19T18:53:22.344Z from `catalog.clean.xlsx`._
 
 ## Summary
 
 | Metric | Value |
 | --- | --- |
-| Source rows | 822 |
-| Products (variant groups) | 368 |
-| Variants (SKUs) | 822 |
-| Collections | 14 |
+| Source rows | 835 |
+| Products (variant groups) | 381 |
+| Variants (SKUs) | 835 |
+| Collections | 17 |
 | Multi-variant products | 55 |
 | Duplicate ItemCodes | 0 |
 | Rows skipped (no code) | 0 |
@@ -26,16 +26,19 @@ _Generated 2026-06-26T16:47:09.469Z from `catalog.clean.xlsx`._
 | Opell Prima | opell-prima | 34 | 13 | Faucets, Kitchen Mixers | yes |
 | Flora | flora | 33 | 1 | Faucets, Kitchen Mixers |  |
 | Fuzone | fuzone | 33 | 1 | Faucets, Kitchen Mixers |  |
-| Aliva | aliva | 32 | 1 | Faucets, Kitchen Mixers | yes |
+| Aliva | aliva | 32 | 1 | Faucets, Kitchen Mixers |  |
 | Pebble | pebble | 29 | 1 | Faucets, Kitchen Mixers |  |
 | Pheonix | pheonix | 26 | 1 | Faucets, Kitchen Mixers |  |
 | Neo | neo | 21 | 1 | Faucets, Kitchen Mixers |  |
-| Para | para | 21 | 1 | Faucets, Kitchen Mixers |  |
+| Para | para | 21 | 1 | Faucets, Kitchen Mixers | yes |
 | Cube Prima | cube-prima | 20 | 1 | Faucets, Kitchen Mixers |  |
 | JP | jp | 17 | 1 | Faucets, Kitchen Mixers |  |
-| Zenith | zenith | 13 | 3 | Faucets, Kitchen Mixers |  |
+| Zenith | zenith | 13 | 3 | Faucets, Kitchen Mixers | yes |
 | Square Accessories | square-accessories | 8 | 1 | Faucets |  |
+| Single Piece Wc | single-piece-wc | 7 | 1 | Sanitaryware |  |
 | Bathroom Accessories | bathroom-accessories | 6 | 13 | Faucets |  |
+| Basin With Pedestal | basin-with-pedestal | 4 | 1 | Sanitaryware |  |
+| Wall Hung Wc | wall-hung-wc | 2 | 1 | Sanitaryware |  |
 
 ## Issues
 

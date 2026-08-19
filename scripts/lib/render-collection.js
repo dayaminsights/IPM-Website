@@ -188,8 +188,9 @@ ${catChipsHtml}
   </div>
 </section>`;
 
-  // Finishes strip (verbatim, unfiltered, 16 swatches)
-  const finishesHtml = `<section class="sec finishes-section">
+  // Finishes strip (verbatim, unfiltered, 16 swatches) — brass-only, skip for ceramic-only collections
+  const isCeramicOnly = collection.categories.length > 0 && collection.categories.every(c => c === 'Sanitaryware');
+  const finishesHtml = isCeramicOnly ? '' : `<section class="sec finishes-section">
   <div class="wrap">
     <div class="finishes-head reveal">
       <div class="eyebrow">Available In</div>

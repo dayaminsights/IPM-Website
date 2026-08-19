@@ -2,9 +2,9 @@
 
 | Metric | Value |
 | --- | --- |
-| Source data rows | 1060 |
+| Source data rows | 1073 |
 | Removed (red) | 238 |
-| Kept | 822 |
+| Kept | 835 |
 | Blue (no-photo flag) | 48 |
 
 ## Removed ItemCodes (red)

@@ -80,7 +80,7 @@ function phraseFinish(text) {
 
 // Resolve the finish for a single row. Priority: code suffix > collection phrase > Chrome.
 // Returns { finish, source, mismatch } where mismatch flags suffix/collection disagreement.
-function resolveFinish(code, collectionName) {
+function resolveFinish(code, collectionName, category) {
   const fromSuffix = suffixFinish(code);
   const fromCollection = phraseFinish(collectionName);
   if (fromSuffix) {
@@ -88,6 +88,8 @@ function resolveFinish(code, collectionName) {
     return { finish: fromSuffix, source: 'suffix', mismatch };
   }
   if (fromCollection) return { finish: fromCollection, source: 'collection', mismatch: null };
+  // Ceramic sanitaryware has no brass finish — don't default it to "Chrome".
+  if (category === 'Sanitaryware') return { finish: 'White', source: 'default', mismatch: null };
   return { finish: 'Chrome', source: 'default', mismatch: null };
 }
 
@@ -98,6 +100,7 @@ function mapCategory(raw) {
   const v = String(raw || '').trim().toLowerCase().replace(/\s+/g, ' ');
   if (v.includes('kithchen') || v.includes('kitchen')) return 'Kitchen Mixers';
   if (v.includes('shower')) return 'Shower';
+  if (v.includes('sanitary')) return 'Sanitaryware';
   if (v.includes('faucet')) return 'Faucets';
   return 'Faucets';
 }
@@ -147,13 +150,14 @@ function collectionFromText(text) {
 // Strip collection line-words + finish phrases + trailing Collection/Items off a product
 // name to get a clean display name (SKU Name).
 const COLLECTION_WORD_RE = new RegExp('\\b(' + COLLECTION_WORDS.join('|') + ')\\b', 'ig');
-function cleanProductName(itemName) {
-  let s = String(itemName || '')
-    .replace(FINISH_PHRASE_RE, ' ')
-    .replace(COLLECTION_WORD_RE, ' ')
-    .replace(/\b(collection|items)\b/ig, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
+function cleanProductName(itemName, category) {
+  // COLLECTION_WORDS are brass line names (Neo, Allied, Zenith...) that are safe to
+  // strip as redundant self-references in faucet/mixer/shower names. Sanitaryware
+  // product names never reference those lines, so a name like "... Neo" is the
+  // product's own name, not a redundant brand mention — don't strip it there.
+  let s = String(itemName || '').replace(FINISH_PHRASE_RE, ' ');
+  if (category !== 'Sanitaryware') s = s.replace(COLLECTION_WORD_RE, ' ');
+  s = s.replace(/\b(collection|items)\b/ig, ' ').replace(/\s+/g, ' ').trim();
   return s || String(itemName || '').trim();
 }
 
