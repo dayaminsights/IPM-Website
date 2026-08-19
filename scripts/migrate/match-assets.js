@@ -24,6 +24,7 @@ function normalizeBasename(name) {
   return String(name || '')
     .replace(/\.(png|jpe?g)$/i, '')
     .trim()
+    .replace(/^\d{1,3}(-[A-Za-z])?[\s.]+/, '') // strip leading serial num e.g. "01 ", "08-A "
     .toLowerCase()
     .replace(/\s+/g, ' ');
 }
