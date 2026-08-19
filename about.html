@@ -440,6 +440,11 @@ header.site[data-header="over-dark"] .wa-link:hover { color: #25D366; }
 .stagger-children.visible > *:nth-child(3) { opacity: 1; transform: none; transition-delay: .16s; }
 .stagger-children.visible > *:nth-child(4) { opacity: 1; transform: none; transition-delay: .24s; }
 .stagger-children.visible > *:nth-child(5) { opacity: 1; transform: none; transition-delay: .32s; }
+.stagger-children.visible > *:nth-child(6) { opacity: 1; transform: none; transition-delay: .40s; }
+.stagger-children.visible > *:nth-child(7) { opacity: 1; transform: none; transition-delay: .48s; }
+.stagger-children.visible > *:nth-child(8) { opacity: 1; transform: none; transition-delay: .56s; }
+.stagger-children.visible > *:nth-child(9) { opacity: 1; transform: none; transition-delay: .64s; }
+.stagger-children.visible > *:nth-child(10) { opacity: 1; transform: none; transition-delay: .72s; }
 
 /* ================================================================
    SECTION SHELL
@@ -1603,7 +1608,7 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
   <!-- Full-bleed interactive globe layer -->
   <div class="gp-globe-stage">
     <canvas id="gpGlobe" width="560" height="560" role="img"
-      aria-label="Interactive globe showing IPM's ten markets — Nepal, Bhutan, Sri Lanka, Dubai, Oman, Bahrain, Tanzania, Uganda, Zanzibar and Rwanda — with gold routes from the Delhi workshop to each dealer city. Drag to rotate, Ctrl+scroll to zoom; markets listed below."></canvas>
+      aria-label="Interactive globe showing IPM's ten markets — Nepal, Bhutan, Sri Lanka, Dubai, Oman, Bahrain, Tanzania, Uganda, Zanzibar and Kenya — with gold routes from the Delhi workshop to each dealer city. Drag to rotate, Ctrl+scroll to zoom; markets listed below."></canvas>
     <div class="gp-globe-scrim" aria-hidden="true"></div>
     <div class="gp-globe-tip" id="gpTip" role="status" aria-live="polite" hidden></div>
     <div class="gp-globe-hint" id="gpHint" aria-hidden="true">
@@ -1674,8 +1679,8 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
       </div>
       <div class="gp-region">
         <div class="gp-region-num">10</div>
-        <div class="gp-region-name">Rwanda</div>
-        <div class="gp-region-cities">Kigali</div>
+        <div class="gp-region-name">Kenya</div>
+        <div class="gp-region-cities">Nairobi</div>
       </div>
     </div>
   </div>
@@ -2063,7 +2068,7 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
     { name: 'Dar es Salaam',  country: 'Tanzania',  coord: [39.27,  -6.81], primary: true },
     { name: 'Kampala',        country: 'Uganda',    coord: [32.58,   0.32], primary: true },
     { name: 'Zanzibar',       country: 'Tanzania',  coord: [39.36,  -5.93] },
-    { name: 'Kigali',         country: 'Rwanda',    coord: [30.06,  -1.94], primary: true }
+    { name: 'Nairobi',        country: 'Kenya',     coord: [36.82,  -1.29], primary: true }
   ];
   const hub  = cities[0];
   const arcs = cities.filter(c => !c.hub)
@@ -2073,7 +2078,7 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
   const FOCUS_IDS = new Set([
     524 /*Nepal*/, 64 /*Bhutan*/, 144 /*Sri Lanka*/,
     784 /*UAE*/, 512 /*Oman*/, 48 /*Bahrain*/,
-    834 /*Tanzania*/, 800 /*Uganda*/, 646 /*Rwanda*/
+    834 /*Tanzania*/, 800 /*Uganda*/, 404 /*Kenya*/
   ]);
 
   // Default framing: centre between the Gulf and the Himalayas so all five
