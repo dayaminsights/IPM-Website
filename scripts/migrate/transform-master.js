@@ -1,6 +1,7 @@
 'use strict';
 // Stage A — Data Migration.
-// Reads "ITEM MASTER FOR WEBSITE.xls" (the client's single source of truth),
+// Reads "catalog.clean.xlsx" (output of clean-master.js, itself derived from
+// the client's "ITEM MASTER FOR WEBSITE.xlsx"),
 // derives finish variants + canonical collections/categories, and emits:
 //   - catalog.model.json   (clean grouped model, consumed by Stage B/C)
 //   - reports/data-audit.md

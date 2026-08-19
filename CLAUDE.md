@@ -9,7 +9,7 @@
 
 ## Catalog Build (generated collection/product pages)
 - `/collections/<slug>/index.html` and `/collections/<slug>/<product>/index.html` are **generated** — never hand-edit files under `/collections/`.
-- **Source of truth:** `ITEM MASTER FOR WEBSITE.xls` (single `ItemMaster` sheet) + client photography zip `PICTURES FOR WEBSITE-*.zip`. The old `product catalogue.xlsx` is **gone** (migrated away).
+- **Source of truth:** `ITEM MASTER FOR WEBSITE.xlsx` (color-coded: red rows dropped, blue rows flagged no-photo) + client photography zip `PICTURES FOR WEBSITE-*.zip`. The old `product catalogue.xlsx` is **gone** (migrated away).
 - Workflow: edit the master `.xls`, then run:
   ```
   npm install            (one-time)

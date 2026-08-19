@@ -1,5 +1,5 @@
 'use strict';
-// Shared helpers for the catalog migration (ITEM MASTER FOR WEBSITE.xls -> build pipeline).
+// Shared helpers for the catalog migration (ITEM MASTER FOR WEBSITE.xlsx -> build pipeline).
 // Pure functions only — no I/O — so transform-master.js and match-assets.js can both use them.
 
 const { slugify } = require('../lib/slugify');
