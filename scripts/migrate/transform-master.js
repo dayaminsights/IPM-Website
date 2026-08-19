@@ -63,15 +63,15 @@ function main() {
 
     const category = M.mapCategory(rawCategory);
     const base = M.baseCode(code);
-    const fin = M.resolveFinish(code, rawCollection);
-    if (fin.source === 'default') audit.chromeAssumed.push(`${code} "${itemName}" -> Chrome`);
+    const fin = M.resolveFinish(code, rawCollection, category);
+    if (fin.source === 'default' && fin.finish === 'Chrome') audit.chromeAssumed.push(`${code} "${itemName}" -> Chrome`);
     if (fin.mismatch) audit.finishMismatch.push(`${code}: suffix=${fin.finish} vs collection="${fin.mismatch}"`);
 
     const key = `${collectionSlug}::${base}`;
     if (!groups.has(key)) {
       groups.set(key, {
         collectionName, collectionSlug, baseCode: base,
-        skuName: M.cleanProductName(itemName),
+        skuName: M.cleanProductName(itemName, category),
         category,
         variants: [],
         _names: [],
@@ -80,7 +80,7 @@ function main() {
     const g = groups.get(key);
     g._names.push(itemName);
     // Prefer a finish-free / shorter clean name for display (the Chrome base row).
-    const clean = M.cleanProductName(itemName);
+    const clean = M.cleanProductName(itemName, category);
     if (fin.source === 'default' || clean.length < g.skuName.length) g.skuName = clean;
 
     // Duplicate (same finish twice in one group) — keep first, flag.

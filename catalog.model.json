@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-06-26T18:08:27.052Z",
+  "generatedAt": "2026-08-19T18:53:22.344Z",
   "source": "catalog.clean.xlsx",
   "counts": {
-    "rows": 822,
-    "products": 324,
-    "variants": 697,
-    "collections": 14,
+    "rows": 835,
+    "products": 337,
+    "variants": 710,
+    "collections": 17,
     "multiVariant": 55,
     "sizeGroups": 23
   },
@@ -153,6 +153,16 @@
       ]
     },
     {
+      "name": "Single Piece Wc",
+      "slug": "single-piece-wc",
+      "isSignature": false,
+      "productCount": 7,
+      "finishCount": 1,
+      "categories": [
+        "Sanitaryware"
+      ]
+    },
+    {
       "name": "Bathroom Accessories",
       "slug": "bathroom-accessories",
       "isSignature": false,
@@ -160,6 +170,26 @@
       "finishCount": 13,
       "categories": [
         "Faucets"
+      ]
+    },
+    {
+      "name": "Basin With Pedestal",
+      "slug": "basin-with-pedestal",
+      "isSignature": false,
+      "productCount": 4,
+      "finishCount": 1,
+      "categories": [
+        "Sanitaryware"
+      ]
+    },
+    {
+      "name": "Wall Hung Wc",
+      "slug": "wall-hung-wc",
+      "isSignature": false,
+      "productCount": 2,
+      "finishCount": 1,
+      "categories": [
+        "Sanitaryware"
       ]
     }
   ],
@@ -289,7 +319,7 @@
           "sourceImage": "ANGLE VALVE ALIVA.png",
           "noPhoto": false,
           "rowFlag": "plain",
-          "image": null
+          "image": "angle-valve-with-flange-chrome.jpg"
         }
       ],
       "groupSlug": "angle-valve-with-flange"
@@ -310,7 +340,7 @@
           "sourceImage": "Bath Tub Spout aliva.png",
           "noPhoto": false,
           "rowFlag": "plain",
-          "image": null
+          "image": "bath-spout-chrome.jpg"
         }
       ],
       "groupSlug": "bath-spout"
@@ -329,7 +359,7 @@
           "rawName": "Button Spout Aliva",
           "rawCollection": "Aliva Collection",
           "sourceImage": "Button Spout ALIVA.png",
-          "noPhoto": false,
+          "noPhoto": true,
           "rowFlag": "plain",
           "image": null
         }
@@ -392,7 +422,7 @@
           "rawName": "Exposed Parts For Deusch Mixer Aliva",
           "rawCollection": "Aliva Collection",
           "sourceImage": "Single Lever Deusch Mixer Upper Parts Aliva.png",
-          "noPhoto": false,
+          "noPhoto": true,
           "rowFlag": "plain",
           "image": null
         }
@@ -415,7 +445,7 @@
           "sourceImage": "LONG BODY ALIVA.png",
           "noPhoto": false,
           "rowFlag": "plain",
-          "image": null
+          "image": "long-body-with-flange-chrome.jpg"
         }
       ],
       "groupSlug": "long-body-with-flange"
@@ -436,7 +466,7 @@
           "sourceImage": "NOZZLE BIB COCK ALIVA.png",
           "noPhoto": false,
           "rowFlag": "plain",
-          "image": null
+          "image": "nozzle-bib-cock-with-flange-chrome.jpg"
         }
       ],
       "groupSlug": "nozzle-bib-cock-with-flange"
@@ -457,7 +487,7 @@
           "sourceImage": "PILLAR COCK  ALIVA.png",
           "noPhoto": false,
           "rowFlag": "plain",
-          "image": null
+          "image": "pillar-cock-chrome.jpg"
         }
       ],
       "groupSlug": "pillar-cock"
@@ -476,7 +506,7 @@
           "rawName": "Pillar Cock Extended Body Aliva",
           "rawCollection": "Aliva Collection",
           "sourceImage": "PILLAR COCK EXTENDED BODY ALIVA.png",
-          "noPhoto": false,
+          "noPhoto": true,
           "rowFlag": "plain",
           "image": null
         }
@@ -499,7 +529,7 @@
           "sourceImage": "SINGLE LEVER BASIN MIXER ALIVA.png",
           "noPhoto": false,
           "rowFlag": "plain",
-          "image": null
+          "image": "single-lever-basin-mixer-chrome.jpg"
         }
       ],
       "groupSlug": "single-lever-basin-mixer"
@@ -520,7 +550,7 @@
           "sourceImage": "SINGLE LEVER BASIN MIXER EXTENDED BODY ALIVA.png",
           "noPhoto": false,
           "rowFlag": "plain",
-          "image": null
+          "image": "single-lever-basin-mixer-extended-body-chrome.jpg"
         }
       ],
       "groupSlug": "single-lever-basin-mixer-extended-body"
@@ -541,7 +571,7 @@
           "sourceImage": "Single Lever Sink Mixer Angular Aliva.png",
           "noPhoto": false,
           "rowFlag": "plain",
-          "image": null
+          "image": "single-lever-sink-mixer-table-mounted-angular-spout-chrome.jpg"
         }
       ],
       "groupSlug": "single-lever-sink-mixer-table-mounted-angular-spout"
@@ -581,7 +611,7 @@
           "rawName": "Single Lever Sink Mixer Wall Mounted Angular Spout Aliva",
           "rawCollection": "Aliva Collection",
           "sourceImage": "Single lever Sink Mixer Wall Mounted Aliva.png",
-          "noPhoto": false,
+          "noPhoto": true,
           "rowFlag": "plain",
           "image": null
         }
@@ -604,7 +634,7 @@
           "sourceImage": "Single Lever Sink Mixer Side Handle Aliva.png",
           "noPhoto": false,
           "rowFlag": "plain",
-          "image": null
+          "image": "single-lever-sink-mixer-wall-mounted-regular-spout-chrome.jpg"
         }
       ],
       "groupSlug": "single-lever-sink-mixer-wall-mounted-regular-spout"
@@ -644,7 +674,7 @@
           "rawName": "Single lever Wall Mixer Aliva",
           "rawCollection": "Aliva Collection",
           "sourceImage": "Single Lever Wall Mixer Aliva.png",
-          "noPhoto": false,
+          "noPhoto": true,
           "rowFlag": "plain",
           "image": null
         }
@@ -667,7 +697,7 @@
           "sourceImage": "SINK COCK ALIVA.png",
           "noPhoto": false,
           "rowFlag": "plain",
-          "image": null
+          "image": "sink-cock-chrome.jpg"
         }
       ],
       "groupSlug": "sink-cock"
@@ -688,7 +718,7 @@
           "sourceImage": "SINK MIXER ALIVA.png",
           "noPhoto": false,
           "rowFlag": "plain",
-          "image": null
+          "image": "sink-mixer-chrome.jpg"
         }
       ],
       "groupSlug": "sink-mixer"
@@ -728,7 +758,7 @@
           "rawName": "Wall Mixer Non Telephone Aliva",
           "rawCollection": "Aliva Collection",
           "sourceImage": "WALL MIXER NON TELEPHONIC ALIVA.png",
-          "noPhoto": false,
+          "noPhoto": true,
           "rowFlag": "plain",
           "image": null
         }
@@ -749,7 +779,7 @@
           "rawName": "Wall Mixer Three In One Aliva",
           "rawCollection": "Aliva Collection",
           "sourceImage": "WALL MIXER 3 in 1 ALIVA.png",
-          "noPhoto": false,
+          "noPhoto": true,
           "rowFlag": "plain",
           "image": null
         }
@@ -770,7 +800,7 @@
           "rawName": "Wall Mixer With Bend Aliva",
           "rawCollection": "Aliva Collection",
           "sourceImage": "WALL MIXER WITH BEND ALIVA.png",
-          "noPhoto": false,
+          "noPhoto": true,
           "rowFlag": "plain",
           "image": null
         }
@@ -791,7 +821,7 @@
           "rawName": "Wall Mixer With Crutch Aliva",
           "rawCollection": "Aliva Collection",
           "sourceImage": "WALL MIXER WITH CRUTCH ALIVA.png",
-          "noPhoto": false,
+          "noPhoto": true,
           "rowFlag": "plain",
           "image": null
         }
@@ -10249,6 +10279,279 @@
       "groupSlug": "exposed-parts-for-diverter-40mm-pheonix"
     },
     {
+      "collectionName": "Single Piece Wc",
+      "collectionSlug": "single-piece-wc",
+      "baseCode": "ST-7014",
+      "skuName": "Clive Water Closet",
+      "category": "Sanitaryware",
+      "variants": [
+        {
+          "finish": "White",
+          "sku": "ST-7014",
+          "price": "₹12,500",
+          "rawName": "Clive Water Closet",
+          "rawCollection": "Single Piece Wc",
+          "sourceImage": "Clive wc",
+          "noPhoto": false,
+          "rowFlag": "plain",
+          "image": "clive-water-closet-white.png"
+        }
+      ],
+      "groupSlug": "clive-water-closet"
+    },
+    {
+      "collectionName": "Single Piece Wc",
+      "collectionSlug": "single-piece-wc",
+      "baseCode": "ST-7036",
+      "skuName": "Cinova Water Closet",
+      "category": "Sanitaryware",
+      "variants": [
+        {
+          "finish": "White",
+          "sku": "ST-7036",
+          "price": "₹12,750",
+          "rawName": "Cinova Water Closet",
+          "rawCollection": "Single Piece Wc",
+          "sourceImage": "Cinova Wc",
+          "noPhoto": false,
+          "rowFlag": "plain",
+          "image": "cinova-water-closet-white.png"
+        }
+      ],
+      "groupSlug": "cinova-water-closet"
+    },
+    {
+      "collectionName": "Single Piece Wc",
+      "collectionSlug": "single-piece-wc",
+      "baseCode": "ST-7027",
+      "skuName": "Force Water Closet",
+      "category": "Sanitaryware",
+      "variants": [
+        {
+          "finish": "White",
+          "sku": "ST-7027",
+          "price": "₹13,793",
+          "rawName": "Force Water Closet",
+          "rawCollection": "Single Piece Wc",
+          "sourceImage": "Force wc",
+          "noPhoto": false,
+          "rowFlag": "plain",
+          "image": "force-water-closet-white.png"
+        }
+      ],
+      "groupSlug": "force-water-closet"
+    },
+    {
+      "collectionName": "Single Piece Wc",
+      "collectionSlug": "single-piece-wc",
+      "baseCode": "ST-7030",
+      "skuName": "Glory Water Closet",
+      "category": "Sanitaryware",
+      "variants": [
+        {
+          "finish": "White",
+          "sku": "ST-7030",
+          "price": "₹13,933",
+          "rawName": "Glory Water Closet",
+          "rawCollection": "Single Piece Wc",
+          "sourceImage": "Glory wc",
+          "noPhoto": false,
+          "rowFlag": "plain",
+          "image": "glory-water-closet-white.png"
+        }
+      ],
+      "groupSlug": "glory-water-closet"
+    },
+    {
+      "collectionName": "Single Piece Wc",
+      "collectionSlug": "single-piece-wc",
+      "baseCode": "ST-7031",
+      "skuName": "Modenna Water Closet",
+      "category": "Sanitaryware",
+      "variants": [
+        {
+          "finish": "White",
+          "sku": "ST-7031",
+          "price": "₹14,488",
+          "rawName": "Modenna Water Closet",
+          "rawCollection": "Single Piece Wc",
+          "sourceImage": "Modenna Wc",
+          "noPhoto": false,
+          "rowFlag": "plain",
+          "image": "modenna-water-closet-white.png"
+        }
+      ],
+      "groupSlug": "modenna-water-closet"
+    },
+    {
+      "collectionName": "Single Piece Wc",
+      "collectionSlug": "single-piece-wc",
+      "baseCode": "ST-7035",
+      "skuName": "Novella Water Closet",
+      "category": "Sanitaryware",
+      "variants": [
+        {
+          "finish": "White",
+          "sku": "ST-7035",
+          "price": "₹14,488",
+          "rawName": "Novella Water Closet",
+          "rawCollection": "Single Piece Wc",
+          "sourceImage": "Novella Wc",
+          "noPhoto": false,
+          "rowFlag": "plain",
+          "image": "novella-water-closet-white.png"
+        }
+      ],
+      "groupSlug": "novella-water-closet"
+    },
+    {
+      "collectionName": "Single Piece Wc",
+      "collectionSlug": "single-piece-wc",
+      "baseCode": "ST-7032",
+      "skuName": "Bravet Water Closet",
+      "category": "Sanitaryware",
+      "variants": [
+        {
+          "finish": "White",
+          "sku": "ST-7032",
+          "price": "₹13,933",
+          "rawName": "Bravet Water Closet",
+          "rawCollection": "Single Piece Wc",
+          "sourceImage": "BRAVET Wc",
+          "noPhoto": false,
+          "rowFlag": "plain",
+          "image": "bravet-water-closet-white.png"
+        }
+      ],
+      "groupSlug": "bravet-water-closet"
+    },
+    {
+      "collectionName": "Wall Hung Wc",
+      "collectionSlug": "wall-hung-wc",
+      "baseCode": "ST-4024",
+      "skuName": "Wall Hung Rimless Modenna",
+      "category": "Sanitaryware",
+      "variants": [
+        {
+          "finish": "White",
+          "sku": "ST-4024",
+          "price": "₹13,613",
+          "rawName": "Wall Hung Rimless Modenna",
+          "rawCollection": "Wall Hung Wc",
+          "sourceImage": "MODENNA WALL HUNG",
+          "noPhoto": false,
+          "rowFlag": "plain",
+          "image": "wall-hung-rimless-modenna-white.png"
+        }
+      ],
+      "groupSlug": "wall-hung-rimless-modenna"
+    },
+    {
+      "collectionName": "Wall Hung Wc",
+      "collectionSlug": "wall-hung-wc",
+      "baseCode": "ST-4023",
+      "skuName": "Wall Hung Rimless Novella",
+      "category": "Sanitaryware",
+      "variants": [
+        {
+          "finish": "White",
+          "sku": "ST-4023",
+          "price": "₹13,095",
+          "rawName": "Wall Hung Rimless Novella",
+          "rawCollection": "Wall Hung Wc",
+          "sourceImage": "NOVELLA WALL HUNG",
+          "noPhoto": false,
+          "rowFlag": "plain",
+          "image": "wall-hung-rimless-novella-white.png"
+        }
+      ],
+      "groupSlug": "wall-hung-rimless-novella"
+    },
+    {
+      "collectionName": "Basin With Pedestal",
+      "collectionSlug": "basin-with-pedestal",
+      "baseCode": "ST-1014",
+      "skuName": "Wash Basin with Pedestal Neo",
+      "category": "Sanitaryware",
+      "variants": [
+        {
+          "finish": "White",
+          "sku": "ST-1014",
+          "price": "₹3,646",
+          "rawName": "Wash Basin with Pedestal Neo",
+          "rawCollection": "Basin With Pedestal",
+          "sourceImage": "Neo Wb",
+          "noPhoto": false,
+          "rowFlag": "plain",
+          "image": "wash-basin-with-pedestal-neo-white.png"
+        }
+      ],
+      "groupSlug": "wash-basin-with-pedestal-neo"
+    },
+    {
+      "collectionName": "Basin With Pedestal",
+      "collectionSlug": "basin-with-pedestal",
+      "baseCode": "ST-1015",
+      "skuName": "Wash Basin with Pedestal Cocoon",
+      "category": "Sanitaryware",
+      "variants": [
+        {
+          "finish": "White",
+          "sku": "ST-1015",
+          "price": "₹3,308",
+          "rawName": "Wash Basin with Pedestal Cocoon",
+          "rawCollection": "Basin With Pedestal",
+          "sourceImage": "Cocoon Wb",
+          "noPhoto": false,
+          "rowFlag": "plain",
+          "image": "wash-basin-with-pedestal-cocoon-white.png"
+        }
+      ],
+      "groupSlug": "wash-basin-with-pedestal-cocoon"
+    },
+    {
+      "collectionName": "Basin With Pedestal",
+      "collectionSlug": "basin-with-pedestal",
+      "baseCode": "ST-3012",
+      "skuName": "Wash Basin with Pedestal Cargo",
+      "category": "Sanitaryware",
+      "variants": [
+        {
+          "finish": "White",
+          "sku": "ST-3012",
+          "price": "₹3,050",
+          "rawName": "Wash Basin with Pedestal Cargo",
+          "rawCollection": "Basin With Pedestal",
+          "sourceImage": "CARGO WB",
+          "noPhoto": false,
+          "rowFlag": "plain",
+          "image": "wash-basin-with-pedestal-cargo-white.png"
+        }
+      ],
+      "groupSlug": "wash-basin-with-pedestal-cargo"
+    },
+    {
+      "collectionName": "Basin With Pedestal",
+      "collectionSlug": "basin-with-pedestal",
+      "baseCode": "ST-1007",
+      "skuName": "Wash Basin with Pedestal Belleza",
+      "category": "Sanitaryware",
+      "variants": [
+        {
+          "finish": "White",
+          "sku": "ST-1007",
+          "price": "₹3,866",
+          "rawName": "Wash Basin with Pedestal Belleza",
+          "rawCollection": "Basin With Pedestal",
+          "sourceImage": "BELEZZA WB",
+          "noPhoto": false,
+          "rowFlag": "plain",
+          "image": "wash-basin-with-pedestal-belleza-white.png"
+        }
+      ],
+      "groupSlug": "wash-basin-with-pedestal-belleza"
+    },
+    {
       "collectionName": "Aliva",
       "collectionSlug": "aliva",
       "baseCode": "577-35EXP",
@@ -10305,11 +10608,12 @@
           "finish": "Chrome",
           "sku": "577-35EXP",
           "price": "₹3,023",
-          "image": "exposed-parts-for-diverter-35mm-chrome.jpg",
+          "image": null,
           "swatchClass": "f-chrome",
           "rawName": "Exposed Parts For Diverter",
           "rawCollection": "Aliva",
-          "alt": "Exposed Parts For Diverter in Chrome"
+          "alt": "Exposed Parts For Diverter in Chrome",
+          "noPhoto": true
         }
       ]
     },
@@ -10356,11 +10660,12 @@
           "finish": "Chrome",
           "sku": "568-15EXP",
           "price": "₹1,640",
-          "image": "exposed-parts-for-concealed-stop-cock-1-2-chrome.jpg",
+          "image": null,
           "swatchClass": "f-chrome",
           "rawName": "Exposed Parts For Concealed Stop Cock",
           "rawCollection": "Aliva",
-          "alt": "Exposed Parts For Concealed Stop Cock in Chrome"
+          "alt": "Exposed Parts For Concealed Stop Cock in Chrome",
+          "noPhoto": true
         }
       ]
     },
@@ -10483,31 +10788,34 @@
           "finish": "Chrome",
           "sku": "AD-3084-S6",
           "price": "₹1,540",
-          "image": "elegant-over-head-shower-square-6x6-chrome.jpg",
+          "image": null,
           "swatchClass": "f-chrome",
           "rawName": "Elegant Over Head Shower Square",
           "rawCollection": "Allied",
-          "alt": "Elegant Over Head Shower Square in Chrome"
+          "alt": "Elegant Over Head Shower Square in Chrome",
+          "noPhoto": true
         },
         {
           "finish": "Rich Gold",
           "sku": "AD-3084-S8-GLD",
           "price": "₹4,807",
-          "image": "elegant-over-head-shower-square-8x8-rich-gold.png",
+          "image": null,
           "swatchClass": "f-rich-gold",
           "rawName": "Elegant Over Head Shower Square",
           "rawCollection": "Allied",
-          "alt": "Elegant Over Head Shower Square in Rich Gold"
+          "alt": "Elegant Over Head Shower Square in Rich Gold",
+          "noPhoto": true
         },
         {
           "finish": "Rose Gold",
           "sku": "AD-3084-S8-RGLD",
           "price": "₹4,807",
-          "image": "elegant-over-head-shower-square-8x8-rose-gold.png",
+          "image": null,
           "swatchClass": "f-rose-gold",
           "rawName": "Elegant Over Head Shower Square",
           "rawCollection": "Allied",
-          "alt": "Elegant Over Head Shower Square in Rose Gold"
+          "alt": "Elegant Over Head Shower Square in Rose Gold",
+          "noPhoto": true
         }
       ]
     },
@@ -10568,11 +10876,12 @@
           "finish": "Chrome",
           "sku": "AD-3047-AL-1",
           "price": "₹1,330",
-          "image": "maze-over-head-shower-4x6-chrome.jpg",
+          "image": null,
           "swatchClass": "f-chrome",
           "rawName": "Maze Over Head Shower",
           "rawCollection": "Allied",
-          "alt": "Maze Over Head Shower in Chrome"
+          "alt": "Maze Over Head Shower in Chrome",
+          "noPhoto": true
         }
       ]
     },
@@ -10633,11 +10942,12 @@
           "finish": "Chrome",
           "sku": "AD-3048-OV-1",
           "price": "₹1,620",
-          "image": "maze-over-head-shower-oval-5x7-chrome.jpg",
+          "image": null,
           "swatchClass": "f-chrome",
           "rawName": "Maze Over Head Shower Oval",
           "rawCollection": "Allied",
-          "alt": "Maze Over Head Shower Oval in Chrome"
+          "alt": "Maze Over Head Shower Oval in Chrome",
+          "noPhoto": true
         }
       ]
     },
@@ -11140,111 +11450,122 @@
           "finish": "Chrome",
           "sku": "AD-3003",
           "price": "₹1,050",
-          "image": "maze-over-head-shower-square-4x4-chrome.jpg",
+          "image": null,
           "swatchClass": "f-chrome",
           "rawName": "Maze Over Head Shower Square",
           "rawCollection": "Allied",
-          "alt": "Maze Over Head Shower Square in Chrome"
+          "alt": "Maze Over Head Shower Square in Chrome",
+          "noPhoto": true
         },
         {
           "finish": "Gunmetal Black",
           "sku": "AD-3000-GMB",
           "price": "",
-          "image": "maze-over-head-shower-square-6x6-gunmetal-black.png",
+          "image": null,
           "swatchClass": "f-gunmetal",
           "rawName": "Maze Over Head Shower Square",
           "rawCollection": "Allied",
-          "alt": "Maze Over Head Shower Square in Gunmetal Black"
+          "alt": "Maze Over Head Shower Square in Gunmetal Black",
+          "noPhoto": true
         },
         {
           "finish": "Gunmetal Black Gold",
           "sku": "AD-3000-GMBG",
           "price": "",
-          "image": "maze-over-head-shower-square-6x6-gunmetal-black-gold.png",
+          "image": null,
           "swatchClass": "f-gunmetal-black-gold",
           "rawName": "Maze Over Head Shower Square",
           "rawCollection": "Allied",
-          "alt": "Maze Over Head Shower Square in Gunmetal Black Gold"
+          "alt": "Maze Over Head Shower Square in Gunmetal Black Gold",
+          "noPhoto": true
         },
         {
           "finish": "Matt Black",
           "sku": "AD-3000-MB",
           "price": "",
-          "image": "maze-over-head-shower-square-6x6-matt-black.png",
+          "image": null,
           "swatchClass": "f-matt-black",
           "rawName": "Maze Over Head Shower Square",
           "rawCollection": "Allied",
-          "alt": "Maze Over Head Shower Square in Matt Black"
+          "alt": "Maze Over Head Shower Square in Matt Black",
+          "noPhoto": true
         },
         {
           "finish": "Matt Black Gold",
           "sku": "AD-3000-MBG",
           "price": "",
-          "image": "maze-over-head-shower-square-6x6-matt-black-gold.png",
+          "image": null,
           "swatchClass": "f-matt-black-gold",
           "rawName": "Maze Over Head Shower Square",
           "rawCollection": "Allied",
-          "alt": "Maze Over Head Shower Square in Matt Black Gold"
+          "alt": "Maze Over Head Shower Square in Matt Black Gold",
+          "noPhoto": true
         },
         {
           "finish": "Matt White",
           "sku": "AD-3000-MW",
           "price": "",
-          "image": "maze-over-head-shower-square-6x6-matt-white.png",
+          "image": null,
           "swatchClass": "f-matt-white",
           "rawName": "Maze Over Head Shower Square",
           "rawCollection": "Allied",
-          "alt": "Maze Over Head Shower Square in Matt White"
+          "alt": "Maze Over Head Shower Square in Matt White",
+          "noPhoto": true
         },
         {
           "finish": "Matt White Gold",
           "sku": "AD-3000-MWG",
           "price": "",
-          "image": "maze-over-head-shower-square-6x6-matt-white-gold.png",
+          "image": null,
           "swatchClass": "f-matt-white-gold",
           "rawName": "Maze Over Head Shower Square",
           "rawCollection": "Allied",
-          "alt": "Maze Over Head Shower Square in Matt White Gold"
+          "alt": "Maze Over Head Shower Square in Matt White Gold",
+          "noPhoto": true
         },
         {
           "finish": "Matt Beige",
           "sku": "AD-3000-MBE",
           "price": "",
-          "image": "maze-over-head-shower-square-6x6-matt-beige.png",
+          "image": null,
           "swatchClass": "f-matt-beige",
           "rawName": "Maze Over Head Shower Square",
           "rawCollection": "Allied",
-          "alt": "Maze Over Head Shower Square in Matt Beige"
+          "alt": "Maze Over Head Shower Square in Matt Beige",
+          "noPhoto": true
         },
         {
           "finish": "Matt Beige Gold",
           "sku": "AD-3000-MBEG",
           "price": "",
-          "image": "maze-over-head-shower-square-6x6-matt-beige-gold.png",
+          "image": null,
           "swatchClass": "f-matt-beige-gold",
           "rawName": "Maze Over Head Shower Square",
           "rawCollection": "Allied",
-          "alt": "Maze Over Head Shower Square in Matt Beige Gold"
+          "alt": "Maze Over Head Shower Square in Matt Beige Gold",
+          "noPhoto": true
         },
         {
           "finish": "Matt Grey",
           "sku": "AD-3000-MGR",
           "price": "",
-          "image": "maze-over-head-shower-square-6x6-matt-grey.png",
+          "image": null,
           "swatchClass": "f-matt-grey",
           "rawName": "Maze Over Head Shower Square",
           "rawCollection": "Allied",
-          "alt": "Maze Over Head Shower Square in Matt Grey"
+          "alt": "Maze Over Head Shower Square in Matt Grey",
+          "noPhoto": true
         },
         {
           "finish": "Matt Grey Gold",
           "sku": "AD-3000-MGRG",
           "price": "",
-          "image": "maze-over-head-shower-square-6x6-matt-grey-gold.png",
+          "image": null,
           "swatchClass": "f-matt-grey-gold",
           "rawName": "Maze Over Head Shower Square",
           "rawCollection": "Allied",
-          "alt": "Maze Over Head Shower Square in Matt Grey Gold"
+          "alt": "Maze Over Head Shower Square in Matt Grey Gold",
+          "noPhoto": true
         }
       ]
     },
@@ -11525,31 +11846,34 @@
           "finish": "Chrome",
           "sku": "AD-3051",
           "price": "₹801",
-          "image": "shower-arm-round-9-chrome.png",
+          "image": null,
           "swatchClass": "f-chrome",
           "rawName": "Shower Arm Round",
           "rawCollection": "Allied",
-          "alt": "Shower Arm Round in Chrome"
+          "alt": "Shower Arm Round in Chrome",
+          "noPhoto": true
         },
         {
           "finish": "Rich Gold",
           "sku": "AD-3053-GLD",
           "price": "₹2,992",
-          "image": "shower-arm-round-18-rich-gold.png",
+          "image": null,
           "swatchClass": "f-rich-gold",
           "rawName": "Shower Arm Round",
           "rawCollection": "Allied",
-          "alt": "Shower Arm Round in Rich Gold"
+          "alt": "Shower Arm Round in Rich Gold",
+          "noPhoto": true
         },
         {
           "finish": "Rose Gold",
           "sku": "AD-3053-RGLD",
           "price": "₹2,992",
-          "image": "shower-arm-round-18-rose-gold.png",
+          "image": null,
           "swatchClass": "f-rose-gold",
           "rawName": "Shower Arm Round",
           "rawCollection": "Allied",
-          "alt": "Shower Arm Round in Rose Gold"
+          "alt": "Shower Arm Round in Rose Gold",
+          "noPhoto": true
         },
         {
           "finish": "Gunmetal Black",
@@ -11559,7 +11883,8 @@
           "swatchClass": "f-gunmetal",
           "rawName": "Shower Arm Round",
           "rawCollection": "Allied",
-          "alt": "Shower Arm Round in Gunmetal Black"
+          "alt": "Shower Arm Round in Gunmetal Black",
+          "noPhoto": true
         },
         {
           "finish": "Gunmetal Black Gold",
@@ -11569,87 +11894,96 @@
           "swatchClass": "f-gunmetal-black-gold",
           "rawName": "Shower Arm Round",
           "rawCollection": "Allied",
-          "alt": "Shower Arm Round in Gunmetal Black Gold"
+          "alt": "Shower Arm Round in Gunmetal Black Gold",
+          "noPhoto": true
         },
         {
           "finish": "Matt Black",
           "sku": "AD-3053-MB",
           "price": "₹1,601",
-          "image": "shower-arm-round-18-matt-black.png",
+          "image": null,
           "swatchClass": "f-matt-black",
           "rawName": "Shower Arm Round",
           "rawCollection": "Allied",
-          "alt": "Shower Arm Round in Matt Black"
+          "alt": "Shower Arm Round in Matt Black",
+          "noPhoto": true
         },
         {
           "finish": "Matt Black Gold",
           "sku": "AD-3053-MBG",
           "price": "₹1,782",
-          "image": "shower-arm-round-18-matt-black-gold.jpg",
+          "image": null,
           "swatchClass": "f-matt-black-gold",
           "rawName": "Shower Arm Round",
           "rawCollection": "Allied",
-          "alt": "Shower Arm Round in Matt Black Gold"
+          "alt": "Shower Arm Round in Matt Black Gold",
+          "noPhoto": true
         },
         {
           "finish": "Matt White",
           "sku": "AD-3053-MW",
           "price": "₹1,601",
-          "image": "shower-arm-round-18-matt-white.png",
+          "image": null,
           "swatchClass": "f-matt-white",
           "rawName": "Shower Arm Round",
           "rawCollection": "Allied",
-          "alt": "Shower Arm Round in Matt White"
+          "alt": "Shower Arm Round in Matt White",
+          "noPhoto": true
         },
         {
           "finish": "Matt White Gold",
           "sku": "AD-3053-MWG",
           "price": "₹1,782",
-          "image": "shower-arm-round-18-matt-white-gold.png",
+          "image": null,
           "swatchClass": "f-matt-white-gold",
           "rawName": "Shower Arm Round",
           "rawCollection": "Allied",
-          "alt": "Shower Arm Round in Matt White Gold"
+          "alt": "Shower Arm Round in Matt White Gold",
+          "noPhoto": true
         },
         {
           "finish": "Matt Beige",
           "sku": "AD-3053-MBE",
           "price": "₹1,601",
-          "image": "shower-arm-round-18-matt-beige.png",
+          "image": null,
           "swatchClass": "f-matt-beige",
           "rawName": "Shower Arm Round",
           "rawCollection": "Allied",
-          "alt": "Shower Arm Round in Matt Beige"
+          "alt": "Shower Arm Round in Matt Beige",
+          "noPhoto": true
         },
         {
           "finish": "Matt Beige Gold",
           "sku": "AD-3053-MBEG",
           "price": "₹1,782",
-          "image": "shower-arm-round-18-matt-beige-gold.png",
+          "image": null,
           "swatchClass": "f-matt-beige-gold",
           "rawName": "Shower Arm Round",
           "rawCollection": "Allied",
-          "alt": "Shower Arm Round in Matt Beige Gold"
+          "alt": "Shower Arm Round in Matt Beige Gold",
+          "noPhoto": true
         },
         {
           "finish": "Matt Grey",
           "sku": "AD-3053-MGR",
           "price": "₹1,601",
-          "image": "shower-arm-round-18-matt-grey.png",
+          "image": null,
           "swatchClass": "f-matt-grey",
           "rawName": "Shower Arm Round",
           "rawCollection": "Allied",
-          "alt": "Shower Arm Round in Matt Grey"
+          "alt": "Shower Arm Round in Matt Grey",
+          "noPhoto": true
         },
         {
           "finish": "Matt Grey Gold",
           "sku": "AD-3053-MGRG",
           "price": "₹1,782",
-          "image": "shower-arm-round-18-matt-grey-gold.png",
+          "image": null,
           "swatchClass": "f-matt-grey-gold",
           "rawName": "Shower Arm Round",
           "rawCollection": "Allied",
-          "alt": "Shower Arm Round in Matt Grey Gold"
+          "alt": "Shower Arm Round in Matt Grey Gold",
+          "noPhoto": true
         }
       ]
     },
@@ -11738,11 +12072,12 @@
           "finish": "Chrome",
           "sku": "AD-3071",
           "price": "₹625",
-          "image": "ultra-slim-over-head-shower-square-4x4-chrome.jpg",
+          "image": null,
           "swatchClass": "f-chrome",
           "rawName": "Ultra Slim Over Head Shower Square",
           "rawCollection": "Allied",
-          "alt": "Ultra Slim Over Head Shower Square in Chrome"
+          "alt": "Ultra Slim Over Head Shower Square in Chrome",
+          "noPhoto": true
         }
       ]
     },
@@ -11789,11 +12124,12 @@
           "finish": "Chrome",
           "sku": "1810-15EXP",
           "price": "₹1,675",
-          "image": "exposed-parts-for-concealed-stop-cock-1-2-chrome.png",
+          "image": null,
           "swatchClass": "f-chrome",
           "rawName": "Exposed Parts For Concealed Stop Cock",
           "rawCollection": "Cube Prima",
-          "alt": "Exposed Parts For Concealed Stop Cock in Chrome"
+          "alt": "Exposed Parts For Concealed Stop Cock in Chrome",
+          "noPhoto": true
         }
       ]
     },
@@ -11840,11 +12176,12 @@
           "finish": "Chrome",
           "sku": "1823-40EXP",
           "price": "₹3,214",
-          "image": "exposed-parts-for-diverter-40mm-chrome.png",
+          "image": null,
           "swatchClass": "f-chrome",
           "rawName": "Exposed Parts For Diverter",
           "rawCollection": "Cube Prima",
-          "alt": "Exposed Parts For Diverter in Chrome"
+          "alt": "Exposed Parts For Diverter in Chrome",
+          "noPhoto": true
         }
       ]
     },
@@ -11905,11 +12242,12 @@
           "finish": "Chrome",
           "sku": "8022-35EXP",
           "price": "₹2,630",
-          "image": "exposed-parts-for-diverter-35mm-chrome.png",
+          "image": null,
           "swatchClass": "f-chrome",
           "rawName": "Exposed Parts For Diverter",
           "rawCollection": "Flora",
-          "alt": "Exposed Parts For Diverter in Chrome"
+          "alt": "Exposed Parts For Diverter in Chrome",
+          "noPhoto": true
         }
       ]
     },
@@ -11956,11 +12294,12 @@
           "finish": "Chrome",
           "sku": "8010-15EXP",
           "price": "₹1,190",
-          "image": "exposed-parts-for-concealed-stop-cock-1-2-chrome.png",
+          "image": null,
           "swatchClass": "f-chrome",
           "rawName": "Exposed Parts For Concealed Stop Cock",
           "rawCollection": "Flora",
-          "alt": "Exposed Parts For Concealed Stop Cock in Chrome"
+          "alt": "Exposed Parts For Concealed Stop Cock in Chrome",
+          "noPhoto": true
         }
       ]
     },
@@ -12021,11 +12360,12 @@
           "finish": "Chrome",
           "sku": "225-35EXP",
           "price": "₹2,449",
-          "image": "exposed-parts-for-diverter-35mm-chrome.png",
+          "image": null,
           "swatchClass": "f-chrome",
           "rawName": "Exposed Parts For Diverter",
           "rawCollection": "Fuzone",
-          "alt": "Exposed Parts For Diverter in Chrome"
+          "alt": "Exposed Parts For Diverter in Chrome",
+          "noPhoto": true
         }
       ]
     },
@@ -12072,11 +12412,12 @@
           "finish": "Chrome",
           "sku": "209-15EXP",
           "price": "₹1,316",
-          "image": "exposed-parts-for-concealed-stop-cock-1-2-chrome.png",
+          "image": null,
           "swatchClass": "f-chrome",
           "rawName": "Exposed Parts For Concealed Stop Cock",
           "rawCollection": "Fuzone",
-          "alt": "Exposed Parts For Concealed Stop Cock in Chrome"
+          "alt": "Exposed Parts For Concealed Stop Cock in Chrome",
+          "noPhoto": true
         }
       ]
     },
@@ -12123,11 +12464,12 @@
           "finish": "Chrome",
           "sku": "187-15EXP",
           "price": "₹1,198",
-          "image": "exposed-parts-for-concealed-stop-cock-1-2-chrome.png",
+          "image": null,
           "swatchClass": "f-chrome",
           "rawName": "Exposed Parts For Concealed Stop Cock",
           "rawCollection": "JP",
-          "alt": "Exposed Parts For Concealed Stop Cock in Chrome"
+          "alt": "Exposed Parts For Concealed Stop Cock in Chrome",
+          "noPhoto": true
         }
       ]
     },
@@ -12174,11 +12516,12 @@
           "finish": "Chrome",
           "sku": "1409-15EXP",
           "price": "₹842",
-          "image": "exposed-parts-for-concealed-stop-cock-1-2-chrome.png",
+          "image": null,
           "swatchClass": "f-chrome",
           "rawName": "Exposed Parts For Concealed Stop Cock",
           "rawCollection": "Neo",
-          "alt": "Exposed Parts For Concealed Stop Cock in Chrome"
+          "alt": "Exposed Parts For Concealed Stop Cock in Chrome",
+          "noPhoto": true
         }
       ]
     },
@@ -12225,11 +12568,12 @@
           "finish": "Chrome",
           "sku": "1423-40EXP",
           "price": "₹2,634",
-          "image": "exposed-parts-for-diverter-40mm-chrome.png",
+          "image": null,
           "swatchClass": "f-chrome",
           "rawName": "Exposed Parts For Diverter",
           "rawCollection": "Neo",
-          "alt": "Exposed Parts For Diverter in Chrome"
+          "alt": "Exposed Parts For Diverter in Chrome",
+          "noPhoto": true
         }
       ]
     },
@@ -12570,121 +12914,133 @@
           "finish": "Chrome",
           "sku": "1723-35EXP",
           "price": "₹2,770",
-          "image": "exposed-parts-for-diverter-35mm-chrome.jpg",
+          "image": null,
           "swatchClass": "f-chrome",
           "rawName": "Exposed Parts For Diverter",
           "rawCollection": "Opell Prima",
-          "alt": "Exposed Parts For Diverter in Chrome"
+          "alt": "Exposed Parts For Diverter in Chrome",
+          "noPhoto": true
         },
         {
           "finish": "Rich Gold",
           "sku": "1723-35EXP-GLD",
           "price": "",
-          "image": "exposed-parts-for-diverter-35mm-rich-gold.png",
+          "image": null,
           "swatchClass": "f-rich-gold",
           "rawName": "Exposed Parts For Diverter",
           "rawCollection": "Opell Prima",
-          "alt": "Exposed Parts For Diverter in Rich Gold"
+          "alt": "Exposed Parts For Diverter in Rich Gold",
+          "noPhoto": true
         },
         {
           "finish": "Rose Gold",
           "sku": "1723-35EXP-RGLD",
           "price": "",
-          "image": "exposed-parts-for-diverter-35mm-rose-gold.png",
+          "image": null,
           "swatchClass": "f-rose-gold",
           "rawName": "Exposed Parts For Diverter",
           "rawCollection": "Opell Prima",
-          "alt": "Exposed Parts For Diverter in Rose Gold"
+          "alt": "Exposed Parts For Diverter in Rose Gold",
+          "noPhoto": true
         },
         {
           "finish": "Gunmetal Black",
           "sku": "1723-35EXP-GMB",
           "price": "₹3,601",
-          "image": "exposed-parts-for-diverter-35mm-gunmetal-black.png",
+          "image": null,
           "swatchClass": "f-gunmetal",
           "rawName": "Exposed Parts For Diverter",
           "rawCollection": "Opell Prima",
-          "alt": "Exposed Parts For Diverter in Gunmetal Black"
+          "alt": "Exposed Parts For Diverter in Gunmetal Black",
+          "noPhoto": true
         },
         {
           "finish": "Gunmetal Black Gold",
           "sku": "1723-35EXP-GMBG",
           "price": "",
-          "image": "exposed-parts-for-diverter-35mm-gunmetal-black-gold.png",
+          "image": null,
           "swatchClass": "f-gunmetal-black-gold",
           "rawName": "Exposed Parts For Diverter",
           "rawCollection": "Opell Prima",
-          "alt": "Exposed Parts For Diverter in Gunmetal Black Gold"
+          "alt": "Exposed Parts For Diverter in Gunmetal Black Gold",
+          "noPhoto": true
         },
         {
           "finish": "Matt Black",
           "sku": "1723-35EXP-MB",
           "price": "₹3,601",
-          "image": "exposed-parts-for-diverter-35mm-matt-black.png",
+          "image": null,
           "swatchClass": "f-matt-black",
           "rawName": "Exposed Parts For Diverter",
           "rawCollection": "Opell Prima",
-          "alt": "Exposed Parts For Diverter in Matt Black"
+          "alt": "Exposed Parts For Diverter in Matt Black",
+          "noPhoto": true
         },
         {
           "finish": "Matt Black Gold",
           "sku": "1723-35EXP-MBG",
           "price": "",
-          "image": "exposed-parts-for-diverter-35mm-matt-black-gold.png",
+          "image": null,
           "swatchClass": "f-matt-black-gold",
           "rawName": "Exposed Parts For Diverter",
           "rawCollection": "Opell Prima",
-          "alt": "Exposed Parts For Diverter in Matt Black Gold"
+          "alt": "Exposed Parts For Diverter in Matt Black Gold",
+          "noPhoto": true
         },
         {
           "finish": "Matt White",
           "sku": "1723-35EXP-MW",
           "price": "₹3,601",
-          "image": "exposed-parts-for-diverter-35mm-matt-white.png",
+          "image": null,
           "swatchClass": "f-matt-white",
           "rawName": "Exposed Parts For Diverter",
           "rawCollection": "Opell Prima",
-          "alt": "Exposed Parts For Diverter in Matt White"
+          "alt": "Exposed Parts For Diverter in Matt White",
+          "noPhoto": true
         },
         {
           "finish": "Matt White Gold",
           "sku": "1723-35EXP-MWG",
           "price": "",
-          "image": "exposed-parts-for-diverter-35mm-matt-white-gold.png",
+          "image": null,
           "swatchClass": "f-matt-white-gold",
           "rawName": "Exposed Parts For Diverter",
           "rawCollection": "Opell Prima",
-          "alt": "Exposed Parts For Diverter in Matt White Gold"
+          "alt": "Exposed Parts For Diverter in Matt White Gold",
+          "noPhoto": true
         },
         {
           "finish": "Matt Beige",
           "sku": "1723-35EXP-MBE",
           "price": "₹3,601",
-          "image": "exposed-parts-for-diverter-35mm-matt-beige.png",
+          "image": null,
           "swatchClass": "f-matt-beige",
           "rawName": "Exposed Parts For Diverter",
           "rawCollection": "Opell Prima",
-          "alt": "Exposed Parts For Diverter in Matt Beige"
+          "alt": "Exposed Parts For Diverter in Matt Beige",
+          "noPhoto": true
         },
         {
           "finish": "Matt Beige Gold",
           "sku": "1723-35EXP-MBEG",
           "price": "",
-          "image": "exposed-parts-for-diverter-35mm-matt-beige-gold.png",
+          "image": null,
           "swatchClass": "f-matt-beige-gold",
           "rawName": "Exposed Parts For Diverter",
           "rawCollection": "Opell Prima",
-          "alt": "Exposed Parts For Diverter in Matt Beige Gold"
+          "alt": "Exposed Parts For Diverter in Matt Beige Gold",
+          "noPhoto": true
         },
         {
           "finish": "Matt Grey",
           "sku": "1723-35EXP-MGR",
           "price": "₹3,601",
-          "image": "exposed-parts-for-diverter-35mm-matt-grey.png",
+          "image": null,
           "swatchClass": "f-matt-grey",
           "rawName": "Exposed Parts For Diverter",
           "rawCollection": "Opell Prima",
-          "alt": "Exposed Parts For Diverter in Matt Grey"
+          "alt": "Exposed Parts For Diverter in Matt Grey",
+          "noPhoto": true
         },
         {
           "finish": "Matt Grey Gold",
@@ -12694,7 +13050,8 @@
           "swatchClass": "f-matt-grey-gold",
           "rawName": "Exposed Parts For Diverter",
           "rawCollection": "Opell Prima",
-          "alt": "Exposed Parts For Diverter in Matt Grey Gold"
+          "alt": "Exposed Parts For Diverter in Matt Grey Gold",
+          "noPhoto": true
         }
       ]
     },
@@ -12741,11 +13098,12 @@
           "finish": "Chrome",
           "sku": "1710-15EXP",
           "price": "₹1,417",
-          "image": "exposed-parts-for-concealed-stop-cock-1-2-chrome.jpg",
+          "image": null,
           "swatchClass": "f-chrome",
           "rawName": "Exposed Parts For Concealed Stop Cock",
           "rawCollection": "Opell Prima",
-          "alt": "Exposed Parts For Concealed Stop Cock in Chrome"
+          "alt": "Exposed Parts For Concealed Stop Cock in Chrome",
+          "noPhoto": true
         }
       ]
     },
@@ -12806,11 +13164,12 @@
           "finish": "Chrome",
           "sku": "1923-35EXP",
           "price": "₹3,056",
-          "image": "exposed-parts-for-diverter-35mm-chrome.png",
+          "image": null,
           "swatchClass": "f-chrome",
           "rawName": "Exposed Parts For Diverter",
           "rawCollection": "Para",
-          "alt": "Exposed Parts For Diverter in Chrome"
+          "alt": "Exposed Parts For Diverter in Chrome",
+          "noPhoto": true
         }
       ]
     },
@@ -12871,11 +13230,12 @@
           "finish": "Chrome",
           "sku": "423-35EXP",
           "price": "₹2,553",
-          "image": "exposed-parts-for-diverter-35mm-chrome.png",
+          "image": null,
           "swatchClass": "f-chrome",
           "rawName": "Exposed Parts For Diverter",
           "rawCollection": "Pebble",
-          "alt": "Exposed Parts For Diverter in Chrome"
+          "alt": "Exposed Parts For Diverter in Chrome",
+          "noPhoto": true
         }
       ]
     },
@@ -12922,11 +13282,12 @@
           "finish": "Chrome",
           "sku": "408-15EXP",
           "price": "₹1,210",
-          "image": "exposed-parts-for-concealed-stop-cock-1-2-chrome.jpg",
+          "image": null,
           "swatchClass": "f-chrome",
           "rawName": "Exposed Parts For Concealed Stop Cock",
           "rawCollection": "Pebble",
-          "alt": "Exposed Parts For Concealed Stop Cock in Chrome"
+          "alt": "Exposed Parts For Concealed Stop Cock in Chrome",
+          "noPhoto": true
         }
       ]
     },
@@ -13011,21 +13372,23 @@
           "finish": "Chrome",
           "sku": "9023-35EXP",
           "price": "",
-          "image": "exposed-parts-for-diverter-35mm-chrome.png",
+          "image": null,
           "swatchClass": "f-chrome",
           "rawName": "Exposed Parts For Diverter",
           "rawCollection": "Zenith",
-          "alt": "Exposed Parts For Diverter in Chrome"
+          "alt": "Exposed Parts For Diverter in Chrome",
+          "noPhoto": true
         },
         {
           "finish": "Gunmetal Black",
           "sku": "9023-35EXP-GMB",
           "price": "",
-          "image": "exposed-parts-for-diverter-35mm-gunmetal-black.png",
+          "image": null,
           "swatchClass": "f-gunmetal",
           "rawName": "Exposed Parts For Diverter",
           "rawCollection": "Zenith",
-          "alt": "Exposed Parts For Diverter in Gunmetal Black"
+          "alt": "Exposed Parts For Diverter in Gunmetal Black",
+          "noPhoto": true
         }
       ]
     }

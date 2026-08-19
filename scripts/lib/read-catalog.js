@@ -3,7 +3,7 @@ const path = require('path');
 const xlsx = require('xlsx');
 const { slugify } = require('./slugify');
 
-const KNOWN_CATEGORIES = ['Faucets', 'Kitchen Mixers', 'Shower', 'Accessories'];
+const KNOWN_CATEGORIES = ['Faucets', 'Kitchen Mixers', 'Shower', 'Accessories', 'Sanitaryware'];
 const PLACEHOLDER_IMAGE = '/images/products/_placeholder.jpg';
 
 function parseList(value) {

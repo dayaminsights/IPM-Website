@@ -1,10 +1,11 @@
 'use strict';
-// Removes white/near-white backgrounds from product images using flood-fill
-// from image corners. Saves as PNG with transparency.
+// Removes white/near-white OR black/near-black backgrounds from product images
+// using flood-fill from image corners. Saves as PNG with transparency.
 // Run: node scripts/migrate/remove-white-bg.js [--dry] [--dir images/products/aliva]
 //
-// Safe for chrome/metallic products: only corner-reachable white pixels
-// are removed, so white highlights on the product itself are preserved.
+// Safe for chrome/metallic products: only corner-reachable background pixels
+// are removed, so white highlights / dark shadows on the product itself are
+// preserved (they aren't reachable from the edges without crossing the product).
 
 const fs   = require('fs');
 const path = require('path');
@@ -18,8 +19,9 @@ const dirIdx  = process.argv.indexOf('--dir');
 const TARGET  = process.argv.find(a => a.startsWith('--dir='))?.slice(6)
               || (dirIdx !== -1 ? process.argv[dirIdx + 1] : null);
 
-const THRESHOLD = 238; // pixels >= this on all channels are considered background
-const TOLERANCE = 28;  // flood-fill: adjacent pixel within this range of seed colour
+const WHITE_THRESHOLD = 238; // pixels >= this on all channels are considered white bg
+const BLACK_THRESHOLD = 17;  // pixels <= this on all channels are considered black bg (mirror of 255-238)
+const TOLERANCE = 28;        // flood-fill: adjacent pixel within this range of seed colour
 
 async function processImage(filePath) {
   const { data, info } = await sharp(filePath)
@@ -33,8 +35,12 @@ async function processImage(filePath) {
 
   // Sample background colour from top-left corner (most reliable)
   const seedR = buf[px(0, 0)], seedG = buf[px(0, 0) + 1], seedB = buf[px(0, 0) + 2];
-  // If the corner isn't white-ish, image probably has no white bg — skip
-  if (seedR < THRESHOLD || seedG < THRESHOLD || seedB < THRESHOLD) return false;
+  // Decide which backdrop this photo uses from its corner. Neither white nor
+  // black (e.g. already-transparent, or a coloured/textured backdrop) — skip.
+  let mode;
+  if (seedR >= WHITE_THRESHOLD && seedG >= WHITE_THRESHOLD && seedB >= WHITE_THRESHOLD) mode = 'white';
+  else if (seedR <= BLACK_THRESHOLD && seedG <= BLACK_THRESHOLD && seedB <= BLACK_THRESHOLD) mode = 'black';
+  else return false;
 
   // Flood fill from all four edges (not just corners) so enclosed background
   // pockets between product parts are also reachable.
@@ -50,10 +56,13 @@ async function processImage(filePath) {
   function isBackground(x, y) {
     const i = px(x, y);
     const r = buf[i], g = buf[i+1], b = buf[i+2];
-    return Math.abs(r - seedR) <= TOLERANCE
-        && Math.abs(g - seedG) <= TOLERANCE
-        && Math.abs(b - seedB) <= TOLERANCE
-        && r >= THRESHOLD - TOLERANCE && g >= THRESHOLD - TOLERANCE && b >= THRESHOLD - TOLERANCE;
+    const closeToSeed = Math.abs(r - seedR) <= TOLERANCE
+                      && Math.abs(g - seedG) <= TOLERANCE
+                      && Math.abs(b - seedB) <= TOLERANCE;
+    if (!closeToSeed) return false;
+    return mode === 'white'
+      ? (r >= WHITE_THRESHOLD - TOLERANCE && g >= WHITE_THRESHOLD - TOLERANCE && b >= WHITE_THRESHOLD - TOLERANCE)
+      : (r <= BLACK_THRESHOLD + TOLERANCE && g <= BLACK_THRESHOLD + TOLERANCE && b <= BLACK_THRESHOLD + TOLERANCE);
   }
 
   while (queue.length) {
@@ -68,18 +77,22 @@ async function processImage(filePath) {
     }
   }
 
-  // Fringe erosion: remove near-white pixels stranded at the transparent border
-  // (anti-aliased edge pixels that the fill couldn't reach through dark neighbours).
-  // Safe for chrome highlights — those are interior to the product, surrounded
-  // by opaque non-white pixels, so they'll never have 2+ transparent neighbours.
-  const FRINGE_THRESHOLD = THRESHOLD - 15; // 223 — slightly looser than main threshold
+  // Fringe erosion: remove near-background pixels stranded at the transparent border
+  // (anti-aliased edge pixels that the fill couldn't reach through opaque neighbours).
+  // Safe for chrome highlights / dark shadows on the product — those are interior,
+  // surrounded by opaque pixels of the other extreme, so they'll never have 2+
+  // transparent neighbours.
+  const FRINGE_THRESHOLD = mode === 'white' ? WHITE_THRESHOLD - 15 : BLACK_THRESHOLD + 15; // slightly looser than main threshold
   for (let pass = 0; pass < 3; pass++) {
     let changed = false;
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
         const i = px(x, y);
         if (buf[i + 3] === 0) continue;
-        if (buf[i] < FRINGE_THRESHOLD || buf[i+1] < FRINGE_THRESHOLD || buf[i+2] < FRINGE_THRESHOLD) continue;
+        const isFringeCandidate = mode === 'white'
+          ? (buf[i] >= FRINGE_THRESHOLD && buf[i+1] >= FRINGE_THRESHOLD && buf[i+2] >= FRINGE_THRESHOLD)
+          : (buf[i] <= FRINGE_THRESHOLD && buf[i+1] <= FRINGE_THRESHOLD && buf[i+2] <= FRINGE_THRESHOLD);
+        if (!isFringeCandidate) continue;
         let transparentNeighbours = 0;
         for (const [nx, ny] of [[x+1,y],[x-1,y],[x,y+1],[x,y-1]]) {
           if (nx < 0 || ny < 0 || nx >= width || ny >= height) { transparentNeighbours++; continue; }

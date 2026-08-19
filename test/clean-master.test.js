@@ -15,7 +15,7 @@ test('parseSheetColors tallies the real file', () => {
   const { rows } = parseSheetColors('ITEM MASTER FOR WEBSITE.xlsx');
   const red = rows.filter(r => r.color === 'red').length;
   const blue = rows.filter(r => r.color === 'blue').length;
-  assert.equal(rows.length, 1060);
+  assert.equal(rows.length, 1073);
   assert.equal(red, 238);
   assert.equal(blue, 48);
 });

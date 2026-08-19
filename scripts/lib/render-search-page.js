@@ -1,7 +1,7 @@
 'use strict';
 const { rel, renderHead, renderHeader, renderFooter, renderPage } = require('./layout');
 
-const CATEGORIES = ['Faucets', 'Kitchen Mixers', 'Shower'];
+const CATEGORIES = ['Faucets', 'Kitchen Mixers', 'Shower', 'Sanitaryware'];
 
 function renderSearchPage(collections, { siteBaseUrl }) {
   const depth = 0;

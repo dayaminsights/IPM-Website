@@ -5,12 +5,14 @@ function renderSearchIndex(collections, productGroups) {
   const items = productGroups.map(g => {
     const primary = g.variants[0];
     // Carry up to 6 variant images for cycling on search cards.
-    // isColoured: true when any finish is not Chrome (i.e. has real coloured variants).
+    // isColoured: true when any finish is not Chrome (i.e. has real coloured brass variants).
+    // Ceramic sanitaryware has no brass finish at all (see resolveFinish's 'White'
+    // placeholder) — exclude it so "Coloured Finishes" doesn't pull in white toilets/basins.
     const variantImages = g.variants
       .filter(v => v.image)
       .slice(0, 6)
       .map(v => ({ finish: v.finish, image: (v.image || '').replace(/^\//, ''), price: v.price || '', swatch: v.swatchClass || '' }));
-    const isColoured = g.variants.some(v => v.finish !== 'Chrome');
+    const isColoured = g.category !== 'Sanitaryware' && g.variants.some(v => v.finish !== 'Chrome');
     // swatches kept for backwards compat but dots now built from variantImages in search.html
     const swatches = variantImages.map(v => ({ finish: v.finish, swatch: v.swatch }));
 

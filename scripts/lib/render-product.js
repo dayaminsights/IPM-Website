@@ -16,13 +16,16 @@ function renderProductPage(group, collection, { siteBaseUrl, sizeData = null }) 
   const primary = group.variants[0];
   const hasMultipleVariants = group.variants.length > 1;
   const hasSizes = !!(sizeData && sizeData.sizes && sizeData.sizes.length > 1);
+  const isSanitaryware = group.category === 'Sanitaryware';
 
   const title = `${group.skuName} — ${collection.name} | IPM Bath Fittings`;
   const baseDesc = group.description ? group.description.slice(0, 120) : '';
   const description = group.metaDescription ||
     (baseDesc
       ? `${group.skuName} — ${baseDesc}`
-      : `${group.skuName} from the ${collection.name} collection by IPM Bath Fittings. Premium solid brass, available in multiple finishes.`);
+      : isSanitaryware
+        ? `${group.skuName} from the ${collection.name} collection by IPM Bath Fittings. Premium vitreous china sanitaryware, built to last.`
+        : `${group.skuName} from the ${collection.name} collection by IPM Bath Fittings. Premium solid brass, available in multiple finishes.`);
   const canonicalPath = `${siteBaseUrl}/collections/${group.collectionSlug}/${group.groupSlug}/`;
 
   const head = renderHead({
@@ -95,9 +98,11 @@ ${sizePills}
       </div>`;
   }
 
-  // Finish picker / static finish line
+  // Finish picker / static finish line — not applicable to ceramic sanitaryware
   let finishSectionHtml;
-  if (hasMultipleVariants) {
+  if (isSanitaryware) {
+    finishSectionHtml = '';
+  } else if (hasMultipleVariants) {
     const swatchesHtml = group.variants.map((v, i) =>
       `          <button class="finish${i === 0 ? ' is-active' : ''}" data-index="${i}" aria-label="${escapeHtml(v.finish)}"><span class="swatch ${escapeHtml(v.swatchClass)}"></span></button>`
     ).join('\n');
@@ -188,7 +193,7 @@ ${swatchesHtml}
       <div class="sku-trust">
         <span class="sku-tag">Product code: <span id="current-sku">${escapeHtml(primary.sku)}</span></span>
       </div>
-      <span class="trust-badge">Solid Brass · Made in India</span>
+      <span class="trust-badge">${isSanitaryware ? 'Vitreous China' : 'Solid Brass'} · Made in India</span>
 ${priceHtml}
 ${descParagraphs}
 ${sizeSectionHtml}
