@@ -1822,7 +1822,9 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
 @media (max-width: 480px) {
   .head-in { padding: 0 16px; height: 64px; }
   .mob-nav { top: 64px; }
-  .cat-subnav { top: 64px; }
+  /* .cat-subnav's top lives with its base rule further down — putting it
+     here has no effect, because that base rule is authored later and media
+     queries add no specificity. */
   .brand b { font-size: 22px; }
   .brand small { letter-spacing: .16em; }
   .hero h1 { font-size: clamp(36px, 10vw, 56px); line-height: 1; margin-bottom: 28px; }
@@ -1990,6 +1992,13 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
 }
 .cat-subnav.visible { transform: none; }
 .cat-subnav[hidden] { display: none; }
+/* Must sit AFTER the base rule above: media queries carry no extra
+   specificity, so an override placed earlier in the file loses. The header is
+   81px tall above 480 and 65px at or below it (.head-in 64 + 1px border); the
+   subnav's top is one pixel under that so the two borders do not double up. */
+@media (max-width: 480px) {
+  .cat-subnav { top: 64px; }
+}
 .cat-subnav-in {
   display: flex;
   justify-content: center;

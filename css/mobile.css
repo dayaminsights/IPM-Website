@@ -69,12 +69,24 @@ html {
 
   /* --- Header brand lockup ---
      The wordmark is a logo, not body text: its size is tuned in
-     project-brand-logo.md and must not change. Only the hit area grows. */
-  .brand { position: relative; }
-  .brand::after {
-    content: '';
-    position: absolute;
-    inset: -9px -22px;
+     project-brand-logo.md and must not change. Grow the hit area with
+     padding only.
+
+     NOT `position: relative` + an ::after expander — the header centres the
+     brand with `position: absolute; left: 50%; translateX(-50%)` (index.html
+     and layout.js, both at <=860px), and re-declaring `position` drops it out
+     of that centring and parks it beside the hamburger.
+
+     The asymmetric padding is deliberate. `.brand b::after` paints the four
+     stepped bars starting at `left: calc(100% - 1px)` with `width: 31px`, so
+     30px of the mark is ink that hangs outside the content box, at every
+     breakpoint (the bar box is a fixed size, independent of the 22/26px
+     font). Centring a 64px box therefore leaves the 94px mark sitting ~15px
+     right of true centre. Adding those 30px to the right padding makes the
+     border box enclose the whole mark, so centring the box centres the ink;
+     the 22px on both sides is the tap-area margin. */
+  .brand {
+    padding: 10px 52px 10px 22px;
   }
 
   /* --- Footer micro-links (Terms 34×13, Privacy 42×13, Sitemap 46×13) ---
@@ -490,6 +502,25 @@ html {
    phone. Shorter here buys most of a screen of results. */
 @media (max-width: 760px) {
   .sh-hero { height: 42vh; min-height: 300px; }
+}
+
+/* iOS Safari: the hero media carries a `transform: scale(…)`, which promotes
+   it to its own compositing layer, and Safari then fails to apply the
+   ancestor's `border-radius` clip — the video's square corners paint outside
+   the hero's rounded bottom. Chromium clips correctly, so this never shows up
+   in emulation.
+
+   An opaque mask on the clipping element forces the rounded clip back onto
+   the composited layer. The gradient is fully opaque end to end, so it
+   changes nothing visually — it exists only to make Safari clip. Applied to
+   the container, never to the media: the hero images run their own Ken Burns
+   transforms (scale 1.05 with a 10s transition on .page-hero) and must not
+   be overwritten. */
+.hero,
+.page-hero,
+.sh-hero {
+  -webkit-mask-image: -webkit-radial-gradient(#fff, #fff);
+  mask-image: radial-gradient(#fff, #fff);
 }
 
 
