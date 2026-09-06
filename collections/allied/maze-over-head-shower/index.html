@@ -10,12 +10,10 @@
 <meta property="og:description" content="Maze Over Head Shower from the Allied collection by IPM Bath Fittings. Premium solid brass, available in multiple finishes.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ipmbathfittings.com/collections/allied/maze-over-head-shower/">
-<meta property="og:image" content="https://ipmbathfittings.com/images/products/allied/maze-over-head-shower-4x6-chrome.jpg">
 <meta property="og:site_name" content="IPM Bath Fittings">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Maze Over Head Shower — Allied | IPM Bath Fittings">
 <meta name="twitter:description" content="Maze Over Head Shower from the Allied collection by IPM Bath Fittings. Premium solid brass, available in multiple finishes.">
-<meta name="twitter:image" content="https://ipmbathfittings.com/images/products/allied/maze-over-head-shower-4x6-chrome.jpg">
 <link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
 <link rel="icon" href="../../../favicon.svg" sizes="any">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -836,6 +834,9 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
 .lb-img { display: block; max-width: 100%; max-height: 90vh; object-fit: contain; background: var(--cream); }
 
 </style>
+<!-- Mobile optimization layer — must load after the inline <style> so it
+     wins on equal specificity. See css/mobile.css. -->
+<link rel="stylesheet" href="../../../css/mobile.css">
 </head>
 <body>
 
@@ -929,9 +930,9 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
   <div class="wrap">
     <div class="product-main">
       <div class="gallery">
-        <div class="arch product-shot" id="imageArch">
-          <img id="mainImage" src="../../../images/products/allied/maze-over-head-shower-4x6-chrome.jpg" alt="Maze Over Head Shower in Chrome finish">
-          <div class="no-photo" id="noPhotoCard" hidden><span>No Photo<br>Available</span></div>
+        <div class="arch product-shot is-no-photo" id="imageArch">
+          <img id="mainImage" src="" alt="Maze Over Head Shower in Chrome finish" hidden>
+          <div class="no-photo" id="noPhotoCard"><span>No Photo<br>Available</span></div>
           
           <button class="zoom-btn" id="zoomBtn" aria-label="View full size">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg>

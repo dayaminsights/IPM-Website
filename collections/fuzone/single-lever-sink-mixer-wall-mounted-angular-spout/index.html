@@ -836,6 +836,9 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
 .lb-img { display: block; max-width: 100%; max-height: 90vh; object-fit: contain; background: var(--cream); }
 
 </style>
+<!-- Mobile optimization layer — must load after the inline <style> so it
+     wins on equal specificity. See css/mobile.css. -->
+<link rel="stylesheet" href="../../../css/mobile.css">
 </head>
 <body>
 

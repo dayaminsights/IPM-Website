@@ -422,7 +422,7 @@ ${accentCss || ''}
 })();
 `;
 
-  return renderPage({ head, bodyContent, pageCss, pageJs });
+  return renderPage({ head, bodyContent, pageCss, pageJs, depth });
 }
 
 module.exports = { renderCollectionPage, escapeHtml };

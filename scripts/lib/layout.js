@@ -994,7 +994,9 @@ if (window.Lenis) {
   document.addEventListener('visibilitychange', () => { if (document.hidden) lenis.stop(); else lenis.start(); }, { passive: true });
 }`;
 
-function renderPage({ head, bodyContent, pageCss = '', pageJs = '' }) {
+// `depth` mirrors renderHead's: it places the mobile layer's href correctly
+// from /collections/<slug>/ (1) or /collections/<slug>/<group>/ (2).
+function renderPage({ head, bodyContent, pageCss = '', pageJs = '', depth = 1 }) {
   return `<!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
@@ -1007,6 +1009,9 @@ ${TOKENS_AND_BASE_CSS}
 ================================================================ */
 ${pageCss}
 </style>
+<!-- Mobile optimization layer — must load after the inline <style> so it
+     wins on equal specificity. See css/mobile.css. -->
+<link rel="stylesheet" href="${rel(depth, 'css/mobile.css')}">
 </head>
 <body>
 

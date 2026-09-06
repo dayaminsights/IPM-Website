@@ -10,12 +10,10 @@
 <meta property="og:description" content="Shower Arm Round from the Allied collection by IPM Bath Fittings. Premium solid brass, available in multiple finishes.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ipmbathfittings.com/collections/allied/shower-arm-round/">
-<meta property="og:image" content="https://ipmbathfittings.com/images/products/allied/shower-arm-round-9-chrome.png">
 <meta property="og:site_name" content="IPM Bath Fittings">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Shower Arm Round — Allied | IPM Bath Fittings">
 <meta name="twitter:description" content="Shower Arm Round from the Allied collection by IPM Bath Fittings. Premium solid brass, available in multiple finishes.">
-<meta name="twitter:image" content="https://ipmbathfittings.com/images/products/allied/shower-arm-round-9-chrome.png">
 <link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
 <link rel="icon" href="../../../favicon.svg" sizes="any">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -836,6 +834,9 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
 .lb-img { display: block; max-width: 100%; max-height: 90vh; object-fit: contain; background: var(--cream); }
 
 </style>
+<!-- Mobile optimization layer — must load after the inline <style> so it
+     wins on equal specificity. See css/mobile.css. -->
+<link rel="stylesheet" href="../../../css/mobile.css">
 </head>
 <body>
 
@@ -929,9 +930,9 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
   <div class="wrap">
     <div class="product-main">
       <div class="gallery">
-        <div class="arch product-shot" id="imageArch">
-          <img id="mainImage" src="../../../images/products/allied/shower-arm-round-9-chrome.png" alt="Shower Arm Round in Chrome finish">
-          <div class="no-photo" id="noPhotoCard" hidden><span>No Photo<br>Available</span></div>
+        <div class="arch product-shot is-no-photo" id="imageArch">
+          <img id="mainImage" src="" alt="Shower Arm Round in Chrome finish" hidden>
+          <div class="no-photo" id="noPhotoCard"><span>No Photo<br>Available</span></div>
           <div class="cycle-bar"><div class="cycle-progress" id="cycleProgress"></div></div>
           <button class="zoom-btn" id="zoomBtn" aria-label="View full size">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg>
@@ -1310,7 +1311,7 @@ const variantData = [
     "sku": "AD-3051",
     "price": "₹801",
     "swatchClass": "f-chrome",
-    "image": "../../../images/products/allied/shower-arm-round-9-chrome.png",
+    "image": "",
     "alt": "Shower Arm Round in Chrome finish"
   },
   {
@@ -1318,7 +1319,7 @@ const variantData = [
     "sku": "AD-3053-GLD",
     "price": "₹2,992",
     "swatchClass": "f-rich-gold",
-    "image": "../../../images/products/allied/shower-arm-round-18-rich-gold.png",
+    "image": "",
     "alt": "Shower Arm Round in Rich Gold finish"
   },
   {
@@ -1326,7 +1327,7 @@ const variantData = [
     "sku": "AD-3053-RGLD",
     "price": "₹2,992",
     "swatchClass": "f-rose-gold",
-    "image": "../../../images/products/allied/shower-arm-round-18-rose-gold.png",
+    "image": "",
     "alt": "Shower Arm Round in Rose Gold finish"
   },
   {
@@ -1334,7 +1335,7 @@ const variantData = [
     "sku": "AD-3053-GMB",
     "price": "₹1,601",
     "swatchClass": "f-gunmetal",
-    "image": "../../../images/products/allied/shower-arm-round-9-chrome.png",
+    "image": "",
     "alt": "Shower Arm Round in Gunmetal Black finish"
   },
   {
@@ -1342,7 +1343,7 @@ const variantData = [
     "sku": "AD-3053-GMBG",
     "price": "₹1,782",
     "swatchClass": "f-gunmetal-black-gold",
-    "image": "../../../images/products/allied/shower-arm-round-9-chrome.png",
+    "image": "",
     "alt": "Shower Arm Round in Gunmetal Black Gold finish"
   },
   {
@@ -1350,7 +1351,7 @@ const variantData = [
     "sku": "AD-3053-MB",
     "price": "₹1,601",
     "swatchClass": "f-matt-black",
-    "image": "../../../images/products/allied/shower-arm-round-18-matt-black.png",
+    "image": "",
     "alt": "Shower Arm Round in Matt Black finish"
   },
   {
@@ -1358,7 +1359,7 @@ const variantData = [
     "sku": "AD-3053-MBG",
     "price": "₹1,782",
     "swatchClass": "f-matt-black-gold",
-    "image": "../../../images/products/allied/shower-arm-round-18-matt-black-gold.jpg",
+    "image": "",
     "alt": "Shower Arm Round in Matt Black Gold finish"
   },
   {
@@ -1366,7 +1367,7 @@ const variantData = [
     "sku": "AD-3053-MW",
     "price": "₹1,601",
     "swatchClass": "f-matt-white",
-    "image": "../../../images/products/allied/shower-arm-round-18-matt-white.png",
+    "image": "",
     "alt": "Shower Arm Round in Matt White finish"
   },
   {
@@ -1374,7 +1375,7 @@ const variantData = [
     "sku": "AD-3053-MWG",
     "price": "₹1,782",
     "swatchClass": "f-matt-white-gold",
-    "image": "../../../images/products/allied/shower-arm-round-18-matt-white-gold.png",
+    "image": "",
     "alt": "Shower Arm Round in Matt White Gold finish"
   },
   {
@@ -1382,7 +1383,7 @@ const variantData = [
     "sku": "AD-3053-MBE",
     "price": "₹1,601",
     "swatchClass": "f-matt-beige",
-    "image": "../../../images/products/allied/shower-arm-round-18-matt-beige.png",
+    "image": "",
     "alt": "Shower Arm Round in Matt Beige finish"
   },
   {
@@ -1390,7 +1391,7 @@ const variantData = [
     "sku": "AD-3053-MBEG",
     "price": "₹1,782",
     "swatchClass": "f-matt-beige-gold",
-    "image": "../../../images/products/allied/shower-arm-round-18-matt-beige-gold.png",
+    "image": "",
     "alt": "Shower Arm Round in Matt Beige Gold finish"
   },
   {
@@ -1398,7 +1399,7 @@ const variantData = [
     "sku": "AD-3053-MGR",
     "price": "₹1,601",
     "swatchClass": "f-matt-grey",
-    "image": "../../../images/products/allied/shower-arm-round-18-matt-grey.png",
+    "image": "",
     "alt": "Shower Arm Round in Matt Grey finish"
   },
   {
@@ -1406,7 +1407,7 @@ const variantData = [
     "sku": "AD-3053-MGRG",
     "price": "₹1,782",
     "swatchClass": "f-matt-grey-gold",
-    "image": "../../../images/products/allied/shower-arm-round-18-matt-grey-gold.png",
+    "image": "",
     "alt": "Shower Arm Round in Matt Grey Gold finish"
   }
 ];

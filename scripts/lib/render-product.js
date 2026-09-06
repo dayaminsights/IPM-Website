@@ -762,7 +762,7 @@ thumbButtons.forEach(btn => {
 })();
 `;
 
-  return renderPage({ head, bodyContent, pageCss, pageJs: pageJs + sizeJs + galleryJs + lightboxJs + enquiryJs });
+  return renderPage({ head, bodyContent, pageCss, pageJs: pageJs + sizeJs + galleryJs + lightboxJs + enquiryJs, depth });
 }
 
 module.exports = { renderProductPage };

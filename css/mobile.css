@@ -1,0 +1,600 @@
+/* ================================================================
+   MOBILE OPTIMIZATION LAYER
+   ----------------------------------------------------------------
+   Loaded AFTER every page's inline <style> block so it wins on equal
+   specificity. Single source of truth for phone/tablet corrections —
+   see docs/superpowers/specs/2026-09-06-mobile-optimization-audit.md
+   for the measurements behind each rule.
+
+   Rules are grouped by the audit finding they close (P0-1, P1-2, …).
+   Nothing here should change the desktop rendering.
+================================================================ */
+
+
+/* ================================================================
+   GLOBAL GUARDS  ·  P0-1, P3-2
+================================================================ */
+
+/* Stops any single stray element from making the whole document
+   scroll sideways. `clip` rather than `hidden`: it creates no scroll
+   container, so position:sticky and the Lenis smooth-scroll wrapper
+   keep working. Root causes are still fixed individually below — this
+   is the net, not the fix. */
+html {
+  overflow-x: clip;
+  /* Chrome/Safari can inflate text in landscape and silently break the
+     tuned type scale. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* about.html — the Make-in-India emblem is absolutely positioned at
+   right:-18vw and its stage deliberately has no overflow so the
+   emblem's animated flight path is not clipped. `clip` on the X axis
+   alone keeps that vertical flight while ending the 133–149px
+   sideways scroll on every tablet and landscape phone. */
+.mii-hero-stage {
+  overflow-x: clip;
+}
+
+
+/* ================================================================
+   TOUCH TARGETS  ·  P1-1
+   ----------------------------------------------------------------
+   Two techniques:
+   · padding, where the element can grow without hurting the layout
+   · an invisible ::after hit-expander, where the visual size is part
+     of the design and must not change
+================================================================ */
+
+@media (max-width: 860px), (hover: none) {
+
+  /* --- Header: WhatsApp icon (18×18) and the hamburger (30×23) --- */
+  .wa-link,
+  .mob-menu-btn {
+    position: relative;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* The hamburger's three bars are a column; centring must not stack
+     them horizontally. */
+  .mob-menu-btn { flex-direction: column; gap: 5px; }
+
+  /* The WhatsApp icon sits ~16px from the screen edge. Pull the hit
+     area inward so the thumb has somewhere to land. */
+  .nav-right { padding-right: 0; }
+
+  /* --- Header brand lockup ---
+     The wordmark is a logo, not body text: its size is tuned in
+     project-brand-logo.md and must not change. Only the hit area grows. */
+  .brand { position: relative; }
+  .brand::after {
+    content: '';
+    position: absolute;
+    inset: -9px -22px;
+  }
+
+  /* --- Footer micro-links (Terms 34×13, Privacy 42×13, Sitemap 46×13) ---
+     13px tall because they are inline text in a flex row. Padding here
+     would visibly loosen the footer rule, so expand the hit box only. */
+  .foot-bottom a {
+    position: relative;
+    display: inline-block;
+  }
+  .foot-bottom a::after {
+    content: '';
+    position: absolute;
+    inset: -15px -12px;
+  }
+  .foot-bottom {
+    /* The expanded boxes now overlap unless the row is given air. */
+    gap: 14px 22px;
+    flex-wrap: wrap;
+  }
+
+  /* --- Footer column links (208–318 × 23) ---
+     12px, not 10: at the footer's 12px type the line box is ~21px, so
+     10px padding lands at 41 — three pixels short of the threshold. */
+  .foot-col a,
+  .foot-cols a {
+    display: block;
+    padding-block: 12px;
+    margin-bottom: 2px;
+  }
+
+  /* --- Inline "See All" / "Discover Zenith" arrows (17px tall) --- */
+  .link-arrow {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  /* --- Product-page breadcrumb (21px tall). The inline padding is what
+         carries "Home" past 44px wide; the `/` separators already supply
+         the visual spacing, so this does not loosen the row. --- */
+  .breadcrumb a {
+    display: inline-block;
+    padding-block: 11px;
+    padding-inline: 3px;
+  }
+
+  /* --- Home showroom block: phone numbers inside the address list --- */
+  .info dd a {
+    display: inline-block;
+    padding-block: 12px;
+  }
+
+  /* --- 404 quick links (36px tall) --- */
+  .ql { min-height: 44px; display: inline-flex; align-items: center; }
+
+  /* --- Filter chips (31px) and the search bar's clear button (28px) --- */
+  .chip {
+    min-height: 44px;
+    padding-block: 0;
+    display: inline-flex;
+    align-items: center;
+  }
+  .chip-fin { padding: 0 14px 0 10px; }
+  .ss-clear {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* --- Sticky search input (20px tall) --- */
+  #stickyQ {
+    min-height: 44px;
+    align-self: stretch;
+  }
+
+  /* --- Home category sub-nav (25px tall, and it is a scroller, so the
+         row height is the only thing the thumb has to aim at) --- */
+  .cat-subnav-in a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* --- Contact info panel: phone, email, Instagram, directions (24px) --- */
+  .info-val a {
+    padding-block: 10px;
+  }
+
+  /* --- Product page: collection eyebrow link (14px) and finish swatches
+         (40×40, just under the threshold) --- */
+  .product-main .eyebrow a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  .finish {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* --- Sort dropdown (30px) --- */
+  .sort-select {
+    min-height: 44px;
+  }
+
+  /* --- Buttons that landed just short --- */
+  .cta-btn-primary,
+  .cta-btn-secondary,
+  .btn-primary,
+  .btn-outline,
+  .btn-gold,
+  .logo {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* --- Utility bar links (18px). These sit behind the fixed header at
+         scroll-top, so they are hard to reach for reasons a size cannot
+         fix — but size should not be one of them. --- */
+  .util .right a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}
+
+
+/* ================================================================
+   FORM FIELDS  ·  P1-2
+   ----------------------------------------------------------------
+   iOS Safari force-zooms the viewport whenever a focused field is
+   under 16px, then leaves the page zoomed and pannable. 16px is a
+   hard floor, not a preference.
+================================================================ */
+
+@media (max-width: 860px), (hover: none) {
+  #stickyQ,
+  .field-group input,
+  .field-group select,
+  .field-group textarea,
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="search"],
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+
+
+/* ================================================================
+   HORIZONTAL SCROLL IN SECTION HEADERS  ·  P0-2
+   ----------------------------------------------------------------
+   `grid-template-columns: 1fr auto` never rewraps, so at 320px the
+   trailing link lands 13px past the viewport edge. Stack instead.
+================================================================ */
+
+@media (max-width: 480px) {
+  .cats-header,
+  .promos-header,
+  .trip-header,
+  .showroom-header,
+  .caro-header,
+  .search-meta-bar {
+    grid-template-columns: 1fr;
+    row-gap: 14px;
+    align-items: start;
+  }
+  /* The trailing link was right-aligned against the `auto` column; on
+     its own row it should sit with the heading. */
+  .cats-header .link-arrow,
+  .promos-header .link-arrow,
+  .trip-header .link-arrow,
+  .showroom-header .link-arrow,
+  .caro-header .link-arrow {
+    justify-self: start;
+  }
+}
+
+
+/* ================================================================
+   FILTER CHIP ROWS  ·  P1-3
+   ----------------------------------------------------------------
+   38 chips × 31px pushed the first product to y=1292 — 1.7 screens of
+   filters before a single product. One swipeable row per group is the
+   pattern the site already uses for .cat-subnav-in, and drops the
+   filter block from ~1100px to ~230px.
+================================================================ */
+
+@media (max-width: 860px) {
+  .chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* `.chips` is a flex item of a column-direction `.filter-group` whose
+       `align-items: flex-start` makes the cross (horizontal) size follow the
+       content — 664px of chips — so the scroller never engages and the row is
+       simply cut off. Stretching to the column, with the automatic minimum
+       released, is what makes `overflow-x: auto` actually scroll. */
+    align-self: stretch;
+    min-width: 0;
+    width: auto;
+    /* Bleed to the screen edge so the row reads as scrollable and the
+       last chip is not visually trapped against a margin. */
+    margin-inline: -28px;
+    padding-inline: 28px;
+    padding-block: 2px;
+  }
+  .chips::-webkit-scrollbar { display: none; }
+  .chips > .chip {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+
+  .filter-groups { gap: 14px; }
+
+  /* A soft right edge is the affordance that says "keep swiping".
+     Sits on the group, not the scroller, so it does not scroll away. */
+  .filter-group {
+    position: relative;
+  }
+  .filter-group::after {
+    content: '';
+    position: absolute;
+    right: -28px;
+    bottom: 0;
+    width: 36px;
+    height: 48px;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, var(--bg));
+  }
+}
+
+
+/* ================================================================
+   SAFE AREAS  ·  P1-4
+   ----------------------------------------------------------------
+   Notches, rounded corners and the iOS home indicator. Nothing in the
+   codebase accounted for them.
+================================================================ */
+
+/* Two names for the same floating cluster: the hand-authored pages use
+   `.fab-cluster`, the generated ones use `.float-cta` (layout.js). Both are
+   pinned `bottom: 32px; right: 28px`, so both need the inset. */
+.fab-cluster,
+.float-cta {
+  bottom: calc(32px + env(safe-area-inset-bottom, 0px));
+  right: calc(28px + env(safe-area-inset-right, 0px));
+}
+
+@media (max-width: 860px) {
+  .util-in,
+  .head-in,
+  .foot-bottom,
+  .foot-cols {
+    padding-left: max(28px, env(safe-area-inset-left, 0px));
+    padding-right: max(28px, env(safe-area-inset-right, 0px));
+  }
+  .head-in {
+    padding-left: max(20px, env(safe-area-inset-left, 0px));
+    padding-right: max(20px, env(safe-area-inset-right, 0px));
+  }
+}
+
+@media (max-width: 480px) {
+  .head-in {
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+}
+
+
+/* ================================================================
+   TYPE FLOOR  ·  P2-1
+   ----------------------------------------------------------------
+   ~45 distinct elements sat at 10px, with a tail down to 8px. That
+   label layer reads fine on a 27" monitor and is illegible on a 360px
+   phone at arm's length. Raised to an 11px floor (12px for anything
+   carrying real content), letter-spacing untouched so the typographic
+   character survives.
+
+   Deliberately excluded: `.brand small` (7px). It is part of the
+   logotype, tuned to the IPM wordmark's width — WCAG exempts
+   logotypes, and changing its size breaks the lockup.
+================================================================ */
+
+/* The label layer is styled in place with two- and three-class selectors
+   (`.promo .ov .e`, `.showroom .vis .tag`, `.pcard .badge`, …), so a bare
+   `.e { }` here loses the cascade. `:root:root` adds two pseudo-class
+   points, which ties the deepest competitor at (0,3,0) and wins on source
+   order — without `!important`, so a page can still override deliberately. */
+
+@media (max-width: 860px) {
+
+  /* --- eyebrows and section labels --- */
+  :root:root .e,
+  :root:root .eyebrow,
+  :root:root .sc-eyebrow,
+  :root:root .label,
+  :root:root .filter-label,
+  :root:root .sort-label,
+  :root:root .quick-links-label,
+  :root:root .fp-label,
+  :root:root .fd-label,
+  :root:root .s-label { font-size: 11px; }
+
+  /* --- badges and pills --- */
+  :root:root .badge,
+  :root:root .cg-sig-badge,
+  :root:root .cert-tag,
+  :root:root .tag,
+  :root:root .trust-badge,
+  :root:root .cat-tag,
+  :root:root .mii-hero-tag,
+  :root:root .card-finish-count,
+  :root:root .price-note,
+  :root:root .tl-num { font-size: 11px; }
+
+  /* --- links and actions that were sitting at 10px --- */
+  :root:root .link-arrow,
+  :root:root .promo-cta,
+  :root:root .cta-btn-primary,
+  :root:root .cta-btn-secondary,
+  :root:root .contact-submit,
+  :root:root .btn-primary,
+  :root:root .btn-outline,
+  :root:root .fab-book,
+  :root:root .float-cta-label { font-size: 11px; }
+
+  /* --- content-bearing text: 12px floor, not 11 --- */
+  :root:root .card-coll,
+  :root:root .card-cat,
+  :root:root .cg-sub,
+  :root:root .map-pin-label,
+  :root:root .insta-handle,
+  :root:root .form-note,
+  :root:root .gp-region-cities,
+  :root:root .gp-leg-item,
+  :root:root .gp-globe-hint,
+  :root:root .tl-role,
+  :root:root .info-label,
+  :root:root .dim,
+  :root:root .sku,
+  :root:root .k,
+  :root:root .showroom .info h4,
+  :root:root .showroom .info .sub,
+  :root:root .showroom .info dt,
+  :root:root .val h4 { font-size: 12px; }
+
+  /* --- footer --- */
+  :root:root .foot-col h5,
+  :root:root .foot-cols h5 { font-size: 11px; }
+  :root:root .foot-col a,
+  :root:root .foot-cols a,
+  :root:root .foot-bottom,
+  :root:root .foot-bottom a { font-size: 12px; }
+
+  /* --- utility marquee --- */
+  :root:root .util-in { font-size: 11px; }
+}
+
+
+/* ================================================================
+   VIEWPORT-HEIGHT HEROES  ·  P2-2
+   ----------------------------------------------------------------
+   On mobile `100vh` is the LARGE viewport height (URL bar hidden), so
+   the hero overshoots the screen on first paint, hides the CTA below
+   the fold, then shifts as the bar retracts. `svh` is the small
+   viewport height — stable from first paint.
+
+   `min-height: 780px` also has to go on phones: it is taller than a
+   360×740 screen, which is what made the hero overshoot even where
+   svh was respected.
+================================================================ */
+
+/* Only the two heroes that are actually authored at `height: 100vh`
+   (index's `.hero`, collections' `.page-hero`). `.sh-hero` on the search
+   page is deliberately 52vh — including it here would have inflated it to
+   a full screen and pushed the results further down, not up. */
+@supports (height: 100svh) {
+  .hero,
+  .page-hero { height: 100svh; }
+}
+
+@media (max-width: 860px) {
+  .hero,
+  .page-hero { min-height: 560px; }
+}
+
+@media (max-width: 480px) {
+  .hero,
+  .page-hero { min-height: 500px; }
+}
+
+/* Landscape phones: a full-height hero leaves no room for anything
+   else, so cap it and let the content start. */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero,
+  .page-hero,
+  .sh-hero {
+    height: auto;
+    min-height: 420px;
+  }
+}
+
+/* The search hero's job is to frame the search field, not to fill the
+   screen — at 52vh it still pushed the first result to y=1076 on a 740px
+   phone. Shorter here buys most of a screen of results. */
+@media (max-width: 760px) {
+  .sh-hero { height: 42vh; min-height: 300px; }
+}
+
+
+/* ================================================================
+   CLIPPED CONTAINERS  ·  P2-3
+   ----------------------------------------------------------------
+   Boxes whose content measured wider than their own client width —
+   individually a few pixels, collectively the reason the site read as
+   "squeezed" rather than designed for the screen.
+================================================================ */
+
+@media (max-width: 860px) {
+  /* Long unbroken strings (email addresses, product codes, SKUs) were
+     the usual culprit. */
+  .info-val,
+  .info-val a,
+  .card-name,
+  .card-body,
+  .cert-badge,
+  .cta-card,
+  .cg-card,
+  .contact-card {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .cert-badge,
+  .cta-card {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* NOTE — `.cert-badge` and `.cta-card` both report scrollWidth > clientWidth
+     on every phone width, but nothing is actually clipped: the excess is a
+     decorative absolutely-positioned glow blob (80px and 280px) hung off the
+     corner behind the card's own `overflow: hidden`. The grid is already
+     collapsed at 1100px and the padding already tuned at 860px in about.html.
+     Left alone deliberately — see §2 of the audit. */
+
+  .contact-submit {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 380px) {
+  /* At 320–375 the two-up product grid leaves 124px per card; the
+     price + category meta row could not fit on one line. */
+  .card-meta {
+    flex-wrap: wrap;
+    row-gap: 4px;
+  }
+}
+
+
+/* ================================================================
+   CATEGORY GRID  ·  P2-4
+   ----------------------------------------------------------------
+   At <=480px the grid dropped to one column and each card rendered
+   ~430px tall — six categories became roughly six screens of scroll
+   to read six words. Two columns at a shorter aspect shows the whole
+   set in about one screen.
+================================================================ */
+
+@media (max-width: 480px) {
+  .cats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .cat {
+    aspect-ratio: 3 / 4;
+  }
+  .cat img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  /* Category name has to survive the narrower tile. */
+  .cat-name,
+  .cats a > span {
+    font-size: 14px;
+  }
+}
+
+
+/* ================================================================
+   IMAGE HYGIENE  ·  P3-1 (partial — see §5 of the audit)
+   ----------------------------------------------------------------
+   The real fix is a srcset pipeline. What is safe to do from CSS is
+   stop images from being the thing that overflows a container.
+================================================================ */
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+/* …except where the design deliberately sizes an image to fill a box. */
+.hero img,
+.hero video,
+.page-hero img,
+.sh-hero img,
+.cat img,
+.promo img,
+.pshot,
+.card-img img,
+.no-photo img {
+  height: 100%;
+}

@@ -786,10 +786,24 @@ mark { background: var(--gold-pale); color: inherit; border-radius: 2px; padding
       render();
     })
     .catch(() => { metaEl.textContent = 'Search index unavailable — run the build.'; });
+
+  /* The full placeholders are written for a desktop-width field; on a phone
+     they truncate mid-word ("Name, product code, col"). Swap in short forms
+     below 600px rather than shrink the type — 16px is the iOS zoom floor. */
+  (function shortPlaceholders() {
+    const short = matchMedia('(max-width: 600px)');
+    const pairs = [
+      [document.getElementById('searchQ'), 'Name, product code, collection or finish…', 'Search products…'],
+      [document.getElementById('stickyQ'), 'Search products, SKUs, collections…', 'Search products…']
+    ];
+    const apply = () => pairs.forEach(([el, long, brief]) => { if (el) el.placeholder = short.matches ? brief : long; });
+    apply();
+    short.addEventListener('change', apply);
+  })();
 })();
 `;
 
-  return renderPage({ head, bodyContent, pageCss, pageJs });
+  return renderPage({ head, bodyContent, pageCss, pageJs, depth });
 }
 
 module.exports = { renderSearchPage };

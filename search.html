@@ -514,30 +514,69 @@ footer {
 /* ================================================================
    FLOATING CONTACT CTA + BACK-TO-TOP CLUSTER
 ================================================================ */
-.fab-cluster {
+.float-cta {
   position: fixed; bottom: 32px; right: 28px; z-index: 150;
-  display: flex; align-items: center; gap: 10px;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
+  animation: floatIn .4s cubic-bezier(.2,.6,.2,1) forwards;
+}
+
+/* Back-to-top: now inside the float cluster, row-level */
+.float-btn-row {
+  display: flex; align-items: center; gap: 10px; flex-direction: row;
 }
 .back-top {
-  width: 44px; height: 44px; flex-shrink: 0;
-  background: var(--ink); color: var(--bg);
+  width: 44px; height: 44px; background: var(--ink); color: var(--bg);
   border: 0; border-radius: 50%; cursor: pointer; font-size: 18px;
   display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 16px rgba(154,115,64,.28);
-  transition: background .25s, transform .25s;
+  box-shadow: var(--shadow-md); flex-shrink: 0;
+  transition: background .25s, transform .25s, opacity .3s; opacity: 0.85;
 }
+.back-top:hover { background: var(--gold); transform: translateY(-3px); opacity: 1; }
 .back-top[hidden] { display: none; }
-.back-top:hover { background: var(--gold); transform: translateY(-3px); }
-.fab-book {
-  display: flex; align-items: center; gap: 7px;
-  padding: 0 20px; height: 44px; border-radius: 22px;
-  background: var(--gold); color: var(--on-gold); text-decoration: none;
-  font-family: 'DM Sans', sans-serif; font-size: 11px;
-  font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
-  white-space: nowrap; box-shadow: 0 4px 16px rgba(154,115,64,.28);
-  transition: background .25s, transform .25s;
+.float-cta[hidden] { display: none; }
+.float-cta-btn {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--gold); color: var(--on-gold);
+  border: 0; border-radius: 100px; padding: 14px 22px;
+  font-family: 'DM Sans', sans-serif; font-size: 10px;
+  letter-spacing: .22em; text-transform: uppercase; cursor: pointer;
+  box-shadow: 0 4px 24px rgba(154,115,64,.35);
+  transition: background .25s, transform .25s, box-shadow .25s;
 }
-.fab-book:hover { background: var(--gold-2); color: var(--on-gold); box-shadow: 0 0 22px rgba(196,155,90,.6), 0 4px 16px rgba(154,115,64,.3); transform: translateY(-3px); }
+.float-cta-btn:hover { background: var(--gold-2); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(154,115,64,.45); }
+.float-cta-icon { font-size: 14px; }
+.float-cta-panel {
+  background: var(--paper); border: 1px solid var(--line); border-radius: 18px;
+  padding: 28px 28px 24px; width: 320px; box-shadow: var(--shadow-lg);
+  animation: fpanelIn .35s cubic-bezier(.2,.6,.2,1) forwards;
+}
+.float-cta-panel[hidden] { display: none; }
+@keyframes fpanelIn { from { opacity: 0; transform: scale(.96) translateY(10px); } to { opacity: 1; transform: none; } }
+.float-cta-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+.float-cta-x {
+  width: 28px; height: 28px; border: 1px solid var(--line-2); background: transparent;
+  border-radius: 50%; cursor: pointer; color: var(--soft); font-size: 12px;
+  display: flex; align-items: center; justify-content: center; transition: background .2s, color .2s;
+}
+.float-cta-x:hover { background: var(--ink); color: var(--bg); }
+#floatForm { display: flex; flex-direction: column; gap: 10px; }
+#floatForm input, #floatForm textarea {
+  background: var(--cream); border: 1px solid var(--line); border-radius: 8px;
+  padding: 11px 14px; font-family: 'DM Sans', sans-serif; font-size: 13px;
+  font-weight: 300; color: var(--ink); outline: none; resize: none;
+  transition: border-color .25s;
+}
+#floatForm input:focus, #floatForm textarea:focus { border-color: var(--gold); }
+#floatForm button[type="submit"] {
+  background: var(--gold); color: var(--on-gold); border: 0; border-radius: 100px;
+  padding: 13px 24px; font-family: 'DM Sans', sans-serif; font-size: 10px;
+  letter-spacing: .22em; text-transform: uppercase; cursor: pointer; transition: background .25s;
+}
+#floatForm button[type="submit"]:hover { background: var(--gold-2); }
+.float-confirm { text-align: center; padding: 16px 0; }
+.float-confirm-icon { display: block; font-size: 28px; color: var(--gold); margin-bottom: 10px; }
+.float-confirm .serif { font-size: 18px; color: var(--ink-mid); }
+@keyframes floatIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 
 /* ================================================================
    RESPONSIVE BASELINE
@@ -601,7 +640,7 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
   .page-hero { border-radius: 0 0 28px 28px; }
   .page-hero h1 { font-size: clamp(44px, 10vw, 80px); }
   .sec { padding-top: 80px; padding-bottom: 80px; }
-  .fab-cluster { bottom: 20px; right: 16px; }
+  .float-cta { bottom: 20px; right: 16px; }
 }
 @media (max-width: 480px) {
   .head-in { padding: 0 16px; height: 64px; }
@@ -619,8 +658,8 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
 /* ── hero ── */
 .sh-hero {
   position: relative; height: 62vh; min-height: 440px; max-height: 700px;
-  display: flex; align-items: flex-end;
-  margin-top: -80px; z-index: 10;
+  overflow: hidden; display: flex; align-items: flex-end;
+  margin-top: -80px;
 }
 .sh-hero-img {
   position: absolute; inset: 0; width: 100%; height: 100%;
@@ -683,7 +722,7 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
 
 /* ── search suggestions (typeahead dropdown) ── */
 .search-suggest {
-  position: absolute; top: calc(100% + 10px); left: 0; right: 0; z-index: 9999;
+  position: absolute; top: calc(100% + 10px); left: 0; right: 0; z-index: 40;
   background: var(--paper); border: 1px solid var(--line);
   border-radius: 18px; box-shadow: var(--shadow-lg);
   padding: 6px; max-height: 64vh; overflow-y: auto;
@@ -765,7 +804,7 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
 }
 @media (max-width: 600px) { .sticky-search { top: 60px; } .ss-count { display: none; } }
 
-.sh-filters { padding: 36px 0 20px; }
+.sh-filters { padding: 36px 0 44px; }
 .filter-groups { display: flex; flex-direction: column; gap: 20px; }
 .filter-group { display: flex; align-items: flex-start; gap: 20px; }
 .filter-label {
@@ -790,9 +829,6 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
 }
 .chip-coloured:hover { background: linear-gradient(135deg, var(--gold-pale), var(--gold-pale)); border-color: var(--gold-2); color: var(--gold-2); }
 .chip-coloured.is-active { background: var(--gold); color: var(--on-gold); border-color: var(--gold); }
-.chip-fin { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px 6px 10px; }
-.chip-fin-dot { width: 12px; height: 12px; border-radius: 50%; border: 1px solid rgba(18,14,8,.15); flex-shrink: 0; }
-.f-chrome { background: linear-gradient(135deg,#e8e8e8,#9a9a9a); }
 
 /* ── results header ── */
 .search-results-sec { padding-top: 40px; padding-bottom: 120px; }
@@ -845,12 +881,12 @@ header.site[data-header="over-dark"] .mob-menu-btn span { background: #fff; }
 /* image stage — finish cycling happens here */
 .card-stage {
   position: relative; aspect-ratio: 4/3; overflow: hidden;
-  background: #f2ede3; flex-shrink: 0; isolation: isolate;
+  background: var(--cream); flex-shrink: 0; isolation: isolate;
 }
 .card-stage img {
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: contain; padding: 5%; box-sizing: border-box;
-  transition: opacity .38s ease; mix-blend-mode: multiply;
+  transition: opacity .38s ease;
 }
 .card-stage img.is-hidden { opacity: 0; pointer-events: none; }
 .card-stage img.is-visible { opacity: 1; }
@@ -950,6 +986,9 @@ mark { background: var(--gold-pale); color: inherit; border-radius: 2px; padding
 }
 
 </style>
+<!-- Mobile optimization layer — must load after the inline <style> so it
+     wins on equal specificity. See css/mobile.css. -->
+<link rel="stylesheet" href="css/mobile.css">
 </head>
 <body>
 
@@ -1090,36 +1129,17 @@ mark { background: var(--gold-pale); color: inherit; border-radius: 2px; padding
         <button class="chip" data-filter="collection" data-c="jp">JP</button>
         <button class="chip" data-filter="collection" data-c="zenith">Zenith</button>
         <button class="chip" data-filter="collection" data-c="square-accessories">Square Accessories</button>
-        <button class="chip" data-filter="collection" data-c="bathroom-accessories">Bathroom Accessories</button>
         <button class="chip" data-filter="collection" data-c="single-piece-wc">Single Piece Wc</button>
-        <button class="chip" data-filter="collection" data-c="wall-hung-wc">Wall Hung Wc</button>
+        <button class="chip" data-filter="collection" data-c="bathroom-accessories">Bathroom Accessories</button>
         <button class="chip" data-filter="collection" data-c="basin-with-pedestal">Basin With Pedestal</button>
-        </div>
-      </div>
-      <div class="filter-group">
-        <span class="filter-label">Finish</span>
-        <div class="chips" id="finishChips">
-          <button class="chip is-active" data-filter="finish" data-f="">All</button>
-          <button class="chip chip-fin" data-filter="finish" data-f="Chrome"><span class="chip-fin-dot f-chrome"></span>Chrome</button>
-          <button class="chip chip-fin" data-filter="finish" data-f="Rose Gold"><span class="chip-fin-dot f-rose-gold"></span>Rose Gold</button>
-          <button class="chip chip-fin" data-filter="finish" data-f="Rich Gold"><span class="chip-fin-dot f-rich-gold"></span>Rich Gold</button>
-          <button class="chip chip-fin" data-filter="finish" data-f="Gunmetal Black"><span class="chip-fin-dot f-gunmetal"></span>Gunmetal Black</button>
-          <button class="chip chip-fin" data-filter="finish" data-f="Gunmetal Black Gold"><span class="chip-fin-dot f-gunmetal-black-gold"></span>Gunmetal Black Gold</button>
-          <button class="chip chip-fin" data-filter="finish" data-f="Matt Black"><span class="chip-fin-dot f-matt-black"></span>Matt Black</button>
-          <button class="chip chip-fin" data-filter="finish" data-f="Matt Black Gold"><span class="chip-fin-dot f-matt-black-gold"></span>Matt Black Gold</button>
-          <button class="chip chip-fin" data-filter="finish" data-f="Matt Grey"><span class="chip-fin-dot f-matt-grey"></span>Matt Grey</button>
-          <button class="chip chip-fin" data-filter="finish" data-f="Matt Grey Gold"><span class="chip-fin-dot f-matt-grey-gold"></span>Matt Grey Gold</button>
-          <button class="chip chip-fin" data-filter="finish" data-f="Matt White"><span class="chip-fin-dot f-matt-white"></span>Matt White</button>
-          <button class="chip chip-fin" data-filter="finish" data-f="Matt White Gold"><span class="chip-fin-dot f-matt-white-gold"></span>Matt White Gold</button>
-          <button class="chip chip-fin" data-filter="finish" data-f="Matt Beige"><span class="chip-fin-dot f-matt-beige"></span>Matt Beige</button>
-          <button class="chip chip-fin" data-filter="finish" data-f="Matt Beige Gold"><span class="chip-fin-dot f-matt-beige-gold"></span>Matt Beige Gold</button>
+        <button class="chip" data-filter="collection" data-c="wall-hung-wc">Wall Hung Wc</button>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="sec-divider" style="margin-top:0"><span></span></div>
+<div class="sec-divider" style="margin-top:40px"><span></span></div>
 
 <!-- ===== RESULTS ===== -->
 <section class="search-results-sec">
@@ -1193,14 +1213,34 @@ mark { background: var(--gold-pale); color: inherit; border-radius: 2px; padding
   </div>
 </footer>
 
-<div class="fab-cluster">
-  <button id="backTop" class="back-top" aria-label="Back to top" hidden>&#8593;</button>
-  <a href="contact.html" class="fab-book">
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.82 19.79 19.79 0 01.01 1.18 2 2 0 012 .01h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-    Book a Visit
-  </a>
+<!-- ===== BOTTOM-RIGHT CLUSTER (Book a Visit + Back to Top) ===== -->
+<div id="floatCta" class="float-cta" hidden>
+  <div class="float-cta-panel" id="floatCtaPanel" hidden>
+    <div class="float-cta-head">
+      <span class="eyebrow">Get in Touch</span>
+      <button class="float-cta-x" id="floatCtaClose" aria-label="Close">&#x2715;</button>
+    </div>
+    <form id="floatForm">
+      <input type="text" name="name" placeholder="Your name" required autocomplete="name">
+      <input type="tel" name="phone" placeholder="Phone / Email" required>
+      <textarea name="message" rows="3" placeholder="How can we help?"></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+    <div id="floatConfirm" class="float-confirm" hidden>
+      <span class="float-confirm-icon">&#10003;</span>
+      <p class="serif">Thank you. We'll call you back soon.</p>
+    </div>
+  </div>
+  <div class="float-btn-row">
+    <button id="backTop" class="back-top" aria-label="Back to top" hidden>&#8593;</button>
+    <button class="float-cta-btn" id="floatCtaBtn" aria-label="Book a Showroom Visit" aria-expanded="false">
+      <span class="float-cta-icon">&#9742;</span>
+      <span class="float-cta-label">Book a Visit</span>
+    </button>
+  </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.23/dist/lenis.min.js"></script>
 <script>
 /* ================================================================
    THEME TOGGLE
@@ -1270,6 +1310,59 @@ if (heroImg) {
 }
 
 /* ================================================================
+   FLOATING CONTACT CTA
+================================================================ */
+const floatCta   = document.getElementById('floatCta');
+const floatBtn   = document.getElementById('floatCtaBtn');
+const floatPanel = document.getElementById('floatCtaPanel');
+const floatClose = document.getElementById('floatCtaClose');
+const floatForm  = document.getElementById('floatForm');
+const floatConf  = document.getElementById('floatConfirm');
+
+floatBtn.addEventListener('click', () => {
+  const open = !floatPanel.hidden;
+  floatPanel.hidden = open;
+  floatBtn.setAttribute('aria-expanded', String(!open));
+});
+floatClose.addEventListener('click', () => {
+  floatPanel.hidden = true;
+  floatBtn.setAttribute('aria-expanded', 'false');
+});
+floatForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const name  = floatForm.elements['name'].value.trim();
+  const phone = floatForm.elements['phone'].value.trim();
+  const msg   = floatForm.elements['message'].value.trim();
+  const floatSubmitBtn = floatForm.querySelector('button[type=submit]');
+  if (floatSubmitBtn) { floatSubmitBtn.disabled = true; floatSubmitBtn.style.opacity = '.6'; }
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({
+      access_key: 'a986c75b-8ca1-4b7d-a180-ac8973a36e98',
+      subject: 'Showroom Visit Enquiry',
+      name,
+      phone,
+      message: msg
+    })
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.success) {
+      floatForm.hidden = true;
+      floatConf.hidden = false;
+    } else {
+      if (floatSubmitBtn) { floatSubmitBtn.disabled = false; floatSubmitBtn.style.opacity = ''; }
+      alert('Something went wrong. Please email ipmbathfittings@gmail.com directly.');
+    }
+  })
+  .catch(() => {
+    if (floatSubmitBtn) { floatSubmitBtn.disabled = false; floatSubmitBtn.style.opacity = ''; }
+    alert('Something went wrong. Please email ipmbathfittings@gmail.com directly.');
+  });
+});
+
+/* ================================================================
    BACK TO TOP + CONSOLIDATED SCROLL HANDLER
 ================================================================ */
 const backTop = document.getElementById('backTop');
@@ -1280,6 +1373,8 @@ function onScroll() {
   const y = window.scrollY;
   syncHeader();
   backTop.hidden = y < 600;
+  if (y > 400) floatCta.hidden = false;
+  else if (floatPanel.hidden) floatCta.hidden = true;
   scrollRaf = false;
 }
 window.addEventListener('scroll', () => {
@@ -1306,13 +1401,23 @@ if (mobMenuBtn && mobNav) {
 }
 
 /* ================================================================
+   SMOOTH SCROLL (Lenis)
+================================================================ */
+if (window.Lenis) {
+  const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+  function lenisRaf(t) { lenis.raf(t); requestAnimationFrame(lenisRaf); }
+  requestAnimationFrame(lenisRaf);
+  document.addEventListener('visibilitychange', () => { if (document.hidden) lenis.stop(); else lenis.start(); }, { passive: true });
+}
+
+/* ================================================================
    PAGE-SPECIFIC JS
 ================================================================ */
 
 (function () {
-  const state = { q: '', collections: new Set(), category: '', coloured: false, sort: 'featured', finishes: new Set() };
-  // Featured order: Zenith, Opell Prima, Para first — then rest
-  const FEATURED_ORDER = ['zenith', 'opell-prima', 'para', 'aliva', 'flora', 'fuzone', 'pebble', 'neo', 'jp', 'cube-prima', 'premium', 'allied'];
+  const state = { q: '', collection: '', category: '', coloured: false, sort: 'featured' };
+  // Featured order: Opell Prima + Zenith bubble to top, then rest by product count
+  const FEATURED_ORDER = ['opell-prima', 'zenith', 'aliva', 'flora', 'fuzone', 'pebble', 'neo', 'para', 'jp', 'cube-prima', 'premium', 'allied'];
   function featuredScore(it) { const i = FEATURED_ORDER.indexOf(it.collectionSlug); return i === -1 ? 99 : i; }
   function priceNum(it) { return parseFloat(String(it.price).replace(/[^0-9.]/g, '')) || 0; }
   function sortItems(items) {
@@ -1331,7 +1436,6 @@ if (mobMenuBtn && mobNav) {
   const clearBtn   = document.getElementById('searchClear');
   const catChips   = document.getElementById('catChips');
   const collChips  = document.getElementById('collChips');
-  const finChips   = document.getElementById('finishChips');
   const sortSelect = document.getElementById('sortSelect');
   const stickySearch = document.getElementById('stickySearch');
   const stickyInput  = document.getElementById('stickyQ');
@@ -1375,14 +1479,7 @@ if (mobMenuBtn && mobNav) {
     const pricesAttr = isMulti
       ? ` data-prices='${JSON.stringify(it.variantImages.map(v => v.price || it.price || '')).replace(/'/g, '&#39;')}'`
       : '';
-    // When exactly one finish is selected, start card on that finish's variant
-    let startIdx = 0;
-    if (isMulti && state.finishes.size === 1) {
-      const sel = [...state.finishes][0];
-      const vi = it.variantImages.findIndex(v => v.finish === sel);
-      if (vi > 0) startIdx = vi;
-    }
-    return `<a class="search-card" href="${esc(it.url)}" data-multi="${isMulti ? '1' : '0'}" data-start-idx="${startIdx}"${pricesAttr}>
+    return `<a class="search-card" href="${esc(it.url)}" data-multi="${isMulti ? '1' : '0'}"${pricesAttr}>
   <div class="card-stage">
     ${mainImg}${extraImgs}${dots}${arrows}
   </div>
@@ -1402,10 +1499,9 @@ if (mobMenuBtn && mobNav) {
     if (!data) return;
     const q = state.q.trim().toLowerCase();
     let items = data.items;
-    if (state.coloured)           items = items.filter(it => it.isColoured);
-    if (state.category)           items = items.filter(it => it.category === state.category);
-    if (state.collections.size)   items = items.filter(it => state.collections.has(it.collectionSlug));
-    if (state.finishes.size)      items = items.filter(it => it.swatches && it.swatches.some(s => state.finishes.has(s.finish)));
+    if (state.coloured)    items = items.filter(it => it.isColoured);
+    if (state.category)    items = items.filter(it => it.category === state.category);
+    if (state.collection)  items = items.filter(it => it.collectionSlug === state.collection);
     if (q) {
       items = items.filter(it =>
         it.name.toLowerCase().includes(q) ||
@@ -1417,7 +1513,7 @@ if (mobMenuBtn && mobNav) {
     }
     items = sortItems(items);
     const shown = items.slice(0, 300);
-    const active = state.coloured || state.category || state.collections.size || state.finishes.size || q;
+    const active = state.coloured || state.category || state.collection || q;
     metaEl.textContent = items.length + (items.length === 1 ? ' product' : ' products') + (active ? ' found' : ' in catalogue');
     if (stickyCount) stickyCount.textContent = items.length + (items.length === 1 ? ' result' : ' results');
     if (sortHint) sortHint.hidden = !state.coloured;
@@ -1445,7 +1541,6 @@ if (mobMenuBtn && mobNav) {
       const prices   = card.dataset.prices ? JSON.parse(card.dataset.prices) : null;
       if (imgs.length < 2) return;
       let idx = 0;
-      const startIdx = parseInt(card.dataset.startIdx || '0');
 
       function goTo(newIdx) {
         imgs[idx].classList.remove('is-visible'); imgs[idx].classList.add('is-hidden');
@@ -1459,10 +1554,8 @@ if (mobMenuBtn && mobNav) {
           if (p) priceEl.textContent = p;
         }
       }
-      function advance() { if (!state.finishes.size) goTo(idx + 1); }
+      function advance() { goTo(idx + 1); }
 
-      if (startIdx > 0) goTo(startIdx);
-      if (state.finishes.size) return; // locked to selected finish — no cycling
       const delay = 2200 + Math.floor(Math.random() * 1400);
       const t = setInterval(advance, delay);
       cycleTimers.set(card, t);
@@ -1480,18 +1573,6 @@ if (mobMenuBtn && mobNav) {
   function activateChip(group, value) {
     group.querySelectorAll('.chip').forEach(b => b.classList.toggle('is-active', b.dataset.c === value));
   }
-  function refreshCollChips() {
-    collChips.querySelectorAll('.chip').forEach(b => {
-      if (b.dataset.c === '') b.classList.toggle('is-active', state.collections.size === 0);
-      else b.classList.toggle('is-active', state.collections.has(b.dataset.c));
-    });
-  }
-  function refreshFinishChips() {
-    finChips.querySelectorAll('.chip').forEach(b => {
-      if (b.dataset.f === '') b.classList.toggle('is-active', state.finishes.size === 0);
-      else b.classList.toggle('is-active', state.finishes.has(b.dataset.f));
-    });
-  }
 
   catChips.addEventListener('click', e => {
     const btn = e.target.closest('.chip');
@@ -1499,16 +1580,8 @@ if (mobMenuBtn && mobNav) {
     if (btn.dataset.filter === 'coloured') {
       const wasActive = btn.classList.contains('is-active');
       catChips.querySelectorAll('.chip').forEach(b => b.classList.remove('is-active'));
-      if (!wasActive) {
-        btn.classList.add('is-active'); state.coloured = true; state.category = '';
-        state.collections.clear();
-        if (data) { data.items.filter(it => it.isColoured).forEach(it => { if (it.collectionSlug) state.collections.add(it.collectionSlug); }); }
-        refreshCollChips();
-      } else {
-        state.coloured = false; state.collections.clear();
-        catChips.querySelector('[data-c=""]').classList.add('is-active');
-        refreshCollChips();
-      }
+      if (!wasActive) { btn.classList.add('is-active'); state.coloured = true; state.category = ''; }
+      else { state.coloured = false; catChips.querySelector('[data-c=""]').classList.add('is-active'); }
     } else {
       state.coloured = false;
       catChips.querySelectorAll('.chip').forEach(b => b.classList.remove('is-active'));
@@ -1520,21 +1593,8 @@ if (mobMenuBtn && mobNav) {
   collChips.addEventListener('click', e => {
     const btn = e.target.closest('.chip');
     if (!btn) return;
-    const val = btn.dataset.c;
-    if (val === '') { state.collections.clear(); state.coloured = false; catChips.querySelector('[data-c=""]').classList.add('is-active'); catChips.querySelector('.chip-coloured').classList.remove('is-active'); }
-    else if (state.collections.has(val)) state.collections.delete(val);
-    else state.collections.add(val);
-    refreshCollChips();
-    render();
-  });
-  finChips.addEventListener('click', e => {
-    const btn = e.target.closest('.chip');
-    if (!btn) return;
-    const val = btn.dataset.f;
-    if (val === '') state.finishes.clear();
-    else if (state.finishes.has(val)) state.finishes.delete(val);
-    else state.finishes.add(val);
-    refreshFinishChips();
+    state.collection = btn.dataset.c;
+    activateChip(collChips, state.collection);
     render();
   });
 
@@ -1592,13 +1652,13 @@ if (mobMenuBtn && mobNav) {
     const rank = s => { const i = s.toLowerCase().indexOf(q); return i < 0 ? 999 : i; };
     const prods = suggestIdx.products
       .filter(p => p.name.toLowerCase().includes(q) || String(p.skus).toLowerCase().includes(q))
-      .sort((a, b) => (featuredScore(a) - featuredScore(b)) || (rank(a.name) - rank(b.name)))
+      .sort((a, b) => rank(a.name) - rank(b.name)).slice(0, 6)
       .map(p => ({ kind: 'product', label: p.name, sub: p.collection + ' · ' + p.category, url: p.url, image: p.image }));
-    const colls = suggestIdx.collections.filter(c => c.name.toLowerCase().includes(q))
+    const colls = suggestIdx.collections.filter(c => c.name.toLowerCase().includes(q)).slice(0, 3)
       .map(c => ({ kind: 'collection', label: c.name, value: c.slug }));
-    const cats = suggestIdx.categories.filter(c => c.toLowerCase().includes(q))
+    const cats = suggestIdx.categories.filter(c => c.toLowerCase().includes(q)).slice(0, 2)
       .map(c => ({ kind: 'category', label: c, value: c }));
-    const fins = suggestIdx.finishes.filter(f => f.toLowerCase().includes(q))
+    const fins = suggestIdx.finishes.filter(f => f.toLowerCase().includes(q)).slice(0, 3)
       .map(f => ({ kind: 'finish', label: f, value: f }));
     return [...prods, ...colls, ...cats, ...fins];
   }
@@ -1628,7 +1688,7 @@ if (mobMenuBtn && mobNav) {
     if (it.kind === 'product') { window.location.href = it.url; return; }
     if (it.kind === 'finish') { setQuery(it.label); }
     else {
-      if (it.kind === 'collection') { state.collections.clear(); state.collections.add(it.value); refreshCollChips(); }
+      if (it.kind === 'collection') { state.collection = it.value; activateChip(collChips, it.value); }
       if (it.kind === 'category')   { state.coloured = false; state.category = it.value; activateChip(catChips, it.value); }
       setQuery('');
     }
@@ -1681,11 +1741,8 @@ if (mobMenuBtn && mobNav) {
   /* ── pre-fill from URL ── */
   const params = new URLSearchParams(location.search);
   if (params.get('q'))          { input.value = params.get('q'); if (stickyInput) stickyInput.value = params.get('q'); state.q = params.get('q'); clearBtn.hidden = false; if (stickyClear) stickyClear.hidden = false; }
-  if (params.get('category') === 'Accessories') {
-    state.collections.add('square-accessories');
-    state.collections.add('bathroom-accessories');
-  } else if (params.get('category')) { state.category = params.get('category'); }
-  if (params.get('collection')) { state.collections.add(params.get('collection')); }
+  if (params.get('category'))   { state.category   = params.get('category'); }
+  if (params.get('collection')) { state.collection = params.get('collection'); }
   if (params.get('coloured'))   { state.coloured   = true; }
 
   /* ── load index ── */
@@ -1701,22 +1758,26 @@ if (mobMenuBtn && mobNav) {
       // Activate chips matching URL state
       if (state.category)   activateChip(catChips,  state.category);
       else if (state.coloured) { catChips.querySelectorAll('.chip').forEach(b => b.classList.remove('is-active')); catChips.querySelector('.chip-coloured').classList.add('is-active'); }
-      if (state.coloured) { data.items.filter(it => it.isColoured).forEach(it => { if (it.collectionSlug) state.collections.add(it.collectionSlug); }); }
-      if (state.collections.size) {
-        refreshCollChips();
-      }
+      if (state.collection) activateChip(collChips, state.collection);
       render();
     })
     .catch(() => { metaEl.textContent = 'Search index unavailable — run the build.'; });
+
+  /* The full placeholders are written for a desktop-width field; on a phone
+     they truncate mid-word ("Name, product code, col"). Swap in short forms
+     below 600px rather than shrink the type — 16px is the iOS zoom floor. */
+  (function shortPlaceholders() {
+    const short = matchMedia('(max-width: 600px)');
+    const pairs = [
+      [document.getElementById('searchQ'), 'Name, product code, collection or finish…', 'Search products…'],
+      [document.getElementById('stickyQ'), 'Search products, SKUs, collections…', 'Search products…']
+    ];
+    const apply = () => pairs.forEach(([el, long, brief]) => { if (el) el.placeholder = short.matches ? brief : long; });
+    apply();
+    short.addEventListener('change', apply);
+  })();
 })();
 
-</script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.23/dist/lenis.min.js"></script>
-<script>
-const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
-function lenisRaf(t) { lenis.raf(t); requestAnimationFrame(lenisRaf); }
-requestAnimationFrame(lenisRaf);
-document.addEventListener('visibilitychange', () => { if (document.hidden) lenis.stop(); else lenis.start(); }, { passive: true });
 </script>
 </body>
 </html>
